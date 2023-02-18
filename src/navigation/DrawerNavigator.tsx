@@ -121,11 +121,19 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         style={styles.drawerLogout}
                         onPress={logOut}
                     >
-                        <Text
-                            style={styles.drawerLogoutButton}
-                        >
-                            Cerrar sesión
-                        </Text>
+                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                            <Icon
+                                name='power-outline'
+                                size={25}
+                                color={'#FFFFFF'}
+                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                            />
+                            <Text
+                                style={styles.drawerLogoutButton}
+                            >
+                                Cerrar sesión
+                            </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
