@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen, HistoryScreen } from '../screens';
 import { MainNavigator } from './MainNavigator';
-import { AuthContext, UsersContext } from '../context';
+import { AuthContext } from '../context';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
@@ -37,8 +38,8 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 <Image
                     source={
                         (!user || user.photo === '')
-                        ? require('../assets/placeholder.png')
-                        : { uri: user?.photo }
+                            ? require('../assets/placeholder.png')
+                            : { uri: user?.photo }
                     }
                     style={styles.avatar}
                 />
@@ -60,26 +61,60 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 <View
                     style={{
                         display: 'flex',
-                        alignItems: 'flex-start'
+                        alignItems: 'flex-start',
+                        width: '85%'
                     }}
                 >
                     <TouchableOpacity
                         onPress={() => navigation.navigate('EditProfileScreen')}
                     >
-                        <Text
-                            style={styles.drawerOptions}
-                        >
-                            Editar perfil
-                        </Text>
+                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                            <Icon
+                                name='person-circle-outline'
+                                size={36}
+                                color={'#000000'}
+                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                            />
+                            <Text
+                                style={styles.drawerOptions}
+                            >
+                                Editar perfil
+                            </Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('HistoryScreen')}
                     >
-                        <Text
-                            style={styles.drawerOptions}
-                        >
-                            Historial de búsquedas
-                        </Text>
+                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                            <Icon
+                                name='time-outline'
+                                size={36}
+                                color={'#000000'}
+                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                            />
+                            <Text
+                                style={styles.drawerOptions}
+                            >
+                                Historial
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('HistoryScreen')}
+                    >
+                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                            <Icon
+                                name='heart-circle-outline'
+                                size={36}
+                                color={'#000000'}
+                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                            />
+                            <Text
+                                style={styles.drawerOptions}
+                            >
+                                Favoritos
+                            </Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={0.8}
