@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: any) => {
         }
     };
 
-    const uploadImage = async (data: ImagePickerResponse, userId: string) => {
+    const uploadImage = async (data: ImagePickerResponse) => {
         try {
             const { uri, type, fileName } = data.assets![0];
 
@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }: any) => {
 
             const { secure_url } = await response.json();
 
-            await findAPI.put(`/users/${userId}`, { photo: secure_url });
+            // await findAPI.put(`/users/${userId}`, { photo: secure_url });
 
             return secure_url;
         } catch (err: any) {
