@@ -57,6 +57,7 @@ const LoginScreen = ({ navigation }: Props) => {
         <View style={styles.newUserContainer}>
           <TouchableOpacity
             activeOpacity={0.8}
+            style={styles.button}
             onPress={() => navigation.replace('RegisterScreen')}
           >
             <Text style={styles.buttonText}>Nueva cuenta</Text>

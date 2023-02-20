@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { editStyles } from '../../theme/AppTheme';
+import { editStyles, styles } from '../../theme/AppTheme';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -71,19 +71,9 @@ const MainScreen = ({ navigation }: Props) => {
             }}>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    style={{
-                        backgroundColor: '#5856D6',
-                        borderRadius: 999,
-                        paddingVertical: 8,
-                        paddingHorizontal: 18,
-
-                    }}
+                    style={styles.buttonSearch}
                 >
-                    <Text style={{
-                        color: '#FFFFFF',
-                        fontSize: 18,
-                        fontWeight: '600'
-                    }}>
+                    <Text style={styles.buttonSearchText}>
                         Buscar
                     </Text>
                 </TouchableOpacity>
