@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen, HistoryScreen } from '../screens';
 import { MainNavigator } from './MainNavigator';
-import { AuthContext } from '../context';
+import { AuthContext, UsersContext } from '../context';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
@@ -19,16 +20,34 @@ export const DrawerNavigator = () => {
             drawerType={width >= 768 ? 'permanent' : 'front'}
             drawerContent={(props) => <MainMenu {...props} />}
         >
-            <Drawer.Screen name="MainScreen" options={{ title: 'Inicio' }} component={MainNavigator} />
-            <Drawer.Screen name="EditProfileScreen" options={{ title: 'Editar perfil' }} component={EditProfileScreen} />
-            <Drawer.Screen name="HistoryScreen" options={{ title: 'Historial' }} component={HistoryScreen} />
+            <Drawer.Screen name="MainScreen" component={MainNavigator} />
+            <Drawer.Screen name="EditProfileScreen" component={EditProfileScreen} />
+            <Drawer.Screen name="HistoryScreen" component={HistoryScreen} />
         </Drawer.Navigator>
     );
 };
 
 const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptions>) => {
 
+    const [userPhoto, setUserPhoto] = useState<string>('../assets/placeholder.png');
+    const [userMock, setUserMock] = useState<any>({
+        name: 'Username',
+        email: 'email@user.com',
+        photo: '../assets/placeholder.png'
+    })
     const { user, logOut } = useContext(AuthContext);
+    const { loadUserByID } = useContext(UsersContext);
+
+    useFocusEffect(() => {
+        load();
+    });
+
+    const load = async () => {
+        const usr = await loadUserByID(user?._id!);
+        setUserMock(usr);
+        setUserPhoto(usr.photo!);
+    };
+
 
     return (
         <DrawerContentScrollView>
@@ -39,7 +58,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     source={
                         (!user || user.photo === '')
                             ? require('../assets/placeholder.png')
-                            : { uri: user?.photo }
+                            : { uri: userPhoto }
                     }
                     style={styles.avatar}
                 />
@@ -48,32 +67,28 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 >
                     {(!user)
                         ? 'Username'
-                        : user?.name}
+                        : userMock.name}
                 </Text>
                 <Text
                     style={styles.drawerUserEmail}
                 >
                     {(!user)
                         ? 'email@user.com'
-                        : user?.email}
+                        : userMock.email}
                 </Text>
                 <View style={styles.drawerHr} />
                 <View
-                    style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        width: '85%'
-                    }}
+                    style={styles.drawerMainContainer}
                 >
                     <TouchableOpacity
                         onPress={() => navigation.navigate('EditProfileScreen')}
                     >
-                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                        <View style={styles.drawerContainer}>
                             <Icon
                                 name='person-circle-outline'
                                 size={36}
                                 color={'#000000'}
-                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                                style={styles.drawerIcon}
                             />
                             <Text
                                 style={styles.drawerOptions}
@@ -85,12 +100,12 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     <TouchableOpacity
                         onPress={() => navigation.navigate('HistoryScreen')}
                     >
-                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                        <View style={styles.drawerContainer}>
                             <Icon
                                 name='time-outline'
                                 size={36}
                                 color={'#000000'}
-                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                                style={styles.drawerIcon}
                             />
                             <Text
                                 style={styles.drawerOptions}
@@ -102,12 +117,12 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     <TouchableOpacity
                         onPress={() => navigation.navigate('HistoryScreen')}
                     >
-                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                        <View style={styles.drawerContainer}>
                             <Icon
                                 name='heart-circle-outline'
                                 size={36}
                                 color={'#000000'}
-                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                                style={styles.drawerIcon}
                             />
                             <Text
                                 style={styles.drawerOptions}
@@ -121,12 +136,12 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         style={styles.drawerLogout}
                         onPress={logOut}
                     >
-                        <View style={{ display: 'flex', flexDirection: 'row' }}>
+                        <View style={styles.drawerContainer}>
                             <Icon
                                 name='power-outline'
                                 size={25}
                                 color={'#FFFFFF'}
-                                style={{ alignSelf: 'center', marginEnd: 10 }}
+                                style={styles.drawerIcon}
                             />
                             <Text
                                 style={styles.drawerLogoutButton}
