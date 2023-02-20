@@ -23,22 +23,36 @@ const styles = StyleSheet.create({
         paddingBottom: 4
     },
     button: {
+        backgroundColor: '#FFFFFF',
         borderColor: '#FFFFFF',
+        borderRadius: 999,
+        borderWidth: 1,
+        paddingVertical: 8,
+        paddingHorizontal: 18
+    },
+    buttonSearch: {
+        backgroundColor: '#5856D6',
+        borderColor: '#5856D6',
+        borderRadius: 999,
+        borderWidth: 1,
+        paddingVertical: 8,
+        paddingHorizontal: 18
     },
     buttonContainer: {
         alignItems: 'center',
         marginTop: 50
     },
     buttonText: {
-        fontSize: 25,
-        backgroundColor: '#FFFFFF',
-        borderColor: '#FFFFFF',
-        borderRadius: 40,
-        borderWidth: 1,
+        fontSize: 22,
         color: '#5856D6',
         fontFamily: 'Nunito-Regular',
-        paddingHorizontal: 20,
-        paddingVertical: 5
+        fontWeight: '700'
+    },
+    buttonSearchText: {
+        fontSize: 22,
+        color: '#FFFFFF',
+        fontFamily: 'Nunito-Regular',
+        fontWeight: '700'
     },
     formContainer: {
         flex: 1,
@@ -73,6 +87,14 @@ const styles = StyleSheet.create({
         height: 900,
         marginVertical: 10
     },
+    drawerContainer: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    drawerIcon: {
+        alignSelf: 'center',
+        marginEnd: 10
+    },
     drawerUserEmail: {
         color: '#000000',
         fontSize: 18,
@@ -90,6 +112,11 @@ const styles = StyleSheet.create({
         borderBottomColor: '#5856D6',
         margin: 10,
         alignSelf: 'stretch'
+    },
+    drawerMainContainer: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        width: '85%'
     },
     drawerOptions: {
         color: '#000000',
