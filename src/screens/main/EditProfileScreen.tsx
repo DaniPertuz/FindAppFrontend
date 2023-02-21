@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -12,11 +12,11 @@ import { editStyles, loginStyles } from '../../theme/AppTheme';
 interface Props extends StackScreenProps<any, any> { }
 
 const EditProfileScreen = ({ navigation }: Props) => {
+    const { top } = useSafeAreaInsets();
 
     const [response, setResponse] = useState<any>(null);
-    const { user, uploadImage } = useContext(AuthContext);
-    const { updateUser } = useContext(UsersContext);
-    const { top } = useSafeAreaInsets();
+    const { user } = useContext(AuthContext);
+    const { updateUser, updatePhoto } = useContext(UsersContext);
 
     const { name, email, password, passwordRep, onChange } = useForm({
         name: user?.name!,
@@ -51,11 +51,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
 
         let photoURL;
         if (response && response.assets[0].uri !== '') {
-            photoURL = await uploadImage(response);
+            photoURL = await updatePhoto(response, user?._id!);
         }
 
         if (photoURL === null) {
-            updateUser(user!._id!, name, email, password);
+            updateUser(user?._id!, name, email, password);
         }
 
         updateUser(user!._id!, name, email, password, photoURL);
