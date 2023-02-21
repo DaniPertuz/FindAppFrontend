@@ -24,7 +24,7 @@ const MainPictureScreen = ({ navigation }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri(resp.assets![0].uri);
-            uploadImage(resp, user?._id!);
+            uploadImage(resp);
         });
     };
 
@@ -37,7 +37,7 @@ const MainPictureScreen = ({ navigation }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri(resp.assets![0].uri);
-            uploadImage(resp, user?._id!);
+            uploadImage(resp);
         });
     };
 
