@@ -11,6 +11,7 @@
       "strict": true,
       "target": "esnext"
     },
+    "typeRoots": ["./types"],
     "exclude": [
       "node_modules",
       "babel.config.js",
