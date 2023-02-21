@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
-import { LoadingScreen, LoginScreen, MainPictureScreen, MainScreen, RegisterScreen } from '../screens';
+import { LoadingScreen, LoginScreen, MainPictureScreen, RegisterScreen } from '../screens';
 import { DrawerNavigator } from './DrawerNavigator';
 
 const Stack = createStackNavigator();

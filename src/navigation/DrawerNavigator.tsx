@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen, HistoryScreen } from '../screens';
@@ -47,7 +47,6 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         setUserMock(usr);
         setUserPhoto(usr.photo!);
     };
-
 
     return (
         <DrawerContentScrollView>
