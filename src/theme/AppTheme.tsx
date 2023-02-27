@@ -140,6 +140,93 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: '600'
+    },
+    searchScreenContainer: {
+        flex: 1,
+        marginHorizontal: 10
+    },
+    searchScreenTitle: {
+        alignSelf: 'center',
+        color: '#000000',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 30,
+        marginHorizontal: 10,
+        marginTop: 20
+    },
+    searchListItemContainer: {
+        backgroundColor: '#EBEBEB',
+        borderColor: '#5856D6',
+        borderRadius: 20,
+        borderWidth: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        height: 52,
+        marginHorizontal: 16,
+        marginVertical: 6,
+        paddingHorizontal: 16
+    },
+    searchListItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginVertical: 7
+    },
+    searchListItemIcon: {
+        borderRadius: 50,
+        marginHorizontal: 12,
+        height: 30,
+        width: 30
+    },
+    bottomSheetMainContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    bottomSheetContainer: {
+        backgroundColor: '#EBEBEB',
+        borderTopEndRadius: 15,
+        borderTopStartRadius: 15,
+        display: 'flex',
+        flexDirection: 'row',
+        height: 110,
+        marginBottom: 5,
+        paddingHorizontal: 10,
+        width: 440
+    },
+    bottomSheetTopContainer: {
+        alignItems: 'center',
+        marginVertical: 5,
+        width: 400
+    },
+    bottomSheetIcon: {
+        borderRadius: 50,
+        marginStart: 22,
+        height: 100,
+        width: 100
+    },
+    bottomSheetDetailsContainer: {
+        width: '100%',
+        paddingHorizontal: 10
+    },
+    bottomSheetDetailsSecondaryContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    bottomSheetPrimaryFontStyle: {
+        color: '#000000',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 18
+    },
+    bottomSheetDetailsPrimaryFontStyle: {
+        color: '#000000',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 17,
+        textTransform: 'uppercase'
+    },
+    bottomSheetDetailsSecondaryFontStyle: {
+        color: '#4b4d4b',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 15
     }
 });
 
