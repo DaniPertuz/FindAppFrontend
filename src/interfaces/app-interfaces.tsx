@@ -66,6 +66,19 @@ export interface IProduct {
     status:      boolean;
 }
 
+export interface ISearch {
+    date:   string;
+    place: {
+        _id:         string;
+        name:        string;
+        description: string;
+        address:     string;
+        phone:       number;
+        photo:       string;
+    };
+    search: string;
+}
+
 export enum Categories {
     BAKERY             = 'bakery',
     BEAUTY_SALOON      = 'beauty saloon',
