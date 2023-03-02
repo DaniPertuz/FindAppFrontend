@@ -61,12 +61,12 @@ const HistoryScreen = ({ navigation }: Props) => {
     return (
         <View
             style={{
-                ...styles.searchScreenContainer,
+                ...styles.topContainer,
                 marginTop: top
             }}
         >
             <Text
-                style={styles.searchScreenTitle}
+                style={styles.blackTitle}
             >
                 Historial de búsquedas
             </Text>
@@ -90,7 +90,7 @@ const HistoryScreen = ({ navigation }: Props) => {
                                         style={styles.searchListItemIcon}
                                     />
                                     <Text style={{
-                                        ...styles.bottomSheetPrimaryFontStyle,
+                                        ...styles.blackPrimaryFontStyle,
                                         marginTop: 4
                                     }}>
                                         {item.search}
