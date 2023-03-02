@@ -141,11 +141,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600'
     },
-    searchScreenContainer: {
+    topContainer: {
         flex: 1,
         marginHorizontal: 10
     },
-    searchScreenTitle: {
+    blackTitle: {
         alignSelf: 'center',
         color: '#000000',
         fontFamily: 'Nunito-Regular',
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    bottomSheetPrimaryFontStyle: {
+    blackPrimaryFontStyle: {
         color: '#000000',
         fontFamily: 'Nunito-Regular',
         fontSize: 18
@@ -227,6 +227,26 @@ const styles = StyleSheet.create({
         color: '#4b4d4b',
         fontFamily: 'Nunito-Regular',
         fontSize: 15
+    },
+    favoritesItemContainer: {
+        alignItems: 'center',
+        backgroundColor: '#EBEBEB',
+        borderColor: '#5856D6',
+        borderRadius: 20,
+        borderWidth: 4,
+        display: 'flex',
+        flexDirection: 'row',
+        height: 90,
+        justifyContent: 'space-between',
+        marginHorizontal: 16,
+        marginVertical: 8,
+        paddingHorizontal: 10
+    },
+    favoriteItemIcon: {
+        borderRadius: 50,
+        flex: 1,
+        height: 65,
+        width: 65
     }
 });
 
