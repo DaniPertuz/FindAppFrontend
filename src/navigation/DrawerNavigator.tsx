@@ -4,7 +4,7 @@ import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOption
 import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, HistoryScreen } from '../screens';
+import { EditProfileScreen, HistoryScreen, FavoritesScreen } from '../screens';
 import { MainNavigator } from './MainNavigator';
 import { AuthContext, UsersContext } from '../context';
 import { styles } from '../theme/AppTheme';
@@ -23,6 +23,7 @@ export const DrawerNavigator = () => {
             <Drawer.Screen name="MainScreen" component={MainNavigator} />
             <Drawer.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Drawer.Screen name="HistoryScreen" component={HistoryScreen} />
+            <Drawer.Screen name="FavoritesScreen" component={FavoritesScreen} />
         </Drawer.Navigator>
     );
 };
@@ -34,7 +35,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         name: 'Username',
         email: 'email@user.com',
         photo: '../assets/placeholder.png'
-    })
+    });
     const { user, logOut } = useContext(AuthContext);
     const { loadUserByID } = useContext(UsersContext);
 
@@ -114,7 +115,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HistoryScreen')}
+                        onPress={() => navigation.navigate('FavoritesScreen')}
                     >
                         <View style={styles.drawerContainer}>
                             <Icon
