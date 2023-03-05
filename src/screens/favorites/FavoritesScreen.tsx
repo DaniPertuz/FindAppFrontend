@@ -1,7 +1,9 @@
 import React from 'react';
-import { FlatList, Image, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Rating } from 'react-native-ratings';
+import { FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Rating } from 'react-native-ratings';
+
 import { styles } from '../../theme/AppTheme';
 
 const mock = [
@@ -30,26 +32,22 @@ const mock = [
 const FavoritesScreen = () => {
 
     const { top } = useSafeAreaInsets();
+    const navigator = useNavigation();
 
     return (
         <View
             style={{
                 ...styles.topContainer,
-                marginTop: top
+                paddingTop: (Platform.OS === 'ios') ? top : top + 20
             }}
         >
-            <Text
-                style={styles.blackTitle}
-            >
-                Lugares favoritos
-            </Text>
             <FlatList
                 data={mock}
                 keyExtractor={(m) => m.place._id}
                 renderItem={({ item }) => {
                     return (
                         <TouchableWithoutFeedback
-                            onPress={() => { }}
+                            onPress={() => navigator.navigate('MapScreen')}
                         >
                             <View
                                 style={styles.favoritesItemContainer}
@@ -70,12 +68,11 @@ const FavoritesScreen = () => {
                                     imageSize={20}
                                     minValue={1}
                                     ratingBackgroundColor='#FFFFFF'
-                                    ratingColor='#0dbd33'
                                     ratingCount={5}
                                     ratingTextColor='#5856D6'
                                     showRating
                                     startingValue={item.place.rate}
-                                    style={{ flex: 2, width: '100%', overflow: 'hidden' }}
+                                    style={{ flex: 2 }}
                                     tintColor='#EBEBEB'
                                     type='star'
                                 />
