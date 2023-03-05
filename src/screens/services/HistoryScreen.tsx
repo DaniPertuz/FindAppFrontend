@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BackHandler, FlatList, Image, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { BackHandler, FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet from '@gorhom/bottom-sheet';
 import moment from 'moment';
@@ -62,14 +62,9 @@ const HistoryScreen = ({ navigation }: Props) => {
         <View
             style={{
                 ...styles.topContainer,
-                marginTop: top
+                paddingTop: (Platform.OS === 'ios') ? top : top + 20
             }}
         >
-            <Text
-                style={styles.blackTitle}
-            >
-                Historial de búsquedas
-            </Text>
             <FlatList
                 data={mock}
                 keyExtractor={(m) => m.place._id}

@@ -96,9 +96,6 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 contentContainerStyle={{
                     justifyContent: 'center'
                 }}>
-                <Text style={editStyles.title}>
-                    Editar perfil
-                </Text>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={updateMainPhoto}
