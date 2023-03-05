@@ -11,7 +11,7 @@ interface Props extends StackScreenProps<any, any> { };
 
 const MainPictureScreen = ({ navigation }: Props) => {
 
-    const { uploadImage, user } = useContext(AuthContext);
+    const { uploadImage } = useContext(AuthContext);
 
     const [tempUri, setTempUri] = useState<string>('');
 
