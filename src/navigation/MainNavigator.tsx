@@ -1,14 +1,12 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { MainScreen, MapScreen, RatingScreen, HistoryScreen } from '../screens';
+import { MainScreen, MapScreen, RatingScreen } from '../screens';
 
-export type RootStackParams = {
+type RootStackParams = {
     MainScreen: undefined,
     MapScreen: undefined,
-    RatingScreen: undefined,
-    HistoryScreen: undefined,
-    HistoryItemScreen: undefined
+    RatingScreen: undefined
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -22,14 +20,13 @@ export const MainNavigator = () => {
                     shadowColor: 'transparent'
                 },
                 cardStyle: {
-                    backgroundColor: 'white'
+                    backgroundColor: '#FFFFFF'
                 }
             }}
         >
             <Stack.Screen name="MainScreen" options={{ title: '' }} component={MainScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '' }} component={MapScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
-            <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
         </Stack.Navigator>
     );
 };
