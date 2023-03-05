@@ -143,15 +143,15 @@ const styles = StyleSheet.create({
     },
     topContainer: {
         flex: 1,
-        marginHorizontal: 10
+        backgroundColor: '#FFFFFF',
+        paddingHorizontal: 10
     },
     blackTitle: {
         alignSelf: 'center',
         color: '#000000',
         fontFamily: 'Nunito-Regular',
         fontSize: 30,
-        marginHorizontal: 10,
-        marginTop: 20
+        marginHorizontal: 10
     },
     searchListItemContainer: {
         backgroundColor: '#EBEBEB',
@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         height: 110,
-        marginBottom: 5,
         paddingHorizontal: 10,
         width: 440
     },
@@ -204,8 +203,12 @@ const styles = StyleSheet.create({
         width: 100
     },
     bottomSheetDetailsContainer: {
-        width: '100%',
-        paddingHorizontal: 10
+        width: 439,
+        borderColor: '#EBEBEB',
+        borderWidth: 1,
+        marginHorizontal: 20,
+        paddingHorizontal: 5,
+        paddingVertical: 7
     },
     bottomSheetDetailsSecondaryContainer: {
         display: 'flex',
@@ -252,10 +255,9 @@ const styles = StyleSheet.create({
 
 const loginStyles = StyleSheet.create({
     formContainer: {
-        flex: 10,
         paddingHorizontal: 30,
         height: 900,
-        marginTop: 100
+        marginTop: 10
     },
     decisionContainer: {
         flex: 1,
