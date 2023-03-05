@@ -1,29 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { BackHandler, Image, Text, TouchableOpacity, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, HistoryScreen, FavoritesScreen } from '../screens';
-import { MainNavigator } from './MainNavigator';
 import { AuthContext, UsersContext } from '../context';
+import { MainNavigator, FavoritesNavigator, HistoryNavigator, EditProfileNavigator } from './';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
 
+let sw = 0;
+
 export const DrawerNavigator = () => {
-
-    const { width } = useWindowDimensions();
-
     return (
         <Drawer.Navigator
-            drawerType={width >= 768 ? 'permanent' : 'front'}
             drawerContent={(props) => <MainMenu {...props} />}
+            screenOptions={{
+                headerStyle: (sw == 1) ? { elevation: 0, shadowOpacity: 0 } : { elevation: 1, shadowOpacity: 1 }
+            }}
+            drawerStyle={
+                (sw == 1) ? { height: 0, backgroundColor: 'transparent' } : { height: '100%' }
+            }
+            overlayColor={(sw == 1) ? 'transparent' : 'rgba(0,0,0,0.5)'}
         >
             <Drawer.Screen name="MainScreen" component={MainNavigator} />
-            <Drawer.Screen name="EditProfileScreen" component={EditProfileScreen} />
-            <Drawer.Screen name="HistoryScreen" component={HistoryScreen} />
-            <Drawer.Screen name="FavoritesScreen" component={FavoritesScreen} />
+            <Drawer.Screen name="EditProfileNavigator" component={EditProfileNavigator} />
+            <Drawer.Screen name="HistoryNavigator" component={HistoryNavigator} />
+            <Drawer.Screen name="FavoritesNavigator" component={FavoritesNavigator} />
         </Drawer.Navigator>
     );
 };
@@ -40,6 +44,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
     const { loadUserByID } = useContext(UsersContext);
 
     useFocusEffect(() => {
+        sw = 0;
         load();
     });
 
@@ -48,6 +53,20 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         setUserMock(usr);
         setUserPhoto(usr.photo!);
     };
+
+    const backButtonHandler = () => {
+        navigation.goBack();
+        sw = 0;
+        return true;
+    };
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
+
+        return () => {
+            BackHandler.removeEventListener("hardwareBackPress", backButtonHandler);
+        };
+    }, [backButtonHandler]);
 
     return (
         <DrawerContentScrollView>
@@ -81,7 +100,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     style={styles.drawerMainContainer}
                 >
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('EditProfileScreen')}
+                        onPress={() => { navigation.navigate('EditProfileNavigator'); sw = 1; }}
                     >
                         <View style={styles.drawerContainer}>
                             <Icon
@@ -98,7 +117,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HistoryScreen')}
+                        onPress={() => { navigation.navigate('HistoryNavigator'); sw = 1; }}
                     >
                         <View style={styles.drawerContainer}>
                             <Icon
@@ -115,7 +134,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('FavoritesScreen')}
+                        onPress={() => { navigation.navigate('FavoritesNavigator'); sw = 1; }}
                     >
                         <View style={styles.drawerContainer}>
                             <Icon
