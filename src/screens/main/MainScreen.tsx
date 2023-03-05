@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, Text, TouchableOpacity, View, TextInput } from 'react-native';
 
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { editStyles, styles } from '../../theme/AppTheme';
-import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { editStyles, styles } from '../../theme/AppTheme';
 
 interface Props extends DrawerScreenProps<any, any> { };
 
@@ -28,27 +28,12 @@ const MainScreen = ({ navigation }: Props) => {
 
     return (
         <View
-            style={{
-                flex: 1,
-                alignItems: 'center',
-                paddingHorizontal: 30,
-                justifyContent: 'center',
-                backgroundColor: '#FFFFFF'
-            }}>
+            style={styles.mainScreenContainer}>
             <Image
                 source={require('../../assets/logo.png')}
-                style={{
-                    width: 120,
-                    height: 120,
-                    borderRadius: 100
-                }}
+                style={styles.mainScreenLogo}
             />
-            <Text style={{
-                color: '#000000',
-                fontSize: 32,
-                fontFamily: 'Nunito-Bold',
-                marginVertical: 30
-            }}>
+            <Text style={styles.mainScreenTitle}>
                 ¿Qué buscas?
             </Text>
             <TextInput
@@ -66,9 +51,7 @@ const MainScreen = ({ navigation }: Props) => {
                 onChangeText={setSearch}
                 value={search}
             />
-            <View style={{
-                marginTop: 30
-            }}>
+            <View style={styles.buttonSearchContainer}>
                 <TouchableOpacity
                     activeOpacity={0.9}
                     style={styles.buttonSearch}

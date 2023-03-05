@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 50
     },
+    buttonSearchContainer: {
+        backgroundColor: '#FFFFFF',
+        marginTop: 30
+    },
     buttonText: {
         fontSize: 22,
         color: '#5856D6',
@@ -59,6 +63,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         justifyContent: 'center',
         height: 500
+    },
+    mainScreenContainer: {
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 30
+    },
+    mainScreenLogo: {
+        width: 120,
+        height: 120,
+        borderRadius: 100
+    },
+    mainScreenTitle: {
+        color: '#000000',
+        fontSize: 32,
+        fontFamily: 'Nunito-Bold',
+        marginVertical: 30
     },
     newUserContainer: {
         alignItems: 'flex-end',
