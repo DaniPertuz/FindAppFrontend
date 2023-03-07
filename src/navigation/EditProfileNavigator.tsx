@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen } from '../screens';
 
-export type RootStackParams = {
+type RootStackParams = {
     EditProfileScreen: undefined,
     MapScreen: undefined;
 };
