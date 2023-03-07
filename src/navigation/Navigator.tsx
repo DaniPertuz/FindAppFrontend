@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { AuthContext } from '../context';
-import { LoadingScreen, LoginScreen, MainPictureScreen, RegisterScreen } from '../screens';
-import { DrawerNavigator } from './DrawerNavigator';
+import { AuthContext, PermissionsContext } from '../context';
+import { LoadingScreen, LoginScreen, MainPictureScreen, PermissionsScreen, RegisterScreen } from '../screens';
+import { DrawerNavigator } from './';
 
 const Stack = createStackNavigator();
 
 export const Navigator = () => {
 
   const { status, user } = useContext(AuthContext);
+  const { permissions } = useContext(PermissionsContext);
 
   if (status === 'checking') return <LoadingScreen />;
 
@@ -37,11 +38,15 @@ export const Navigator = () => {
             <Stack.Screen name='MainPictureScreen' component={MainPictureScreen} />
           </>
           :
-          (
-            <>
-              <Stack.Screen name='MainScreen' component={DrawerNavigator} />
-            </>
-          )
+          (permissions.locationStatus !== 'granted')
+            ?
+            <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
+            :
+            (
+              <>
+                <Stack.Screen name='MainScreen' component={DrawerNavigator} />
+              </>
+            )
       }
     </Stack.Navigator>
   );

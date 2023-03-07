@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Platform, Text, TouchableOpacity, View, TextInput } from 'react-native';
 
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { PermissionsContext } from '../../context';
 import { editStyles, styles } from '../../theme/AppTheme';
 
 interface Props extends DrawerScreenProps<any, any> { };
@@ -11,6 +12,11 @@ interface Props extends DrawerScreenProps<any, any> { };
 const MainScreen = ({ navigation }: Props) => {
 
     const [search, setSearch] = useState<string>('');
+    const { askLocationPermission } = useContext(PermissionsContext);
+
+    useEffect(() => {
+        askLocationPermission();
+    }, []);
 
     useEffect(() => {
         navigation.setOptions({
