@@ -48,7 +48,7 @@ export const FavoritesNavigator = () => {
             }}
                 component={FavoritesScreen}
             />
-            <Stack.Screen name="MapScreen" options={{ title: '' }} component={MapScreen} />
+            <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
         </Stack.Navigator>
     );
 };
