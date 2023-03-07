@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Rating } from 'react-native-ratings';
 
 import { styles } from '../../theme/AppTheme';
+import { StackScreenProps } from '@react-navigation/stack';
 
 const mock = [
     {
@@ -29,7 +30,9 @@ const mock = [
     }
 ];
 
-const FavoritesScreen = () => {
+interface Props extends StackScreenProps<any, any> { };
+
+const FavoritesScreen = ({ navigation }: Props) => {
 
     const { top } = useSafeAreaInsets();
     const navigator = useNavigation();
@@ -47,7 +50,7 @@ const FavoritesScreen = () => {
                 renderItem={({ item }) => {
                     return (
                         <TouchableWithoutFeedback
-                            onPress={() => navigator.navigate('MapScreen')}
+                            onPress={() => navigation.push('MapScreen')}
                         >
                             <View
                                 style={styles.favoritesItemContainer}
