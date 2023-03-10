@@ -69,10 +69,8 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
     }, [backButtonHandler]);
 
     return (
-        <DrawerContentScrollView>
-            <View
-                style={styles.avatarContainer}
-            >
+        <DrawerContentScrollView contentContainerStyle={{ flex: 1 }}>
+            <View style={styles.avatarContainer}>
                 <Image
                     source={
                         (!user || user.photo === '')
@@ -95,81 +93,83 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                         ? 'email@user.com'
                         : userMock.email}
                 </Text>
-                <View style={styles.drawerHr} />
-                <View
-                    style={styles.drawerMainContainer}
+            </View>
+            <View style={styles.drawerHr} />
+            <View
+                style={styles.drawerMainContainer}
+            >
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate('EditProfileNavigator'); sw = 1; }}
                 >
-                    <TouchableOpacity
-                        onPress={() => { navigation.navigate('EditProfileNavigator'); sw = 1; }}
-                    >
-                        <View style={styles.drawerContainer}>
-                            <Icon
-                                name='person-circle-outline'
-                                size={36}
-                                color={'#000000'}
-                                style={styles.drawerIcon}
-                            />
-                            <Text
-                                style={styles.drawerOptions}
-                            >
-                                Editar perfil
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { navigation.navigate('HistoryNavigator'); sw = 1; }}
-                    >
-                        <View style={styles.drawerContainer}>
-                            <Icon
-                                name='time-outline'
-                                size={36}
-                                color={'#000000'}
-                                style={styles.drawerIcon}
-                            />
-                            <Text
-                                style={styles.drawerOptions}
-                            >
-                                Historial
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { navigation.navigate('FavoritesNavigator'); sw = 1; }}
-                    >
-                        <View style={styles.drawerContainer}>
-                            <Icon
-                                name='heart-circle-outline'
-                                size={36}
-                                color={'#000000'}
-                                style={styles.drawerIcon}
-                            />
-                            <Text
-                                style={styles.drawerOptions}
-                            >
-                                Favoritos
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.drawerLogout}
-                        onPress={logOut}
-                    >
-                        <View style={styles.drawerContainer}>
-                            <Icon
-                                name='power-outline'
-                                size={25}
-                                color={'#FFFFFF'}
-                                style={styles.drawerIcon}
-                            />
-                            <Text
-                                style={styles.drawerLogoutButton}
-                            >
-                                Cerrar sesión
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.drawerContainer}>
+                        <Icon
+                            name='person-circle-outline'
+                            size={36}
+                            color={'#000000'}
+                            style={styles.drawerIcon}
+                        />
+                        <Text
+                            style={styles.drawerOptions}
+                        >
+                            Editar perfil
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate('HistoryNavigator'); sw = 1; }}
+                >
+                    <View style={styles.drawerContainer}>
+                        <Icon
+                            name='time-outline'
+                            size={36}
+                            color={'#000000'}
+                            style={styles.drawerIcon}
+                        />
+                        <Text
+                            style={styles.drawerOptions}
+                        >
+                            Historial
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate('FavoritesNavigator'); sw = 1; }}
+                >
+                    <View style={styles.drawerContainer}>
+                        <Icon
+                            name='heart-circle-outline'
+                            size={36}
+                            color={'#000000'}
+                            style={styles.drawerIcon}
+                        />
+                        <Text
+                            style={styles.drawerOptions}
+                        >
+                            Favoritos
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.drawerLogoutContainer}>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.drawerLogout}
+                    onPress={logOut}
+                >
+                    <View style={styles.drawerContainer}>
+                        <Icon
+                            name='power-outline'
+                            size={25}
+                            color={'#FFFFFF'}
+                            style={styles.drawerIcon}
+                        />
+                        <Text
+                            style={styles.drawerLogoutButton}
+                        >
+                            Cerrar sesión
+                        </Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </DrawerContentScrollView>
     );

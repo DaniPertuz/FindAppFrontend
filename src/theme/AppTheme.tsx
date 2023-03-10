@@ -105,13 +105,18 @@ const styles = StyleSheet.create({
         width: 120
     },
     avatarContainer: {
+        flex: 3,
         alignItems: 'center',
-        height: 900,
-        marginVertical: 10
+        marginTop: 10
     },
     drawerContainer: {
         display: 'flex',
         flexDirection: 'row'
+    },
+    drawerLogoutContainer: {
+        flex: 1,
+        paddingTop: 5,
+        paddingHorizontal: 10
     },
     drawerIcon: {
         alignSelf: 'center',
@@ -132,13 +137,14 @@ const styles = StyleSheet.create({
     drawerHr: {
         borderWidth: 0.5,
         borderBottomColor: '#5856D6',
-        margin: 10,
+        marginHorizontal: 10,
         alignSelf: 'stretch'
     },
     drawerMainContainer: {
+        flex: 7,
         display: 'flex',
         alignItems: 'flex-start',
-        width: '85%'
+        paddingHorizontal: 10
     },
     drawerOptions: {
         color: '#000000',
@@ -147,10 +153,6 @@ const styles = StyleSheet.create({
         marginVertical: 15
     },
     drawerLogout: {
-        alignSelf: 'center',
-        top: 650,
-        marginBottom: 10,
-        position: 'absolute',
         backgroundColor: '#5856D6',
         borderColor: '#5856D6',
         borderRadius: 100,
