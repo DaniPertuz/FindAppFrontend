@@ -262,18 +262,18 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 4,
         display: 'flex',
+        flex: 1,
         flexDirection: 'row',
-        height: 90,
         justifyContent: 'space-between',
-        marginHorizontal: 16,
-        marginVertical: 8,
-        paddingHorizontal: 10
+        margin: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 10
     },
     favoriteItemIcon: {
         borderRadius: 50,
         flex: 1,
-        height: 65,
-        width: 65
+        height: 50,
+        width: 50
     }
 });
 
