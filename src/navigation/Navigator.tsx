@@ -23,7 +23,7 @@ export const Navigator = () => {
         }
       }}
     >
-      {(status !== 'authenticated')
+      {(!user || status !== 'authenticated')
         ?
         (
           <>
