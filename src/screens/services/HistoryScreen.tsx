@@ -52,10 +52,11 @@ const HistoryScreen = ({ navigation }: Props) => {
     };
 
     useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
-        return () => {
-            BackHandler.removeEventListener("hardwareBackPress", handleBackButtonClick);
-        };
+        const navFocusListener = navigation.addListener('blur', () => {
+            navigation.goBack();
+        });
+
+        return navFocusListener;
     }, []);
 
     return (
