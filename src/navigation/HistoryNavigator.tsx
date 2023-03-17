@@ -1,15 +1,11 @@
 import React from 'react';
-
-import { createStackNavigator } from '@react-navigation/stack';
-import { HistoryScreen, MapScreen } from '../screens';
 import { TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-type RootStackParams = {
-    HistoryScreen: undefined,
-    MapScreen: undefined;
-};
+import { HistoryScreen, MapScreen } from '../screens';
+import { RootStackParams } from './MainNavigator';
 
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -48,7 +44,7 @@ export const HistoryNavigator = () => {
             }}
                 component={HistoryScreen}
             />
-            <Stack.Screen name="MapScreen" options={{ title: '' }} component={MapScreen} />
+            <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
         </Stack.Navigator>
     );
 };

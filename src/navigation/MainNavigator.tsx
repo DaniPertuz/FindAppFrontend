@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { MainScreen, MapScreen, RatingScreen } from '../screens';
+import { FavoritesScreen, HistoryScreen, MainScreen, MapScreen, RatingScreen } from '../screens';
 
-type RootStackParams = {
+export type RootStackParams = {
     MainScreen: undefined,
     MapScreen: undefined,
+    HistoryScreen: undefined,
+    FavoritesScreen: undefined,
     RatingScreen: undefined
 };
 
@@ -26,6 +28,8 @@ export const MainNavigator = () => {
         >
             <Stack.Screen name="MainScreen" options={{ title: '' }} component={MainScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '' }} component={MapScreen} />
+            <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
+            <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
         </Stack.Navigator>
     );

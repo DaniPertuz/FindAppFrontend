@@ -1,15 +1,11 @@
 import React from 'react';
-
-import { createStackNavigator } from '@react-navigation/stack';
-import { FavoritesScreen, MapScreen } from '../screens';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-type RootStackParams = {
-    FavoritesScreen: undefined,
-    MapScreen: undefined;
-};
+import { RootStackParams } from './MainNavigator';
+import { FavoritesScreen, MapScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParams>();
 
