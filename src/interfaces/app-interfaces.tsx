@@ -79,6 +79,11 @@ export interface ISearch {
     search: string;
 }
 
+export interface Location {
+    latitude:  number;
+    longitude: number;
+}
+
 export enum Categories {
     BAKERY             = 'bakery',
     BEAUTY_SALOON      = 'beauty saloon',
