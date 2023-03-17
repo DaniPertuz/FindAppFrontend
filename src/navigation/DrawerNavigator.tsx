@@ -17,7 +17,8 @@ export const DrawerNavigator = () => {
         <Drawer.Navigator
             drawerContent={(props) => <MainMenu {...props} />}
             screenOptions={{
-                headerStyle: (sw == 1) ? { elevation: 0, shadowOpacity: 0 } : { elevation: 1, shadowOpacity: 1 }
+                headerStyle: (sw == 1) ? { elevation: 0, shadowOpacity: 0 } : { elevation: 1, shadowOpacity: 1 },
+                swipeEnabled: false
             }}
             drawerStyle={
                 (sw == 1) ? { height: 0, backgroundColor: 'transparent' } : { height: '100%' }
@@ -66,7 +67,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         return () => {
             BackHandler.removeEventListener("hardwareBackPress", backButtonHandler);
         };
-    }, [backButtonHandler]);
+    }, []);
 
     return (
         <DrawerContentScrollView contentContainerStyle={{ flex: 1 }}>
@@ -99,6 +100,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 style={styles.drawerMainContainer}
             >
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={() => { navigation.navigate('EditProfileNavigator'); sw = 1; }}
                 >
                     <View style={styles.drawerContainer}>
@@ -116,6 +118,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={() => { navigation.navigate('HistoryNavigator'); sw = 1; }}
                 >
                     <View style={styles.drawerContainer}>
@@ -133,6 +136,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={() => { navigation.navigate('FavoritesNavigator'); sw = 1; }}
                 >
                     <View style={styles.drawerContainer}>
