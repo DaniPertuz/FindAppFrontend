@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BackHandler, FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet from '@gorhom/bottom-sheet';
 import moment from 'moment';
 import 'moment/locale/es';
 moment.locale('es');
 
-import BottomSheetComponent from '../../components/BottomSheetComponent';
 import { ISearch } from '../../interfaces';
 import { styles } from '../../theme/AppTheme';
-
-interface Props extends StackScreenProps<any, any> { };
+import BottomSheetComponent from '../../components/BottomSheetComponent';
 
 const mock = [
     {
@@ -40,20 +38,21 @@ const mock = [
     }
 ];
 
+interface Props extends StackScreenProps<any, any> { };
+
 const HistoryScreen = ({ navigation }: Props) => {
     const { top } = useSafeAreaInsets();
     const bottomSheetRef = useRef<BottomSheet>(null);
     const [itemObject, setItemObject] = useState<ISearch>();
 
     const handleBackButtonClick = () => {
-        navigation.goBack();
         bottomSheetRef.current?.close();
         return true;
     };
 
     useEffect(() => {
         const navFocusListener = navigation.addListener('blur', () => {
-            navigation.goBack();
+            handleBackButtonClick();
         });
 
         return navFocusListener;
@@ -69,38 +68,37 @@ const HistoryScreen = ({ navigation }: Props) => {
             <FlatList
                 data={mock}
                 keyExtractor={(m) => m.place._id}
-                renderItem={({ item }) => {
-                    setItemObject(item);
-                    return (
-                        <TouchableWithoutFeedback
-                            onPress={() => bottomSheetRef.current?.expand()}
+                renderItem={({ item }) => (
+                    <TouchableWithoutFeedback
+                        onLayout={() => setItemObject(item)}
+                        onPress={() => { bottomSheetRef.current?.expand(); }}
+                    >
+                        <View
+                            style={styles.searchListItemContainer}
                         >
                             <View
-                                style={styles.searchListItemContainer}
+                                style={styles.searchListItem}
                             >
-                                <View
-                                    style={styles.searchListItem}
-                                >
-                                    <Image
-                                        source={{ uri: item.place.photo }}
-                                        style={styles.searchListItemIcon}
-                                    />
-                                    <Text style={{
-                                        ...styles.blackPrimaryFontStyle,
-                                        marginTop: 4
-                                    }}>
-                                        {item.search}
-                                    </Text>
-                                </View>
+                                <Image
+                                    source={{ uri: item.place.photo }}
+                                    style={styles.searchListItemIcon}
+                                />
+                                <Text style={{
+                                    ...styles.blackPrimaryFontStyle,
+                                    marginTop: 4
+                                }}>
+                                    {item.search}
+                                </Text>
                             </View>
-                        </TouchableWithoutFeedback>
-                    );
-                }}
+                        </View>
+                    </TouchableWithoutFeedback>
+                )}
             />
             {itemObject &&
                 <BottomSheetComponent
                     item={itemObject}
                     bottomSheetRef={bottomSheetRef}
+                    snapPoints={[1, 360]}
                 />
             }
         </View>
