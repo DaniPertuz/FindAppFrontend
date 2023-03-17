@@ -88,18 +88,12 @@ const EditProfileScreen = ({ navigation }: Props) => {
     return (
         <>
             <KeyboardAvoidingView
-                style={{
-                    flex: 1,
-                    backgroundColor: '#FFFFFF',
-                    marginTop: top
-                }}
+                style={{...styles.profileScreenContainer, marginTop: top }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
             >
                 <ScrollView
                     style={loginStyles.formContainer}
-                    contentContainerStyle={{
-                        justifyContent: 'center'
-                    }}>
+                    contentContainerStyle={{ justifyContent: 'center' }}>
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={updateMainPhoto}
@@ -110,12 +104,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 : (response?.assets && response.assets[0].uri !== '')
                                     ? { uri: response.assets[0].uri }
                                     : { uri: user.photo }}
-                            style={{
-                                alignSelf: 'center',
-                                marginTop: 25,
-                                height: 170,
-                                width: '40%'
-                            }}
+                            style={styles.profileAvatar}
                         />
                     </TouchableOpacity>
                     <Text style={editStyles.label}>
@@ -203,14 +192,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 snapPoints={[1, 130]}
             >
                 <View
-                    style={{
-                        backgroundColor: '#EBEBEB',
-                        borderTopEndRadius: 15,
-                        borderTopStartRadius: 15,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginHorizontal: 10
-                    }}
+                    style={styles.profileBottomSheet}
                 >
                     <View
                         style={{ alignItems: 'flex-end' }}

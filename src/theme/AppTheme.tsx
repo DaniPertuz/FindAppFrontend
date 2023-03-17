@@ -109,6 +109,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10
     },
+    profileAvatar: {
+        alignSelf: 'center',
+        marginTop: 25,
+        height: 170,
+        width: '40%'
+    },
+    profileBottomSheet: {
+        backgroundColor: '#EBEBEB',
+        borderTopEndRadius: 15,
+        borderTopStartRadius: 15,
+        display: 'flex',
+        flexDirection: 'column',
+        marginHorizontal: 10
+    },
+    profileScreenContainer: {
+        flex: 1,
+        backgroundColor: '#FFFFFF'
+    },
     drawerContainer: {
         display: 'flex',
         flexDirection: 'row'
