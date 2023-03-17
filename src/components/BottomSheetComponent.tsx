@@ -11,9 +11,10 @@ import { styles } from '../theme/AppTheme';
 interface Props {
     item?: any;
     bottomSheetRef: React.RefObject<BottomSheetMethods>;
+    snapPoints: number[];
 }
 
-const BottomSheetComponent = ({ item, bottomSheetRef }: Props) => {
+const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
 
     const copyToClipboard = (text: string) => {
         Clipboard.setString(text);
@@ -28,7 +29,7 @@ const BottomSheetComponent = ({ item, bottomSheetRef }: Props) => {
         <BottomSheet
             ref={bottomSheetRef}
             index={-1}
-            snapPoints={[1, 320]}
+            snapPoints={snapPoints}
         >
             <View
                 style={styles.bottomSheetMainContainer}
