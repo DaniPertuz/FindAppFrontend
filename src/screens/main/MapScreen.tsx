@@ -65,11 +65,12 @@ const MapScreen = ({ route, navigation }: Props) => {
             longitude: lng
         });
     };
-    
+
     if (!hasLocation) return <LoadingScreen />;
 
     return (
         <>
+            {(initialPosition && destination) &&
                 <MapView
                     style={{ flex: 1 }}
                     followsUserLocation
@@ -92,9 +93,10 @@ const MapScreen = ({ route, navigation }: Props) => {
                         strokeWidth={10}
                         strokeColor={'#5856D6'}
                     />
-                    {(initialPosition) && <Marker coordinate={initialPosition} />}
-                    {(destination) && <Marker coordinate={destination} />}
+                    {<Marker coordinate={initialPosition} />}
+                    {<Marker coordinate={destination} />}
                 </MapView>
+            }
         </>
     );
 };
