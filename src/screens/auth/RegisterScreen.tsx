@@ -40,9 +40,23 @@ const RegisterScreen = ({ navigation }: Props) => {
 
   return (
     <>
+    <View
+        style={{
+          flex: 2,
+          backgroundColor: '#5856D6'
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.replace('LoginScreen')}
+          activeOpacity={0.8}
+          style={loginStyles.buttonReturn}
+        >
+          <Text style={loginStyles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
       <KeyboardAvoidingView
         style={{
-          flex: 1,
+          flex: 9,
           backgroundColor: '#5856D6'
         }}
         behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
@@ -52,9 +66,6 @@ const RegisterScreen = ({ navigation }: Props) => {
           contentContainerStyle={{
             justifyContent: 'center'
           }}>
-
-          {/* Keyboard avoid view */}
-          {/* <WhiteLogo /> */}
           <Text style={loginStyles.title}>
             Crear cuenta
           </Text>
@@ -127,13 +138,6 @@ const RegisterScreen = ({ navigation }: Props) => {
         </ScrollView>
 
         {/* Crear una nueva cuenta */}
-        <TouchableOpacity
-          onPress={() => navigation.replace('LoginScreen')}
-          activeOpacity={0.8}
-          style={loginStyles.buttonReturn}
-        >
-          <Text style={loginStyles.buttonText}>Login</Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     </>
   );

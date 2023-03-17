@@ -67,7 +67,7 @@ const MainScreen = ({ navigation }: Props) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View >
+        </View>
     );
 };
 

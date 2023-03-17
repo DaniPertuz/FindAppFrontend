@@ -13,6 +13,7 @@ const mock = [
         place: {
             _id: "63bdde4b949961872f0dc4e9",
             name: "Restaurante Las Rocas",
+            address: 'Cl. 82 #45 - 13, Nte. Centro Historico, Barranquilla, Atlántico',
             photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg",
             rate: 5
         },
@@ -23,6 +24,7 @@ const mock = [
         place: {
             _id: "63bdde4b949961872f0dc4e8",
             name: "Las Rocas",
+            address: 'Cl. 82 #45 - 13, Nte. Centro Historico, Barranquilla, Atlántico',
             photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg",
             rate: 3.79
         },
@@ -35,7 +37,6 @@ interface Props extends StackScreenProps<any, any> { };
 const FavoritesScreen = ({ navigation }: Props) => {
 
     const { top } = useSafeAreaInsets();
-    const navigator = useNavigation();
 
     return (
         <View
@@ -50,7 +51,7 @@ const FavoritesScreen = ({ navigation }: Props) => {
                 renderItem={({ item }) => {
                     return (
                         <TouchableWithoutFeedback
-                            onPress={() => navigation.push('MapScreen')}
+                            onPress={() => navigation.push('MapScreen', { place: item.place.address })}
                         >
                             <View
                                 style={styles.favoritesItemContainer}

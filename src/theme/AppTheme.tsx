@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     avatarContainer: {
         flex: 3,
         alignItems: 'center',
-        marginTop: 10
+        paddingTop: 10
     },
     drawerContainer: {
         display: 'flex',
@@ -135,16 +135,16 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     drawerHr: {
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderBottomColor: '#5856D6',
-        marginHorizontal: 10,
-        alignSelf: 'stretch'
+        marginHorizontal: 15
     },
     drawerMainContainer: {
         flex: 7,
         display: 'flex',
         alignItems: 'flex-start',
-        paddingHorizontal: 10
+        marginTop: 5,
+        paddingHorizontal: 15
     },
     drawerOptions: {
         color: '#000000',
