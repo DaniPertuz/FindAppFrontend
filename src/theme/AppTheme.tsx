@@ -211,14 +211,14 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 15,
         display: 'flex',
         flexDirection: 'row',
-        height: 110,
+        height: '36%',
         paddingHorizontal: 10,
-        width: 440
+        width: '95%'
     },
     bottomSheetTopContainer: {
         alignItems: 'center',
         marginVertical: 5,
-        width: 400
+        width: '95%'
     },
     bottomSheetIcon: {
         borderRadius: 50,
@@ -227,9 +227,7 @@ const styles = StyleSheet.create({
         width: 100
     },
     bottomSheetDetailsContainer: {
-        width: 439,
-        borderColor: '#EBEBEB',
-        borderWidth: 1,
+        width: '95%',
         marginHorizontal: 20,
         paddingHorizontal: 5,
         paddingVertical: 7
