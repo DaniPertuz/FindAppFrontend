@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Rating } from 'react-native-ratings';
 

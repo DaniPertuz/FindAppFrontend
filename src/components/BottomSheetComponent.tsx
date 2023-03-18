@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import { styles } from '../theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
+import { useCoords } from '../hooks/useCoords';
 
 interface Props {
     item?: any;
@@ -72,7 +73,7 @@ const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
                         </View>
                         <View style={{ width: '10%' }}>
                             <TouchableOpacity
-                                onPress={() => {navigation.navigate('MapScreen', { place: item.place.address })}}
+                                onPress={() => { navigation.navigate('MapScreen', { place: item.place.address }); }}
                             >
                                 <Icon
                                     color='#000000'
