@@ -18,7 +18,7 @@ const mock = [
             _id: "63bdde4b949961872f0dc4e9",
             name: "Las Rocas",
             description: "Lo mejor de la cocina colombiana",
-            address: "Cl. 82 #45 - 13",
+            address: "Cl. 82 #45 - 13, Nte. Centro Historico, Barranquilla, Atlántico",
             phone: 3043782846,
             photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg"
         },
@@ -28,13 +28,13 @@ const mock = [
         date: "2023-09-22T00:56:13.318Z",
         place: {
             _id: "63bdde4b949961872f0dc4e8",
-            name: "Las Rocas",
+            name: "Portal del Prado",
             description: "Lo mejor de la cocina colombiana",
-            address: "Cl. 82 #45 - 13",
+            address: "Cl. 53 #46-192, Nte. Centro Historico, Barranquilla, Atlántico",
             phone: 3043782846,
             photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg"
         },
-        search: "Rocas"
+        search: "Portal"
     }
 ];
 
@@ -67,11 +67,10 @@ const HistoryScreen = ({ navigation }: Props) => {
         >
             <FlatList
                 data={mock}
-                keyExtractor={(m) => m.place._id}
+                keyExtractor={m => m.place._id}
                 renderItem={({ item }) => (
                     <TouchableWithoutFeedback
-                        onLayout={() => setItemObject(item)}
-                        onPress={() => { bottomSheetRef.current?.expand(); }}
+                        onPress={() => { setItemObject(item); bottomSheetRef.current?.expand(); }}
                     >
                         <View
                             style={styles.searchListItemContainer}
