@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import useLocation from '../../hooks/useLocation';
 import LoadingScreen from '../LoadingScreen';
@@ -93,8 +92,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                         strokeWidth={10}
                         strokeColor={'#5856D6'}
                     />
-                    {<Marker coordinate={initialPosition} />}
-                    {<Marker coordinate={destination} />}
+                    <Marker coordinate={initialPosition} />
+                    <Marker coordinate={place} />
                 </MapView>
             }
         </>
