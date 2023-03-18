@@ -5,9 +5,9 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import useLocation from '../../hooks/useLocation';
 import LoadingScreen from '../LoadingScreen';
-import Geocoder from '../../api/geocoder';
 import { Location } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
+import { useCoords } from '../../hooks/useCoords';
 
 interface Props extends StackScreenProps<any, any> { };
 
@@ -22,8 +22,13 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const [destination, setDestination] = useState<Location>();
 
+    const getCoords = async () => {
+        const { lat, lng } = await useCoords(place);
+        setDestination({ latitude: lat, longitude: lng });
+    };
+
     useEffect(() => {
-        getCoordsFromAddress(place);
+        getCoords();
     }, []);
 
     useEffect(() => {
@@ -56,15 +61,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         return navFocusListener;
     }, []);
 
-    const getCoordsFromAddress = async (address: string) => {
-        const { results } = await Geocoder.from(address);
-        const { lat, lng } = results[0].geometry.location;
-        setDestination({
-            latitude: lat,
-            longitude: lng
-        });
-    };
-
     if (!hasLocation) return <LoadingScreen />;
 
     return (
@@ -93,7 +89,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         strokeColor={'#5856D6'}
                     />
                     <Marker coordinate={initialPosition} />
-                    <Marker coordinate={place} />
+                    <Marker coordinate={destination} />
                 </MapView>
             }
         </>
