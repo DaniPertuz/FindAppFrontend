@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import { Location } from '../interfaces';
 
 const useLocation = () => {
