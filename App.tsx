@@ -7,7 +7,6 @@ import { Navigator } from './src/navigation';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs(['EventEmitter.removeListener']);
-LogBox.ignoreLogs(['new NativeEventEmitter']);
 
 const AppState = ({ children }: { children: JSX.Element | JSX.Element[]; }) => {
   return (
