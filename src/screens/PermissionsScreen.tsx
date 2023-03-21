@@ -12,15 +12,15 @@ const PermissionsScreen = () => {
             style={styles.center}
         >
             <Text style={styles.blackPrimaryFontStyle}>Es necesario el uso del GPS para usar esta aplicación</Text>
-            <View style={{...styles.buttonContainer, backgroundColor: '#FFFFFF'}}>
-            <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.buttonSearch}
-                onPress={askLocationPermission}
-            >
-                <Text style={styles.buttonSearchText}>Permisos</Text>
-            </TouchableOpacity>
-        </View>
+            <View style={{ ...styles.buttonContainer, backgroundColor: '#FFFFFF' }}>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.buttonSearch}
+                    onPress={askLocationPermission}
+                >
+                    <Text style={styles.buttonSearchText}>Permisos</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
