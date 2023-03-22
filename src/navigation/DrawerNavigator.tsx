@@ -10,20 +10,15 @@ import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
 
-let sw = 0;
-
 export const DrawerNavigator = () => {
     return (
         <Drawer.Navigator
             drawerContent={(props) => <MainMenu {...props} />}
             screenOptions={{
-                headerStyle: (sw == 1) ? { elevation: 0, shadowOpacity: 0 } : { elevation: 1, shadowOpacity: 1 },
+                headerStyle: { elevation: 1, shadowOpacity: 1 },
                 swipeEnabled: false
             }}
-            drawerStyle={
-                (sw == 1) ? { height: 0, backgroundColor: 'transparent' } : { height: '100%' }
-            }
-            overlayColor={(sw == 1) ? 'transparent' : 'rgba(0,0,0,0.5)'}
+            overlayColor={'rgba(0,0,0,0.5)'}
         >
             <Drawer.Screen name="MainScreen" component={MainNavigator} />
             <Drawer.Screen name="EditProfileNavigator" component={EditProfileNavigator} />
@@ -46,7 +41,6 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
     const { loadUserByID } = useContext(UsersContext);
 
     useFocusEffect(() => {
-        sw = 0;
         load();
     });
 
@@ -58,7 +52,6 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
 
     const backButtonHandler = () => {
         navigation.goBack();
-        sw = 0;
         return true;
     };
 
@@ -102,7 +95,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
             >
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => { navigation.navigate('EditProfileNavigator'); sw = 1; }}
+                    onPress={() => navigation.navigate('EditProfileNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
@@ -120,7 +113,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => { navigation.navigate('HistoryNavigator'); sw = 1; }}
+                    onPress={() => navigation.navigate('HistoryNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
@@ -138,7 +131,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => { navigation.navigate('FavoritesNavigator'); sw = 1; }}
+                    onPress={() => navigation.navigate('FavoritesNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
@@ -156,7 +149,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => { navigation.navigate('RatingNavigator'); sw = 1; }}
+                    onPress={() => navigation.navigate('RatingNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
