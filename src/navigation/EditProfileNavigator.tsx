@@ -5,12 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { RootStackParams } from './MainNavigator';
 import { EditProfileScreen } from '../screens';
-
-type RootStackParams = {
-    EditProfileScreen: undefined,
-    MapScreen: undefined;
-};
 
 const Stack = createStackNavigator<RootStackParams>();
 
