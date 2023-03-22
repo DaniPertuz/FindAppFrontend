@@ -1,10 +1,10 @@
 import React from 'react';
-import { FlatList, Image, Platform, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Rating } from 'react-native-ratings';
 
 import { styles } from '../../theme/AppTheme';
 import { StackScreenProps } from '@react-navigation/stack';
+import SavedPlace from '../../components/SavedPlace';
 
 const mock = [
     {
@@ -49,43 +49,13 @@ const FavoritesScreen = ({ navigation }: Props) => {
                 keyExtractor={(m) => m.place._id}
                 renderItem={({ item }) => {
                     return (
-                        <TouchableWithoutFeedback
+                        <SavedPlace
+                            item={item}
                             onPress={() => navigation.push('MapScreen', { place: item.place.address })}
-                        >
-                            <View
-                                style={styles.favoritesItemContainer}
-                            >
-                                <Image
-                                    source={{ uri: item.place.photo }}
-                                    style={styles.favoriteItemIcon}
-                                />
-                                <Text style={{
-                                    ...styles.blackPrimaryFontStyle,
-                                    flex: 3,
-                                    marginHorizontal: 10
-                                }}>
-                                    {item.place.name}
-                                </Text>
-                                <Rating
-                                    fractions={2}
-                                    imageSize={20}
-                                    minValue={1}
-                                    ratingBackgroundColor='#FFFFFF'
-                                    ratingCount={5}
-                                    ratingTextColor='#5856D6'
-                                    showRating
-                                    startingValue={item.place.rate}
-                                    style={{ flex: 2 }}
-                                    tintColor='#EBEBEB'
-                                    type='star'
-                                />
-                            </View>
-                        </TouchableWithoutFeedback>
-                    );
-                }}
+                        />
+    )}}
             />
         </View>
     );
 };
-
 export default FavoritesScreen;
