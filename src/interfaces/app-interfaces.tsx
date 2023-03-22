@@ -26,14 +26,11 @@ export interface LoginData {
     password: string;
 }
 
-export interface ITrip {
-    _id:        string;
-    user:       string;
-    place:      IPlace;
-    comments:   string;
-    rate:       number;
-    createdAt?: string;
-    updatedAt?: string;
+export interface IRating {
+    rate:        number;
+    comments?:   string;
+    place:       string;
+    user:        string;
 }
 
 export interface IPlace {

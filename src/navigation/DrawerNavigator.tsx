@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext, UsersContext } from '../context';
-import { MainNavigator, FavoritesNavigator, HistoryNavigator, EditProfileNavigator } from './';
+import { MainNavigator, FavoritesNavigator, HistoryNavigator, EditProfileNavigator, RatingNavigator } from './';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
@@ -29,6 +29,7 @@ export const DrawerNavigator = () => {
             <Drawer.Screen name="EditProfileNavigator" component={EditProfileNavigator} />
             <Drawer.Screen name="HistoryNavigator" component={HistoryNavigator} />
             <Drawer.Screen name="FavoritesNavigator" component={FavoritesNavigator} />
+            <Drawer.Screen name="RatingNavigator" component={RatingNavigator} />
         </Drawer.Navigator>
     );
 };
@@ -150,6 +151,24 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                             style={styles.drawerOptions}
                         >
                             Favoritos
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => { navigation.navigate('RatingNavigator'); sw = 1; }}
+                >
+                    <View style={styles.drawerContainer}>
+                        <Icon
+                            name='star-half-outline'
+                            size={36}
+                            color={'#000000'}
+                            style={styles.drawerIcon}
+                        />
+                        <Text
+                            style={styles.drawerOptions}
+                        >
+                            Calificar
                         </Text>
                     </View>
                 </TouchableOpacity>
