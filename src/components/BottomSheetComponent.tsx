@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -8,7 +8,6 @@ import moment from 'moment';
 
 import { styles } from '../theme/AppTheme';
 import { useNavigation } from '@react-navigation/native';
-import { useCoords } from '../hooks/useCoords';
 
 interface Props {
     item?: any;
@@ -24,6 +23,8 @@ const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
         Clipboard.setString(text);
         bottomSheetRef.current?.close();
     };
+
+    const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
     const formatDate = (item: any) => {
         return moment(item.date).format('MMMM DD, YYYY h:mm A').charAt(0).toUpperCase() + moment(item.date).format('MMMM DD, YYYY h:mm A').slice(1);
@@ -86,7 +87,7 @@ const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
                     </View>
                     <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Dirección</Text>
                     <View style={styles.bottomSheetDetailsSecondaryContainer}>
-                        <Text style={styles.secondaryFontStyle}>{item.place.address}</Text>
+                        <Text style={styles.secondaryFontStyle}>{formatAddress(item.place.address)}</Text>
                         <TouchableOpacity
                             onPress={() => copyToClipboard(item.place.address)}
                         >
