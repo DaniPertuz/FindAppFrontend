@@ -48,142 +48,55 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     return (
         <KeyboardAvoidingView
-            style={{ display: 'flex', flexDirection: 'column', marginHorizontal: 20, flex: 1 }}
+            style={styles.ratingsMainContainer}
             behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
         >
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: '#F3F4F4',
-                    marginTop: 30,
-                    marginBottom: 20,
-                    padding: 20,
-                    borderRadius: 25,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center'
-                }}
-            >
+            <View style={styles.grayContainer}>
                 <Image
                     source={{ uri: item.place.photo }}
-                    style={{
-                        borderRadius: 50,
-                        flex: 1,
-                        height: 100,
-                        width: 100
-                    }}
+                    style={styles.ratingIcon}
                 />
-                <View
-                    style={{
-                        flex: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginHorizontal: 15
-                    }}
-                >
-                    <View
-                        style={{
-                            flex: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
+                <View style={styles.ratingTitleContainer}>
+                    <View style={styles.center}>
                         <Text style={styles.blackPrimaryFontStyle}>{item.place.name}</Text>
                     </View>
-                    <View
-                        style={{
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-around'
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'column'
-                            }}
-                        >
-                            <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>
-                                Promedio
-                            </Text>
-                            <Text
-                                style={{
-                                    flex: 1,
-                                    alignSelf: 'center',
-                                    textAlign: 'center',
-                                    color: '#000000',
-                                    fontFamily: 'Nunito-Regular',
-                                    fontSize: 18
-                                }}
-                            >
-                                {item.place.rate}/5
-                            </Text>
+                    <View style={styles.ratingSubtitleContainer}>
+                        <View style={styles.ratingColumn}>
+                            <Text style={styles.secondaryFontStyle}>Promedio</Text>
+                            <Text style={styles.ratingText}>{item.place.rate}/5</Text>
                         </View>
-                        <View
-                            style={{
-                                flexDirection: 'column'
-                            }}
-                        >
-                            <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>
-                                Total
-                            </Text>
-                            <Text
-                                style={{
-                                    flex: 1,
-                                    alignSelf: 'center',
-                                    textAlign: 'center',
-                                    color: '#000000',
-                                    fontFamily: 'Nunito-Regular',
-                                    fontSize: 18
-                                }}
-                            >
-                                {item.place.total}
-                            </Text>
+                        <View style={styles.ratingColumn}>
+                            <Text style={styles.secondaryFontStyle}>Total</Text>
+                            <Text style={styles.ratingText}>{item.place.total}</Text>
                         </View>
                     </View>
                 </View>
             </View>
-            <View
-                style={{ flex: 0.3, alignSelf: 'flex-start' }}
-            >
-                <Text style={styles.blackPrimaryFontStyle}>
-                    Calificación
-                </Text>
+            <View style={styles.ratingTextStart}>
+                <Text style={styles.blackPrimaryFontStyle}>Calificación</Text>
             </View>
-            <View
-                style={{ flex: 0.4, flexDirection: 'row', justifyContent: 'space-around', paddingBottom: 30 }}
-            >
+            <View style={styles.ratesContainer}>
                 {numbers.map((num) =>
                     <TouchableOpacity
                         activeOpacity={0.8}
                         key={num}
                         onPress={() => handleRate(num)}
-                        style={[{
-                            borderRadius: 10,
-                            justifyContent: 'center',
-                            alignContent: 'center',
-                            paddingHorizontal: 20
-                        }, { backgroundColor: selectedRate === num ? '#8697A8' : '#F3F4F4' }]}
+                        style={[styles.ratesButton,
+                        { backgroundColor: selectedRate === num ? '#8697A8' : '#F3F4F4' }]}
                     >
                         <Text style={styles.blackPrimaryFontStyle}>{num}</Text>
                     </TouchableOpacity>
                 )}
             </View>
-            <View
-                style={{ flex: 0.5, width: '100%' }}
-            >
+            <View style={styles.commentsContainer}>
                 <TextInput
                     placeholder='Comentarios'
-                    placeholderTextColor='#CBCBCB'
+                    placeholderTextColor='#4B4D4B'
                     keyboardType='default'
                     multiline
                     underlineColorAndroid='#5856D6'
                     style={[
-                        {
-                            color: '#5856D6',
-                            fontFamily: 'Nunito-Regular',
-                            fontSize: 15,
-                        },
+                        styles.commentsText,
                         (Platform.OS === 'ios') && styles.inputFieldIOS
                     ]}
                     selectionColor='#5856D6'
@@ -194,24 +107,13 @@ const RateScreen = ({ navigation, route }: Props) => {
                     value={comments}
                 />
             </View>
-            <View
-                style={{
-                    flex: 0.5, justifyContent: 'center', alignItems: 'center'
-                }}
-            >
+            <View style={styles.ratingSaveButtonContainer}>
                 <TouchableOpacity
                     style={styles.buttonSearch}
                     activeOpacity={0.8}
                     onPress={onRate}
                 >
-                    <Text style={{
-                        fontSize: 18,
-                        color: '#FFFFFF',
-                        fontFamily: 'Nunito-Regular',
-                        fontWeight: '700'
-                    }}>
-                        Guardar
-                    </Text>
+                    <Text style={styles.ratingSaveButtonText}>Guardar</Text>
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 2 }} />

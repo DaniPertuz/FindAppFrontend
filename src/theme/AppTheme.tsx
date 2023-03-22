@@ -266,8 +266,8 @@ const styles = StyleSheet.create({
         fontSize: 17,
         textTransform: 'uppercase'
     },
-    bottomSheetDetailsSecondaryFontStyle: {
-        color: '#4b4d4b',
+    secondaryFontStyle: {
+        color: '#4B4D4B',
         fontFamily: 'Nunito-Regular',
         fontSize: 15
     },
@@ -290,6 +290,88 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 50,
         width: 50
+    },
+    grayContainer: {
+        flex: 1,
+        backgroundColor: '#F3F4F4',
+        marginTop: 30,
+        marginBottom: 20,
+        padding: 20,
+        borderRadius: 25,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    ratingsMainContainer: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column',
+        marginHorizontal: 20
+    },
+    ratingIcon: {
+        borderRadius: 50,
+        flex: 1,
+        height: 100,
+        width: 100
+    },
+    ratingTitleContainer: {
+        flex: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        marginHorizontal: 15
+    },
+    ratingSubtitleContainer: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    ratingColumn: {
+        flexDirection: 'column'
+    },
+    ratingText: {
+        flex: 1,
+        alignSelf: 'center',
+        textAlign: 'center',
+        color: '#000000',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 18
+    },
+    ratingTextStart: {
+        flex: 0.3,
+        alignSelf: 'flex-start'
+    },
+    ratesContainer: {
+        flex: 0.4,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: 30
+    },
+    ratesButton: {
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignContent: 'center',
+        paddingHorizontal: 20
+    },
+    commentsContainer: {
+        flex: 0.5,
+        width: '100%'
+    },
+    commentsText: {
+        color: '#5856D6',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 15
+    },
+    ratingSaveButtonContainer: {
+        alignItems: 'center',
+        flex: 0.5,
+        justifyContent: 'center'
+    },
+    ratingSaveButtonText: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        fontFamily: 'Nunito-Regular',
+        fontWeight: '700'
     }
 });
 

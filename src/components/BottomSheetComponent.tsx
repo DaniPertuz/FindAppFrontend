@@ -68,7 +68,7 @@ const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
                         <View style={{ width: '90%' }}>
                             <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Lugar</Text>
                             <View style={styles.bottomSheetDetailsSecondaryContainer}>
-                                <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>{item.place.name}</Text>
+                                <Text style={styles.secondaryFontStyle}>{item.place.name}</Text>
                             </View>
                         </View>
                         <View style={{ width: '10%' }}>
@@ -86,24 +86,24 @@ const BottomSheetComponent = ({ item, bottomSheetRef, snapPoints }: Props) => {
                     </View>
                     <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Dirección</Text>
                     <View style={styles.bottomSheetDetailsSecondaryContainer}>
-                        <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>{item.place.address}</Text>
+                        <Text style={styles.secondaryFontStyle}>{item.place.address}</Text>
                         <TouchableOpacity
                             onPress={() => copyToClipboard(item.place.address)}
                         >
-                            <Text style={{ ...styles.bottomSheetDetailsSecondaryFontStyle, marginEnd: 30 }}>Copiar dirección</Text>
+                            <Text style={{ ...styles.secondaryFontStyle, marginEnd: 30 }}>Copiar dirección</Text>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Teléfono</Text>
                     <View style={styles.bottomSheetDetailsSecondaryContainer}>
-                        <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>{item.place.phone}</Text>
+                        <Text style={styles.secondaryFontStyle}>{item.place.phone}</Text>
                         <TouchableOpacity
                             onPress={() => copyToClipboard(String(item.place.phone))}
                         >
-                            <Text style={{ ...styles.bottomSheetDetailsSecondaryFontStyle, marginEnd: 30 }}>Copiar número</Text>
+                            <Text style={{ ...styles.secondaryFontStyle, marginEnd: 30 }}>Copiar número</Text>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Fecha</Text>
-                    <Text style={styles.bottomSheetDetailsSecondaryFontStyle}>{formatDate(item)}</Text>
+                    <Text style={styles.secondaryFontStyle}>{formatDate(item)}</Text>
                 </View>
             </View>
         </BottomSheet>
