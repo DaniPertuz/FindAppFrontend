@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import findAPI from '../../api/findapi';
-import { IPlace } from '../../interfaces';
+import { IPlace, ISearch } from '../../interfaces';
 import { PlacesContext } from '.';
+import { PlaceReducer } from './PlaceReducer';
 
 export interface PlaceState {
-    name:        string;
-    description: string;
-    category:    string[];
-    email:       string;
-    address:     string;
-    phone:       number;
-    city:        string;
-    state:       string;
-    country:     string;
-    schedule:    string[];
-    icon:        string;
-    pics?:       string[];
-    rate:        number;
-    status:      boolean;
+    places: IPlace | ISearch[] | null;
 }
+
+const PLACE_INITIAL_STATE: PlaceState = {
+    places: null
+};
 
 export const RestaurantsProvider = ({ children }: any) => {
 
     const [places, setPlaces] = useState<IPlace[]>([]);
+    const [state, dispatch] = useReducer(PlaceReducer, PLACE_INITIAL_STATE);
 
     useEffect(() => {
         loadPlaces();
@@ -46,54 +39,21 @@ export const RestaurantsProvider = ({ children }: any) => {
         }
     };
 
-    const addPlace = async (place: IPlace): Promise<void> => {
+    const searchPlace = async (keyword: string) => {
         try {
-            const resp = await findAPI.post<IPlace>('/places', {
-                place
-            });
-
-            setPlaces([...places, resp.data]);
+            const { data } = await findAPI.post<ISearch>('/search', keyword);
+            dispatch({ type: 'searchPlace', payload: { places: [data] } });
         } catch (error) {
-            throw new Error(`${error}`);
+            console.error(error);
         }
-    };
-
-    const updatePlace = async (placeID: string, place: IPlace) => {
-        try {
-            const resp = await findAPI.put<IPlace>(`/places/${placeID}`, {
-                place
-            });
-    
-            setPlaces(places.map(place => {
-                return (place._id === placeID) ? resp.data : place;
-            }));
-        } catch (error) {
-            throw new Error(`${error}`);
-        }
-    };
-
-    const deletePlace = async (placeID: string) => {
-        try {
-            const resp = await findAPI.put<IPlace>(`/places/${placeID}`, {
-                id: placeID
-            });
-    
-            setPlaces(places.map(place => {
-                return (place.status === true) ? resp.data : place;
-            }));
-        } catch (error) {
-            throw new Error(`${error}`);
-        }
-    };
+    }
 
     return (
         <PlacesContext.Provider value={{
             places,
             loadPlaces,
             loadPlaceByID,
-            addPlace,
-            updatePlace,
-            deletePlace
+            searchPlace
         }}
         >
             {children}
