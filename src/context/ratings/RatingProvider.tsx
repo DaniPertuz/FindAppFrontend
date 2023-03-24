@@ -15,8 +15,12 @@ export const RatingProvider = ({ children }: any) => {
     const [state, dispatch] = useReducer(RatingReducer, RATING_INITIAL_STATE);
 
     const addRating = async (rating: IRating) => {
-        const { data } = await findAPI.post<IRating>('/ratings', rating);
-        dispatch({ type: 'addRating', payload: { rating: data } });
+        try {
+            const { data } = await findAPI.post<IRating>('/ratings', rating);
+            dispatch({ type: 'addRating', payload: { rating: data } });
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
     };
 
     return (
