@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -7,7 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 import { styles } from '../theme/AppTheme';
-import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     item?: any;

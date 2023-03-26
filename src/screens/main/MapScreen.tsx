@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { BackHandler, StyleSheet, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
@@ -73,13 +73,17 @@ const MapScreen = ({ route, navigation }: Props) => {
         });
     }, [currentUserLocation]);
 
-    useEffect(() => {
-        const navFocusListener = navigation.addListener('blur', () => {
-            navigation.navigate(from);
-        });
-
-        return navFocusListener;
-    }, []);
+    const handleBackButtonClick = () => {
+        navigation.goBack();
+        return true;
+      }
+      
+      useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      }, []);
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -113,7 +117,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                     </MapView>
                     <View
                         style={{
-                            backgroundColor: "rgba(255,255,255,1)",
+                            backgroundColor: 'rgba(255,255,255,1)',
                             borderColor: '#5856D6',
                             borderWidth: 2,
                             borderRadius: 20,

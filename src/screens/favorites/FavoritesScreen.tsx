@@ -1,10 +1,11 @@
 import React from 'react';
 import { FlatList, Platform, View } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { styles } from '../../theme/AppTheme';
-import { StackScreenProps } from '@react-navigation/stack';
 import SavedPlace from '../../components/SavedPlace';
+import { RootStackParams } from '../../navigation';
+import { styles } from '../../theme/AppTheme';
 
 const mock = [
     {
@@ -31,7 +32,7 @@ const mock = [
     }
 ];
 
-interface Props extends StackScreenProps<any, any> { };
+interface Props extends StackScreenProps<RootStackParams, 'MapScreen'> { };
 
 const FavoritesScreen = ({ navigation }: Props) => {
 
