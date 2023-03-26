@@ -33,6 +33,18 @@ export interface IRating {
     user:        string;
 }
 
+export interface IRatings {
+    total: number;
+    averages: Average[];
+}
+
+interface Average {
+    rate:      number;
+    comments:  string;
+    user:      IUser;
+    createdAt: string;
+}
+
 export interface IPlace {
     _id:         string;
     name:        string;
@@ -64,16 +76,20 @@ export interface IProduct {
 }
 
 export interface ISearch {
-    date:   string;
-    place: {
-        _id:         string;
-        name:        string;
-        description: string;
-        address:     string;
-        phone:       number;
-        photo:       string;
-    };
-    search: string;
+    date:        string;
+    keyword:     string;
+    totalPlaces: number;
+    places:      IPlace[];
+}
+
+export interface IFavorite {
+    total:     number;
+    favorites: IPlace[];
+}
+
+export interface IHistory {
+    total:    number;
+    services: IPlace[];
 }
 
 export interface Location {
