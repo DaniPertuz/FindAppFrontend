@@ -61,6 +61,7 @@ const MainScreen = ({ navigation }: Props) => {
                 <TouchableOpacity
                     activeOpacity={0.9}
                     style={styles.buttonSearch}
+                    onPress={() => navigation.navigate('ResultsScreen', { search: search.trim() })}
                 >
                     <Text style={styles.buttonSearchText}>
                         Buscar
