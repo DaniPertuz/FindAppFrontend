@@ -35,6 +35,8 @@ const SavedPlace = ({item, onPress}: Props) => {
                     ratingBackgroundColor='#FFFFFF'
                     ratingCount={5}
                     ratingTextColor='#5856D6'
+                    readonly
+                    showReadOnlyText={false}
                     showRating
                     startingValue={item.place.rate}
                     style={{ flex: 2 }}
