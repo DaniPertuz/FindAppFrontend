@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }: Props) => {
             FindAPP
           </Text>
           <FormInputs
-            username={username}
+            username={username.trim()}
             password={password}
             onChange={onChange}
             onLogin={onLogin}
