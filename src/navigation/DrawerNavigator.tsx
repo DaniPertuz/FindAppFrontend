@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext, UsersContext } from '../context';
-import { MainNavigator, FavoritesNavigator, HistoryNavigator, EditProfileNavigator, RatingNavigator } from './';
+import { MainNavigator, EditProfileNavigator, PlacesNavigator, RatingNavigator } from './';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
@@ -22,8 +22,7 @@ export const DrawerNavigator = () => {
         >
             <Drawer.Screen name="MainScreen" component={MainNavigator} />
             <Drawer.Screen name="EditProfileNavigator" component={EditProfileNavigator} />
-            <Drawer.Screen name="HistoryNavigator" component={HistoryNavigator} />
-            <Drawer.Screen name="FavoritesNavigator" component={FavoritesNavigator} />
+            <Drawer.Screen name="PlacesNavigator" component={PlacesNavigator} />
             <Drawer.Screen name="RatingNavigator" component={RatingNavigator} />
         </Drawer.Navigator>
     );
@@ -113,7 +112,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => navigation.navigate('HistoryNavigator')}
+                    onPress={() => navigation.navigate('PlacesNavigator', { sw: true })}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
@@ -131,7 +130,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => navigation.navigate('FavoritesNavigator')}
+                    onPress={() => navigation.navigate('PlacesNavigator', { sw: false })}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon

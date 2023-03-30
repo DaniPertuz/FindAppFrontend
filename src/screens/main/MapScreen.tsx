@@ -11,12 +11,13 @@ import LoadingScreen from '../LoadingScreen';
 import { Location } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
+import { RootStackParams } from '../../navigation';
 
-interface Props extends StackScreenProps<any, any> { };
+interface Props extends StackScreenProps<RootStackParams, 'MapScreen'> { };
 
 const MapScreen = ({ route, navigation }: Props) => {
 
-    const { place, from } = route.params!;
+    const { place } = route.params;
 
     const mapViewRef = useRef<MapView>();
     const following = useRef<boolean>(true);
