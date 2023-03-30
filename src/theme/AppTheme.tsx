@@ -271,6 +271,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Regular',
         fontSize: 15
     },
+    linkStyle: {
+        color: '#5856D6',
+        fontFamily: 'Nunito-Regular',
+        fontSize: 18,
+        textDecorationLine: 'underline'
+    },
     favoritesItemContainer: {
         alignItems: 'center',
         backgroundColor: '#EBEBEB',
@@ -285,11 +291,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10
     },
-    favoriteItemIcon: {
-        borderRadius: 50,
+    itemIcon: {
+        borderRadius: 10,
         flex: 1,
-        height: 50,
-        width: 50
+        height: 45,
+        width: 45
     },
     grayContainer: {
         flex: 1,
