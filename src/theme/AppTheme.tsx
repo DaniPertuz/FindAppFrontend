@@ -383,8 +383,8 @@ const styles = StyleSheet.create({
 
 const loginStyles = StyleSheet.create({
     formContainer: {
+        flex: 2,
         paddingHorizontal: 30,
-        height: 900,
         marginTop: 10
     },
     decisionContainer: {
@@ -419,7 +419,6 @@ const loginStyles = StyleSheet.create({
         marginTop: 50
     },
     buttonImagesContainer: {
-        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginTop: 25
