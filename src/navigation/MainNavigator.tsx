@@ -9,12 +9,12 @@ import { EditProfileScreen, MainScreen, MapScreen, PlacesListScreen, RatingScree
 export type RootStackParams = {
     MainScreen: undefined,
     EditProfileScreen: undefined,
-    MapScreen: { place: string },
-    PlacesListScreen: { sw: boolean, places: any[] },
+    MapScreen: { place: string; },
+    PlacesListScreen: { sw: boolean, places: any[]; },
     RatingScreen: undefined,
     RateScreen: undefined,
     ResultsScreen: undefined,
-    ReviewsScreen: undefined
+    ReviewsScreen: { place: string; };
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -46,9 +46,9 @@ export const MainNavigator = () => {
                 headerTintColor: '#FFFFFF',
                 headerLeft: () => (
                     <TouchableOpacity
-                    activeOpacity={0.9}
-                    style={{ marginLeft: 15 }}
-                    onPress={() => navigator.goBack()}
+                        activeOpacity={0.9}
+                        style={{ marginLeft: 15 }}
+                        onPress={() => navigator.goBack()}
                     >
                         <Icon
                             name='arrow-back-outline'
@@ -58,7 +58,24 @@ export const MainNavigator = () => {
                 )
             }}
                 component={ResultsScreen} />
-            <Stack.Screen name="ReviewsScreen" options={{ title: '' }} component={ReviewsScreen} />
+            <Stack.Screen name="ReviewsScreen" options={{
+                headerTitle: 'Opiniones',
+                headerStyle: { backgroundColor: '#5856D6' },
+                headerTintColor: '#FFFFFF',
+                headerLeft: () => (
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ marginLeft: 15 }}
+                        onPress={() => navigator.goBack()}
+                    >
+                        <Icon
+                            name='arrow-back-outline'
+                            size={25}
+                            color={'#FFFFFF'} />
+                    </TouchableOpacity>
+                )
+            }}
+                component={ReviewsScreen} />
         </Stack.Navigator>
     );
 };
