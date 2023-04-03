@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Bold',
         marginVertical: 15
     },
-    drawerLogout: {
+    largeButton: {
         backgroundColor: '#5856D6',
         borderColor: '#5856D6',
         borderRadius: 100,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         paddingVertical: 10
     },
-    drawerLogoutButton: {
+    largeButtonText: {
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: '600'

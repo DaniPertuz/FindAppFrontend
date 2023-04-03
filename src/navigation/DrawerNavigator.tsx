@@ -168,7 +168,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
             <View style={styles.drawerLogoutContainer}>
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    style={styles.drawerLogout}
+                    style={styles.largeButton}
                     onPress={logOut}
                 >
                     <View style={styles.drawerContainer}>
@@ -179,7 +179,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                             style={styles.drawerIcon}
                         />
                         <Text
-                            style={styles.drawerLogoutButton}
+                            style={styles.largeButtonText}
                         >
                             Cerrar sesión
                         </Text>
