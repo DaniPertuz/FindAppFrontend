@@ -67,7 +67,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
             <View style={styles.avatarContainer}>
                 <Image
                     source={
-                        (!user || user.photo === '')
+                        (userPhoto === '')
                             ? require('../assets/placeholder.png')
                             : { uri: userPhoto }
                     }
@@ -77,14 +77,14 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                     style={styles.drawerUsername}
                 >
                     {(!user)
-                        ? 'Username'
+                        ? ''
                         : userMock.name}
                 </Text>
                 <Text
                     style={styles.drawerUserEmail}
                 >
                     {(!user)
-                        ? 'email@user.com'
+                        ? ''
                         : userMock.email}
                 </Text>
             </View>
