@@ -29,20 +29,13 @@ export interface LoginData {
 export interface IRating {
     rate:        number;
     comments?:   string;
-    place:       string;
-    user:        string;
+    user:        IUser | null;
+    createdAt:   string;
 }
 
 export interface IRatings {
     total: number;
-    averages: Average[];
-}
-
-interface Average {
-    rate:      number;
-    comments:  string;
-    user:      IUser;
-    createdAt: string;
+    rates: IRating[];
 }
 
 export interface IPlace {
