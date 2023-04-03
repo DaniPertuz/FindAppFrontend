@@ -12,7 +12,7 @@ interface Props extends StackScreenProps<any, any> { };
 
 const RegisterScreen = ({ navigation }: Props) => {
 
-  const { signUp, errorMessage, removeError, user } = useContext(AuthContext);
+  const { signUp, errorMessage, removeError } = useContext(AuthContext);
 
   const { name, email, password, onChange } = useForm({
     name: '',
@@ -40,7 +40,7 @@ const RegisterScreen = ({ navigation }: Props) => {
 
   return (
     <>
-    <View
+      <View
         style={{
           flex: 2,
           backgroundColor: '#5856D6'
@@ -62,6 +62,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
       >
         <ScrollView
+          keyboardShouldPersistTaps='handled'
           style={loginStyles.formContainer}
           contentContainerStyle={{
             justifyContent: 'center'
