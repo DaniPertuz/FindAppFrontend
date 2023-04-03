@@ -1,8 +1,12 @@
 import { createContext } from 'react';
-import { IRating } from '../../interfaces';
+import { IRating, IRatings } from '../../interfaces';
 
 type RatingContextProps = {
-    addRating: (rating: IRating) => void;
+    ratings:               IRatings;
+    ratingAverage:         number;
+    getRatings:            (placeId: string) => void;
+    getPlaceRatingAverage: (placeId: string) => void;
+    addRating:             (rating: IRating) => void;
 }
 
 export const RatingContext = createContext({} as RatingContextProps);

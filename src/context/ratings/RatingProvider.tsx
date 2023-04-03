@@ -1,23 +1,37 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
 import findAPI from '../../api/findapi';
-import { IRating } from '../../interfaces';
-import { RatingContext, RatingReducer } from './';
-
-export interface RatingState {
-    rating: IRating | null;
-}
-
-const RATING_INITIAL_STATE: RatingState = {
-    rating: null
-};
+import { IRating, IRatings } from '../../interfaces';
+import { RatingContext } from './';
 
 export const RatingProvider = ({ children }: any) => {
-    const [state, dispatch] = useReducer(RatingReducer, RATING_INITIAL_STATE);
+    const [ratings, setRatings] = useState<IRatings>({
+        total: 0,
+        rates: []
+    });
+    const [ratingAverage, setRatingAverage] = useState(0);
 
-    const addRating = async (rating: IRating) => {
+    const getRatings = async (placeId: string) => {
         try {
-            const { data } = await findAPI.post<IRating>('/ratings', rating);
-            dispatch({ type: 'addRating', payload: { rating: data } });
+            const { data } = await findAPI.get<IRatings>(`/ratings/all/${placeId}`);
+            setRatings(data);
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
+    };
+
+    const getPlaceRatingAverage = async (placeId: string) => {
+        try {
+            const { data } = await findAPI.get(`/ratings/${placeId}`);
+            const { average } = data;
+            setRatingAverage(average);
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
+    };
+
+    const addRating = async (rating: IRating): Promise<void> => {
+        try {
+            await findAPI.post<IRating>('/ratings', { rating });
         } catch (error: any) {
             console.log(error.response!.data.msg);
         }
@@ -25,7 +39,10 @@ export const RatingProvider = ({ children }: any) => {
 
     return (
         <RatingContext.Provider value={{
-            ...state,
+            ratings,
+            ratingAverage,
+            getRatings,
+            getPlaceRatingAverage,
             addRating
         }}
         >
