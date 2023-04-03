@@ -17,8 +17,9 @@ const EditProfileScreen = ({ navigation }: Props) => {
     const { top } = useSafeAreaInsets();
 
     const [response, setResponse] = useState<any>(null);
+    const [userDB, setUserDB] = useState<any>(null);
     const { user } = useContext(AuthContext);
-    const { updateUser, updatePhoto } = useContext(UsersContext);
+    const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
     const bottomSheetRef = useRef<BottomSheet>(null);
 
     const { name, email, password, passwordRep, onChange } = useForm({
@@ -27,6 +28,15 @@ const EditProfileScreen = ({ navigation }: Props) => {
         password: '',
         passwordRep: ''
     });
+
+    useEffect(() => {
+        load();
+    }, []);
+
+    const load = async () => {
+        const usr = await loadUserByID(user?._id!);
+        setUserDB(usr);
+    };
 
     const addPhoto = () => {
         launchCamera({
@@ -88,7 +98,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
     return (
         <>
             <KeyboardAvoidingView
-                style={{...styles.profileScreenContainer, marginTop: top }}
+                style={{ ...styles.profileScreenContainer, marginTop: top }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
             >
                 <ScrollView
@@ -99,11 +109,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         onPress={updateMainPhoto}
                     >
                         <Image
-                            source={(!user || user.photo === '')
+                            source={(!userDB || userDB.photo === '')
                                 ? require('../../assets/placeholder.png')
                                 : (response?.assets && response.assets[0].uri !== '')
                                     ? { uri: response.assets[0].uri }
-                                    : { uri: user.photo }}
+                                    : { uri: userDB.photo }}
                             style={styles.profileAvatar}
                         />
                     </TouchableOpacity>
