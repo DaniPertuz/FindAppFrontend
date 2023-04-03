@@ -19,8 +19,8 @@ const RateScreen = ({ navigation, route }: Props) => {
     const { comments, onChange } = useForm<IRating>({
         rate: 0,
         comments: '',
-        place: '',
-        user: ''
+        user: null,
+        createdAt: ''
     });
     const [selectedRate, setSelectedRate] = useState(0);
 
@@ -30,7 +30,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const onRate = () => {
         Keyboard.dismiss();
-        addRating({ rate: selectedRate, comments, place: item.place._id, user: user?._id! });
+        addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString() });
     };
 
     const backButtonHandler = () => {
