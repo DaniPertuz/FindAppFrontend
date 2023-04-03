@@ -47,22 +47,23 @@ export const AuthProvider = ({ children }: any) => {
 
     const signUp = async ({ name, email, password, role }: IUser): Promise<void> => {
         try {
-            const { data } = await findAPI.post<LoginInterface>('/users', {
+            const { data: userLogin } = await findAPI.post<LoginInterface>('/users', {
                 name,
                 email,
                 password,
                 role
             });
+            const { data: tokenLogin } = await findAPI.post<LoginInterface>('/auth/login', { email, password });
 
             dispatch({
                 type: 'signUp',
                 payload: {
-                    user: data.user,
-                    token: data.token
+                    user: userLogin.user,
+                    token: tokenLogin.token
                 }
             });
 
-            await AsyncStorage.setItem('token', data.token);
+            await AsyncStorage.setItem('token', tokenLogin.token);
         } catch (error: any) {
             dispatch({
                 type: 'addError',
@@ -92,7 +93,7 @@ export const AuthProvider = ({ children }: any) => {
         }
     };
 
-    const uploadImage = async (data: ImagePickerResponse) => {
+    const uploadImage = async (data: ImagePickerResponse, userId: string) => {
         try {
             const { uri, type, fileName } = data.assets![0];
 
@@ -119,7 +120,7 @@ export const AuthProvider = ({ children }: any) => {
 
             const { secure_url } = await response.json();
 
-            // await findAPI.put(`/users/${userId}`, { photo: secure_url });
+            await findAPI.put(`/users/${userId}`, { photo: secure_url });
 
             return secure_url;
         } catch (err: any) {
