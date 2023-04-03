@@ -10,7 +10,7 @@ type AuthContextProps = {
     errorMessage: string;
     signUp:       (registerData: IUser) => void;
     signIn:       (loginData: LoginData) => void;
-    uploadImage:  (data: ImagePickerResponse) => Promise<string>;
+    uploadImage:  (data: ImagePickerResponse, userId: string) => Promise<string>;
     logOut:       () => void;
     removeError:  () => void;
 }
