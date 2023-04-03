@@ -11,7 +11,7 @@ interface Props extends StackScreenProps<any, any> { };
 
 const MainPictureScreen = ({ navigation }: Props) => {
 
-    const { uploadImage } = useContext(AuthContext);
+    const { uploadImage, user } = useContext(AuthContext);
 
     const [tempUri, setTempUri] = useState<string>('');
 
@@ -24,7 +24,7 @@ const MainPictureScreen = ({ navigation }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri(resp.assets![0].uri);
-            uploadImage(resp);
+            uploadImage(resp, user?._id!);
         });
     };
 
@@ -37,7 +37,7 @@ const MainPictureScreen = ({ navigation }: Props) => {
             if (!resp.assets![0].uri) return;
 
             setTempUri(resp.assets![0].uri);
-            uploadImage(resp);
+            uploadImage(resp, user?._id!);
         });
     };
 
