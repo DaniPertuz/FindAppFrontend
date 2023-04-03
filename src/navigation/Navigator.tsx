@@ -32,15 +32,16 @@ export const Navigator = () => {
           </>
         )
         :
-        (user && user.photo === '')
+        (permissions.locationStatus !== 'granted')
           ?
-          <>
-            <Stack.Screen name='MainPictureScreen' component={MainPictureScreen} />
-          </>
+          <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
           :
-          (permissions.locationStatus !== 'granted')
+          (user && user.photo === '')
             ?
-            <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
+            <>
+              <Stack.Screen name='MainPictureScreen' component={MainPictureScreen} />
+              <Stack.Screen name='MainScreen' component={DrawerNavigator} />
+            </>
             :
             (
               <>
