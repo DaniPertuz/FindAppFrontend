@@ -72,9 +72,9 @@ export const AuthProvider = ({ children }: any) => {
         }
     };
 
-    const signIn = async ({ username, password }: LoginData): Promise<void> => {
+    const signIn = async ({ email, password }: LoginData): Promise<void> => {
         try {
-            const { data } = await findAPI.post<LoginInterface>('/auth/login', { username, password });
+            const { data } = await findAPI.post<LoginInterface>('/auth/login', { email, password });
             const { user, token } = data;
             dispatch({
                 type: 'signUp',

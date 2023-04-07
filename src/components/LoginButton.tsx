@@ -3,13 +3,13 @@ import { Keyboard, Text, TouchableOpacity, View } from 'react-native';
 import { AuthContext } from '../context';
 import { styles } from '../theme/AppTheme';
 
-const LoginButton = ({ username = '', password = '' }) => {
+const LoginButton = ({ email = '', password = '' }) => {
 
     const { signIn } = useContext(AuthContext);
 
     const onLogin = () => {
         Keyboard.dismiss();
-        signIn({ username, password });
+        signIn({ email, password });
     };
 
     return (

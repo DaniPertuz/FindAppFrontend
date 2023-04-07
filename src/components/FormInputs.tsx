@@ -5,13 +5,13 @@ import { styles } from '../theme/AppTheme';
 import LoginButton from './LoginButton';
 
 interface Props {
-    username: string;
+    email: string;
     password: string;
-    onChange: (value: string, field: 'username' | 'password') => void;
+    onChange: (value: string, field: 'email' | 'password') => void;
     onLogin: () => void;
 }
 
-const FormInputs = ({ username, password, onChange, onLogin }: Props) => {
+const FormInputs = ({ email, password, onChange, onLogin }: Props) => {
 
     return (
         <View>
@@ -31,8 +31,8 @@ const FormInputs = ({ username, password, onChange, onLogin }: Props) => {
                 autoCapitalize='none'
                 autoCorrect={false}
                 onSubmitEditing={onLogin}
-                onChangeText={(value) => onChange(value, 'username')}
-                value={username}
+                onChangeText={(value) => onChange(value, 'email')}
+                value={email}
             />
 
             <Text style={styles.label}>
@@ -54,7 +54,7 @@ const FormInputs = ({ username, password, onChange, onLogin }: Props) => {
                 onChangeText={(value) => onChange(value, 'password')}
                 value={password}
             />
-            <LoginButton username={username} password={password} />
+            <LoginButton email={email} password={password} />
         </View>
     );
 };

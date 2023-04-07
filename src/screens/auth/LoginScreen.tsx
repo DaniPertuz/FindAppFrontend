@@ -14,8 +14,8 @@ const LoginScreen = ({ navigation }: Props) => {
 
   const { signIn, errorMessage, removeError } = useContext(AuthContext);
 
-  const { username, password, onChange } = useForm({
-    username: '',
+  const { email, password, onChange } = useForm({
+    email: '',
     password: ''
   });
 
@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }: Props) => {
 
   const onLogin = () => {
     Keyboard.dismiss();
-    signIn({ username, password });
+    signIn({ email, password });
   };
 
   return (
@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }: Props) => {
             FindAPP
           </Text>
           <FormInputs
-            username={username.trim()}
+            email={email.trim()}
             password={password}
             onChange={onChange}
             onLogin={onLogin}

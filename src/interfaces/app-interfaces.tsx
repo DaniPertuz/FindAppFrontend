@@ -22,7 +22,7 @@ export enum roles {
 }
 
 export interface LoginData {
-    username: string;
+    email:    string;
     password: string;
 }
 
