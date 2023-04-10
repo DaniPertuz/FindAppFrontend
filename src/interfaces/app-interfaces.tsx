@@ -37,6 +37,9 @@ export interface IRatings {
     total: number;
     rates: IRating[];
 }
+export interface IRatingAverage {
+    average: number;
+}
 
 export interface IPlace {
     _id:         string;
@@ -49,7 +52,7 @@ export interface IPlace {
     state:       string;
     country:     string;
     schedule:    string[];
-    icon:        string;
+    photo:       string;
     pics?:       string[];
     rate:        number;
     status:      boolean;
@@ -75,14 +78,26 @@ export interface ISearch {
     places:      IPlace[];
 }
 
-export interface IFavorite {
+export interface IFavorites {
     total:     number;
-    favorites: IPlace[];
+    favorites: IFavorite[];
+}
+
+export interface IFavorite {
+    place:     IPlace;
+    createdAt: string;
 }
 
 export interface IHistory {
-    total:    number;
-    services: IPlace[];
+    total:     number;
+    services:  IService[];
+}
+
+export interface IService {
+    date:      string;
+    place:     IPlace;
+    search:    string;
+    createdAt: string;
 }
 
 export interface Location {
