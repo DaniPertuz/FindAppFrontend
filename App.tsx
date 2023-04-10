@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { AuthProvider, UsersProvider, PermissionsProvider, RatingProvider } from './src/context';
+import { AuthProvider, PermissionsProvider, PlacesProvider, UsersProvider, RatingProvider } from './src/context';
 import { Navigator } from './src/navigation';
 import { LogBox } from 'react-native';
 
@@ -13,9 +13,11 @@ const AppState = ({ children }: { children: JSX.Element | JSX.Element[]; }) => {
     <AuthProvider>
       <PermissionsProvider>
         <UsersProvider>
-          <RatingProvider>
-            {children}
-          </RatingProvider>
+          <PlacesProvider>
+            <RatingProvider>
+              {children}
+            </RatingProvider>
+          </PlacesProvider>
         </UsersProvider>
       </PermissionsProvider>
     </AuthProvider>
