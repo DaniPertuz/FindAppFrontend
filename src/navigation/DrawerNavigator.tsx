@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext, UsersContext } from '../context';
-import { MainNavigator, EditProfileNavigator, PlacesNavigator, RatingNavigator } from './';
+import { MainNavigator, EditProfileNavigator, FavoritesNavigator, HistoryNavigator, RatingNavigator } from './';
 import { styles } from '../theme/AppTheme';
 
 const Drawer = createDrawerNavigator();
@@ -22,7 +22,8 @@ export const DrawerNavigator = () => {
         >
             <Drawer.Screen name="MainScreen" component={MainNavigator} />
             <Drawer.Screen name="EditProfileNavigator" component={EditProfileNavigator} />
-            <Drawer.Screen name="PlacesNavigator" component={PlacesNavigator} />
+            <Drawer.Screen name="FavoritesNavigator" component={FavoritesNavigator} />
+            <Drawer.Screen name="HistoryNavigator" component={HistoryNavigator} />
             <Drawer.Screen name="RatingNavigator" component={RatingNavigator} />
         </Drawer.Navigator>
     );
@@ -36,6 +37,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         email: 'email@user.com',
         photo: '../assets/placeholder.png'
     });
+
     const { user, logOut } = useContext(AuthContext);
     const { loadUserByID } = useContext(UsersContext);
 
@@ -112,7 +114,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => navigation.navigate('PlacesNavigator', { sw: true })}
+                    onPress={() => navigation.navigate('HistoryNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon
@@ -130,7 +132,7 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => navigation.navigate('PlacesNavigator', { sw: false })}
+                    onPress={() => navigation.navigate('FavoritesNavigator')}
                 >
                     <View style={styles.drawerContainer}>
                         <Icon

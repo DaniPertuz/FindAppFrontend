@@ -4,13 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, MainScreen, MapScreen, PlacesListScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
 
 export type RootStackParams = {
     MainScreen: undefined,
     EditProfileScreen: undefined,
     MapScreen: { place: string; },
-    PlacesListScreen: { sw: boolean, places: any[]; },
+    FavoritesScreen: undefined,
+    HistoryScreen: undefined,
     RatingScreen: undefined,
     RateScreen: undefined,
     ResultsScreen: undefined,
@@ -38,7 +39,8 @@ export const MainNavigator = () => {
             <Stack.Screen name="MainScreen" options={{ title: '' }} component={MainScreen} />
             <Stack.Screen name="EditProfileScreen" options={{ title: '' }} component={EditProfileScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
-            <Stack.Screen name="PlacesListScreen" options={{ title: '' }} component={PlacesListScreen} />
+            <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
+            <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
             <Stack.Screen name="ResultsScreen" options={{
                 headerTitle: 'Resultados de búsqueda',
