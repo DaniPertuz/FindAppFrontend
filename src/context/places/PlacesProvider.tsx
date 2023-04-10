@@ -1,34 +1,13 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import findAPI from '../../api/findapi';
-import { IPlace, ISearch } from '../../interfaces';
+import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
 import { PlacesContext } from '.';
-import { PlaceReducer } from './PlaceReducer';
 
 export interface PlaceState {
     places: IPlace | ISearch[] | null;
 }
 
-const PLACE_INITIAL_STATE: PlaceState = {
-    places: null
-};
-
-export const RestaurantsProvider = ({ children }: any) => {
-
-    const [places, setPlaces] = useState<IPlace[]>([]);
-    const [state, dispatch] = useReducer(PlaceReducer, PLACE_INITIAL_STATE);
-
-    useEffect(() => {
-        loadPlaces();
-    }, []);
-
-    const loadPlaces = async (): Promise<void> => {
-        try {
-            const resp = await findAPI.get('/places');
-            setPlaces([...resp.data.places]);
-        } catch (error) {
-            throw new Error(`${error}`);
-        }
-    };
+export const PlacesProvider = ({ children }: any) => {
 
     const loadPlaceByID = async (placeID: string): Promise<IPlace> => {
         try {
@@ -42,18 +21,46 @@ export const RestaurantsProvider = ({ children }: any) => {
     const searchPlace = async (keyword: string) => {
         try {
             const { data } = await findAPI.post<ISearch>('/search', keyword);
-            dispatch({ type: 'searchPlace', payload: { places: [data] } });
+            // dispatch({ type: 'searchPlace', payload: { places: [data] } });
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const getFavorites = async (userId: string): Promise<IFavorites> => {
+        try {
+            const { data } = await findAPI.get<IFavorites>(`/favorites/${userId}`);
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
+    const getHistorical = async (userId: string): Promise<IHistory> => {
+        try {
+            const { data } = await findAPI.get<IHistory>(`/services/${userId}`);
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
+    const getPlaceRating = async (placeID: string): Promise<number> => {
+        try {
+            const { data } = await findAPI.get<IRatingAverage>(`/ratings/${placeID}`);
+            return data.average;
+        } catch (error) {
+            throw new Error(`${error}`);
         }
     }
 
     return (
         <PlacesContext.Provider value={{
-            places,
-            loadPlaces,
             loadPlaceByID,
-            searchPlace
+            searchPlace,
+            getFavorites,
+            getHistorical,
+            getPlaceRating
         }}
         >
             {children}
