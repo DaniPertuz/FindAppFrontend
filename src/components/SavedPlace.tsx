@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { styles } from '../theme/AppTheme';
+import { IFavorite, IService } from '../interfaces/app-interfaces';
+import { PlacesContext } from '../context/places/PlacesContext';
 
 interface Props {
-    item: any;
+    item: IFavorite | IService | any;
     onPress: () => void;
 }
 
 const SavedPlace = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation();
+
+    const { getPlaceRating } = useContext(PlacesContext);
+
+    const [placeRating, setPlaceRating] = useState<number>(0);
+
+    const setRating = async () => {
+        setPlaceRating(await getPlaceRating(item.place._id));
+    }
+
+    useEffect(() => {
+      setRating();
+    }, []);
 
     return (
         <TouchableWithoutFeedback
@@ -46,22 +60,22 @@ const SavedPlace = ({ item, onPress }: Props) => {
                         onPress={() => navigator.navigate('ReviewsScreen', { place: item.place._id })}
                     >
                         <Text style={styles.linkStyle}>
-                            {item.place.rate}
+                            {placeRating.toFixed(2)}
                         </Text>
-                    <Rating
-                        fractions={2}
-                        imageSize={20}
-                        minValue={1}
-                        ratingBackgroundColor='#FFFFFF'
-                        ratingCount={5}
-                        ratingTextColor='#5856D6'
-                        readonly
-                        showReadOnlyText={false}
-                        startingValue={item.place.rate}
-                        style={{ flex: 2 }}
-                        tintColor='#EBEBEB'
-                        type='star'
-                    />
+                        <Rating
+                            fractions={2}
+                            imageSize={20}
+                            minValue={1}
+                            ratingBackgroundColor='#FFFFFF'
+                            ratingCount={5}
+                            ratingTextColor='#5856D6'
+                            readonly
+                            showReadOnlyText={false}
+                            startingValue={placeRating}
+                            style={{ flex: 2 }}
+                            tintColor='#EBEBEB'
+                            type='star'
+                        />
                     </TouchableOpacity>
                 </View>
             </View>
