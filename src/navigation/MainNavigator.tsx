@@ -46,6 +46,7 @@ export const MainNavigator = () => {
                 headerTitle: 'Resultados de búsqueda',
                 headerStyle: { backgroundColor: '#5856D6' },
                 headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={0.9}
@@ -64,6 +65,7 @@ export const MainNavigator = () => {
                 headerTitle: 'Opiniones',
                 headerStyle: { backgroundColor: '#5856D6' },
                 headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={0.9}

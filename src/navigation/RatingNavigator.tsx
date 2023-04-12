@@ -30,11 +30,12 @@ export const RatingNavigator = () => {
                 headerTitle: 'Calificar lugares',
                 headerStyle: { backgroundColor: '#5856D6' },
                 headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
+                        onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                     >
                         <Icon
                             name='arrow-back-outline'
@@ -49,11 +50,12 @@ export const RatingNavigator = () => {
                 headerTitle: 'Calificar',
                 headerStyle: { backgroundColor: '#5856D6' },
                 headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.navigate('RatingScreen')}
+                        onPress={() => navigator.goBack()}
                     >
                         <Icon
                             name='arrow-back-outline'
@@ -62,7 +64,7 @@ export const RatingNavigator = () => {
                     </TouchableOpacity>
                 )
             }}
-            component={RateScreen} />
+                component={RateScreen} />
         </Stack.Navigator>
     );
 };

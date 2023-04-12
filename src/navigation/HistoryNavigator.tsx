@@ -31,6 +31,7 @@ export const HistoryNavigator = () => {
                     headerTitle: 'Historial de búsqueda',
                     headerStyle: { backgroundColor: '#5856D6' },
                     headerTintColor: '#FFFFFF',
+                    headerTitleAlign: 'center',
                     headerLeft: () => (
                         <TouchableOpacity
                             activeOpacity={0.9}

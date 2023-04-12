@@ -30,6 +30,7 @@ export const EditProfileNavigator = () => {
                 headerTitle: 'Editar perfil',
                 headerStyle: { backgroundColor: '#5856D6' },
                 headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
                 headerLeft: () => (
                     <TouchableOpacity
                         activeOpacity={0.9}

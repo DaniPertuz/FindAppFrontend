@@ -31,6 +31,7 @@ export const FavoritesNavigator = () => {
                     headerTitle: 'Lugares favoritos',
                     headerStyle: { backgroundColor: '#5856D6' },
                     headerTintColor: '#FFFFFF',
+                    headerTitleAlign: 'center',
                     headerLeft: () => (
                         <TouchableOpacity
                             activeOpacity={0.9}
