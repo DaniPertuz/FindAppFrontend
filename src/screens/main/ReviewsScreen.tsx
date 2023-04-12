@@ -24,11 +24,11 @@ const ReviewsScreen = ({ route }: Props) => {
     useEffect(() => {
         getRatings(place);
         getPlaceRatingAverage(place);
-    }, []);
+    }, [place]);
 
     return (
         <>
-            <View style={{ alignSelf: 'center', marginTop: 30 }}>
+            <View style={{ alignSelf: 'center', marginTop: top }}>
                 <Text style={styles.blackTitle}>{ratingAverage.toFixed(2)}</Text>
                 <Text style={styles.secondaryFontStyle}>{ratings.total} opiniones</Text>
             </View>
