@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React from 'react';
 import findAPI from '../../api/findapi';
-import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
+import { IFavorites, IHistory, IPlace, IRatingAverage, IRatings, ISearch } from '../../interfaces';
 import { PlacesContext } from '.';
+import {  } from '../../interfaces/app-interfaces';
 
 export interface PlaceState {
     places: IPlace | ISearch[] | null;
