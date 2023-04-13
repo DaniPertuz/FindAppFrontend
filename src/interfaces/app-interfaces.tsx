@@ -108,6 +108,7 @@ export interface IHistory {
 export interface IService {
     date:      string;
     place:     IPlace;
+    user:      IUser;
     search:    string;
     createdAt: string;
 }
