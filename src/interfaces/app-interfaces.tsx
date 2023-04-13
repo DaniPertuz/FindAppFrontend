@@ -53,6 +53,14 @@ export interface IRatingAverage {
     average: number;
 }
 
+export interface ISearch {
+    keyword:       string;
+    totalPlaces:   number;
+    places:        IPlace[];
+    totalProducts: number;
+    products:      IProduct[];
+}
+
 export interface IPlace {
     _id:         string;
     name:        string;
@@ -81,13 +89,6 @@ export interface IProduct {
     rate:        number;
     img?:        string;
     status:      boolean;
-}
-
-export interface ISearch {
-    date:        string;
-    keyword:     string;
-    totalPlaces: number;
-    places:      IPlace[];
 }
 
 export interface IFavorites {
