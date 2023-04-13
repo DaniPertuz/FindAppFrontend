@@ -1,8 +1,7 @@
 import React from 'react';
 import findAPI from '../../api/findapi';
-import { IFavorites, IHistory, IPlace, IRatingAverage, IRatings, ISearch } from '../../interfaces';
+import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
 import { PlacesContext } from '.';
-import {  } from '../../interfaces/app-interfaces';
 
 export interface PlaceState {
     places: IPlace | ISearch[] | null;
@@ -12,19 +11,19 @@ export const PlacesProvider = ({ children }: any) => {
 
     const loadPlaceByID = async (placeID: string): Promise<IPlace> => {
         try {
-            const resp = await findAPI.get<IPlace>(`/places/${placeID}`);
-            return resp.data;
+            const { data } = await findAPI.get<IPlace>(`/places/${placeID}`);
+            return data;
         } catch (error) {
             throw new Error(`${error}`);
         }
     };
 
-    const searchPlace = async (keyword: string) => {
+    const searchPlace = async (keyword: string): Promise<ISearch> => {
         try {
-            const { data } = await findAPI.post<ISearch>('/search', keyword);
-            // dispatch({ type: 'searchPlace', payload: { places: [data] } });
+            const { data } = await findAPI.get<ISearch>(`/search/${keyword}`);
+            return data;
         } catch (error) {
-            console.error(error);
+            throw new Error(`${error}`);
         }
     };
 
