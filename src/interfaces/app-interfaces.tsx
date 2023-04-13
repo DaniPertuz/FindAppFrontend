@@ -26,6 +26,18 @@ export interface LoginData {
     password: string;
 }
 
+export interface IRatingList {
+    total: number;
+    rates: IRate[];
+}
+
+export interface IRate {
+    _id:      string;
+    rate:     number;
+    comments: string;
+    place:    IPlace;
+    user:     string;
+}
 export interface IRating {
     rate:        number;
     comments?:   string;

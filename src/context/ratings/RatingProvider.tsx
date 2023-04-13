@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import findAPI from '../../api/findapi';
-import { IRating, IRatings } from '../../interfaces';
+import { IRating, IRatingList, IRatings } from '../../interfaces';
 import { RatingContext } from './';
 
 export const RatingProvider = ({ children }: any) => {
@@ -9,6 +9,15 @@ export const RatingProvider = ({ children }: any) => {
         rates: []
     });
     const [ratingAverage, setRatingAverage] = useState(0);
+
+    const getAllRatings = async (): Promise<IRatingList> => {
+        try {
+            const { data } = await findAPI.get<IRatingList>('/ratings');
+            return data;
+        } catch (error: any) {
+            throw new Error(error.response!.data.msg);
+        }
+    }
 
     const getRatings = async (placeId: string) => {
         try {
@@ -41,6 +50,7 @@ export const RatingProvider = ({ children }: any) => {
         <RatingContext.Provider value={{
             ratings,
             ratingAverage,
+            getAllRatings,
             getRatings,
             getPlaceRatingAverage,
             addRating
