@@ -3,11 +3,11 @@ import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'r
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import { styles } from '../theme/AppTheme';
-import { IFavorite, IService } from '../interfaces/app-interfaces';
+import { IFavorite, IService, IRate } from '../interfaces/app-interfaces';
 import { PlacesContext } from '../context/places/PlacesContext';
 
 interface Props {
-    item: IFavorite | IService | any;
+    item: IFavorite | IService | IRate;
     onPress: () => void;
 }
 
