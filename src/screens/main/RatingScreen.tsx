@@ -1,43 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { FlatList, Platform, View } from 'react-native';
+import { FlatList, Platform, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { AuthContext, PlacesContext, RatingContext } from '../../context';
 import SavedPlace from '../../components/SavedPlace';
 
+import { IService } from '../../interfaces/app-interfaces';
 import { styles } from '../../theme/AppTheme';
-
-const mock = [
-    {
-        date: "2023-02-22T00:56:13.318Z",
-        place: {
-            _id: "63bdde4b949961872f0dc4e9",
-            name: "Restaurante Las Rocas",
-            address: 'Cl. 82 #45 - 13, Nte. Centro Historico, Barranquilla, Atlántico',
-            photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg",
-            rate: 5,
-            total: 2
-        },
-        search: "Rocas"
-    },
-    {
-        date: "2023-09-22T00:56:13.318Z",
-        place: {
-            _id: "63bddee7a5237a7b4de1a883",
-            name: "Portal del Prado",
-            address: "Cl. 53 #46-192, Nte. Centro Historico, Barranquilla, Atlántico",
-            photo: "https://res.cloudinary.com/dpertuzo/image/upload/v1673755699/mioqv1657x4edresteji.jpg",
-            rate: 3.79,
-            total: 3
-        },
-        search: "Portal"
-    }
-];
 
 interface Props extends StackScreenProps<any, any> { };
 
 const RatingScreen = ({ navigation }: Props) => {
 
     const { top } = useSafeAreaInsets();
+
+    const { getAllRatings } = useContext(RatingContext);
+    const { getHistorical } = useContext(PlacesContext);
+    const { user } = useContext(AuthContext);
+
+    const [placesList, setPlacesList] = useState<IService[]>([]);
+    const [sw, setSw] = useState(false);
+
+    const setFilteredRatings = async () => {
+        const { rates } = await getAllRatings();
+        const hist = await getHistorical(user?._id!);
+
+        const aux: IService[] = [];
+        const ratesFiltered = rates.filter(rate => rate.user === user?._id);
+
+        for (let i = 0; i < hist.services.length; i++) {
+            const service = hist.services[i];
+            for (let j = 0; j < ratesFiltered.length; j++) {
+                const rate = ratesFiltered[j];
+                if ((rate.user === user?._id) && (rate.place._id !== service.place._id)) {
+                    aux.push(service);
+                }
+                setSw((rate.user === user?._id) && (rate.place._id === service.place._id));
+            }
+        }
+        setPlacesList(aux);
+    };
+
+    useEffect(() => {
+        setFilteredRatings();
+        getHistorical(user?._id!);
+    }, []);
 
     return (
         <View
@@ -46,13 +54,20 @@ const RatingScreen = ({ navigation }: Props) => {
                 paddingTop: (Platform.OS === 'ios') ? top : top + 20
             }}
         >
-            <FlatList
-                data={mock}
-                keyExtractor={m => m.place._id}
-                renderItem={({ item }) => (
-                    <SavedPlace item={item} onPress={() => { navigation.navigate('RateScreen', { item }); }} />
-                )}
-            />
+            {(sw === false)
+                ?
+                <View style={styles.center}>
+                    <Text style={styles.secondaryFontStyle}>No hay sitios pendientes por calificar</Text>
+                </View>
+                :
+                <FlatList
+                    data={placesList}
+                    keyExtractor={m => m.createdAt}
+                    renderItem={({ item }) => (
+                        <SavedPlace item={item} onPress={() => { navigation.navigate('RateScreen', { item }); }} />
+                    )}
+                />
+            }
         </View>
     );
 };
