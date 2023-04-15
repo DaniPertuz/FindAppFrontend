@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../context';
-import SavedPlace from '../../components/SavedPlace';
+import HistoryItem from '../../components/HistoryItem';
 import LoadingScreen from '../LoadingScreen';
 import { IHistory } from '../../interfaces';
 
@@ -44,14 +44,12 @@ const HistoryScreen = () => {
                     <FlatList
                         data={historical.services}
                         keyExtractor={(item) => item.date}
-                        renderItem={({ item }) => {
-                            return (
-                                <SavedPlace
-                                    item={item}
-                                    onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
-                                />
-                            );
-                        }}
+                        renderItem={({ item }) =>
+                            <HistoryItem
+                                item={item}
+                                onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
+                            />
+                        }
                     />
                 </View>
             }
