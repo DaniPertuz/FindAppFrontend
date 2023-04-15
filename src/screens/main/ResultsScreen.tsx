@@ -3,17 +3,17 @@ import { FlatList, Platform, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { SearchStackParams } from '../../navigation/SearchNavigator';
+import { RootStackParams } from '../../navigation';
 import SearchResults from '../../components/SearchResults';
 import { PlacesContext } from '../../context';
 import { ISearch } from '../../interfaces/app-interfaces';
 
 import { styles } from '../../theme/AppTheme';
 
-interface Props extends StackScreenProps<SearchStackParams, 'ResultsScreen'> { };
+interface Props extends StackScreenProps<RootStackParams, 'ResultsScreen'> { };
 
 const ResultsScreen = ({ navigation, route }: Props) => {
-    const { search = '' } = route.params;
+    const { search } = route.params;
     const { top } = useSafeAreaInsets();
 
     const { searchPlace } = useContext(PlacesContext);
@@ -37,23 +37,15 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
     const validateResults = () => {
         return (searchResults.places.some(keyValue => {
-            if (keyValue.name.toLocaleLowerCase() === search.toLocaleLowerCase()) {
-                return true;
-            }
-            return false;
-        })
-            ||
-            searchResults.products.some(keyValue => {
-                if (keyValue.name.toLocaleLowerCase() === search.toLocaleLowerCase()) {
-                    return true;
-                }
-                return false;
-            })
+            return (keyValue.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+        }) || (searchResults.products.some(keyValue => {
+            return (keyValue.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+        }))
         );
     };
 
     const setResults = () => {
-        return searchResults.places.filter(item => item.name.toLocaleLowerCase() === search.toLocaleLowerCase());
+        return searchResults.places.filter(item => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
     };
 
     return (
@@ -84,7 +76,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                         <FlatList
                             data={setResults()}
                             renderItem={({ item }) => (
-                                <SearchResults item={item} onPress={() => navigation.navigate('MapScreen', { place: item.address, from: 'ResultsScreen' })} />
+                                <SearchResults item={item} onPress={() => navigation.navigate('MapScreen', { place: item, search })} />
                             )}
                         />
                     </View>
