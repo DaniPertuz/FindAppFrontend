@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../context';
-import SavedPlace from '../../components/SavedPlace';
+import FavoriteItem from '../../components/FavoriteItem';
 import LoadingScreen from '../LoadingScreen';
 import { IFavorites } from '../../interfaces';
 
@@ -45,7 +45,7 @@ const FavoritesScreen = () => {
                         keyExtractor={(item) => item.place._id}
                         renderItem={({ item }) => {
                             return (
-                                <SavedPlace
+                                <FavoriteItem
                                     item={item}
                                     onPress={() => navigation.navigate('MapScreen', { place: item.place.address, search: item.place.name })}
                                 />
