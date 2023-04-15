@@ -4,10 +4,11 @@ import { FlatList, Platform, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext, RatingContext } from '../../context';
-import SavedPlace from '../../components/SavedPlace';
+import RateItem from '../../components/RateItem';
 
-import { IService } from '../../interfaces/app-interfaces';
+import { IRate, IService } from '../../interfaces/app-interfaces';
 import { styles } from '../../theme/AppTheme';
+import LoadingScreen from '../LoadingScreen';
 
 interface Props extends StackScreenProps<any, any> { };
 
@@ -33,10 +34,10 @@ const RatingScreen = ({ navigation }: Props) => {
             const service = hist.services[i];
             for (let j = 0; j < ratesFiltered.length; j++) {
                 const rate = ratesFiltered[j];
-                if ((rate.user === user?._id) && (rate.place._id !== service.place)) {
+                if ((rate.user === user?._id) && (rate.place._id !== service.place._id)) {
                     aux.push(service);
                 }
-                setSw((rate.user === user?._id) && (rate.place._id === service.place));
+                setSw((rate.user === user?._id) && (rate.place._id === service.place._id));
             }
         }
         setPlacesList(aux);
@@ -48,27 +49,33 @@ const RatingScreen = ({ navigation }: Props) => {
     }, []);
 
     return (
-        <View
-            style={{
-                ...styles.topContainer,
-                paddingTop: (Platform.OS === 'ios') ? top : top + 20
-            }}
-        >
-            {(sw === false)
-                ?
-                <View style={styles.center}>
-                    <Text style={styles.secondaryFontStyle}>No hay sitios pendientes por calificar</Text>
-                </View>
+        <>
+            {(placesList.length === 0)
+                ? <LoadingScreen />
                 :
-                <FlatList
-                    data={placesList}
-                    keyExtractor={m => m.date}
-                    renderItem={({ item }) => (
-                        <SavedPlace item={item} onPress={() => { navigation.navigate('RateScreen', { item }); }} />
-                    )}
-                />
+                <View
+                    style={{
+                        ...styles.topContainer,
+                        paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                    }}
+                >
+                    {(sw === false)
+                        ?
+                        <View style={styles.center}>
+                            <Text style={styles.secondaryFontStyle}>No hay sitios pendientes por calificar</Text>
+                        </View>
+                        :
+                        <FlatList
+                            data={placesList}
+                            keyExtractor={m => m.date}
+                            renderItem={({ item }) => (
+                                <RateItem item={item} onPress={() => { navigation.navigate('RateScreen', { item }); }} />
+                            )}
+                        />
+                    }
+                </View>
             }
-        </View>
+        </>
     );
 };
 
