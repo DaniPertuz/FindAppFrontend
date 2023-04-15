@@ -38,17 +38,6 @@ export interface IRate {
     place:    IPlace;
     user:     string;
 }
-export interface IRating {
-    rate:        number;
-    comments?:   string;
-    user:        IUser | null;
-    createdAt:   string;
-}
-
-export interface IRatings {
-    total: number;
-    rates: IRating[];
-}
 export interface IRatingAverage {
     average: number;
 }
@@ -108,7 +97,7 @@ export interface IHistory {
 
 export interface IService {
     date:      string;
-    place:     string;
+    place:     IPlace;
     search:    string;
     user:      string;
 }
