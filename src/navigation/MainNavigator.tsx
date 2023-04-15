@@ -5,16 +5,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { IPlace } from '../interfaces';
 
 export type RootStackParams = {
     MainScreen: undefined,
     EditProfileScreen: undefined,
-    MapScreen: { place: string; },
+    MapScreen: { place: IPlace, search: string },
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
     RatingScreen: undefined,
     RateScreen: undefined,
-    ResultsScreen: undefined,
+    ResultsScreen: { place: IPlace, search: string },
     ReviewsScreen: { place: string; };
 };
 

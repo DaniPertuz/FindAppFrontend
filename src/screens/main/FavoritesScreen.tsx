@@ -42,7 +42,7 @@ const FavoritesScreen = () => {
                     return (
                         <SavedPlace
                             item={item}
-                            onPress={() => navigation.navigate('MapScreen', { place: item.place.address })}
+                            onPress={() => navigation.navigate('MapScreen', { place: item.place.address, search: item.place.name })}
                         />
                     );
                 }}
