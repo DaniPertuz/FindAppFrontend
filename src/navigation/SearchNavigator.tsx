@@ -2,11 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MapScreen, ResultsScreen } from '../screens/main';
 
-export type SearchStackParams = {
-    ResultsScreen: { search: string };
-    MapScreen: { place: string, from: string };
-};
-
 const Stack = createStackNavigator();
 
 const SearchNavigator = () => {
