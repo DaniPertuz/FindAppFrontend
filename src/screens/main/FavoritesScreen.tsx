@@ -3,11 +3,12 @@ import { FlatList, Platform, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AuthContext, PlacesContext } from '../../context';
 import SavedPlace from '../../components/SavedPlace';
+import LoadingScreen from '../LoadingScreen';
 import { IFavorites } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
-import { AuthContext, PlacesContext } from '../../context';
 
 const FavoritesScreen = () => {
 
@@ -29,25 +30,31 @@ const FavoritesScreen = () => {
     }, []);
 
     return (
-        <View
-            style={{
-                ...styles.topContainer,
-                paddingTop: (Platform.OS === 'ios') ? top : top + 20
-            }}
-        >
-            <FlatList
-                data={favorites.favorites}
-                keyExtractor={(item) => item.place._id}
-                renderItem={({ item }) => {
-                    return (
-                        <SavedPlace
-                            item={item}
-                            onPress={() => navigation.navigate('MapScreen', { place: item.place.address, search: item.place.name })}
-                        />
-                    );
-                }}
-            />
-        </View>
+        <>
+            {(favorites.total === 0)
+                ? <LoadingScreen />
+                :
+                <View
+                    style={{
+                        ...styles.topContainer,
+                        paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                    }}
+                >
+                    <FlatList
+                        data={favorites.favorites}
+                        keyExtractor={(item) => item.place._id}
+                        renderItem={({ item }) => {
+                            return (
+                                <SavedPlace
+                                    item={item}
+                                    onPress={() => navigation.navigate('MapScreen', { place: item.place.address, search: item.place.name })}
+                                />
+                            );
+                        }}
+                    />
+                </View>
+            }
+        </>
     );
 };
 

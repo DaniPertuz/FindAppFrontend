@@ -9,6 +9,7 @@ import { PlacesContext } from '../../context';
 import { ISearch } from '../../interfaces/app-interfaces';
 
 import { styles } from '../../theme/AppTheme';
+import LoadingScreen from '../LoadingScreen';
 
 interface Props extends StackScreenProps<RootStackParams, 'ResultsScreen'> { };
 
@@ -50,37 +51,40 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            {validateResults() === false
-                ?
-                <View style={styles.center}>
-                    <Text style={styles.secondaryFontStyle}>
-                        No hay lugares que coincidan con "{search}"
-                    </Text>
-                </View>
+            {(searchResults.places.length === 0) ?
+                <LoadingScreen />
                 :
-                <>
-                    <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
-                        <Text
-                            style={styles.blackPrimaryFontStyle}
-                        >
-                            Buscas: {searchResults.keyword}
+                (validateResults() === false)
+                    ?
+                    <View style={styles.center}>
+                        <Text style={styles.secondaryFontStyle}>
+                            No hay lugares que coincidan con "{search}"
                         </Text>
                     </View>
-                    <View
-                        style={{
-                            ...styles.topContainer,
-                            flex: 10,
-                            paddingTop: (Platform.OS === 'ios') ? top : top + 20
-                        }}
-                    >
-                        <FlatList
-                            data={setResults()}
-                            renderItem={({ item }) => (
-                                <SearchResults item={item} onPress={() => navigation.navigate('MapScreen', { place: item, search })} />
-                            )}
-                        />
-                    </View>
-                </>
+                    :
+                    <>
+                        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+                            <Text
+                                style={styles.blackPrimaryFontStyle}
+                            >
+                                Buscas: {searchResults.keyword}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                ...styles.topContainer,
+                                flex: 10,
+                                paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                            }}
+                        >
+                            <FlatList
+                                data={setResults()}
+                                renderItem={({ item }) => (
+                                    <SearchResults item={item} onPress={() => navigation.navigate('MapScreen', { place: item, search })} />
+                                )}
+                            />
+                        </View>
+                    </>
             }
         </View >
     );

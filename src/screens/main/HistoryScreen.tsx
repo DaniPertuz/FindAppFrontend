@@ -4,8 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../context';
-import { IHistory } from '../../interfaces';
 import SavedPlace from '../../components/SavedPlace';
+import LoadingScreen from '../LoadingScreen';
+import { IHistory } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -29,25 +30,32 @@ const HistoryScreen = () => {
     }, []);
 
     return (
-        <View
-            style={{
-                ...styles.topContainer,
-                paddingTop: (Platform.OS === 'ios') ? top : top + 20
-            }}
-        >
-            <FlatList
-                data={historical.services}
-                keyExtractor={(item) => item.place}
-                renderItem={({ item }) => {
-                    return (
-                        <SavedPlace
-                            item={item}
-                            onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
-                        />
-                    );
-                }}
-            />
-        </View>
+        <>
+            {(historical.total === 0)
+                ?
+                <LoadingScreen />
+                :
+                <View
+                    style={{
+                        ...styles.topContainer,
+                        paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                    }}
+                >
+                    <FlatList
+                        data={historical.services}
+                        keyExtractor={(item) => item.date}
+                        renderItem={({ item }) => {
+                            return (
+                                <SavedPlace
+                                    item={item}
+                                    onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
+                                />
+                            );
+                        }}
+                    />
+                </View>
+            }
+        </>
     );
 };
 
