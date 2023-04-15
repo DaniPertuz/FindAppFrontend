@@ -37,12 +37,12 @@ const HistoryScreen = () => {
         >
             <FlatList
                 data={historical.services}
-                keyExtractor={(item) => item.place._id}
+                keyExtractor={(item) => item.place}
                 renderItem={({ item }) => {
                     return (
                         <SavedPlace
                             item={item}
-                            onPress={() => navigation.navigate('MapScreen', { place: item.place.address })}
+                            onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
                         />
                     );
                 }}

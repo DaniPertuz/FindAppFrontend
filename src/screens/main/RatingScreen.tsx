@@ -33,10 +33,10 @@ const RatingScreen = ({ navigation }: Props) => {
             const service = hist.services[i];
             for (let j = 0; j < ratesFiltered.length; j++) {
                 const rate = ratesFiltered[j];
-                if ((rate.user === user?._id) && (rate.place._id !== service.place._id)) {
+                if ((rate.user === user?._id) && (rate.place._id !== service.place)) {
                     aux.push(service);
                 }
-                setSw((rate.user === user?._id) && (rate.place._id === service.place._id));
+                setSw((rate.user === user?._id) && (rate.place._id === service.place));
             }
         }
         setPlacesList(aux);
@@ -62,7 +62,7 @@ const RatingScreen = ({ navigation }: Props) => {
                 :
                 <FlatList
                     data={placesList}
-                    keyExtractor={m => m.createdAt}
+                    keyExtractor={m => m.date}
                     renderItem={({ item }) => (
                         <SavedPlace item={item} onPress={() => { navigation.navigate('RateScreen', { item }); }} />
                     )}
