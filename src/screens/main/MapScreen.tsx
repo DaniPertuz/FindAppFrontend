@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { BackHandler, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
@@ -12,12 +12,13 @@ import { Location } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { RootStackParams } from '../../navigation';
+import { AuthContext, PlacesContext } from '../../context';
 
 interface Props extends StackScreenProps<RootStackParams, 'MapScreen'> { };
 
 const MapScreen = ({ route, navigation }: Props) => {
 
-    const { place } = route.params;
+    const { place, search } = route.params;
 
     const mapViewRef = useRef<MapView>();
     const following = useRef<boolean>(true);
@@ -29,23 +30,26 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [distance, setDistance] = useState(0);
     const [deviceFormat, setDeviceFormat] = useState(false);
 
+    const { user } = useContext(AuthContext);
+    const { addService } = useContext(PlacesContext);
+
     const getCoords = async () => {
-        const { lat, lng } = await useCoords(place);
+        const { lat, lng } = await useCoords(place.address);
         setDestination({ latitude: lat, longitude: lng });
     };
-    
+
     const setArrivalTime = () => {
         const current = new Date();
         return moment(current.getTime() + duration * 60000).format(deviceFormat ? 'HH:mm' : 'h:mm A');
     };
 
     const getDeviceTimeFormat = async () => {
-        const currentFormat = await DeviceTimeFormat.is24HourFormat()
+        const currentFormat = await DeviceTimeFormat.is24HourFormat();
         setDeviceFormat(currentFormat);
-    }
+    };
 
     useEffect(() => {
-      getDeviceTimeFormat();
+        getDeviceTimeFormat();
     }, []);
 
     useEffect(() => {
@@ -72,19 +76,39 @@ const MapScreen = ({ route, navigation }: Props) => {
                 longitude
             }
         });
+
+        if (currentUserLocation === destination) {
+            addService({
+                date: new Date().toString(),
+                place: place._id,
+                search,
+                user: user?._id!
+            });
+        }
     }, [currentUserLocation]);
 
     const handleBackButtonClick = () => {
-        navigation.goBack();
+        if (currentUserLocation !== destination) {
+            Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará', [
+                {
+                    text: 'Salir',
+                    onPress: () => navigation.goBack()
+                },
+                {
+                    text: 'Continuar',
+                    style: 'cancel'
+                },
+            ]);
+        }
         return true;
-      }
-      
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         return () => {
-          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
         };
-      }, []);
+    }, []);
 
     if (!hasLocation) return <LoadingScreen />;
 
