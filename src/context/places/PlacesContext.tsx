@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { IFavorites, IHistory, IPlace, ISearch } from '../../interfaces';
+import { IFavorites, IHistory, IPlace, ISearch, IService } from '../../interfaces';
 
 type PlacesContextProps = {
     loadPlaceByID:  (placeID: string) => Promise<IPlace>;
@@ -8,6 +8,7 @@ type PlacesContextProps = {
     getFavorites:   (userId: string) => Promise<IFavorites>;
     getHistorical:  (userId: string) => Promise<IHistory>;
     getPlaceRating: (placeID: string) => Promise<number>;
+    addService:     (service: IService) => void;
 }
 
 export const PlacesContext = createContext({} as PlacesContextProps);

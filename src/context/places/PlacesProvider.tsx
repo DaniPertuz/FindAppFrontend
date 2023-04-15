@@ -1,6 +1,6 @@
 import React from 'react';
 import findAPI from '../../api/findapi';
-import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
+import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch, IService } from '../../interfaces';
 import { PlacesContext } from '.';
 
 export interface PlaceState {
@@ -54,13 +54,22 @@ export const PlacesProvider = ({ children }: any) => {
         }
     }
 
+    const addService = async (service: IService) => {
+        try {
+            await findAPI.post<IService>('/services', { service });
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
+    }
+
     return (
         <PlacesContext.Provider value={{
             loadPlaceByID,
             searchPlace,
             getFavorites,
             getHistorical,
-            getPlaceRating
+            getPlaceRating,
+            addService
         }}
         >
             {children}
