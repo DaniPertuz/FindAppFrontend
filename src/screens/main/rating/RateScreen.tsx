@@ -3,10 +3,10 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { BackHandler, Image, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { AuthContext, RatingContext } from '../../../context';
+import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
 import { IRate } from '../../../interfaces';
 import { styles } from '../../../theme/AppTheme';
-import { RootStackParams } from '../../../navigation';
 
 interface Props extends StackScreenProps<RootStackParams, 'RateScreen'> { };
 
@@ -16,12 +16,12 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const { item } = route.params;
     const { user } = useContext(AuthContext);
-    const { addRating, getPlaceRatingAverage, ratingAverage } = useContext(RatingContext);
+    const { addRating, getRatings, getPlaceRatingAverage, ratings, ratingAverage } = useContext(RatingContext);
     const { comments, onChange } = useForm<IRate>({
-        _id: '',
         rate: 0,
         comments: '',
-        user: ''
+        user: undefined,
+        createdAt: ''
     });
     const [selectedRate, setSelectedRate] = useState(0);
 
@@ -31,7 +31,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const onRate = () => {
         Keyboard.dismiss();
-        addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString() });
+        (user !== null) && addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString()});
     };
 
     const backButtonHandler = () => {
@@ -40,6 +40,7 @@ const RateScreen = ({ navigation, route }: Props) => {
     };
 
     useEffect(() => {
+        getRatings(item.place._id);
         getPlaceRatingAverage(item.place._id);
     }, []);
 
@@ -68,11 +69,11 @@ const RateScreen = ({ navigation, route }: Props) => {
                     <View style={styles.ratingSubtitleContainer}>
                         <View style={styles.ratingColumn}>
                             <Text style={styles.secondaryFontStyle}>Promedio</Text>
-                            <Text style={styles.ratingText}>{item.place.rate}/5</Text>
+                            <Text style={styles.ratingText}>{ratingAverage}/5</Text>
                         </View>
                         <View style={styles.ratingColumn}>
                             <Text style={styles.secondaryFontStyle}>Total</Text>
-                            <Text style={styles.ratingText}>{ratingAverage}</Text>
+                            <Text style={styles.ratingText}>{ratings.total}</Text>
                         </View>
                     </View>
                 </View>
