@@ -32,11 +32,11 @@ export interface IRatingList {
 }
 
 export interface IRate {
-    _id:      string;
-    rate:     number;
-    comments: string;
-    place?:   IPlace;
-    user:     string;
+    rate:      number;
+    comments:  string;
+    place?:    IPlace;
+    user?:     IUser;
+    createdAt: string;
 }
 export interface IRatingAverage {
     average: number;
