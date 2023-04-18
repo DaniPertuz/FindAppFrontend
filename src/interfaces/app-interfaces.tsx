@@ -35,7 +35,7 @@ export interface IRate {
     _id:      string;
     rate:     number;
     comments: string;
-    place:    IPlace;
+    place?:   IPlace;
     user:     string;
 }
 export interface IRatingAverage {
