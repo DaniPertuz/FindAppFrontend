@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Image, Platform, Text, TouchableOpacity, View, TextInput } from 'react-native';
-
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
 import { FlatList, Platform, Text, View } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext, RatingContext } from '../../../context';
