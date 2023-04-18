@@ -51,7 +51,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            {(searchResults.places.length === 0) ?
+            {((searchResults.places.length === 0) && searchResults.products.length === 0) ?
                 <LoadingScreen />
                 :
                 (validateResults() === false)
