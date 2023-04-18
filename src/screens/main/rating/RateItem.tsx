@@ -33,7 +33,7 @@ const RateItem = ({ item, onPress }: Props) => {
             onPress={onPress}
         >
             <View
-                style={styles.favoritesItemContainer}
+                style={styles.listItemContainer}
             >
                 <Image
                     source={{ uri: item.place.photo }}

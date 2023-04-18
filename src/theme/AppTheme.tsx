@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textDecorationLine: 'underline'
     },
-    favoritesItemContainer: {
+    listItemContainer: {
         alignItems: 'center',
         backgroundColor: '#EBEBEB',
         borderColor: '#5856D6',
