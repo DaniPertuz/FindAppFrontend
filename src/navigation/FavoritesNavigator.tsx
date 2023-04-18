@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { RootStackParams } from './MainNavigator';
-import { FavoritesScreen, MapScreen } from '../screens';
+import { FavoritesScreen, MapScreen, ReviewsScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -36,7 +36,7 @@ export const FavoritesNavigator = () => {
                         <TouchableOpacity
                             activeOpacity={0.9}
                             style={{ marginLeft: 15 }}
-                            onPress={() => navigator.goBack()}
+                            onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                         >
                             <Icon
                                 name='arrow-back-outline'
@@ -47,6 +47,26 @@ export const FavoritesNavigator = () => {
                 }}
                 component={FavoritesScreen}
             />
+            <Stack.Screen name='ReviewsScreen'
+                options={{
+                    headerTitle: 'Opiniones',
+                    headerStyle: { backgroundColor: '#5856D6' },
+                    headerTintColor: '#FFFFFF',
+                    headerTitleAlign: 'center',
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            style={{ marginLeft: 15 }}
+                            onPress={() => navigator.navigate('FavoritesScreen')}
+                        >
+                            <Icon
+                                name='arrow-back-outline'
+                                size={25}
+                                color={'#FFFFFF'} />
+                        </TouchableOpacity>
+                    )
+                }}
+                component={ReviewsScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
         </Stack.Navigator>
     );

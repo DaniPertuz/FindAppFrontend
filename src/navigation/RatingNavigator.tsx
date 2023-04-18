@@ -35,7 +35,7 @@ export const RatingNavigator = () => {
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
+                        onPress={() => navigator.navigate('MainScreen')}
                     >
                         <Icon
                             name='arrow-back-outline'
@@ -55,7 +55,7 @@ export const RatingNavigator = () => {
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
+                        onPress={() => navigator.navigate('RatingScreen')}
                     >
                         <Icon
                             name='arrow-back-outline'

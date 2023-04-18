@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { RootStackParams } from './MainNavigator';
-import { HistoryScreen, MapScreen } from '../screens';
+import { HistoryScreen, MapScreen, ReviewsScreen } from '../screens';
 
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -36,7 +36,7 @@ export const HistoryNavigator = () => {
                         <TouchableOpacity
                             activeOpacity={0.9}
                             style={{ marginLeft: 15 }}
-                            onPress={() => navigator.goBack()}
+                            onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                         >
                             <Icon
                                 name='arrow-back-outline'
@@ -47,6 +47,26 @@ export const HistoryNavigator = () => {
                 }}
                 component={HistoryScreen}
             />
+            <Stack.Screen name='ReviewsScreen'
+                options={{
+                    headerTitle: 'Opiniones',
+                    headerStyle: { backgroundColor: '#5856D6' },
+                    headerTintColor: '#FFFFFF',
+                    headerTitleAlign: 'center',
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            style={{ marginLeft: 15 }}
+                            onPress={() => navigator.navigate('HistoryScreen')}
+                        >
+                            <Icon
+                                name='arrow-back-outline'
+                                size={25}
+                                color={'#FFFFFF'} />
+                        </TouchableOpacity>
+                    )
+                }}
+                component={ReviewsScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
         </Stack.Navigator>
     );

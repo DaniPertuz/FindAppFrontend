@@ -35,7 +35,7 @@ export const EditProfileNavigator = () => {
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
+                        onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                     >
                         <Icon
                             name='arrow-back-outline'
