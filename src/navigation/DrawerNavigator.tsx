@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { BackHandler, Image, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentOptions, DrawerContentScrollView } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -50,19 +50,6 @@ const MainMenu = ({ navigation }: DrawerContentComponentProps<DrawerContentOptio
         setUserMock(usr);
         setUserPhoto(usr.photo!);
     };
-
-    const backButtonHandler = () => {
-        navigation.goBack();
-        return true;
-    };
-
-    useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
-
-        return () => {
-            BackHandler.removeEventListener("hardwareBackPress", backButtonHandler);
-        };
-    }, []);
 
     return (
         <DrawerContentScrollView contentContainerStyle={{ flex: 1 }}>
