@@ -52,15 +52,23 @@ export const PlacesProvider = ({ children }: any) => {
         } catch (error) {
             throw new Error(`${error}`);
         }
-    }
+    };
 
-    const addService = async (service: IService) => {
+    const addFavorite = async (user: string, place: string) => {
         try {
-            await findAPI.post<IService>('/services', { service });
+            await findAPI.post('/favorites', { user, place });
         } catch (error: any) {
             console.log(error.response!.data.msg);
         }
-    }
+    };
+
+    const addService = async (date: string, place: string, search: string, user: string) => {
+        try {
+            await findAPI.post('/services', { date, place, search, user });
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
+    };
 
     return (
         <PlacesContext.Provider value={{
@@ -69,6 +77,7 @@ export const PlacesProvider = ({ children }: any) => {
             getFavorites,
             getHistorical,
             getPlaceRating,
+            addFavorite,
             addService
         }}
         >

@@ -8,7 +8,8 @@ type PlacesContextProps = {
     getFavorites:   (userId: string) => Promise<IFavorites>;
     getHistorical:  (userId: string) => Promise<IHistory>;
     getPlaceRating: (placeID: string) => Promise<number>;
-    addService:     (service: IService) => void;
+    addFavorite:    (user: string, place: string) => Promise<void>
+    addService:     (date: string, place: string, search: string, user: string) => void;
 }
 
 export const PlacesContext = createContext({} as PlacesContextProps);
