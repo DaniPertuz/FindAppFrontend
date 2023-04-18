@@ -10,12 +10,12 @@ import { IPlace, IService } from '../interfaces';
 export type RootStackParams = {
     MainScreen: undefined,
     EditProfileScreen: undefined,
-    MapScreen: { place: IPlace, search: string },
+    MapScreen: { place: IPlace, search: string; },
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
     RatingScreen: undefined,
-    RateScreen: { item: IService },
-    ResultsScreen: { place: IPlace, search: string },
+    RateScreen: { item: IService; },
+    ResultsScreen: { place: IPlace, search: string; },
     ReviewsScreen: { place: string; };
 };
 
@@ -52,7 +52,7 @@ export const MainNavigator = () => {
                     <TouchableOpacity
                         activeOpacity={0.9}
                         style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
+                        onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                     >
                         <Icon
                             name='arrow-back-outline'
