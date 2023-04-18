@@ -3,12 +3,12 @@ import { FlatList, Platform, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AuthContext, PlacesContext } from '../../context';
-import HistoryItem from '../../components/HistoryItem';
-import LoadingScreen from '../LoadingScreen';
-import { IHistory } from '../../interfaces';
+import { AuthContext, PlacesContext } from '../../../context';
+import HistoryItem from './HistoryItem';
+import LoadingScreen from '../../LoadingScreen';
+import { IHistory } from '../../../interfaces';
 
-import { styles } from '../../theme/AppTheme';
+import { styles } from '../../../theme/AppTheme';
 
 const HistoryScreen = () => {
 

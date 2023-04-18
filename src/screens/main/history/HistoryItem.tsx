@@ -3,16 +3,16 @@ import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'r
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 
-import { IService } from '../interfaces/app-interfaces';
-import { PlacesContext } from '../context/places/PlacesContext';
-import { styles } from '../theme/AppTheme';
+import { PlacesContext } from '../../../context/places/PlacesContext';
+import { IService } from '../../../interfaces/app-interfaces';
+import { styles } from '../../../theme/AppTheme';
 
 interface Props {
     item: IService;
     onPress: () => void;
 }
 
-const RateItem = ({ item, onPress }: Props) => {
+const HistoryItem = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation();
 
@@ -84,4 +84,4 @@ const RateItem = ({ item, onPress }: Props) => {
     );
 };
 
-export default RateItem;
+export default HistoryItem;

@@ -3,12 +3,12 @@ import { FlatList, Platform, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AuthContext, PlacesContext } from '../../context';
-import FavoriteItem from '../../components/FavoriteItem';
-import LoadingScreen from '../LoadingScreen';
-import { IFavorites } from '../../interfaces';
+import { AuthContext, PlacesContext } from '../../../context';
+import FavoriteItem from './FavoriteItem';
+import LoadingScreen from '../../LoadingScreen';
+import { IFavorites } from '../../../interfaces';
 
-import { styles } from '../../theme/AppTheme';
+import { styles } from '../../../theme/AppTheme';
 
 const FavoritesScreen = () => {
 

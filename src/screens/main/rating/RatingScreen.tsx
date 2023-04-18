@@ -3,12 +3,12 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { FlatList, Platform, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AuthContext, PlacesContext, RatingContext } from '../../context';
-import RateItem from '../../components/RateItem';
+import { AuthContext, PlacesContext, RatingContext } from '../../../context';
+import LoadingScreen from '../../LoadingScreen';
+import RateItem from './RateItem';
 
-import { IRate, IService } from '../../interfaces/app-interfaces';
-import { styles } from '../../theme/AppTheme';
-import LoadingScreen from '../LoadingScreen';
+import { IService } from '../../../interfaces/app-interfaces';
+import { styles } from '../../../theme/AppTheme';
 
 interface Props extends StackScreenProps<any, any> { };
 
@@ -34,10 +34,10 @@ const RatingScreen = ({ navigation }: Props) => {
             const service = hist.services[i];
             for (let j = 0; j < ratesFiltered.length; j++) {
                 const rate = ratesFiltered[j];
-                if ((rate.user === user?._id) && (rate.place._id !== service.place._id)) {
+                if ((rate.user === user?._id) && (rate.place!._id !== service.place._id)) {
                     aux.push(service);
                 }
-                setSw((rate.user === user?._id) && (rate.place._id === service.place._id));
+                setSw((rate.user === user?._id) && (rate.place!._id === service.place._id));
             }
         }
         setPlacesList(aux);

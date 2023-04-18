@@ -3,16 +3,16 @@ import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'r
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 
-import { PlacesContext } from '../context/places/PlacesContext';
-import { IFavorite } from '../interfaces/app-interfaces';
-import { styles } from '../theme/AppTheme';
+import { IService } from '../../../interfaces/app-interfaces';
+import { PlacesContext } from '../../../context/places/PlacesContext';
+import { styles } from '../../../theme/AppTheme';
 
 interface Props {
-    item: IFavorite;
+    item: IService;
     onPress: () => void;
 }
 
-const FavoriteItem = ({ item, onPress }: Props) => {
+const RateItem = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation();
 
@@ -84,4 +84,4 @@ const FavoriteItem = ({ item, onPress }: Props) => {
     );
 };
 
-export default FavoriteItem;
+export default RateItem;
