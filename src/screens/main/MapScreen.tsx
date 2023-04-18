@@ -31,7 +31,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [deviceFormat, setDeviceFormat] = useState(false);
 
     const { user } = useContext(AuthContext);
-    const { addService } = useContext(PlacesContext);
+    const { addFavorite, addService } = useContext(PlacesContext);
 
     const getCoords = async () => {
         const { lat, lng } = await useCoords(place.address);
@@ -78,12 +78,22 @@ const MapScreen = ({ route, navigation }: Props) => {
         });
 
         if (currentUserLocation === destination) {
-            addService({
-                date: new Date().toString(),
-                place: place._id,
-                search,
-                user: user?._id!
-            });
+            addService(new Date().toString(), place._id, search, user?._id!);
+
+            Alert.alert(`Has llegado a ${place.name}`, '¿Deseas guardarlo como favorito', [
+                {
+                    text: 'No',
+                    onPress: () => navigation.goBack()
+                },
+                {
+                    text: 'Sí',
+                    onPress: () => {
+                        addFavorite(user?._id!, place._id);
+                        Alert.alert('Agregado a favoritos', '', [{ text: 'OK' }]);
+                    }
+                }
+            ]
+            );
         }
     }, [currentUserLocation]);
 
