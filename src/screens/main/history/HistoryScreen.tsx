@@ -18,7 +18,9 @@ const HistoryScreen = () => {
     const { user } = useContext(AuthContext);
     const { getHistorical } = useContext(PlacesContext);
 
-    const [historical, setHistorical] = useState<IHistory>({ total: 0, services: [] });
+    const init = { total: 0, services: [] }
+
+    const [historical, setHistorical] = useState<IHistory>(init);
 
     const loadFavorites = async () => {
         const hist = await getHistorical(user?._id!);
@@ -31,7 +33,7 @@ const HistoryScreen = () => {
 
     return (
         <>
-            {(historical.total === 0)
+            {(historical === init)
                 ?
                 <LoadingScreen />
                 :

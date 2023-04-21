@@ -15,7 +15,9 @@ const FavoritesScreen = () => {
     const navigation = useNavigation();
     const { top } = useSafeAreaInsets();
 
-    const [favorites, setFavorites] = useState<IFavorites>({ total: 0, favorites: [] });
+    const init = { total: 0, favorites: [] };
+
+    const [favorites, setFavorites] = useState<IFavorites>(init);
 
     const { user } = useContext(AuthContext);
     const { getFavorites } = useContext(PlacesContext);
@@ -31,7 +33,7 @@ const FavoritesScreen = () => {
 
     return (
         <>
-            {(favorites.total === 0)
+            {(favorites === init)
                 ? <LoadingScreen />
                 :
                 <View

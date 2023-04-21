@@ -36,61 +36,65 @@ const HistoryItem = ({ item, onPress }: Props) => {
     }, []);
 
     return (
-        <TouchableWithoutFeedback
-            onPress={onPress}
-        >
-            <>
-                <Text>Buscaste: {item.search}</Text>
-                <View
-                    style={styles.listItemContainer}
+        <>
+            {(placeRating !== 0) &&
+                <TouchableWithoutFeedback
+                    onPress={onPress}
                 >
-                    <Image
-                        source={{ uri: place?.photo }}
-                        style={styles.itemIcon}
-                    />
-                    <Text style={{
-                        ...styles.blackPrimaryFontStyle,
-                        flex: 4,
-                        marginHorizontal: 10,
-                        paddingEnd: 20
-                    }}>
-                        {place?.name}
-                    </Text>
-                    <View
-                        style={{
-                            flex: 2,
-                            justifyContent: 'space-between'
-                        }}
-                    >
-                        <TouchableOpacity
-                            style={{
-                                alignItems: 'center', flex: 1
-                            }}
-                            activeOpacity={0.9}
-                            onPress={() => navigator.navigate('ReviewsScreen', { place: place?._id })}
+                    <>
+                        <Text>Buscaste: {item.search}</Text>
+                        <View
+                            style={styles.listItemContainer}
                         >
-                            <Text style={styles.linkStyle}>
-                                {placeRating.toFixed(2)}
-                            </Text>
-                            <Rating
-                                fractions={2}
-                                imageSize={20}
-                                minValue={1}
-                                ratingBackgroundColor='#FFFFFF'
-                                ratingCount={5}
-                                ratingTextColor='#5856D6'
-                                readonly
-                                showReadOnlyText={false}
-                                startingValue={placeRating}
-                                style={{ flex: 2 }}
-                                tintColor='#EBEBEB'
-                                type='star'
+                            <Image
+                                source={{ uri: place?.photo }}
+                                style={styles.itemIcon}
                             />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </>
-        </TouchableWithoutFeedback>
+                            <Text style={{
+                                ...styles.blackPrimaryFontStyle,
+                                flex: 4,
+                                marginHorizontal: 10,
+                                paddingEnd: 20
+                            }}>
+                                {place?.name}
+                            </Text>
+                            <View
+                                style={{
+                                    flex: 2,
+                                    justifyContent: 'space-between'
+                                }}
+                            >
+                                <TouchableOpacity
+                                    style={{
+                                        alignItems: 'center', flex: 1
+                                    }}
+                                    activeOpacity={0.9}
+                                    onPress={() => navigator.navigate('ReviewsScreen', { place: place?._id })}
+                                >
+                                    <Text style={styles.linkStyle}>
+                                        {placeRating.toFixed(2)}
+                                    </Text>
+                                    <Rating
+                                        fractions={2}
+                                        imageSize={20}
+                                        minValue={1}
+                                        ratingBackgroundColor='#FFFFFF'
+                                        ratingCount={5}
+                                        ratingTextColor='#5856D6'
+                                        readonly
+                                        showReadOnlyText={false}
+                                        startingValue={placeRating}
+                                        style={{ flex: 2 }}
+                                        tintColor='#EBEBEB'
+                                        type='star'
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </>
+                </TouchableWithoutFeedback>
+            }
+        </>
     );
 };
 
