@@ -6,26 +6,31 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigation';
 import SearchResults from '../../components/SearchResults';
 import { PlacesContext } from '../../context';
-import { ISearch } from '../../interfaces/app-interfaces';
+import { IPlace, ISearch, Location } from '../../interfaces/app-interfaces';
 
 import { styles } from '../../theme/AppTheme';
 import LoadingScreen from '../LoadingScreen';
+import useLocation from '../../hooks/useLocation';
 
 interface Props extends StackScreenProps<RootStackParams, 'ResultsScreen'> { };
 
 const ResultsScreen = ({ navigation, route }: Props) => {
     const { search } = route.params;
+
     const { top } = useSafeAreaInsets();
+    const { currentUserLocation } = useLocation();
 
     const { searchPlace } = useContext(PlacesContext);
 
-    const [searchResults, setSearchResults] = useState<ISearch>({
+    const init = {
         keyword: search,
         totalPlaces: 0,
         places: [],
         totalProducts: 0,
         products: []
-    });
+    };
+
+    const [searchResults, setSearchResults] = useState<ISearch>(init);
 
     const setData = async () => {
         const results = await searchPlace(search);
@@ -36,25 +41,28 @@ const ResultsScreen = ({ navigation, route }: Props) => {
         setData();
     }, []);
 
-    const validateResults = () => {
-        return (searchResults.places.some(keyValue => {
-            return (keyValue.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
-        }) || (searchResults.products.some(keyValue => {
-            return (keyValue.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
-        }))
-        );
+    const distance = (coor1: Location, coor2: Location) => {
+        const x = coor2.longitude - coor1.longitude;
+        const y = coor2.latitude - coor1.latitude;
+        return Math.sqrt((x * x) + (y * y));
+    };
+
+    const sortByDistance = (coordinates: IPlace[], point: Location) => {
+        const sorter = (a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point);
+        return coordinates.sort(sorter);
     };
 
     const setResults = () => {
-        return searchResults.places.filter(item => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+        return sortByDistance(searchResults.places, currentUserLocation);
     };
 
     return (
         <View style={{ flex: 1 }}>
-            {((searchResults.places.length === 0) && searchResults.products.length === 0) ?
+            {((searchResults === init))
+                ?
                 <LoadingScreen />
                 :
-                (validateResults() === false)
+                ((searchResults.totalPlaces === 0) && (searchResults.totalProducts === 0))
                     ?
                     <View style={styles.center}>
                         <Text style={styles.secondaryFontStyle}>
