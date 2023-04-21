@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import { Rating } from 'react-native-ratings';
-import { styles } from '../theme/AppTheme';
 import { IPlace } from '../interfaces/app-interfaces';
-import { PlacesContext } from '../context/places/PlacesContext';
+
+import { styles } from '../theme/AppTheme';
 
 interface Props {
     item: IPlace;
@@ -15,18 +16,6 @@ const SearchResults = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation();
 
-    const { getPlaceRating } = useContext(PlacesContext);
-
-    const [placeRating, setPlaceRating] = useState<number>(0);
-
-    const setRating = async () => {
-        setPlaceRating(await getPlaceRating(item._id));
-    }
-
-    useEffect(() => {
-      setRating();
-    }, []);
-
     return (
         <TouchableWithoutFeedback
             onPress={onPress}
@@ -35,7 +24,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                 style={styles.listItemContainer}
             >
                 <Image
-                    source={{ uri: item.photo }}
+                    source={(item.photo === '') ? require('../assets/placeholder.png') : { uri: item.photo }}
                     style={styles.itemIcon}
                 />
                 <Text style={{
@@ -60,7 +49,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                         onPress={() => navigator.navigate('ReviewsScreen', { place: item._id })}
                     >
                         <Text style={styles.linkStyle}>
-                            {placeRating.toFixed(2)}
+                            {parseFloat(item.rate.$numberDecimal).toFixed(2)}
                         </Text>
                         <Rating
                             fractions={2}
@@ -71,7 +60,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                             ratingTextColor='#5856D6'
                             readonly
                             showReadOnlyText={false}
-                            startingValue={placeRating}
+                            startingValue={parseFloat(item.rate.$numberDecimal)}
                             style={{ flex: 2 }}
                             tintColor='#EBEBEB'
                             type='star'
