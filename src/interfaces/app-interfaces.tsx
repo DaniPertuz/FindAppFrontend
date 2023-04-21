@@ -56,6 +56,7 @@ export interface IPlace {
     description: string;
     category:    Categories[];
     address:     string;
+    coords:      Location;
     phone:       number;
     city:        string;
     state:       string;
@@ -63,8 +64,11 @@ export interface IPlace {
     schedule:    string[];
     photo:       string;
     pics?:       string[];
-    rate:        number;
+    rate:        PlaceRate;
     status:      boolean;
+}
+export interface PlaceRate {
+    $numberDecimal: string;
 }
 
 export interface IProduct {
