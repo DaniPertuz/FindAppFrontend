@@ -49,7 +49,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                         onPress={() => navigator.navigate('ReviewsScreen', { place: item._id })}
                     >
                         <Text style={styles.linkStyle}>
-                            {parseFloat(item.rate.$numberDecimal).toFixed(2)}
+                            {item.rate.$numberDecimal}
                         </Text>
                         <Rating
                             fractions={2}
