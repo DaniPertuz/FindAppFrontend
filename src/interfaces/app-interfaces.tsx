@@ -58,6 +58,8 @@ export interface IPlace {
     address:     string;
     coords:      Location;
     phone:       number;
+    whatsapp?:   string;
+    instagram?:  string;
     city:        string;
     state:       string;
     country:     string;
