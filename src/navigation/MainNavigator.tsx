@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
 import { IPlace, IService } from '../interfaces';
 
 export type RootStackParams = {
@@ -13,6 +13,7 @@ export type RootStackParams = {
     MapScreen: { place: IPlace, search: string; },
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
+    PlaceDetailsScreen: { place: IPlace, search: string; },
     RatingScreen: undefined,
     RateScreen: { item: IService; },
     ResultsScreen: { place: IPlace, search: string; },
@@ -42,6 +43,25 @@ export const MainNavigator = () => {
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
             <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
             <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
+            <Stack.Screen name="PlaceDetailsScreen" options={{
+                headerTitle: '',
+                headerStyle: { backgroundColor: '#5856D6' },
+                headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ marginLeft: 15 }}
+                        onPress={() => navigator.goBack()}
+                    >
+                        <Icon
+                            name='arrow-back-outline'
+                            size={25}
+                            color={'#FFFFFF'} />
+                    </TouchableOpacity>
+                )
+            }}
+                component={PlaceDetailsScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
             <Stack.Screen name="ResultsScreen" options={{
                 headerTitle: 'Resultados de búsqueda',
