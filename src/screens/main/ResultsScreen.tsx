@@ -47,14 +47,9 @@ const ResultsScreen = ({ navigation, route }: Props) => {
         return Math.sqrt((x * x) + (y * y));
     };
 
-    const sortByDistance = (coordinates: IPlace[], point: Location) => {
-        const sorter = (a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point);
-        return coordinates.sort(sorter);
-    };
+    const sortByDistance = (coordinates: IPlace[], point: Location) => coordinates.sort((a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point));
 
-    const setResults = () => {
-        return sortByDistance(searchResults.places, currentUserLocation);
-    };
+    const setResults = () => sortByDistance(searchResults.places, currentUserLocation);
 
     return (
         <View style={{ flex: 1 }}>
