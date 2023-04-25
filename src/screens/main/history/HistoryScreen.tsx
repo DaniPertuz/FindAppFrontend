@@ -18,25 +18,28 @@ const HistoryScreen = () => {
     const { user } = useContext(AuthContext);
     const { getHistorical } = useContext(PlacesContext);
 
-    const init = { total: 0, services: [] }
+    const init = { total: 0, services: [] };
 
     const [historical, setHistorical] = useState<IHistory>(init);
+    const [display, setDisplay] = useState(false);
 
-    const loadFavorites = async () => {
-        const hist = await getHistorical(user?._id!);
-        setHistorical(hist);
+    const setHistoricalData = async () => {
+        const data = await getHistorical(user?._id!);
+        if (data) {
+            setHistorical(data);
+            setDisplay(true);
+        }
     };
 
     useEffect(() => {
-        loadFavorites();
-    }, []);
+        setHistoricalData();
+    }, [historical]);
 
     return (
         <>
-            {(historical === init)
-                ?
-                <LoadingScreen />
-                :
+            {(display === false) && <LoadingScreen />}
+
+            {(display === true) &&
                 <View
                     style={{
                         ...styles.topContainer,

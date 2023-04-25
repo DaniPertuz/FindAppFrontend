@@ -18,24 +18,28 @@ const FavoritesScreen = () => {
     const init = { total: 0, favorites: [] };
 
     const [favorites, setFavorites] = useState<IFavorites>(init);
+    const [display, setDisplay] = useState(false);
 
     const { user } = useContext(AuthContext);
     const { getFavorites } = useContext(PlacesContext);
 
-    const loadFavorites = async () => {
-        const favs = await getFavorites(user?._id!);
-        setFavorites(favs);
+    const setFavoritesData = async () => {
+        const data = await getFavorites(user?._id!);
+        if (data) {
+            setFavorites(data);
+            setDisplay(true);
+        }
     };
 
     useEffect(() => {
-        loadFavorites();
-    }, []);
+        setFavoritesData();
+    }, [favorites]);
 
     return (
         <>
-            {(favorites === init)
-                ? <LoadingScreen />
-                :
+            {(display === false) && <LoadingScreen />}
+
+            {(display === true) &&
                 <View
                     style={{
                         ...styles.topContainer,
