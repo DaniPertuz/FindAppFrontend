@@ -114,7 +114,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                             data={setProductResults()}
                             style={{ maxHeight: height / 3 }}
                             renderItem={({ item }) => (
-                                <SearchProductResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item.place, search })} />
+                                <SearchProductResults item={item} onPress={() => navigation.navigate('ProductDetailsScreen', { product: item, search })} />
                             )}
                         />
                     </View>
