@@ -456,6 +456,11 @@ const styles = StyleSheet.create({
     rowJustifyCenter: {
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    resultsCenterContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 });
 

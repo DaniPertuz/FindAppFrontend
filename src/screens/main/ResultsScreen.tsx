@@ -69,7 +69,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
             {((display === true) && (searchResults.totalPlaces !== 0 || searchResults.totalProducts !== 0)) &&
                 <>
-                    <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+                    <View style={styles.resultsCenterContainer}>
                         <Text
                             style={styles.blackPrimaryFontStyle}
                         >
