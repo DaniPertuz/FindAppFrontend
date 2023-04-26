@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+    alignItemsCenter: {
+        alignItems: 'center'
+    },
     center: {
         flex: 1,
         justifyContent: 'center',
@@ -378,6 +381,81 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontFamily: 'Nunito-Regular',
         fontWeight: '700'
+    },
+    placeDetailsMainTopContainer: {
+        flex: 1,
+        paddingTop: 15,
+        paddingHorizontal: 30
+    },
+    placeDetailsTopContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 15
+    },
+    placeDetailsNameContainer: {
+        flex: 1,
+        maxHeight: 70,
+        marginEnd: 10
+    },
+    placeDetailsContactContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10
+    },
+    placeDetailsContactEvenlyContainer: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
+    placeDetailsIcon: {
+        borderRadius: 100,
+        height: 90,
+        width: 90
+    },
+    placeDetailsCarouselPicture: {
+        borderRadius: 5,
+        height: '100%',
+        resizeMode: 'contain',
+        width: '100%'
+    },
+    placeDetailsCarouselContainer: {
+        flex: 3,
+        marginBottom: 20
+    },
+    placeDetailsCarousel: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 10
+    },
+    placeDetailsDescription: {
+        flex: 1,
+        marginBottom: 10,
+        maxHeight: 70
+    },
+    placeDetailsDropdown: {
+        flex: 2,
+        maxHeight: 50,
+        borderBottomColor: '#4B4D4B',
+        borderBottomWidth: 0.5,
+        marginEnd: 20
+    },
+    placeDetailsDropdownRateContainer: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 10,
+        maxHeight: 60
+    },
+    justifyContentCenter: {
+        justifyContent: 'center'
+    },
+    rowJustifyCenter: {
+        flexDirection: 'row',
+        justifyContent: 'center'
     }
 });
 
