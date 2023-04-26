@@ -80,7 +80,7 @@ export interface IProduct {
     category:    Categories;
     observation: string;
     price:       number;
-    restaurant:  IPlace;
+    place:       IPlace;
     rate:        number;
     img?:        string;
     status:      boolean;
