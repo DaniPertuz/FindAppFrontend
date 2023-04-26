@@ -66,10 +66,10 @@ export interface IPlace {
     schedule:    string[];
     photo:       string;
     pics?:       string[];
-    rate:        PlaceRate;
+    rate:        NumericRate;
     status:      boolean;
 }
-export interface PlaceRate {
+export interface NumericRate {
     $numberDecimal: string;
 }
 
@@ -81,7 +81,7 @@ export interface IProduct {
     observation: string;
     price:       number;
     place:       IPlace;
-    rate:        PlaceRate;
+    rate:        NumericRate;
     img?:        string;
     status:      boolean;
 }
