@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, ProductDetailsScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
 import { IPlace, IProduct, IService } from '../interfaces';
 
 export type RootStackParams = {
@@ -18,6 +18,7 @@ export type RootStackParams = {
     RatingScreen: undefined,
     RateScreen: { item: IService; },
     ResultsScreen: { place: IPlace, search: string; },
+    ProductReviewsScreen: { product: string; },
     ReviewsScreen: { place: string; };
 };
 
@@ -121,6 +122,25 @@ export const MainNavigator = () => {
                 )
             }}
                 component={ReviewsScreen} />
+            <Stack.Screen name="ProductReviewsScreen" options={{
+                headerTitle: 'Opiniones',
+                headerStyle: { backgroundColor: '#5856D6' },
+                headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ marginLeft: 15 }}
+                        onPress={() => navigator.goBack()}
+                    >
+                        <Icon
+                            name='arrow-back-outline'
+                            size={25}
+                            color={'#FFFFFF'} />
+                    </TouchableOpacity>
+                )
+            }}
+                component={ProductReviewsScreen} />
         </Stack.Navigator>
     );
 };
