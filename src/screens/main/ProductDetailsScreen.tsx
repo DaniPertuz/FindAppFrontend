@@ -25,9 +25,9 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
     return (
-        <View style={styles.placeDetailsMainTopContainer}>
-            <View style={styles.placeDetailsTopContainer}>
-                <ScrollView style={styles.placeDetailsNameContainer}>
+        <View style={styles.detailsMainTopContainer}>
+            <View style={styles.detailsTopContainer}>
+                <ScrollView style={styles.detailsNameContainer}>
                     <Text style={styles.blackPrimaryFontStyle}>{product.name}</Text>
                 </ScrollView>
                 <Image
@@ -36,7 +36,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                             ? require('../../assets/placeholder.png')
                             : { uri: product.place.photo }
                     }
-                    style={styles.placeDetailsIcon}
+                    style={styles.detailsIcon}
                 />
             </View>
             <View style={{ flex: 4 }}>
@@ -52,23 +52,23 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     }}
                 />
             </View>
-            <ScrollView style={styles.placeDetailsDescription}>
+            <ScrollView style={styles.detailsDescription}>
                 <Text style={styles.secondaryFontStyle}>{product.description}</Text>
             </ScrollView>
-            <View style={styles.placeDetailsDropdownRateContainer}>
+            <View style={styles.detailsDropdownRateContainer}>
                 <Dropdown
                     data={product.place.schedule.map(schedule => {
                         return { label: schedule };
                     })}
                     placeholder='Horario'
-                    style={styles.placeDetailsDropdown}
+                    style={styles.detailsDropdown}
                     labelField={'label'} valueField={'label'} onChange={() => { }}
                 />
-                <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactEvenlyContainer}>
                     <TouchableOpacity
                         style={styles.alignItemsCenter}
                         activeOpacity={0.9}
-                        onPress={() => navigation.navigate('ReviewsScreen', { place: product.place._id })}
+                        onPress={() => navigation.navigate('ProductReviewsScreen', { product: product._id })}
                     >
                         <Text style={styles.linkStyle}>
                             {product.rate.$numberDecimal}
@@ -77,8 +77,8 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
             </View>
             <View style={{ flex: 2 }}>
-                <View style={styles.placeDetailsContactContainer}>
-                    <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactContainer}>
+                    <View style={styles.detailsContactBetweenContainer}>
                         <Icon
                             color='#000000'
                             name='business-outline'
@@ -93,7 +93,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         </TouchableOpacity>
                     </View>
                     {(product.place.whatsapp) ?
-                        <View style={{ ...styles.placeDetailsContactEvenlyContainer, marginEnd: 5 }}>
+                        <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
                             <Icon
                                 color='#000000'
                                 name='logo-whatsapp'
@@ -110,8 +110,8 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         : <View style={{ flex: 1 }} />
                     }
                 </View>
-                <View style={styles.placeDetailsContactContainer}>
-                    <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactContainer}>
+                    <View style={styles.detailsContactBetweenContainer}>
                         <Icon
                             color='#000000'
                             name='call-outline'
@@ -128,7 +128,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                     {(product.place.instagram)
                         ?
-                        <View style={{ ...styles.placeDetailsContactEvenlyContainer, marginStart: 5 }}>
+                        <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
                             <Icon
                                 color='#000000'
                                 name='logo-instagram'
@@ -144,6 +144,17 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         </View>
                         : <View style={{ flex: 1 }} />
                     }
+                </View>
+                <View style={styles.detailsContactContainer}>
+                    <Icon
+                        color='#000000'
+                        name='location-outline'
+                        size={30}
+                        style={{ marginEnd: 15 }}
+                    />
+                    <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
+                        <Text style={styles.secondaryFontStyle}>{product.place.city}, {product.place.state}</Text>
+                    </ScrollView>
                 </View>
             </View>
             <View style={{ flex: 1 }}>

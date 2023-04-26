@@ -26,9 +26,9 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
     return (
-        <View style={styles.placeDetailsMainTopContainer}>
-            <View style={styles.placeDetailsTopContainer}>
-                <ScrollView style={styles.placeDetailsNameContainer}>
+        <View style={styles.detailsMainTopContainer}>
+            <View style={styles.detailsTopContainer}>
+                <ScrollView style={styles.detailsNameContainer}>
                     <Text style={styles.blackPrimaryFontStyle}>{place.name}</Text>
                 </ScrollView>
                 <Image
@@ -37,38 +37,38 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                             ? require('../../assets/placeholder.png')
                             : { uri: place.photo }
                     }
-                    style={styles.placeDetailsIcon}
+                    style={styles.detailsIcon}
                 />
             </View>
-            <View style={styles.placeDetailsCarouselContainer}>
+            <View style={styles.detailsCarouselContainer}>
                 <Carousel
                     data={[...place.pics!]}
                     loop={false}
                     width={width}
                     renderItem={(data) => (
-                        <View style={styles.placeDetailsCarousel}>
+                        <View style={styles.detailsCarousel}>
                             <Image
                                 source={{ uri: data.item }}
-                                style={styles.placeDetailsCarouselPicture}
+                                style={styles.detailsCarouselPicture}
                             />
                         </View>
                     )}
                 />
             </View>
-            <ScrollView style={styles.placeDetailsDescription}>
+            <ScrollView style={styles.detailsDescription}>
                 <Text style={styles.secondaryFontStyle}>{place.description}</Text>
             </ScrollView>
-            <View style={styles.placeDetailsDropdownRateContainer}
+            <View style={styles.detailsDropdownRateContainer}
             >
                 <Dropdown
                     data={place.schedule.map(schedule => {
                         return { label: schedule };
                     })}
                     placeholder='Horario'
-                    style={styles.placeDetailsDropdown}
+                    style={styles.detailsDropdown}
                     labelField={'label'} valueField={'label'} onChange={() => { }}
                 />
-                <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactEvenlyContainer}>
                     <TouchableOpacity
                         style={styles.alignItemsCenter}
                         activeOpacity={0.9}
@@ -81,29 +81,31 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
             </View>
             <View style={{ flex: 2 }}>
-                <View style={styles.placeDetailsContactContainer}>
-                    <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactContainer}>
+                    <View style={styles.detailsContactBetweenContainer}>
                         <Icon
                             color='#000000'
                             name='business-outline'
                             size={30}
                         />
                         <TouchableOpacity
+                            activeOpacity={0.9}
                             onLongPress={() => copyToClipboard(place.address)}
                         >
-                            <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 120 }}>
+                            <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 130 }}>
                                 <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(place.address)}</Text>
                             </ScrollView>
                         </TouchableOpacity>
                     </View>
                     {(place.whatsapp) ?
-                        <View style={{ ...styles.placeDetailsContactEvenlyContainer, marginEnd: 5 }}>
+                        <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
                             <Icon
                                 color='#000000'
                                 name='logo-whatsapp'
                                 size={30}
                             />
                             <TouchableOpacity
+                                activeOpacity={0.9}
                                 onPress={() => Linking.openURL(`https://wa.me/+57${place.whatsapp}`)}
                             >
                                 <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
@@ -114,8 +116,8 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         : <View style={{ flex: 1 }} />
                     }
                 </View>
-                <View style={styles.placeDetailsContactContainer}>
-                    <View style={styles.placeDetailsContactEvenlyContainer}>
+                <View style={styles.detailsContactContainer}>
+                    <View style={styles.detailsContactBetweenContainer}>
                         <Icon
                             color='#000000'
                             name='call-outline'
@@ -132,13 +134,14 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                     {(place.instagram)
                         ?
-                        <View style={{ ...styles.placeDetailsContactEvenlyContainer, marginStart: 5 }}>
+                        <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
                             <Icon
                                 color='#000000'
                                 name='logo-instagram'
                                 size={30}
                             />
                             <TouchableOpacity
+                                activeOpacity={0.9}
                                 onPress={() => Linking.openURL(place.instagram!)}
                             >
                                 <ScrollView horizontal contentContainerStyle={styles.justifyContentCenter}>
@@ -148,6 +151,17 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         </View>
                         : <View style={{ flex: 1 }} />
                     }
+                </View>
+                <View style={styles.detailsContactContainer}>
+                    <Icon
+                        color='#000000'
+                        name='location-outline'
+                        size={30}
+                        style={{ marginEnd: 15 }}
+                    />
+                    <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
+                        <Text style={styles.secondaryFontStyle}>{place.city}, {place.state}</Text>
+                    </ScrollView>
                 </View>
             </View>
             <View style={{ flex: 1 }}>
