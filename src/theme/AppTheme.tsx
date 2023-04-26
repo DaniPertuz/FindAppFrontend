@@ -382,67 +382,73 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito-Regular',
         fontWeight: '700'
     },
-    placeDetailsMainTopContainer: {
+    detailsMainTopContainer: {
         flex: 1,
         paddingTop: 15,
         paddingHorizontal: 30
     },
-    placeDetailsTopContainer: {
+    detailsTopContainer: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 15
     },
-    placeDetailsNameContainer: {
+    detailsNameContainer: {
         flex: 1,
         maxHeight: 70,
         marginEnd: 10
     },
-    placeDetailsContactContainer: {
+    detailsContactContainer: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10
     },
-    placeDetailsContactEvenlyContainer: {
+    detailsContactBetweenContainer: {
         alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between'
     },
-    placeDetailsIcon: {
+    detailsContactEvenlyContainer: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
+    detailsIcon: {
         borderRadius: 100,
         height: 90,
         width: 90
     },
-    placeDetailsCarouselPicture: {
+    detailsCarouselPicture: {
         borderRadius: 5,
         height: '100%',
         resizeMode: 'contain',
         width: '100%'
     },
-    placeDetailsCarouselContainer: {
+    detailsCarouselContainer: {
         flex: 3,
         marginBottom: 20
     },
-    placeDetailsCarousel: {
+    detailsCarousel: {
         flex: 1,
         justifyContent: 'center',
         marginHorizontal: 10
     },
-    placeDetailsDescription: {
+    detailsDescription: {
         flex: 1,
         marginBottom: 10,
         maxHeight: 70
     },
-    placeDetailsDropdown: {
+    detailsDropdown: {
         flex: 2,
         maxHeight: 50,
         borderBottomColor: '#4B4D4B',
         borderBottomWidth: 0.5,
         marginEnd: 20
     },
-    placeDetailsDropdownRateContainer: {
+    detailsDropdownRateContainer: {
         alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
@@ -461,6 +467,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'center'
+    },
+    reviewsImage: {
+        borderRadius: 10,
+        flex: 1,
+        height: 60,
+        width: 60
     }
 });
 
