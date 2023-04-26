@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, Platform, Text, View } from 'react-native';
+import { FlatList, Platform, Text, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParams } from '../../navigation';
 import SearchResults from '../../components/SearchResults';
+import SearchProductResults from '../../components/SearchProductResults';
 import { PlacesContext } from '../../context';
-import { IPlace, ISearch, Location } from '../../interfaces/app-interfaces';
+import { IPlace, IProduct, ISearch, Location } from '../../interfaces/app-interfaces';
 
 import { styles } from '../../theme/AppTheme';
 import LoadingScreen from '../LoadingScreen';
@@ -18,6 +19,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
     const { search } = route.params;
 
     const { top } = useSafeAreaInsets();
+    const { height } = useWindowDimensions();
     const { currentUserLocation } = useLocation();
 
     const { searchPlace } = useContext(PlacesContext);
@@ -51,9 +53,13 @@ const ResultsScreen = ({ navigation, route }: Props) => {
         return Math.sqrt((x * x) + (y * y));
     };
 
-    const sortByDistance = (coordinates: IPlace[], point: Location) => coordinates.sort((a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point));
+    const sortPlacesByDistance = (coordinates: IPlace[], point: Location) => coordinates.sort((a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point));
 
-    const setResults = () => sortByDistance(searchResults.places, currentUserLocation);
+    const sortProductsByDistance = (coordinates: IProduct[], point: Location) => coordinates.sort((a: IProduct, b: IProduct) => distance(a.place.coords, point) - distance(b.place.coords, point));
+
+    const setPlaceResults = () => sortPlacesByDistance(searchResults.places, currentUserLocation);
+
+    const setProductResults = () => sortProductsByDistance(searchResults.products, currentUserLocation);
 
     return (
         <View style={{ flex: 1 }}>
@@ -76,17 +82,39 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                             Buscas: {searchResults.keyword}
                         </Text>
                     </View>
+                    <View style={{ paddingStart: 15 }}>
+                        <Text style={styles.blackPrimaryFontStyle}>Lugares</Text>
+                    </View>
                     <View
                         style={{
                             ...styles.topContainer,
-                            flex: 10,
+                            flex: 4,
                             paddingTop: (Platform.OS === 'ios') ? top : top + 20
                         }}
                     >
                         <FlatList
-                            data={setResults()}
+                            data={setPlaceResults()}
+                            style={{ maxHeight: height / 3 }}
                             renderItem={({ item }) => (
                                 <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search })} />
+                            )}
+                        />
+                    </View>
+                    <View style={{ paddingStart: 15 }}>
+                        <Text style={styles.blackPrimaryFontStyle}>Productos</Text>
+                    </View>
+                    <View
+                        style={{
+                            ...styles.topContainer,
+                            flex: 4,
+                            paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                        }}
+                    >
+                        <FlatList
+                            data={setProductResults()}
+                            style={{ maxHeight: height / 3 }}
+                            renderItem={({ item }) => (
+                                <SearchProductResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item.place, search })} />
                             )}
                         />
                     </View>
