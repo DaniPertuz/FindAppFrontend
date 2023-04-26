@@ -81,7 +81,7 @@ export interface IProduct {
     observation: string;
     price:       number;
     place:       IPlace;
-    rate:        number;
+    rate:        PlaceRate;
     img?:        string;
     status:      boolean;
 }
