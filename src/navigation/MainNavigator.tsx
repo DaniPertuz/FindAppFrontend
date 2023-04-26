@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
-import { IPlace, IService } from '../interfaces';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, ProductDetailsScreen, RatingScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { IPlace, IProduct, IService } from '../interfaces';
 
 export type RootStackParams = {
     MainScreen: undefined,
@@ -14,6 +14,7 @@ export type RootStackParams = {
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
     PlaceDetailsScreen: { place: IPlace, search: string; },
+    ProductDetailsScreen: { product: IProduct, search: string; },
     RatingScreen: undefined,
     RateScreen: { item: IService; },
     ResultsScreen: { place: IPlace, search: string; },
@@ -62,6 +63,25 @@ export const MainNavigator = () => {
                 )
             }}
                 component={PlaceDetailsScreen} />
+            <Stack.Screen name="ProductDetailsScreen" options={{
+                headerTitle: 'Detalles de producto',
+                headerStyle: { backgroundColor: '#5856D6' },
+                headerTintColor: '#FFFFFF',
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ marginLeft: 15 }}
+                        onPress={() => navigator.goBack()}
+                    >
+                        <Icon
+                            name='arrow-back-outline'
+                            size={25}
+                            color={'#FFFFFF'} />
+                    </TouchableOpacity>
+                )
+            }}
+                component={ProductDetailsScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
             <Stack.Screen name="ResultsScreen" options={{
                 headerTitle: 'Resultados de búsqueda',
