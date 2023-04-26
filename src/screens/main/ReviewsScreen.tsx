@@ -58,25 +58,16 @@ const ReviewsScreen = ({ route }: Props) => {
                                 <FlatList
                                     data={ratings.rates}
                                     renderItem={({ item }) => (
-                                        <View
-                                            style={{ flex: 1, margin: 20 }}
-                                        >
-                                            <View
-                                                style={{ flexDirection: 'row' }}
-                                            >
+                                        <View style={{ flex: 1, margin: 20 }}>
+                                            <View style={{ flexDirection: 'row' }}>
                                                 <Image
-                                                    style={{
-                                                        borderRadius: 10,
-                                                        flex: 1,
-                                                        height: 60,
-                                                        width: 60
-                                                    }}
+                                                    style={styles.reviewsImage}
                                                     source={(item.user?.photo === '')
                                                         ? require('../../assets/placeholder.png')
                                                         : { uri: item.user?.photo }}
                                                 />
                                                 <View style={{ flex: 5, paddingHorizontal: 10 }}>
-                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                    <View style={styles.rowSpaceBetweenContainer}>
                                                         <Text style={styles.blackPrimaryFontStyle}>
                                                             {((item.user?.name!).length > 18) ?
                                                                 (((item.user?.name!).substring(0, 18)) + '...') :

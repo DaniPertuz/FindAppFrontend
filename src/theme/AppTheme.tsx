@@ -253,8 +253,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         paddingVertical: 7
     },
-    bottomSheetDetailsSecondaryContainer: {
-        display: 'flex',
+    rowSpaceBetweenContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
