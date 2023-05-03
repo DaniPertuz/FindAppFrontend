@@ -43,7 +43,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 <Image
                     source={
                         (!product.img || product.img === '')
-                            ? require('../../assets/placeholder.png')
+                            ? require('../../assets/logo.png')
                             : { uri: product.img }
                     }
                     style={{
