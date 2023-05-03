@@ -1,19 +1,8 @@
 import React from 'react';
 import findAPI from '../../api/findapi';
 
-import { Categories, IProduct, IPlace, NumericRate } from '../../interfaces';
 import { ProductsContext } from './ProductsContext';
-
-export interface ProductsState {
-    name: string;
-    description: string;
-    category: Categories;
-    observation: string;
-    price: number;
-    place: IPlace | string;
-    rate: NumericRate;
-    img: string;
-}
+import { IProduct } from '../../interfaces';
 
 export const ProductsProvider = ({ children }: any) => {
 
