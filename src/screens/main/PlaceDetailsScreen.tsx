@@ -1,11 +1,12 @@
 import React from 'react';
 import { Dimensions, Image, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
 
 import { Dropdown } from 'react-native-element-dropdown';
+import { StackScreenProps } from '@react-navigation/stack';
 import Carousel from 'react-native-reanimated-carousel';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Toast from 'react-native-root-toast';
 
 import { RootStackParams } from '../../navigation';
 
@@ -90,7 +91,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         />
                         <TouchableOpacity
                             activeOpacity={0.9}
-                            onLongPress={() => copyToClipboard(place.address)}
+                            onLongPress={() => { copyToClipboard(place.address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }) }}
                         >
                             <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 130 }}>
                                 <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(place.address)}</Text>
