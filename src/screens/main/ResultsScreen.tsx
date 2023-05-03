@@ -83,7 +83,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                         </Text>
                     </View>
                     <View style={{ paddingStart: 15 }}>
-                        <Text style={styles.blackPrimaryFontStyle}>Lugares</Text>
+                        <Text style={styles.blackPrimaryFontStyle}>{searchResults.totalPlaces} {(searchResults.totalPlaces !== 1) ? 'Lugares' : 'Lugar'}</Text>
                     </View>
                     <View
                         style={{
@@ -101,7 +101,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                         />
                     </View>
                     <View style={{ paddingStart: 15 }}>
-                        <Text style={styles.blackPrimaryFontStyle}>Productos</Text>
+                        <Text style={styles.blackPrimaryFontStyle}>{searchResults.totalProducts} {(searchResults.totalProducts !== 1) ? 'Productos' : 'Producto'}</Text>
                     </View>
                     <View
                         style={{
