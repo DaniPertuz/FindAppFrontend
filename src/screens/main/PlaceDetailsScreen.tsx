@@ -41,21 +41,28 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     style={styles.detailsIcon}
                 />
             </View>
-            <View style={styles.detailsCarouselContainer}>
-                <Carousel
-                    data={[...place.pics!]}
-                    loop={false}
-                    width={width}
-                    renderItem={(data) => (
-                        <View style={styles.detailsCarousel}>
-                            <Image
-                                source={{ uri: data.item }}
-                                style={styles.detailsCarouselPicture}
-                            />
-                        </View>
-                    )}
-                />
-            </View>
+            {(place.pics?.length === 0)
+                ?
+                <View style={{ ...styles.center, flex: 3 }}>
+                    <Text>No hay imágenes del lugar</Text>
+                </View>
+                :
+                <View style={styles.detailsCarouselContainer}>
+                    <Carousel
+                        data={[...place.pics!]}
+                        loop={false}
+                        width={width}
+                        renderItem={(data) => (
+                            <View style={styles.detailsCarousel}>
+                                <Image
+                                    source={{ uri: data.item }}
+                                    style={styles.detailsCarouselPicture}
+                                />
+                            </View>
+                        )}
+                    />
+                </View>
+            }
             <ScrollView style={styles.detailsDescription}>
                 <Text style={styles.secondaryFontStyle}>{place.description}</Text>
             </ScrollView>
@@ -91,7 +98,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         />
                         <TouchableOpacity
                             activeOpacity={0.9}
-                            onLongPress={() => { copyToClipboard(place.address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }) }}
+                            onLongPress={() => { copyToClipboard(place.address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
                         >
                             <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 130 }}>
                                 <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(place.address)}</Text>
