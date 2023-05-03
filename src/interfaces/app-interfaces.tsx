@@ -54,7 +54,7 @@ export interface IPlace {
     _id:         string;
     name:        string;
     description: string;
-    category:    Categories[];
+    category:    string[];
     address:     string;
     coords:      Location;
     phone:       number;
@@ -77,7 +77,7 @@ export interface IProduct {
     _id:         string;
     name:        string;
     description: string;
-    category:    Categories;
+    category:    string[];
     observation: string;
     price:       number;
     place:       IPlace;
@@ -111,30 +111,4 @@ export interface IService {
 export interface Location {
     latitude:  number;
     longitude: number;
-}
-
-export enum Categories {
-    BAKERY             = 'bakery',
-    BEAUTY_SALOON      = 'beauty saloon',
-    CHURCH             = 'church',
-    CLOTHING           = 'clothing',
-    DRIVING_SCHOOL     = 'driving school',
-    ELECTRONIC_DEVICES = 'electronic devices',
-    GROCERY_STORE      = 'store',
-    GYM                = 'gym',
-    HOSPITAL           = 'hospital',
-    HOTEL              = 'hotel',
-    IRONMONGERY        = 'ironmongery',
-    JEWELRY            = 'jewelry',
-    MALL               = 'mall',
-    MISCELLANY         = 'miscellany',
-    MOTEL              = 'motel',
-    PARK               = 'park',
-    PHARMACY           = 'pharmacy',
-    RESTAURANT         = 'restaurant',
-    SCHOOL             = 'school',
-    SPORTS_STORE       = 'sports_store',
-    SUPERMARKET        = 'supermarket',
-    TECH_STORE         = 'tech store',
-    VEHICLE_STORE      = 'vehicle store',
 }
