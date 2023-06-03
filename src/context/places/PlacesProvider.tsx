@@ -1,11 +1,8 @@
 import React from 'react';
-import findAPI from '../../api/findapi';
-import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch, IService } from '../../interfaces';
-import { PlacesContext } from '.';
 
-export interface PlaceState {
-    places: IPlace | ISearch[] | null;
-}
+import findAPI from '../../api/findapi';
+import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
+import { PlacesContext } from '.';
 
 export const PlacesProvider = ({ children }: any) => {
 
