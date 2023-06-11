@@ -76,6 +76,15 @@ export const AuthProvider = ({ children }: any) => {
         try {
             const { data } = await findAPI.post<LoginInterface>('/auth/login', { email, password });
             const { user, token } = data;
+
+            if (user.role !== 'client') {
+                dispatch({
+                    type: 'addError',
+                    payload: 'Tipo de usuario no válido'
+                });
+                return;
+            }
+
             dispatch({
                 type: 'signUp',
                 payload: {
