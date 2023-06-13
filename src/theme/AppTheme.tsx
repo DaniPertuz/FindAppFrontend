@@ -472,6 +472,12 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 60,
         width: 60
+    },
+    tempPhoto: {
+        alignSelf: 'center',
+        marginTop: 25,
+        height: 170,
+        width: '40%'
     }
 });
 

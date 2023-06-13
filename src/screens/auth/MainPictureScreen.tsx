@@ -62,12 +62,7 @@ const MainPictureScreen = ({ navigation }: Props) => {
                         (tempUri !== '') && (
                             <Image
                                 source={{ uri: tempUri }}
-                                style={{
-                                    alignSelf: 'center',
-                                    marginTop: 25,
-                                    height: 170,
-                                    width: '40%'
-                                }}
+                                style={styles.tempPhoto}
                             />
                         )
                     }
