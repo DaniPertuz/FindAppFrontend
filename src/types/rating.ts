@@ -1,5 +1,5 @@
-import { IRating } from '../interfaces';
+import { IRate, IRatingList } from '../interfaces';
 
 export type RatingAction =
-    | { type: 'getRatings', payload: { ratings: IRating[] }; }
-    | { type: 'addRating', payload: { rating: IRating }; };
+    | { type: 'getRatings', payload: { ratings: IRatingList }; }
+    | { type: 'addRating', payload: { rating: IRate }; };
