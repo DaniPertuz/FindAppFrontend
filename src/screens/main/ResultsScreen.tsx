@@ -26,25 +26,27 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
     const init = {
         keyword: search,
-        totalPlaces: 0,
+        totalPlaces: [],
         places: [],
-        totalProducts: 0,
+        totalProducts: [],
         products: []
     };
 
     const [searchResults, setSearchResults] = useState<ISearch>(init);
     const [display, setDisplay] = useState(false);
 
-    const setData = async () => {
-        const results = await searchPlace(search);
-        if (results) {
-            setSearchResults(results);
-            setDisplay(true);
-        }
-    };
-
     useEffect(() => {
-        setData();
+        let mounted = true;
+        searchPlace(search).then((data) => {
+            console.log(data)
+            if (mounted) {
+                setSearchResults(data);
+                setDisplay(true);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
     }, []);
 
     const distance = (coor1: Location, coor2: Location) => {
@@ -55,7 +57,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
 
     const sortPlacesByDistance = (coordinates: IPlace[], point: Location) => coordinates.sort((a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point));
 
-    const sortProductsByDistance = (coordinates: IProduct[], point: Location) => coordinates.sort((a: IProduct, b: IProduct) => distance(a.place.coords, point) - distance(b.place.coords, point));
+    const sortProductsByDistance = (coordinates: IProduct[], point: Location) => coordinates.sort((a: IProduct, b: IProduct) => distance(a.place[0].coords, point) - distance(b.place[0].coords, point));
 
     const setPlaceResults = () => sortPlacesByDistance(searchResults.places, currentUserLocation);
 
@@ -65,7 +67,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
         <View style={{ flex: 1 }}>
             {(display === false) && <LoadingScreen />}
 
-            {((display === true) && (searchResults.totalPlaces === 0 && searchResults.totalProducts === 0)) &&
+            {((display === true) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
                 <View style={styles.center}>
                     <Text style={styles.secondaryFontStyle}>
                         No hay lugares que coincidan con "{search}"
@@ -73,7 +75,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                 </View>
             }
 
-            {((display === true) && (searchResults.totalPlaces !== 0 || searchResults.totalProducts !== 0)) &&
+            {((display === true) && (searchResults.totalPlaces.length !== 0 || searchResults.totalProducts.length !== 0)) &&
                 <>
                     <View style={styles.resultsCenterContainer}>
                         <Text
@@ -83,7 +85,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                         </Text>
                     </View>
                     <View style={{ paddingStart: 15 }}>
-                        <Text style={styles.blackPrimaryFontStyle}>{searchResults.totalPlaces} {(searchResults.totalPlaces !== 1) ? 'Lugares' : 'Lugar'}</Text>
+                        <Text style={styles.blackPrimaryFontStyle}>{(searchResults.totalPlaces.length === 0) ? '0' : searchResults.totalPlaces[0].totalPlaces} {(searchResults.totalPlaces.length !== 1) ? 'Lugares' : 'Lugar'}</Text>
                     </View>
                     <View
                         style={{
@@ -101,7 +103,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                         />
                     </View>
                     <View style={{ paddingStart: 15 }}>
-                        <Text style={styles.blackPrimaryFontStyle}>{searchResults.totalProducts} {(searchResults.totalProducts !== 1) ? 'Productos' : 'Producto'}</Text>
+                        <Text style={styles.blackPrimaryFontStyle}>{(searchResults.totalProducts.length === 0) ? '0' : searchResults.totalProducts[0].totalProducts} {(searchResults.totalProducts.length !== 1) ? 'Productos' : 'Producto'}</Text>
                     </View>
                     <View
                         style={{

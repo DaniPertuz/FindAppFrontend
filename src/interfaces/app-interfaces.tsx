@@ -44,9 +44,9 @@ export interface IRatingAverage {
 
 export interface ISearch {
     keyword:       string;
-    totalPlaces:   number;
+    totalPlaces:   TotalPlace[];
     places:        IPlace[];
-    totalProducts: number;
+    totalProducts: TotalProduct[];
     products:      IProduct[];
 }
 
@@ -69,9 +69,6 @@ export interface IPlace {
     rate:        NumericRate;
     status:      boolean;
 }
-export interface NumericRate {
-    $numberDecimal: string;
-}
 
 export interface IProduct {
     _id:         string;
@@ -80,10 +77,22 @@ export interface IProduct {
     category:    string[];
     observation: string;
     price:       number;
-    place:       IPlace;
+    place:       IPlace[];
     rate:        NumericRate;
     img?:        string;
     status:      boolean;
+}
+
+export interface TotalPlace {
+    totalPlaces: number;
+}
+
+export interface TotalProduct {
+    totalProducts: number;
+}
+
+export interface NumericRate {
+    $numberDecimal: string;
 }
 
 export interface IFavorites {

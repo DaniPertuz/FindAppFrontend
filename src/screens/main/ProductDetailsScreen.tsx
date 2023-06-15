@@ -32,9 +32,9 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 </ScrollView>
                 <Image
                     source={
-                        (product.place.photo === '')
+                        (product.place[0].photo === '')
                             ? require('../../assets/placeholder.png')
-                            : { uri: product.place.photo }
+                            : { uri: product.place[0].photo }
                     }
                     style={styles.detailsIcon}
                 />
@@ -57,7 +57,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </ScrollView>
             <View style={styles.detailsDropdownRateContainer}>
                 <Dropdown
-                    data={product.place.schedule.map(schedule => {
+                    data={product.place[0].schedule.map(schedule => {
                         return { label: schedule };
                     })}
                     placeholder='Horario'
@@ -85,14 +85,14 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                             size={30}
                         />
                         <TouchableOpacity
-                            onLongPress={() => copyToClipboard(product.place.address)}
+                            onLongPress={() => copyToClipboard(product.place[0].address)}
                         >
                             <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 120 }}>
-                                <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(product.place.address)}</Text>
+                                <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(product.place[0].address)}</Text>
                             </ScrollView>
                         </TouchableOpacity>
                     </View>
-                    {(product.place.whatsapp) ?
+                    {(product.place[0].whatsapp) ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
                             <Icon
                                 color='#000000'
@@ -100,10 +100,10 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                                 size={30}
                             />
                             <TouchableOpacity
-                                onPress={() => Linking.openURL(`https://wa.me/+57${product.place.whatsapp}`)}
+                                onPress={() => Linking.openURL(`https://wa.me/+57${product.place[0].whatsapp}`)}
                             >
                                 <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                                    <Text style={styles.linkStyle}>{product.place.whatsapp}</Text>
+                                    <Text style={styles.linkStyle}>{product.place[0].whatsapp}</Text>
                                 </ScrollView>
                             </TouchableOpacity>
                         </View>
@@ -119,14 +119,14 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         />
                         <TouchableOpacity
                             activeOpacity={0.9}
-                            onPress={() => Linking.openURL(`tel:${product.place.phone}`)}
+                            onPress={() => Linking.openURL(`tel:${product.place[0].phone}`)}
                         >
                             <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                                <Text style={styles.secondaryFontStyle}>{product.place.phone}</Text>
+                                <Text style={styles.secondaryFontStyle}>{product.place[0].phone}</Text>
                             </ScrollView>
                         </TouchableOpacity>
                     </View>
-                    {(product.place.instagram)
+                    {(product.place[0].instagram)
                         ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
                             <Icon
@@ -135,10 +135,10 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                                 size={30}
                             />
                             <TouchableOpacity
-                                onPress={() => Linking.openURL(product.place.instagram!)}
+                                onPress={() => Linking.openURL(product.place[0].instagram!)}
                             >
                                 <ScrollView horizontal contentContainerStyle={styles.justifyContentCenter}>
-                                    <Text style={styles.linkStyle}>{product.place.instagram}</Text>
+                                    <Text style={styles.linkStyle}>{product.place[0].instagram}</Text>
                                 </ScrollView>
                             </TouchableOpacity>
                         </View>
@@ -153,7 +153,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         style={{ marginEnd: 15 }}
                     />
                     <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                        <Text style={styles.secondaryFontStyle}>{product.place.city}, {product.place.state}</Text>
+                        <Text style={styles.secondaryFontStyle}>{product.place[0].city}, {product.place[0].state}</Text>
                     </ScrollView>
                 </View>
             </View>
@@ -161,7 +161,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.largeButton}
-                    onPress={() => navigation.push('MapScreen', { place: product.place, search })}
+                    onPress={() => navigation.push('MapScreen', { place: product.place[0], search })}
                 >
                     <View style={styles.rowJustifyCenter}>
                         <Icon
