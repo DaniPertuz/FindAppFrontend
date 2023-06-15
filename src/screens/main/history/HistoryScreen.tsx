@@ -23,16 +23,17 @@ const HistoryScreen = () => {
     const [historical, setHistorical] = useState<IHistory>(init);
     const [display, setDisplay] = useState(false);
 
-    const setHistoricalData = async () => {
-        const data = await getHistorical(user?._id!);
-        if (data) {
-            setHistorical(data);
-            setDisplay(true);
-        }
-    };
-
     useEffect(() => {
-        setHistoricalData();
+        let mounted = true;
+        getHistorical(user?._id!).then((data) => {
+            if (mounted) {
+                setHistorical(data);
+                setDisplay(true);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
     }, [historical]);
 
     return (

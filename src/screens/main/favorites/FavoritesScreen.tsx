@@ -23,16 +23,17 @@ const FavoritesScreen = () => {
     const { user } = useContext(AuthContext);
     const { getFavorites } = useContext(PlacesContext);
 
-    const setFavoritesData = async () => {
-        const data = await getFavorites(user?._id!);
-        if (data) {
-            setFavorites(data);
-            setDisplay(true);
-        }
-    };
-
     useEffect(() => {
-        setFavoritesData();
+        let mounted = true;
+        getFavorites(user?._id!).then((data) => {
+            if (mounted) {
+                setFavorites(data);
+                setDisplay(true);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
     }, [favorites]);
 
     return (
