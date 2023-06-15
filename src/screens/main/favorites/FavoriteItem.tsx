@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 
@@ -31,7 +31,8 @@ const FavoriteItem = ({ item, onPress }: Props) => {
     return (
         <>
             {(placeRating !== 0) &&
-                <TouchableWithoutFeedback
+                <TouchableOpacity
+                    activeOpacity={0.9}
                     onPress={onPress}
                 >
                     <View
@@ -82,7 +83,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
             }
         </>
     );
