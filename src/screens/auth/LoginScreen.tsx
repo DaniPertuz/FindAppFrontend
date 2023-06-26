@@ -1,19 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 import { AuthContext } from '../../context';
 import { useForm } from '../../hooks/useForm';
-import { styles } from '../../theme/AppTheme';
 import Background from '../../components/Background';
 import FormInputs from '../../components/FormInputs';
 
-interface Props extends StackScreenProps<any, any> { }
+import { styles } from '../../theme/AppTheme';
 
-const LoginScreen = ({ navigation }: Props) => {
+const LoginScreen = () => {
 
-  const { signIn, errorMessage, removeError } = useContext(AuthContext);
+  const { errorMessage, removeError } = useContext(AuthContext);
 
   const { email, password, onChange } = useForm({
     email: '',
@@ -30,46 +28,40 @@ const LoginScreen = ({ navigation }: Props) => {
     Alert.alert('Error', errorMessage, [{ text: 'OK', onPress: removeError }]);
   }, [errorMessage]);
 
-  const onLogin = () => {
-    Keyboard.dismiss();
-    signIn({ email, password });
-  };
-
   return (
-    <>
-      <Background />
+    <ScrollView
+      keyboardShouldPersistTaps='handled'
+      contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', minHeight: '100%' }}
+    >
       <KeyboardAvoidingView
-        style={{
-          flex: 1
-        }}
         behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
       >
+        <Background />
         <View
           style={styles.formContainer}
         >
-          <Text
-            style={styles.title}
-          >
-            FindAPP
-          </Text>
+          <View style={styles.alignItemsCenter}>
+            <Image
+              source={require('../../assets/FA_COMPLETE_Color.png')}
+              style={{ height: 107, width: 239, marginBottom: 33, marginTop: 40, marginHorizontal: 98 }}
+            />
+          </View>
+          <View style={{ marginBottom: 20 }}>
+            <Text style={{ color: '#2F2F2F', fontSize: 24, fontWeight: '700', lineHeight: 28, letterSpacing: -0.4, marginBottom: 5 }}>
+              Bienvenido
+            </Text>
+            <Text style={{ color: '#2F2F2F', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
+              Ingresa tus credenciales para continuar
+            </Text>
+          </View>
           <FormInputs
             email={email.trim()}
             password={password}
             onChange={onChange}
-            onLogin={onLogin}
           />
         </View>
-        <View style={styles.newUserContainer}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={() => navigation.replace('RegisterScreen')}
-          >
-            <Text style={styles.buttonText}>Nueva cuenta</Text>
-          </TouchableOpacity>
-        </View>
       </KeyboardAvoidingView>
-    </>
+    </ScrollView>
   );
 };
 
