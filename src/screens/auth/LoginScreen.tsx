@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 import { AuthContext } from '../../context';
 import { useForm } from '../../hooks/useForm';
@@ -18,6 +19,10 @@ const LoginScreen = ({ navigation }: Props) => {
     email: '',
     password: ''
   });
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   useEffect(() => {
     if (errorMessage.length === 0) return;

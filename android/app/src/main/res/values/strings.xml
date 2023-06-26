@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FindAppFrontend</string>
+    <string name="app_name">FindApp</string>
+    <string name="background_logo_text">Background logo</string>
+    <string name="color_logo_text">Color logo</string>
 </resources>
