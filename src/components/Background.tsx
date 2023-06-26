@@ -1,17 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
+import { loginStyles } from '../theme/AppTheme';
 
 const Background = () => {
-  return (
-    <View
-      style={{
-        position: 'absolute',
-        backgroundColor: '#5856D6',
-        width: 1000,
-        height: 1200
-      }}
-    />
-  );
+  return (<View style={loginStyles.backgroundColorContainer} />);
 };
 
 export default Background;
