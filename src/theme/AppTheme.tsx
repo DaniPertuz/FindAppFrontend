@@ -10,15 +10,28 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     label: {
-        marginTop: 25,
-        color: '#FFFFFF',
-        fontFamily: 'Nunito-Regular',
-        fontSize: 20
+        color: '#2F2F2F',
+        fontSize: 16,
+        fontWeight: '500',
+        letterSpacing: -0.24,
+        lineHeight: 20,
+        marginBottom: 5,
+        marginTop: 20
+    },
+    inputFieldContainer: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(250, 250, 250, 0.98)',
+        borderColor: '#2F2F2F',
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: 'row'
     },
     inputField: {
-        color: '#FFFFFF',
-        fontFamily: 'Nunito-Regular',
-        fontSize: 20
+        color: '#2F2F2F',
+        fontSize: 16,
+        letterSpacing: -0.24,
+        lineHeight: 16,
+        padding: 16
     },
     inputFieldIOS: {
         borderBottomColor: '#FFFFFF',
@@ -26,12 +39,11 @@ const styles = StyleSheet.create({
         paddingBottom: 4
     },
     button: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#FFFFFF',
-        borderRadius: 999,
-        borderWidth: 1,
-        paddingVertical: 8,
-        paddingHorizontal: 18
+        alignItems: 'center',
+        backgroundColor: '#207CFD',
+        borderRadius: 8,
+        padding: 10,
+        width: '100%'
     },
     buttonSearch: {
         backgroundColor: '#5856D6',
@@ -41,19 +53,16 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 18
     },
-    buttonContainer: {
-        alignItems: 'center',
-        marginTop: 50
-    },
     buttonSearchContainer: {
         backgroundColor: '#FFFFFF',
         marginTop: 30
     },
     buttonText: {
-        fontSize: 22,
-        color: '#5856D6',
-        fontFamily: 'Nunito-Regular',
-        fontWeight: '700'
+        color: 'rgba(250, 250, 250, 0.98)',
+        fontSize: 16,
+        fontWeight: '500',
+        lineHeight: 22,
+        letterSpacing: -0.32
     },
     buttonSearchText: {
         fontSize: 22,
@@ -62,10 +71,12 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
     formContainer: {
-        flex: 1,
-        paddingHorizontal: 40,
-        justifyContent: 'center',
-        height: 500
+        backgroundColor: '#FFFFFF',
+        marginBottom: 35,
+        marginHorizontal: 20,
+        marginTop: 74,
+        borderRadius: 16,
+        paddingHorizontal: 22
     },
     mainScreenContainer: {
         alignItems: 'center',
@@ -552,6 +563,14 @@ const loginStyles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 100
+    },
+    backgroundColorContainer: {
+        backgroundColor: '#207CFD',
+        borderBottomEndRadius: 16,
+        borderBottomStartRadius: 16,
+        height: 230,
+        position: 'absolute',
+        width: '100%',
     }
 });
 
