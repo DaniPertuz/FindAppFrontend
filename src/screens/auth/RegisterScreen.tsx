@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../../context';
