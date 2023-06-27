@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     inputFieldContainer: {
         alignItems: 'center',
-        backgroundColor: 'rgba(250, 250, 250, 0.98)',
+        backgroundColor: 'rgba(104, 110, 222, 0.1)',
         borderColor: '#2F2F2F',
         borderRadius: 8,
         borderWidth: 1,
