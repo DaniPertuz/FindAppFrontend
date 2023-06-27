@@ -75,6 +75,18 @@ export const UsersProvider = ({ children }: any) => {
         }
     };
 
+    const updateUserPassword = async (email: string, password: string): Promise<void> => {
+        try {
+            await findAPI.put<IUser>('/users/password/', {
+                email,
+                password
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteUser = async (userID: string): Promise<void> => {
         try {
             const resp = await findAPI.put<IUser>(`/users/${userID}`, {
@@ -152,6 +164,7 @@ export const UsersProvider = ({ children }: any) => {
             loadUserByID,
             addUser,
             updateUser,
+            updateUserPassword,
             deleteUser,
             updatePhoto
         }}
