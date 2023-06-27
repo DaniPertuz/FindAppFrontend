@@ -7,6 +7,7 @@ import Background from '../../components/Background';
 import { RootStackParams } from '../../navigation';
 import { useForm } from '../../hooks/useForm';
 import { UsersContext } from '../../context';
+import { roles } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -14,9 +15,10 @@ const NewPasswordScreen = () => {
 
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
-    const { updateUserPassword } = useContext(UsersContext);
+    const { loadUserByEmail, updateUserPassword } = useContext(UsersContext);
 
     const [display, setDisplay] = useState(false);
+    const [authorized, setAuthorized] = useState(false);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(true);
     const [fieldLength, setFieldLength] = useState({
@@ -57,8 +59,15 @@ const NewPasswordScreen = () => {
         }
     };
 
-    const onUpdate = () => {
+    const onUpdate = async () => {
         Keyboard.dismiss();
+
+        const validation = await loadUserByEmail(email);
+
+        if (validation.role !== roles.CLIENT) {
+            setAuthorized(true);
+            return;
+        }
 
         if (email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0) {
             if (password !== confirmPassword) {
@@ -269,6 +278,19 @@ const NewPasswordScreen = () => {
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >
                                     Contraseñas no coinciden
+                                </Text>
+                            </View>
+                        }
+                        {(authorized === true) &&
+                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                                <Image
+                                    source={require('../../assets/warning.png')}
+                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
+                                />
+                                <Text
+                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
+                                >
+                                    Este usuario no puede realizar esta acción
                                 </Text>
                             </View>
                         }

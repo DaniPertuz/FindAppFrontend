@@ -46,6 +46,15 @@ export const UsersProvider = ({ children }: any) => {
         }
     };
 
+    const loadUserByEmail = async (email: string): Promise<IUser> => {
+        try {
+            const resp = await findAPI.get<IUser>('/users/email', { params: { email } });
+            return resp.data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
     const addUser = async (user: IUser): Promise<void> => {
         try {
             const resp = await findAPI.post<IUser>(`/users`, {
@@ -161,6 +170,7 @@ export const UsersProvider = ({ children }: any) => {
         <UsersContext.Provider value={{
             users,
             loadUsers,
+            loadUserByEmail,
             loadUserByID,
             addUser,
             updateUser,
