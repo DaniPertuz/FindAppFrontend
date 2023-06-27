@@ -4,13 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, MainScreen, MapScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MainScreen, MapScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
 import { IPlace, IProduct, IService } from '../interfaces';
 
 export type RootStackParams = {
     EditProfileScreen: undefined,
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
+    LoginScreen: undefined,
     MainScreen: undefined,
     MapScreen: { place: IPlace, search: string; },
     PlaceDetailsScreen: { place: IPlace, search: string; },
@@ -43,6 +44,7 @@ export const MainNavigator = () => {
         >
             <Stack.Screen name="MainScreen" options={{ title: '' }} component={MainScreen} />
             <Stack.Screen name="EditProfileScreen" options={{ title: '' }} component={EditProfileScreen} />
+            <Stack.Screen name="LoginScreen" options={{ title: '' }} component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" options={{ title: '' }} component={RegisterScreen} />
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
             <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
