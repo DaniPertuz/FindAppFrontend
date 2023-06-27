@@ -72,10 +72,11 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         backgroundColor: '#FFFFFF',
+        borderRadius: 16,
         marginBottom: 35,
         marginHorizontal: 20,
         marginTop: 74,
-        borderRadius: 16,
+        minHeight: 720,
         paddingHorizontal: 22
     },
     mainScreenContainer: {
