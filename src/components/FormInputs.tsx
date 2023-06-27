@@ -133,7 +133,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 </Text>
             </View>
             <LoginButton email={email} password={password} handleFieldLength={handleFieldLength} />
-            <View style={{ flexDirection: 'row', marginBottom: (fieldLength.password === true) ? 53 : 73, marginTop: 32, justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', marginBottom: 38, marginTop: 32, justifyContent: 'center' }}>
                 <View>
                     <Text style={{ fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24, marginEnd: 3 }}>
                         ¿No tienes usuario?
