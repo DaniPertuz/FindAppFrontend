@@ -128,9 +128,14 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 </View>
             }
             <View style={{ alignItems: 'flex-end', marginTop: 12, marginBottom: 30 }}>
-                <Text style={{ color: '#207CFD', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>
-                    ¿Olvidaste tu contraseña?
-                </Text>
+                <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => navigator.navigate('NewPasswordScreen')}
+                >
+                    <Text style={{ color: '#207CFD', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>
+                        ¿Olvidaste tu contraseña?
+                    </Text>
+                </TouchableOpacity>
             </View>
             <LoginButton email={email} password={password} handleFieldLength={handleFieldLength} />
             <View style={{ flexDirection: 'row', marginBottom: 38, marginTop: 32, justifyContent: 'center' }}>
