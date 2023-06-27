@@ -32,11 +32,8 @@ const LoginButton = ({ email = '', password = '', handleFieldLength }: Props) =>
         }
 
         if (email.length !== 0 && password.length !== 0) {
-            handleFieldLength(false, false);
-            return;
+            signIn({ email, password });
         }
-
-        signIn({ email, password });
     };
 
     return (
