@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { AuthContext, PermissionsContext } from '../context';
-import { LoadingScreen, LoginScreen, MainPictureScreen, NewPasswordScreen, PermissionsScreen, RegisterScreen } from '../screens';
+import { LoadingScreen, LoginScreen, NewPasswordScreen, PermissionsScreen, RegisterScreen } from '../screens';
 import { DrawerNavigator } from './';
 
 const Stack = createStackNavigator();
@@ -37,18 +37,7 @@ export const Navigator = () => {
           ?
           <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
           :
-          (user && user.photo === '')
-            ?
-            <>
-              <Stack.Screen name='MainPictureScreen' component={MainPictureScreen} />
-              <Stack.Screen name='MainScreen' component={DrawerNavigator} />
-            </>
-            :
-            (
-              <>
-                <Stack.Screen name='MainScreen' component={DrawerNavigator} />
-              </>
-            )
+          <Stack.Screen name='MainScreen' component={DrawerNavigator} />
       }
     </Stack.Navigator>
   );
