@@ -4,7 +4,6 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 import { Dropdown } from 'react-native-element-dropdown';
 import Clipboard from '@react-native-clipboard/clipboard';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { RootStackParams } from '../../navigation';
 
@@ -79,11 +78,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             <View style={{ flex: 2 }}>
                 <View style={styles.detailsContactContainer}>
                     <View style={styles.detailsContactBetweenContainer}>
-                        <Icon
-                            color='#000000'
-                            name='business-outline'
-                            size={30}
-                        />
                         <TouchableOpacity
                             onLongPress={() => copyToClipboard(product.place[0].address)}
                         >
@@ -94,11 +88,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                     {(product.place[0].whatsapp) ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
-                            <Icon
-                                color='#000000'
-                                name='logo-whatsapp'
-                                size={30}
-                            />
                             <TouchableOpacity
                                 onPress={() => Linking.openURL(`https://wa.me/+57${product.place[0].whatsapp}`)}
                             >
@@ -112,11 +101,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
                 <View style={styles.detailsContactContainer}>
                     <View style={styles.detailsContactBetweenContainer}>
-                        <Icon
-                            color='#000000'
-                            name='call-outline'
-                            size={30}
-                        />
                         <TouchableOpacity
                             activeOpacity={0.9}
                             onPress={() => Linking.openURL(`tel:${product.place[0].phone}`)}
@@ -129,11 +113,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     {(product.place[0].instagram)
                         ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
-                            <Icon
-                                color='#000000'
-                                name='logo-instagram'
-                                size={30}
-                            />
                             <TouchableOpacity
                                 onPress={() => Linking.openURL(product.place[0].instagram!)}
                             >
@@ -146,12 +125,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     }
                 </View>
                 <View style={styles.detailsContactContainer}>
-                    <Icon
-                        color='#000000'
-                        name='location-outline'
-                        size={30}
-                        style={{ marginEnd: 15 }}
-                    />
                     <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
                         <Text style={styles.secondaryFontStyle}>{product.place[0].city}, {product.place[0].state}</Text>
                     </ScrollView>
@@ -164,12 +137,6 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     onPress={() => navigation.push('MapScreen', { place: product.place[0], search })}
                 >
                     <View style={styles.rowJustifyCenter}>
-                        <Icon
-                            name='arrow-forward-circle-outline'
-                            size={25}
-                            color={'#FFFFFF'}
-                            style={styles.drawerIcon}
-                        />
                         <Text
                             style={styles.largeButtonText}
                         >

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Image, Platform, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { PermissionsContext } from '../../context';
 import { editStyles, styles } from '../../theme/AppTheme';
@@ -15,20 +14,6 @@ const MainScreen = ({ navigation }: Props) => {
 
     useEffect(() => {
         askLocationPermission();
-    }, []);
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerLeft: () => (
-                <Icon
-                    color='#000000'
-                    name='menu-outline'
-                    size={30}
-                    style={{ marginStart: 15 }}
-                    onPress={() => navigation.toggleDrawer()}
-                />
-            )
-        });
     }, []);
 
     return (

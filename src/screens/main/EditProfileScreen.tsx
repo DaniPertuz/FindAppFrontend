@@ -5,7 +5,6 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import BottomSheet from '@gorhom/bottom-sheet';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useForm } from '../../hooks/useForm';
 import { AuthContext, UsersContext } from '../../context';
@@ -210,11 +209,6 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         <TouchableOpacity
                             onPress={() => bottomSheetRef.current?.close()}
                         >
-                            <Icon
-                                color='#000000'
-                                name='close-circle-outline'
-                                size={30}
-                            />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -228,12 +222,6 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <TouchableOpacity
                         onPress={() => { addPhoto(); bottomSheetRef.current?.close(); }}
                     >
-                        <Icon
-                            color='#000000'
-                            name='camera-outline'
-                            size={30}
-                            style={{ alignSelf: 'center' }}
-                        />
                         <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>
                             Foto
                         </Text>
@@ -241,12 +229,6 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <TouchableOpacity
                         onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); }}
                     >
-                        <Icon
-                            color='#000000'
-                            name='image-outline'
-                            size={30}
-                            style={{ alignSelf: 'center' }}
-                        />
                         <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Galería</Text>
                     </TouchableOpacity>
                 </View>

@@ -3,8 +3,6 @@ import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/Ionicons';
-
 import { RootStackParams } from './MainNavigator';
 import { RateScreen, RatingScreen } from '../screens';
 
@@ -37,10 +35,6 @@ export const RatingNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.navigate('MainScreen')}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}
@@ -57,10 +51,6 @@ export const RatingNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.navigate('RatingScreen')}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}

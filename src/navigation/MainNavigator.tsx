@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MainScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
 import { IPlace, IProduct, IService } from '../interfaces';
@@ -62,10 +61,6 @@ export const MainNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.goBack()}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}
@@ -81,10 +76,6 @@ export const MainNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.goBack()}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}
@@ -101,10 +92,6 @@ export const MainNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}
@@ -120,10 +107,6 @@ export const MainNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.goBack()}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}
@@ -139,10 +122,6 @@ export const MainNavigator = () => {
                         style={{ marginLeft: 15 }}
                         onPress={() => navigator.goBack()}
                     >
-                        <Icon
-                            name='arrow-back-outline'
-                            size={25}
-                            color={'#FFFFFF'} />
                     </TouchableOpacity>
                 )
             }}

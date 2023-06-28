@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { RootStackParams } from './MainNavigator';
 import { HistoryScreen, MapScreen, ReviewsScreen } from '../screens';
@@ -38,10 +37,6 @@ export const HistoryNavigator = () => {
                             style={{ marginLeft: 15 }}
                             onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
                         >
-                            <Icon
-                                name='arrow-back-outline'
-                                size={25}
-                                color={'#FFFFFF'} />
                         </TouchableOpacity>
                     )
                 }}
@@ -59,10 +54,6 @@ export const HistoryNavigator = () => {
                             style={{ marginLeft: 15 }}
                             onPress={() => navigator.navigate('HistoryScreen')}
                         >
-                            <Icon
-                                name='arrow-back-outline'
-                                size={25}
-                                color={'#FFFFFF'} />
                         </TouchableOpacity>
                     )
                 }}

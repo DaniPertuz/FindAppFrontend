@@ -5,7 +5,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { StackScreenProps } from '@react-navigation/stack';
 import Carousel from 'react-native-reanimated-carousel';
 import Clipboard from '@react-native-clipboard/clipboard';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-root-toast';
 
 import { RootStackParams } from '../../navigation';
@@ -91,11 +90,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             <View style={{ flex: 2 }}>
                 <View style={styles.detailsContactContainer}>
                     <View style={styles.detailsContactBetweenContainer}>
-                        <Icon
-                            color='#000000'
-                            name='business-outline'
-                            size={30}
-                        />
                         <TouchableOpacity
                             activeOpacity={0.9}
                             onLongPress={() => { copyToClipboard(place.address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
@@ -107,11 +101,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                     {(place.whatsapp) ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
-                            <Icon
-                                color='#000000'
-                                name='logo-whatsapp'
-                                size={30}
-                            />
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => Linking.openURL(`https://wa.me/+57${place.whatsapp}`)}
@@ -126,11 +115,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
                 <View style={styles.detailsContactContainer}>
                     <View style={styles.detailsContactBetweenContainer}>
-                        <Icon
-                            color='#000000'
-                            name='call-outline'
-                            size={30}
-                        />
                         <TouchableOpacity
                             activeOpacity={0.9}
                             onPress={() => Linking.openURL(`tel:${place.phone}`)}
@@ -143,11 +127,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     {(place.instagram)
                         ?
                         <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
-                            <Icon
-                                color='#000000'
-                                name='logo-instagram'
-                                size={30}
-                            />
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => Linking.openURL(place.instagram!)}
@@ -161,12 +140,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     }
                 </View>
                 <View style={styles.detailsContactContainer}>
-                    <Icon
-                        color='#000000'
-                        name='location-outline'
-                        size={30}
-                        style={{ marginEnd: 15 }}
-                    />
                     <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
                         <Text style={styles.secondaryFontStyle}>{place.city}, {place.state}</Text>
                     </ScrollView>
@@ -179,12 +152,6 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     onPress={() => navigation.push('MapScreen', { place, search })}
                 >
                     <View style={styles.rowJustifyCenter}>
-                        <Icon
-                            name='arrow-forward-circle-outline'
-                            size={25}
-                            color={'#FFFFFF'}
-                            style={styles.drawerIcon}
-                        />
                         <Text
                             style={styles.largeButtonText}
                         >
