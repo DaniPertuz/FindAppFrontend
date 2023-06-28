@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { AuthContext, PermissionsContext } from '../context';
 import { LoadingScreen, LoginScreen, NewPasswordScreen, PermissionsScreen, RegisterScreen } from '../screens';
-import { DrawerNavigator } from './';
+import { BottomTabNavigator } from './';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +37,7 @@ export const Navigator = () => {
           ?
           <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
           :
-          <Stack.Screen name='MainScreen' component={DrawerNavigator} />
+          <Stack.Screen name='MainScreen' component={BottomTabNavigator} />
       }
     </Stack.Navigator>
   );

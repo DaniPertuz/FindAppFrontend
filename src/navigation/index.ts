@@ -1,4 +1,4 @@
-export * from './DrawerNavigator';
+export * from './BottomTabNavigator';
 export * from './EditProfileNavigator';
 export * from './FavoritesNavigator';
 export * from './HistoryNavigator';
