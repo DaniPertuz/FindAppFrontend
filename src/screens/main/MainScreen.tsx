@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Image, Platform, Text, TouchableOpacity, View, TextInput } from 'react-native';
-import { DrawerScreenProps } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 
 import { PermissionsContext } from '../../context';
 import { editStyles, styles } from '../../theme/AppTheme';
 
-interface Props extends DrawerScreenProps<any, any> { };
-
-const MainScreen = ({ navigation }: Props) => {
+const MainScreen = () => {
 
     const [search, setSearch] = useState<string>('');
     const { askLocationPermission } = useContext(PermissionsContext);
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         askLocationPermission();
