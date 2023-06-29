@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -8,7 +8,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 
 import { useForm } from '../../hooks/useForm';
 import { AuthContext, UsersContext } from '../../context';
-import { editStyles, loginStyles, styles } from '../../theme/AppTheme';
+import { loginStyles, styles } from '../../theme/AppTheme';
 
 interface Props extends StackScreenProps<any, any> { }
 
@@ -195,9 +195,10 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 </ScrollView>
             </KeyboardAvoidingView>
             <BottomSheet
+                enablePanDownToClose={true}
                 ref={bottomSheetRef}
                 index={-1}
-                snapPoints={[1, 130]}
+                snapPoints={["13%"]}
             >
                 <View
                     style={styles.profileBottomSheet}
@@ -218,18 +219,24 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         marginHorizontal: 10
                     }}
                 >
-                    <TouchableOpacity
-                        onPress={() => { addPhoto(); bottomSheetRef.current?.close(); }}
-                    >
-                        <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>
-                            Foto
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); }}
-                    >
-                        <Text style={styles.bottomSheetDetailsPrimaryFontStyle}>Galería</Text>
-                    </TouchableOpacity>
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => { addPhoto(); bottomSheetRef.current?.close(); }}
+                            style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                        >
+                            <Image source={require('../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                        </TouchableOpacity>
+                        <Text>Galería</Text>
+                    </View>
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); }}
+                            style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                        >
+                            <Image source={require('../../assets/camera.png')} style={{ height: 25, width: 25 }} />
+                        </TouchableOpacity>
+                        <Text>Cámara</Text>
+                    </View>
                 </View>
             </BottomSheet>
         </>
