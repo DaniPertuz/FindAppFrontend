@@ -103,94 +103,89 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 <ScrollView
                     style={loginStyles.formContainer}
                     contentContainerStyle={{ justifyContent: 'center' }}>
+                    <Image
+                        source={(!userDB || userDB.photo === '')
+                            ? require('../../assets/FA_Color.png')
+                            : (response?.assets && response.assets[0].uri !== '')
+                                ? { uri: response.assets[0].uri }
+                                : { uri: userDB.photo }}
+                        style={styles.profileAvatar}
+                    />
                     <TouchableOpacity
                         activeOpacity={1}
                         onPress={updateMainPhoto}
+                        style={{ position: 'absolute', zIndex: 999, top: 120, left: 200, backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5 }}
                     >
-                        <Image
-                            source={(!userDB || userDB.photo === '')
-                                ? require('../../assets/placeholder.png')
-                                : (response?.assets && response.assets[0].uri !== '')
-                                    ? { uri: response.assets[0].uri }
-                                    : { uri: userDB.photo }}
-                            style={styles.profileAvatar}
-                        />
+                        <Image source={require('../../assets/camera.png')} style={{ height: 30, width: 30 }} />
                     </TouchableOpacity>
-                    <Text style={editStyles.label}>
-                        Nombre:
-                    </Text>
-                    <TextInput
-                        underlineColorAndroid='#5856D6'
-                        style={[
-                            editStyles.inputField,
-                            (Platform.OS === 'ios') && editStyles.inputFieldIOS
-                        ]}
-                        selectionColor='#5856D6'
-                        autoCapitalize='words'
-                        autoCorrect={false}
-                        onSubmitEditing={onUpdate}
-                        onChangeText={(value) => onChange(value, 'name')}
-                        value={name}
-                    />
-                    <Text style={editStyles.label}>
-                        Email:
-                    </Text>
-                    <TextInput
-                        keyboardType='email-address'
-                        underlineColorAndroid='#5856D6'
-                        style={[
-                            editStyles.inputField,
-                            (Platform.OS === 'ios') && editStyles.inputFieldIOS
-                        ]}
-                        selectionColor='#5856D6'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        onSubmitEditing={onUpdate}
-                        onChangeText={(value) => onChange(value, 'email')}
-                        value={email}
-                    />
-                    <Text style={editStyles.label}>
-                        Nueva contraseña:
-                    </Text>
-                    <TextInput
-                        underlineColorAndroid='#5856D6'
-                        secureTextEntry
-                        style={[
-                            editStyles.inputField,
-                            (Platform.OS === 'ios') && editStyles.inputFieldIOS
-                        ]}
-                        selectionColor='#5856D6'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        onSubmitEditing={onUpdate}
-                        onChangeText={(value) => onChange(value, 'password')}
-                        value={password}
-                    />
-                    <Text style={editStyles.label}>
-                        Repita contraseña:
-                    </Text>
-                    <TextInput
-                        underlineColorAndroid='#5856D6'
-                        secureTextEntry
-                        style={[
-                            editStyles.inputField,
-                            (Platform.OS === 'ios') && editStyles.inputFieldIOS
-                        ]}
-                        selectionColor='#5856D6'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        onSubmitEditing={onUpdate}
-                        onChangeText={(value) => onChange(value, 'passwordRep')}
-                        value={passwordRep}
-                    />
-
-                    <View style={editStyles.buttonContainer}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
+                        <Text style={{ color: '#081023', fontSize: 24, fontWeight: '500', lineHeight: 28, letterSpacing: -0.48 }}>
+                            {name}
+                        </Text>
                         <TouchableOpacity
-                            activeOpacity={0.8}
-                            style={editStyles.button}
-                            onPress={onUpdate}
+                            activeOpacity={0.9}
+                            style={{ backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5, marginStart: 6 }}
                         >
-                            <Text style={editStyles.buttonText}>Guardar</Text>
+                            <Image source={require('../../assets/edit.png')} style={{ height: 20, width: 20 }} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
+                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{email}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
+                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
+                            <View style={{ marginTop: 8 }}>
+                                <Image source={require('../../assets/history.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                            </View>
+                            <View style={{ marginTop: 12 }}>
+                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Historial</Text>
+                            </View>
+                            <View style={{ marginTop: 6 }}>
+                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>23 viajes</Text>
+                            </View>
+                        </View>
+                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
+                            <View style={{ marginTop: 8 }}>
+                                <Image source={require('../../assets/heart-favorite.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                            </View>
+                            <View style={{ marginTop: 12 }}>
+                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Favoritos</Text>
+                            </View>
+                            <View style={{ marginTop: 6 }}>
+                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>12 lugares</Text>
+                            </View>
+                        </View>
+                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
+                            <View style={{ marginTop: 8 }}>
+                                <Image source={require('../../assets/star.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                            </View>
+                            <View style={{ marginTop: 12 }}>
+                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Calificaciones</Text>
+                            </View>
+                            <View style={{ marginTop: 6 }}>
+                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>6 lugares</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Nombre de usuario</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 4 }}>
+                            <Image source={require('../../assets/user.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{name}</Text>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 23 }}>
+                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 4 }}>
+                            <Image source={require('../../assets/envelope.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{email}</Text>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 23 }}>
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                        >
+                            <Text style={{ color: '#D13232', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
