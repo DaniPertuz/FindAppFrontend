@@ -103,21 +103,25 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 <ScrollView
                     style={loginStyles.formContainer}
                     contentContainerStyle={{ justifyContent: 'center' }}>
-                    <Image
-                        source={(!userDB || userDB.photo === '')
-                            ? require('../../assets/FA_Color.png')
-                            : (response?.assets && response.assets[0].uri !== '')
-                                ? { uri: response.assets[0].uri }
-                                : { uri: userDB.photo }}
-                        style={styles.profileAvatar}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        onPress={updateMainPhoto}
-                        style={{ position: 'absolute', zIndex: 999, top: 120, left: 200, backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5 }}
+                    <View
+                        style={{ flexDirection: 'row', justifyContent: 'center' }}
                     >
-                        <Image source={require('../../assets/camera.png')} style={{ height: 30, width: 30 }} />
-                    </TouchableOpacity>
+                        <Image
+                            source={(!userDB || userDB.photo === '')
+                                ? require('../../assets/FA_Color.png')
+                                : (response?.assets && response.assets[0].uri !== '')
+                                    ? { uri: response.assets[0].uri }
+                                    : { uri: userDB.photo }}
+                            style={styles.profileAvatar}
+                        />
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={updateMainPhoto}
+                            style={{ backgroundColor: '#FFFFFF', borderRadius: 30, marginStart: -40, marginTop: 125, maxHeight: 40, padding: 5 }}
+                        >
+                            <Image source={require('../../assets/camera.png')} style={{ height: 30, width: 30 }} />
+                        </TouchableOpacity>
+                    </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 24, fontWeight: '500', lineHeight: 28, letterSpacing: -0.48 }}>
                             {name}
