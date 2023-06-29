@@ -56,10 +56,10 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 <TextInput
                     placeholder='Ingresa tu usuario o correo'
                     placeholderTextColor='#9A9A9A'
-                    keyboardType='default'
+                    keyboardType='email-address'
                     style={[
                         styles.inputField,
-                        // (Platform.OS === 'ios') && styles.inputFieldIOS
+                        (Platform.OS === 'ios') && styles.inputFieldIOS
                     ]}
                     selectionColor='#9A9A9A'
                     autoCapitalize='none'
@@ -96,7 +96,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     style={[
                         styles.inputField,
                         { flex: 3, marginHorizontal: 10 },
-                        // (Platform.OS === 'ios') && styles.inputFieldIOS
+                        (Platform.OS === 'ios') && styles.inputFieldIOS
                     ]}
                     selectionColor='#9A9A9A'
                     autoCapitalize='none'

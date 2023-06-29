@@ -148,7 +148,7 @@ const NewPasswordScreen = () => {
                                 keyboardType='email-address'
                                 style={[
                                     styles.inputField,
-                                    // (Platform.OS === 'ios') && styles.inputFieldIOS
+                                    (Platform.OS === 'ios') && styles.inputFieldIOS
                                 ]}
                                 selectionColor='#9A9A9A'
                                 autoCapitalize='none'
@@ -187,7 +187,7 @@ const NewPasswordScreen = () => {
                                     style={[
                                         styles.inputField,
                                         { flex: 2, marginHorizontal: 2 },
-                                        // (Platform.OS === 'ios') && styles.inputFieldIOS
+                                        (Platform.OS === 'ios') && styles.inputFieldIOS
                                     ]}
                                     selectionColor='#9A9A9A'
                                     autoCapitalize='none'
@@ -236,7 +236,7 @@ const NewPasswordScreen = () => {
                                     style={[
                                         styles.inputField,
                                         { flex: 2, marginHorizontal: 2 },
-                                        // (Platform.OS === 'ios') && styles.inputFieldIOS
+                                        (Platform.OS === 'ios') && styles.inputFieldIOS
                                     ]}
                                     selectionColor='#9A9A9A'
                                     autoCapitalize='none'

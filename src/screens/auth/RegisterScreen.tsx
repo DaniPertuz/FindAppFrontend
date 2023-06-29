@@ -122,7 +122,7 @@ const RegisterScreen = () => {
                   keyboardType='default'
                   style={[
                     styles.inputField,
-                    // (Platform.OS === 'ios') && styles.inputFieldIOS
+                    (Platform.OS === 'ios') && styles.inputFieldIOS
                   ]}
                   selectionColor='#9A9A9A'
                   autoCapitalize='words'
@@ -159,7 +159,7 @@ const RegisterScreen = () => {
                   keyboardType='email-address'
                   style={[
                     styles.inputField,
-                    // (Platform.OS === 'ios') && styles.inputFieldIOS
+                    (Platform.OS === 'ios') && styles.inputFieldIOS
                   ]}
                   selectionColor='#9A9A9A'
                   autoCapitalize='none'
@@ -198,7 +198,7 @@ const RegisterScreen = () => {
                   style={[
                     styles.inputField,
                     { flex: 2, marginHorizontal: 10 },
-                    // (Platform.OS === 'ios') && styles.inputFieldIOS
+                    (Platform.OS === 'ios') && styles.inputFieldIOS
                   ]}
                   selectionColor='#9A9A9A'
                   autoCapitalize='none'
