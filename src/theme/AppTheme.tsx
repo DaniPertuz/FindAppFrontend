@@ -34,9 +34,7 @@ const styles = StyleSheet.create({
         padding: 16
     },
     inputFieldIOS: {
-        borderBottomColor: '#FFFFFF',
-        borderBottomWidth: 2,
-        paddingBottom: 4
+        lineHeight: 18
     },
     button: {
         alignItems: 'center',
@@ -126,9 +124,12 @@ const styles = StyleSheet.create({
     },
     profileAvatar: {
         alignSelf: 'center',
+        borderColor: '#081023',
+        borderRadius: 100,
+        borderWidth: 2.5,
         marginTop: 25,
-        height: 170,
-        width: '40%'
+        height: 140,
+        width: 140
     },
     profileBottomSheet: {
         backgroundColor: '#EBEBEB',
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     },
     profileScreenContainer: {
         flex: 1,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: 'rgba(104, 110, 222, 0.1)'
     },
     drawerContainer: {
         display: 'flex',
