@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { EditProfileScreen, MainScreen } from '../screens';
 import { FavoritesNavigator } from './FavoritesNavigator';
-import { Image, Text, View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,7 +11,6 @@ export const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
             tabBarOptions={{
-                activeTintColor: '#207CFD',
                 labelStyle: {
                     fontSize: 14,
                     fontWeight: '500',
