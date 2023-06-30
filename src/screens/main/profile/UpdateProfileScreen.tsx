@@ -13,13 +13,13 @@ import { IUser } from '../../../interfaces';
 
 interface Props extends StackScreenProps<RootStackParams, 'UpdateProfileScreen'> { }
 
-const UpdateProfileScreen = ({ navigation, route }: Props) => {
+const UpdateProfileScreen = ({ route }: Props) => {
 
     const { user } = route.params;
 
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
-    const { loadUserByID, updateUser } = useContext(UsersContext);
+    const { loadUserByID, updateUser, updateUserPassword } = useContext(UsersContext);
 
     const [userDB, setUserDB] = useState<IUser>(user);
     const [display, setDisplay] = useState(false);
@@ -65,10 +65,17 @@ const UpdateProfileScreen = ({ navigation, route }: Props) => {
             return;
         }
 
+        if (password === confirmPassword && (password.length !== 0 && confirmPassword.length !== 0)) {
+            setDisplay(false);
+            updateUserPassword(user.email, password);
+            Toast.show('Contraseña actualizada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
+            navigator.goBack();
+        }
+
         setDisplay(false);
-        updateUser(user?._id!, name, user.email, password);
+        updateUser(user?._id!, name);
         Toast.show((name === user.name) ? 'Tu información no fue modificada' : 'Información actualizada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
-        navigation.pop();
+        navigator.goBack();
     };
 
     return (
