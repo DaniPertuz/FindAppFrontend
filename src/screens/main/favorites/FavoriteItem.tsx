@@ -30,7 +30,38 @@ const FavoriteItem = ({ item, onPress }: Props) => {
 
     return (
         <>
-            {(placeRating !== 0) &&
+            <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, flexDirection: 'row', marginBottom: 20, paddingHorizontal: 10, paddingVertical: 8 }}>
+                <View style={{ flex: 1 }}>
+                    <Image
+                        source={{ uri: item.place.photo }}
+                        style={{ borderRadius: 8, height: 42, width: 42 }}
+                    />
+                </View>
+                <View style={{ flex: 5, marginHorizontal: 12 }}>
+                    <View style={{ marginBottom: 8 }}>
+                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.place.name}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', maxWidth: 156 }}>
+                        <Image source={require('../../../assets/restaurant.png')} style={{ height: 15, width: 15 }} />
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ marginEnd: 6 }}>
+                                <Image source={require('../../../assets/location.png')} style={{ height: 15, width: 15 }} />
+                            </View>
+                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>0.2 Km</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ marginEnd: 6 }}>
+                                <Image source={require('../../../assets/star.png')} style={{ height: 15, width: 15 }} />
+                            </View>
+                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{placeRating.toFixed(2)}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Image source={require('../../../assets/heart-favorite.png')} style={{ height: 26, width: 26 }} />
+                </View>
+            </View>
+            {/* {(placeRating !== 0) &&
                 <TouchableOpacity
                     activeOpacity={0.9}
                     onPress={onPress}
@@ -84,7 +115,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-            }
+            } */}
         </>
     );
 };
