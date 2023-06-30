@@ -67,12 +67,10 @@ export const UsersProvider = ({ children }: any) => {
         }
     };
 
-    const updateUser = async (userID: string, name: string, email: string, password: string, photo?: string): Promise<void> => {
+    const updateUser = async (userID: string, name: string, photo?: string): Promise<void> => {
         try {
             const resp = await findAPI.put<IUser>(`/users/${userID}`, {
                 name,
-                email,
-                password,
                 photo
             });
 
@@ -90,7 +88,6 @@ export const UsersProvider = ({ children }: any) => {
                 email,
                 password
             });
-
         } catch (error) {
             console.error(error);
         }

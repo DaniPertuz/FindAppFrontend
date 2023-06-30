@@ -9,7 +9,7 @@ interface UsersContextProps {
     loadUserByEmail:    (email: string) => Promise<IUser>;
     loadUserByID:       (userID: string) => Promise<IUser>;
     addUser:            (user: IUser) => Promise<void>;
-    updateUser:         (userID: string, name: string, email: string, password: string, photo?: string) => Promise<void>;
+    updateUser:         (userID: string, name: string, photo?: string) => Promise<void>;
     updateUserPassword: (email: string, password: string) => Promise<void>;
     deleteUser:         (userID: string) => Promise<void>;
     updatePhoto:        (data: ImagePickerResponse, userID: string) => Promise<string>;
