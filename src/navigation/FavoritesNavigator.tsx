@@ -27,8 +27,7 @@ export const FavoritesNavigator = () => {
             <Stack.Screen
                 name="FavoritesScreen"
                 options={{
-                    headerTitle: 'Lugares favoritos',
-                    headerStyle: { backgroundColor: '#5856D6' },
+                    headerShown: false,
                     headerTintColor: '#FFFFFF',
                     headerTitleAlign: 'center',
                     headerLeft: () => (
