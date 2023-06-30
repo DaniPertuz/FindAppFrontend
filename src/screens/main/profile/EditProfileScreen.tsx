@@ -6,11 +6,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import { useForm } from '../../hooks/useForm';
-import { AuthContext, UsersContext } from '../../context';
-import { loginStyles, styles } from '../../theme/AppTheme';
+import { AuthContext, UsersContext } from '../../../context';
+import { useForm } from '../../../hooks/useForm';
+import { RootStackParams } from '../../../navigation';
 
-interface Props extends StackScreenProps<any, any> { }
+import { loginStyles, styles } from '../../../theme/AppTheme';
+
+interface Props extends StackScreenProps<RootStackParams, 'EditProfileScreen'> { }
 
 const EditProfileScreen = ({ navigation }: Props) => {
     const { top } = useSafeAreaInsets();
@@ -30,7 +32,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
 
     useEffect(() => {
         load();
-    }, []);
+    }, [userDB]);
 
     const load = async () => {
         const usr = await loadUserByID(user?._id!);
@@ -108,7 +110,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     >
                         <Image
                             source={(!userDB || userDB.photo === '')
-                                ? require('../../assets/FA_Color.png')
+                                ? require('../../../assets/FA_Color.png')
                                 : (response?.assets && response.assets[0].uri !== '')
                                     ? { uri: response.assets[0].uri }
                                     : { uri: userDB.photo }}
@@ -119,18 +121,19 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={updateMainPhoto}
                             style={{ backgroundColor: '#FFFFFF', borderRadius: 30, marginStart: -40, marginTop: 125, maxHeight: 40, padding: 5 }}
                         >
-                            <Image source={require('../../assets/camera.png')} style={{ height: 30, width: 30 }} />
+                            <Image source={require('../../../assets/camera.png')} style={{ height: 30, width: 30 }} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 24, fontWeight: '500', lineHeight: 28, letterSpacing: -0.48 }}>
-                            {name}
+                            {userDB.name}
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.9}
+                            onPress={() => { navigation.navigate('UpdateProfileScreen', { user: userDB }); }}
                             style={{ backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5, marginStart: 6 }}
                         >
-                            <Image source={require('../../assets/edit.png')} style={{ height: 20, width: 20 }} />
+                            <Image source={require('../../../assets/edit.png')} style={{ height: 20, width: 20 }} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
@@ -139,7 +142,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../assets/history.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                                <Image source={require('../../../assets/history.png')} style={{ minHeight: 33, minWidth: 33 }} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Historial</Text>
@@ -150,7 +153,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </View>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../assets/heart-favorite.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                                <Image source={require('../../../assets/heart-favorite.png')} style={{ minHeight: 33, minWidth: 33 }} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Favoritos</Text>
@@ -161,7 +164,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </View>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../assets/star.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                                <Image source={require('../../../assets/star.png')} style={{ minHeight: 33, minWidth: 33 }} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Calificaciones</Text>
@@ -174,14 +177,14 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Nombre de usuario</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <Image source={require('../../assets/user.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
-                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{name}</Text>
+                            <Image source={require('../../../assets/user.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB.name}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 23 }}>
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <Image source={require('../../assets/envelope.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <Image source={require('../../../assets/envelope.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
                             <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{email}</Text>
                         </View>
                     </View>
@@ -224,7 +227,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={() => { addPhoto(); bottomSheetRef.current?.close(); }}
                             style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                         >
-                            <Image source={require('../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                            <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
                         </TouchableOpacity>
                         <Text>Galería</Text>
                     </View>
@@ -233,7 +236,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); }}
                             style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                         >
-                            <Image source={require('../../assets/camera.png')} style={{ height: 25, width: 25 }} />
+                            <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
                         </TouchableOpacity>
                         <Text>Cámara</Text>
                     </View>

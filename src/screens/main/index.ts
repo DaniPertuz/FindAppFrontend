@@ -1,4 +1,4 @@
-export { default as EditProfileScreen } from './EditProfileScreen';
+export { EditProfileScreen, UpdateProfileScreen } from './profile';
 export { FavoritesScreen, FavoriteItem } from './favorites';
 export { HistoryScreen, HistoryItem } from './history';
 export { default as MainScreen } from './MainScreen';
