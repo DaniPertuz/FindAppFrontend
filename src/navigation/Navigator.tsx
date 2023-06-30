@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { AuthContext, PermissionsContext } from '../context';
-import { LoadingScreen, LoginScreen, NewPasswordScreen, PermissionsScreen, RegisterScreen } from '../screens';
-import { BottomTabNavigator } from './';
+import { LoadingScreen, LoginScreen, NewPasswordScreen, PermissionsScreen, RegisterScreen, UpdateProfileScreen } from '../screens';
+import { MainNavigator } from './';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +37,10 @@ export const Navigator = () => {
           ?
           <Stack.Screen name='PermissionsScreen' component={PermissionsScreen} />
           :
-          <Stack.Screen name='MainScreen' component={BottomTabNavigator} />
+          <>
+            <Stack.Screen name='MainScreen' component={MainNavigator} />
+            <Stack.Screen name='UpdateProfileScreen' component={UpdateProfileScreen} />
+          </>
       }
     </Stack.Navigator>
   );
