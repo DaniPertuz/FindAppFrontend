@@ -26,6 +26,22 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row'
     },
+    updateInputFieldContainer: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(250, 250, 250, 0.98)',
+        borderColor: '#081023',
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: 'row'
+    },
+    disabledInputFieldContainer: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(222, 222, 222, 1)',
+        borderColor: '#858585',
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: 'row'
+    },
     inputField: {
         color: '#2F2F2F',
         fontSize: 16,
