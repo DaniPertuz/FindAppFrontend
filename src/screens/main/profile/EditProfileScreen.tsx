@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-
-import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
+
 import BottomSheet from '@gorhom/bottom-sheet';
+import Toast from 'react-native-root-toast';
 
 import { AuthContext, UsersContext } from '../../../context';
-import { useForm } from '../../../hooks/useForm';
 import { RootStackParams } from '../../../navigation';
 
 import { loginStyles, styles } from '../../../theme/AppTheme';
@@ -16,6 +17,7 @@ interface Props extends StackScreenProps<RootStackParams, 'EditProfileScreen'> {
 
 const EditProfileScreen = ({ navigation }: Props) => {
     const { top } = useSafeAreaInsets();
+    const isFocused = useIsFocused();
 
     const [response, setResponse] = useState<any>(null);
     const [userDB, setUserDB] = useState<any>(null);
@@ -23,21 +25,16 @@ const EditProfileScreen = ({ navigation }: Props) => {
     const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
     const bottomSheetRef = useRef<BottomSheet>(null);
 
-    const { name, email, password, passwordRep, onChange } = useForm({
-        name: user?.name!,
-        email: user?.email!,
-        password: '',
-        passwordRep: ''
-    });
-
-    useEffect(() => {
-        load();
-    }, [userDB]);
-
     const load = async () => {
         const usr = await loadUserByID(user?._id!);
         setUserDB(usr);
     };
+
+    useEffect(() => {
+        if (isFocused === true) {
+            load();
+        }
+    }, [isFocused, userDB]);
 
     const addPhoto = () => {
         launchCamera({
@@ -54,29 +51,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
     };
 
     const onUpdate = async () => {
-        Keyboard.dismiss();
-
-        if (password !== passwordRep) {
-            Alert.alert('Error', 'Contraseñas no coinciden', [
-                { text: 'OK' }
-            ]);
-            return;
-        }
-
-        let photoURL;
         if (response && response.assets[0].uri !== '') {
-            photoURL = await updatePhoto(response, user?._id!);
+            const photoURL = await updatePhoto(response, user?._id!);
+            updateUser(user?._id!, user?.name!, photoURL);
+            Toast.show('Foto actualizada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
         }
-
-        if (photoURL === null) {
-            updateUser(user?._id!, name, email, password);
-        }
-
-        updateUser(user!._id!, name, email, password, photoURL);
-
-        Alert.alert('', 'Información actualizada', [
-            { text: 'OK', onPress: () => navigation.navigate('MainScreen') }
-        ]);
     };
 
     const updateMainPhoto = () => {
@@ -109,11 +88,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         style={{ flexDirection: 'row', justifyContent: 'center' }}
                     >
                         <Image
-                            source={(!userDB || userDB.photo === '')
+                            source={(!user || user.photo === '')
                                 ? require('../../../assets/FA_Color.png')
                                 : (response?.assets && response.assets[0].uri !== '')
                                     ? { uri: response.assets[0].uri }
-                                    : { uri: userDB.photo }}
+                                    : { uri: user.photo }}
                             style={styles.profileAvatar}
                         />
                         <TouchableOpacity
@@ -126,7 +105,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 24, fontWeight: '500', lineHeight: 28, letterSpacing: -0.48 }}>
-                            {userDB.name}
+                            {userDB?.name}
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.9}
@@ -137,7 +116,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
-                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{email}</Text>
+                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.email}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
@@ -178,14 +157,14 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Nombre de usuario</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
                             <Image source={require('../../../assets/user.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
-                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB.name}</Text>
+                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.name}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 23 }}>
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
                             <Image source={require('../../../assets/envelope.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
-                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{email}</Text>
+                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.email}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 23 }}>
@@ -224,7 +203,8 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 >
                     <View>
                         <TouchableOpacity
-                            onPress={() => { addPhoto(); bottomSheetRef.current?.close(); }}
+                            activeOpacity={0.9}
+                            onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); onUpdate(); }}
                             style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                         >
                             <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
@@ -233,7 +213,8 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     </View>
                     <View>
                         <TouchableOpacity
-                            onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); }}
+                            activeOpacity={0.9}
+                            onPress={() => { addPhoto(); bottomSheetRef.current?.close(); onUpdate(); }}
                             style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                         >
                             <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
