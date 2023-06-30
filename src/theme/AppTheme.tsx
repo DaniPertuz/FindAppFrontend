@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         padding: 16
     },
     inputFieldIOS: {
-        lineHeight: 18
+        lineHeight: 19
     },
     button: {
         alignItems: 'center',
@@ -156,8 +156,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     profileScreenContainer: {
-        flex: 1,
-        backgroundColor: 'rgba(104, 110, 222, 0.1)'
+        flex: 1
     },
     drawerContainer: {
         display: 'flex',
