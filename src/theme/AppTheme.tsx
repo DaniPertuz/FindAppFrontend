@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     center: {
+        backgroundColor: 'rgba(104, 110, 222, 0.1)',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     },
     topContainer: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'rgba(104, 110, 222, 0.1)',
         paddingHorizontal: 10
     },
     blackTitle: {
