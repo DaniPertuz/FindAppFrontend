@@ -3,10 +3,12 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MainScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
-import { IPlace, IProduct, IService } from '../interfaces';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { IPlace, IProduct, IService, IUser } from '../interfaces';
+import { BottomTabNavigator } from './BottomTabNavigator';
 
 export type RootStackParams = {
+    BottomTabNavigator: undefined,
     EditProfileScreen: undefined,
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
@@ -21,7 +23,8 @@ export type RootStackParams = {
     RatingScreen: undefined,
     RegisterScreen: undefined,
     ResultsScreen: { place: IPlace, search: string; },
-    ReviewsScreen: { place: string; };
+    ReviewsScreen: { place: string; }
+    UpdateProfileScreen: { user: IUser; };
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -33,6 +36,7 @@ export const MainNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
+                headerShown: false,
                 headerStyle: {
                     elevation: 0,
                     shadowColor: 'transparent'
@@ -42,7 +46,7 @@ export const MainNavigator = () => {
                 }
             }}
         >
-            <Stack.Screen name="MainScreen" options={{ title: '' }} component={MainScreen} />
+            <Stack.Screen name="BottomTabNavigator" options={{ title: '' }} component={BottomTabNavigator} />
             <Stack.Screen name="EditProfileScreen" options={{ title: '' }} component={EditProfileScreen} />
             <Stack.Screen name="LoginScreen" options={{ title: '' }} component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" options={{ title: '' }} component={RegisterScreen} />
