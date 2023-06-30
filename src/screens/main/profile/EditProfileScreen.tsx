@@ -21,7 +21,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
 
     const [response, setResponse] = useState<any>(null);
     const [userDB, setUserDB] = useState<any>(null);
-    const { user } = useContext(AuthContext);
+    const { logOut, user } = useContext(AuthContext);
     const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
     const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -170,6 +170,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={{ marginTop: 23 }}>
                         <TouchableOpacity
                             activeOpacity={1.0}
+                            onPress={logOut}
                         >
                             <Text style={{ color: '#D13232', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
                         </TouchableOpacity>
