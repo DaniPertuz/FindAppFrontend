@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
@@ -48,6 +48,7 @@ export const MainNavigator = () => {
         >
             <Stack.Screen name="BottomTabNavigator" options={{ title: '' }} component={BottomTabNavigator} />
             <Stack.Screen name="EditProfileScreen" options={{ title: '' }} component={EditProfileScreen} />
+            <Stack.Screen name="UpdateProfileScreen" options={{ title: '' }} component={UpdateProfileScreen} />
             <Stack.Screen name="LoginScreen" options={{ title: '' }} component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" options={{ title: '' }} component={RegisterScreen} />
             <Stack.Screen name="NewPasswordScreen" options={{ title: '' }} component={NewPasswordScreen} />
