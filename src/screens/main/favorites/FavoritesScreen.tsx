@@ -68,24 +68,22 @@ const FavoritesScreen = () => {
                                 elevation: 3
                             }}
                         >
-                            <Image
-                                source={require('../../../assets/search.png')}
-                                style={{ height: 16, width: 16 }}
-                            />
-                            <TextInput
-                                placeholder='Escribe una palabra o frase'
-                                placeholderTextColor='#9A9A9A'
-                                keyboardType='email-address'
-                                style={[
-                                    styles.inputField,
-                                    (Platform.OS === 'ios') && styles.inputFieldIOS
-                                ]}
-                                selectionColor='#9A9A9A'
-                                autoCapitalize='none'
-                                autoCorrect={false}
-                                onChangeText={setSearch}
-                                value={search}
-                            />
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                onPress={() => console.log(123)}
+                            >
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Image
+                                        source={require('../../../assets/search.png')}
+                                        style={{ height: 16, width: 16 }}
+                                    />
+                                    <View style={{ marginHorizontal: 10 }}>
+                                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
+                                            Escribe una palabra o frase
+                                        </Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <TouchableOpacity
                             activeOpacity={1.0}
