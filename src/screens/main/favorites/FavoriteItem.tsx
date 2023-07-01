@@ -5,6 +5,8 @@ import { Rating } from 'react-native-ratings';
 
 import { PlacesContext } from '../../../context/places/PlacesContext';
 import { IFavorite } from '../../../interfaces/app-interfaces';
+import useDistance from '../../../hooks/useDistance';
+import useLocation from '../../../hooks/useLocation';
 import { styles } from '../../../theme/AppTheme';
 
 interface Props {
@@ -19,6 +21,9 @@ const FavoriteItem = ({ item, onPress }: Props) => {
     const { getPlaceRating } = useContext(PlacesContext);
 
     const [placeRating, setPlaceRating] = useState<number>(0);
+    const [distance, setDistance] = useState<number>(0)
+
+    const { getCurrentLocation } = useLocation();
 
     const setRating = async () => {
         setPlaceRating(await getPlaceRating(item.place._id));
@@ -27,6 +32,15 @@ const FavoriteItem = ({ item, onPress }: Props) => {
     useEffect(() => {
         setRating();
     }, []);
+
+    const getDistance = async () => {
+        const { latitude, longitude } = await getCurrentLocation();
+        setDistance(useDistance(latitude, longitude, item.place.coords.latitude, item.place.coords.longitude, 'K'));
+    };
+
+    useEffect(() => {
+      getDistance();
+    }, [])
 
     return (
         <>
@@ -47,7 +61,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                             <View style={{ marginEnd: 6 }}>
                                 <Image source={require('../../../assets/location.png')} style={{ height: 15, width: 15 }} />
                             </View>
-                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>0.2 Km</Text>
+                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ marginEnd: 6 }}>
