@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 
+import { AuthContext } from '../../../context';
 import { PlacesContext } from '../../../context/places/PlacesContext';
 import { IFavorite } from '../../../interfaces/app-interfaces';
 import useDistance from '../../../hooks/useDistance';
 import useLocation from '../../../hooks/useLocation';
+
 import { styles } from '../../../theme/AppTheme';
 
 interface Props {
@@ -18,10 +20,11 @@ const FavoriteItem = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation();
 
-    const { getPlaceRating } = useContext(PlacesContext);
+    const { user } = useContext(AuthContext);
+    const { deleteFavorite, getPlaceRating } = useContext(PlacesContext);
 
     const [placeRating, setPlaceRating] = useState<number>(0);
-    const [distance, setDistance] = useState<number>(0)
+    const [distance, setDistance] = useState<number>(0);
 
     const { getCurrentLocation } = useLocation();
 
@@ -29,18 +32,31 @@ const FavoriteItem = ({ item, onPress }: Props) => {
         setPlaceRating(await getPlaceRating(item.place._id));
     };
 
-    useEffect(() => {
-        setRating();
-    }, []);
-
     const getDistance = async () => {
         const { latitude, longitude } = await getCurrentLocation();
         setDistance(useDistance(latitude, longitude, item.place.coords.latitude, item.place.coords.longitude, 'K'));
     };
 
+    const removeFavorite = async () => {
+        Alert.alert('Eliminar de favoritos', '¿Quieres eliminar este lugar de tu lista de favoritos?', [
+            {
+                text: 'Cancelar',
+                style: 'cancel'
+            },
+            {
+                text: 'Eliminar',
+                onPress: async () => await deleteFavorite(user?._id!, item.place._id)
+            },
+        ]);
+    }
+
     useEffect(() => {
-      getDistance();
-    }, [])
+        setRating();
+    }, []);
+
+    useEffect(() => {
+        getDistance();
+    }, []);
 
     return (
         <>
@@ -71,9 +87,14 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={require('../../../assets/heart-favorite.png')} style={{ height: 26, width: 26 }} />
-                </View>
+                <TouchableOpacity
+                    activeOpacity={1.0}
+                    onPress={removeFavorite}
+                >
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../../../assets/heart-favorite.png')} style={{ height: 26, width: 26 }} />
+                    </View>
+                </TouchableOpacity>
             </View>
             {/* {(placeRating !== 0) &&
                 <TouchableOpacity
