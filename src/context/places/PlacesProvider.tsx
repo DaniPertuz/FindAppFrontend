@@ -67,6 +67,14 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
+    const deleteFavorite = async (user: string, place: string) => {
+        try {
+            await findAPI.delete(`/favorites/${user}/${place}`);
+        } catch (error: any) {
+            console.log(error.response!.data.msg);
+        }
+    };
+
     return (
         <PlacesContext.Provider value={{
             loadPlaceByID,
@@ -75,7 +83,8 @@ export const PlacesProvider = ({ children }: any) => {
             getHistorical,
             getPlaceRating,
             addFavorite,
-            addService
+            addService,
+            deleteFavorite
         }}
         >
             {children}
