@@ -148,14 +148,6 @@ const styles = StyleSheet.create({
         height: 140,
         width: 140
     },
-    profileBottomSheet: {
-        backgroundColor: '#EBEBEB',
-        borderTopEndRadius: 15,
-        borderTopStartRadius: 15,
-        display: 'flex',
-        flexDirection: 'column',
-        marginHorizontal: 10
-    },
     profileScreenContainer: {
         flex: 1
     },
@@ -250,38 +242,6 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30
     },
-    bottomSheetMainContainer: {
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    bottomSheetContainer: {
-        backgroundColor: '#EBEBEB',
-        borderTopEndRadius: 15,
-        borderTopStartRadius: 15,
-        display: 'flex',
-        flexDirection: 'row',
-        height: '36%',
-        paddingHorizontal: 10,
-        width: '95%'
-    },
-    bottomSheetTopContainer: {
-        alignItems: 'center',
-        marginVertical: 5,
-        width: '95%'
-    },
-    bottomSheetIcon: {
-        borderRadius: 50,
-        marginStart: 22,
-        height: 100,
-        width: 100
-    },
-    bottomSheetDetailsContainer: {
-        width: '95%',
-        marginHorizontal: 20,
-        paddingHorizontal: 5,
-        paddingVertical: 7
-    },
     rowSpaceBetweenContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'
@@ -290,12 +250,6 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontFamily: 'Nunito-Regular',
         fontSize: 18
-    },
-    bottomSheetDetailsPrimaryFontStyle: {
-        color: '#000000',
-        fontFamily: 'Nunito-Regular',
-        fontSize: 17,
-        textTransform: 'uppercase'
     },
     secondaryFontStyle: {
         color: '#4B4D4B',
