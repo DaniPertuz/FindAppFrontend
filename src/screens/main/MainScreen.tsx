@@ -55,8 +55,7 @@ const MainScreen = () => {
     }, []);
 
     return (
-        <View
-            style={styles.mainScreenContainer}>
+        <View style={styles.mainScreenContainer}>
             <TopButtons />
             <View style={{ marginTop: 22 }}>
                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
