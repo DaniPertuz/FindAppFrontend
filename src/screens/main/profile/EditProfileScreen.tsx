@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Modal, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
@@ -21,6 +21,8 @@ const EditProfileScreen = ({ navigation }: Props) => {
 
     const [response, setResponse] = useState<any>(null);
     const [userDB, setUserDB] = useState<any>(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
     const { logOut, user } = useContext(AuthContext);
     const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
     const bottomSheetRef = useRef<BottomSheet>(null);
@@ -59,11 +61,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
     };
 
     const updateMainPhoto = () => {
-        bottomSheetRef.current?.expand();
+        setModalVisible(true);
     };
 
     const handleBackButtonClick = () => {
-        bottomSheetRef.current?.close();
+        setModalVisible(false);
         return true;
     };
 
@@ -177,53 +179,74 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-            <BottomSheet
-                enablePanDownToClose={true}
-                ref={bottomSheetRef}
-                index={-1}
-                snapPoints={["13%"]}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
             >
                 <View
-                    style={styles.profileBottomSheet}
-                >
-                    <View
-                        style={{ alignItems: 'flex-end' }}
-                    >
-                        <TouchableOpacity
-                            onPress={() => bottomSheetRef.current?.close()}
-                        >
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View
                     style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        marginHorizontal: 10
+                        backgroundColor: 'rgba(250, 250, 250, 0.98)',
+                        height: '20%',
+                        top: '80%',
+                        borderTopEndRadius: 10,
+                        borderTopStartRadius: 10,
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 1,
+                        },
+                        shadowOpacity: 0.22,
+                        shadowRadius: 2.22,
+                        elevation: 3
                     }}
                 >
-                    <View>
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        marginBottom: 10
+                    }}>
                         <TouchableOpacity
-                            activeOpacity={0.9}
-                            onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); onUpdate(); }}
-                            style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                            activeOpacity={1.0}
+                            style={{ marginEnd: 10, marginTop: 10 }}
+                            onPress={() => setModalVisible(false)}
                         >
-                            <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                            <Image source={require('../../../assets/close.png')} style={{ height: 30, width: 30 }} />
                         </TouchableOpacity>
-                        <Text>Galería</Text>
                     </View>
-                    <View>
-                        <TouchableOpacity
-                            activeOpacity={0.9}
-                            onPress={() => { addPhoto(); bottomSheetRef.current?.close(); onUpdate(); }}
-                            style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
-                        >
-                            <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
-                        </TouchableOpacity>
-                        <Text>Cámara</Text>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            marginHorizontal: 10
+                        }}
+                    >
+                        <View>
+                            <TouchableOpacity
+                                activeOpacity={0.9}
+                                onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); onUpdate(); }}
+                                style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                            >
+                                <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                            </TouchableOpacity>
+                            <Text>Galería</Text>
+                        </View>
+                        <View>
+                            <TouchableOpacity
+                                activeOpacity={0.9}
+                                onPress={() => { addPhoto(); bottomSheetRef.current?.close(); onUpdate(); }}
+                                style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                            >
+                                <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
+                            </TouchableOpacity>
+                            <Text>Cámara</Text>
+                        </View>
                     </View>
                 </View>
-            </BottomSheet>
+            </Modal>
         </>
     );
 };
