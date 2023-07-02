@@ -222,21 +222,21 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             marginHorizontal: 10
                         }}
                     >
-                        <View>
+                        <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => { addGalleryImage(); setModalVisible(false); onUpdate(); }}
-                                style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                                style={{ borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                             >
                                 <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
                             </TouchableOpacity>
                             <Text>Galería</Text>
                         </View>
-                        <View>
+                        <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => { addPhoto(); setModalVisible(false); onUpdate(); }}
-                                style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                                style={{ borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                             >
                                 <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
                             </TouchableOpacity>
