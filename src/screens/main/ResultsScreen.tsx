@@ -68,7 +68,9 @@ const ResultsScreen = ({ navigation, route }: Props) => {
             {(display === false) && <LoadingScreen />}
 
             {((display === true) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
-                <View style={styles.center}>
+                <View style={{ flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center' }}>
                     <Text style={styles.secondaryFontStyle}>
                         No hay lugares que coincidan con "{search}"
                     </Text>
@@ -89,7 +91,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                     </View>
                     <View
                         style={{
-                            ...styles.topContainer,
+                            paddingHorizontal: 10,
                             flex: 4,
                             paddingTop: (Platform.OS === 'ios') ? top : top + 20
                         }}
@@ -107,7 +109,7 @@ const ResultsScreen = ({ navigation, route }: Props) => {
                     </View>
                     <View
                         style={{
-                            ...styles.topContainer,
+                            paddingHorizontal: 10,
                             flex: 4,
                             paddingTop: (Platform.OS === 'ios') ? top : top + 20
                         }}
