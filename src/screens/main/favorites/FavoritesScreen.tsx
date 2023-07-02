@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, Image, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext, PlacesContext } from '../../../context';
@@ -15,7 +15,6 @@ const FavoritesScreen = () => {
 
     const init = { total: 0, favorites: [] };
 
-    const [search, setSearch] = useState<string>('');
     const [favorites, setFavorites] = useState<IFavorites>(init);
     const [display, setDisplay] = useState(false);
 
@@ -70,7 +69,7 @@ const FavoritesScreen = () => {
                         >
                             <TouchableOpacity
                                 activeOpacity={1.0}
-                                onPress={() => console.log(123)}
+                                onPress={() => { }}
                             >
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <Image
@@ -87,9 +86,10 @@ const FavoritesScreen = () => {
                         </View>
                         <TouchableOpacity
                             activeOpacity={1.0}
-                            style={{ backgroundColor: 'rgba(250, 250, 250, 0.98)', borderColor: '#081023', borderWidth: 1, borderRadius: 40, flex: 1, justifyContent: 'center', alignItems: 'center' }}
+                            onPress={() => navigation.navigate('EditProfileScreen')}
+                            style={user?.photo !== '' ? { backgroundColor: 'rgba(250, 250, 250, 0.98)', borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center' } : { backgroundColor: 'rgba(250, 250, 250, 0.98)', borderColor: '#081023', borderWidth: 1, borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center' }}
                         >
-                            <Image source={require('../../../assets/FA_Color.png')} style={{ height: 45, width: 45 }} />
+                            <Image source={(user?.photo === '' ? require('../../../assets/FA_Color.png') : { uri: user?.photo })} style={user?.photo !== '' ? { height: 50, width: 50, borderRadius: 50, borderColor: '#081023', borderWidth: 1 } : { height: 50, width: 50, borderRadius: 50 }} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 20 }}>
