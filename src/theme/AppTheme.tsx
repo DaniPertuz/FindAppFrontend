@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22
     },
     mainScreenContainer: {
-        backgroundColor: 'rgba(250, 250, 250, 0.98)',
+        backgroundColor: 'rgba(104, 110, 222, 0.1)',
         flex: 1,
         paddingTop: 60,
         paddingHorizontal: 20
