@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, KeyboardAvoidingView, Modal, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
-
-import BottomSheet from '@gorhom/bottom-sheet';
 import Toast from 'react-native-root-toast';
 
 import { AuthContext, UsersContext } from '../../../context';
@@ -25,7 +24,6 @@ const EditProfileScreen = ({ navigation }: Props) => {
 
     const { logOut, user } = useContext(AuthContext);
     const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
-    const bottomSheetRef = useRef<BottomSheet>(null);
 
     const load = async () => {
         const usr = await loadUserByID(user?._id!);
@@ -227,7 +225,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         <View>
                             <TouchableOpacity
                                 activeOpacity={0.9}
-                                onPress={() => { addGalleryImage(); bottomSheetRef.current?.close(); onUpdate(); }}
+                                onPress={() => { addGalleryImage(); setModalVisible(false); onUpdate(); }}
                                 style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                             >
                                 <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
@@ -237,7 +235,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         <View>
                             <TouchableOpacity
                                 activeOpacity={0.9}
-                                onPress={() => { addPhoto(); bottomSheetRef.current?.close(); onUpdate(); }}
+                                onPress={() => { addPhoto(); setModalVisible(false); onUpdate(); }}
                                 style={{ alignSelf: 'center', borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
                             >
                                 <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
