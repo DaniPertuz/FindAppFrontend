@@ -95,11 +95,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22
     },
     mainScreenContainer: {
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'rgba(250, 250, 250, 0.98)',
         flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 30
+        paddingTop: 60,
+        paddingHorizontal: 20
     },
     mainScreenLogo: {
         width: 120,
@@ -264,23 +263,19 @@ const styles = StyleSheet.create({
     },
     listItemContainer: {
         alignItems: 'center',
-        backgroundColor: '#EBEBEB',
-        borderColor: '#5856D6',
-        borderRadius: 20,
-        borderWidth: 4,
-        display: 'flex',
-        flex: 1,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: 10,
-        paddingHorizontal: 15,
-        paddingVertical: 10
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 8
     },
     itemIcon: {
-        borderRadius: 10,
+        borderRadius: 8,
         flex: 1,
-        height: 45,
-        width: 45
+        height: 42,
+        width: 42
     },
     grayContainer: {
         flex: 1,
