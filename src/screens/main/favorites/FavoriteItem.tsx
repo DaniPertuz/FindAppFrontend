@@ -83,7 +83,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                             <View style={{ marginEnd: 6 }}>
                                 <Image source={require('../../../assets/star.png')} style={{ height: 15, width: 15 }} />
                             </View>
-                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{placeRating.toFixed(2)}</Text>
+                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.place.rate.$numberDecimal).toFixed(2)}</Text>
                         </View>
                     </View>
                 </View>
