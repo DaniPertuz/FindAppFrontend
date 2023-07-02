@@ -54,7 +54,7 @@ const TopButtons = () => {
                 onPress={() => navigation.navigate('EditProfileScreen')}
                 style={user?.photo !== '' ? { backgroundColor: 'rgba(250, 250, 250, 0.98)', borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center' } : { backgroundColor: 'rgba(250, 250, 250, 0.98)', borderColor: '#081023', borderWidth: 1, borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center' }}
             >
-                <Image source={(user?.photo === '' ? require('../../../assets/FA_Color.png') : { uri: user?.photo })} style={user?.photo !== '' ? { height: 50, width: 50, borderRadius: 50, borderColor: '#081023', borderWidth: 1 } : { height: 50, width: 50, borderRadius: 50 }} />
+                <Image source={(user?.photo === '' ? require('../assets/FA_Color.png') : { uri: user?.photo })} style={user?.photo !== '' ? { height: 50, width: 50, borderRadius: 50, borderColor: '#081023', borderWidth: 1 } : { height: 50, width: 50, borderRadius: 50 }} />
             </TouchableOpacity>
         </View>
     );
