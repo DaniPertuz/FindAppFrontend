@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
         borderColor: '#081023',
         borderRadius: 8,
         borderWidth: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingHorizontal: 16
     },
     disabledInputFieldContainer: {
         alignItems: 'center',
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
         borderColor: '#858585',
         borderRadius: 8,
         borderWidth: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingHorizontal: 16
     },
     inputField: {
         color: '#2F2F2F',
