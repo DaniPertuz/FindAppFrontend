@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         borderColor: '#2F2F2F',
         borderRadius: 8,
         borderWidth: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingHorizontal: 16
     },
     updateInputFieldContainer: {
         alignItems: 'center',
