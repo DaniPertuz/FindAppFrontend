@@ -9,6 +9,10 @@ import useLocation from '../hooks/useLocation';
 import { IPlace } from '../interfaces/app-interfaces';
 import { RootStackParams } from '../navigation';
 
+import Location from '../assets/location.svg';
+import Restaurant from '../assets/restaurant.svg';
+import Star from '../assets/star.svg';
+
 import { styles } from '../theme/AppTheme';
 
 interface Props {
@@ -19,9 +23,9 @@ interface Props {
 const SearchResults = ({ item, onPress }: Props) => {
 
     const [distance, setDistance] = useState<number>(0);
-    
+
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
-    
+
     const { getCurrentLocation } = useLocation();
 
     const getDistance = async () => {
@@ -51,16 +55,16 @@ const SearchResults = ({ item, onPress }: Props) => {
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.name}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', maxWidth: 156 }}>
-                                <Image source={require('../assets/restaurant.png')} style={{ height: 15, width: 15 }} />
+                                <Restaurant height={15} width={15} />
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ marginEnd: 6 }}>
-                                        <Image source={require('../assets/location.png')} style={{ height: 15, width: 15 }} />
+                                        <Location height={15} width={15} />
                                     </View>
                                     <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ marginEnd: 6 }}>
-                                        <Image source={require('../assets/star.png')} style={{ height: 15, width: 15 }} />
+                                        <Star height={15} width={15} />
                                     </View>
                                     <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                 </View>

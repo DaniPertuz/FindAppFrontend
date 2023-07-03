@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -8,6 +8,13 @@ import { RootStackParams } from '../../navigation';
 import { useForm } from '../../hooks/useForm';
 import { UsersContext } from '../../context';
 import { roles } from '../../interfaces';
+
+import Back from '../../assets/back.svg';
+import Envelope from '../../assets/envelope.svg';
+import Eye from '../../assets/eye.svg';
+import EyeClosed from '../../assets/eye-closed.svg';
+import Lock from '../../assets/lock.svg';
+import Warning from '../../assets/warning.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -130,6 +137,15 @@ const NewPasswordScreen = () => {
                 >
                     <View style={styles.formContainer}>
                         <View style={{ marginTop: 36 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    activeOpacity={1.0}
+                                    onPress={() => navigator.goBack()}
+                                >
+                                    <Back height={20} width={20} style={{ marginBottom: 22, marginEnd: 2, marginTop: 2 }} />
+                                </TouchableOpacity>
+                                <Text style={{ color: '#207CFD', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>Volver</Text>
+                            </View>
                             <Text style={{ color: '#081023', fontSize: 24, fontWeight: '700', lineHeight: 28, letterSpacing: -0.4 }}>Crear nueva contraseña</Text>
                             <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Ingresa tu nueva contraseña</Text>
                         </View>
@@ -138,10 +154,7 @@ const NewPasswordScreen = () => {
                             styles.inputFieldContainer,
                             (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
                         ]}>
-                            <Image
-                                source={require('../../assets/envelope.png')}
-                                style={{ height: 25, width: 25, marginStart: 16, marginEnd: 5 }}
-                            />
+                            <Envelope height={25} width={25} />
                             <TextInput
                                 placeholder='Ingresa tu correo'
                                 placeholderTextColor='#9A9A9A'
@@ -159,10 +172,7 @@ const NewPasswordScreen = () => {
                         </View>
                         {(fieldLength.email === true) &&
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Image
-                                    source={require('../../assets/warning.png')}
-                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                                />
+                                <Warning height={15} width={15} style={{ marginTop: 4 }} />
                                 <Text
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >
@@ -176,10 +186,7 @@ const NewPasswordScreen = () => {
                                 styles.inputFieldContainer,
                                 (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }
                             ]}>
-                                <Image
-                                    source={require('../../assets/lock.png')}
-                                    style={{ flex: 0.2, height: 25, width: 25, marginStart: 16, marginEnd: 5 }}
-                                />
+                                <Lock height={25} width={25} style={{ flex: 0.2 }} />
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
@@ -199,19 +206,16 @@ const NewPasswordScreen = () => {
                                     activeOpacity={1.0}
                                     onPress={handlePasswordVisibility}
                                 >
-                                    <Image
-                                        source={(passwordVisibility === false) ? require('../../assets/eye.png') : require('../../assets/eye-closed.png')}
-                                        style={{ flex: 0.1, height: 25, width: 25, marginEnd: 16 }}
-                                    />
+                                    {(passwordVisibility === false)
+                                        ? <Eye height={28} width={28} style={{ flex: 0.1 }} />
+                                        : <EyeClosed height={28} width={28} style={{ flex: 0.1 }} />
+                                    }
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.password === true) &&
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Image
-                                    source={require('../../assets/warning.png')}
-                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                                />
+                                <Warning height={15} width={15} style={{ marginTop: 4 }} />
                                 <Text
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >
@@ -225,10 +229,7 @@ const NewPasswordScreen = () => {
                                 styles.inputFieldContainer,
                                 (fieldLength.confirmPassword === true) && { borderColor: '#D13232', borderWidth: 1 }
                             ]}>
-                                <Image
-                                    source={require('../../assets/lock.png')}
-                                    style={{ flex: 0.2, height: 25, width: 25, marginStart: 16, marginEnd: 5 }}
-                                />
+                                <Lock height={25} width={25} style={{ flex: 0.2 }} />
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
@@ -248,19 +249,16 @@ const NewPasswordScreen = () => {
                                     activeOpacity={1.0}
                                     onPress={handleConfirmPasswordVisibility}
                                 >
-                                    <Image
-                                        source={(passwordConfirmVisibility === false) ? require('../../assets/eye.png') : require('../../assets/eye-closed.png')}
-                                        style={{ flex: 0.1, height: 25, width: 25, marginEnd: 16 }}
-                                    />
+                                    {(passwordConfirmVisibility === false)
+                                        ? <Eye height={28} width={28} style={{ flex: 0.1 }} />
+                                        : <EyeClosed height={28} width={28} style={{ flex: 0.1 }} />
+                                    }
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.confirmPassword === true) &&
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Image
-                                    source={require('../../assets/warning.png')}
-                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                                />
+                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                                 <Text
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >
@@ -270,10 +268,7 @@ const NewPasswordScreen = () => {
                         }
                         {(display === true) &&
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Image
-                                    source={require('../../assets/warning.png')}
-                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                                />
+                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                                 <Text
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >
@@ -283,10 +278,7 @@ const NewPasswordScreen = () => {
                         }
                         {(authorized === true) &&
                             <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Image
-                                    source={require('../../assets/warning.png')}
-                                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                                />
+                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                                 <Text
                                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                                 >

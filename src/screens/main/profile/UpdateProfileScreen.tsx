@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
@@ -7,9 +7,18 @@ import Toast from 'react-native-root-toast';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
 
-import { styles } from '../../../theme/AppTheme';
 import { UsersContext } from '../../../context';
 import { IUser } from '../../../interfaces';
+
+import Back from '../../../assets/back.svg';
+import Envelope from '../../../assets/envelope.svg';
+import Eye from '../../../assets/eye.svg';
+import EyeClosed from '../../../assets/eye-closed.svg';
+import User from '../../../assets/user.svg';
+import Lock from '../../../assets/lock.svg';
+import Warning from '../../../assets/warning.svg';
+
+import { styles } from '../../../theme/AppTheme';
 
 interface Props extends StackScreenProps<RootStackParams, 'UpdateProfileScreen'> { }
 
@@ -83,10 +92,10 @@ const UpdateProfileScreen = ({ route }: Props) => {
             <View style={{ flexDirection: 'row', marginTop: 53 }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
-                    style={{ flex: 1, marginStart: 15 }}
+                    style={{ flex: 1, marginStart: 15, marginTop: 5 }}
                     onPress={() => navigator.goBack()}
                 >
-                    <Image source={require('../../../assets/back.png')} style={{ height: 30, width: 30 }} />
+                    <Back height={25} width={25} />
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center', flex: 10, marginEnd: 40, marginTop: 5 }}>
                     <Text style={{ color: '#1F273A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Editar perfil</Text>
@@ -103,10 +112,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={{ marginTop: 37 }}>
                         <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Usuario</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <Image
-                                source={require('../../../assets/user.png')}
-                                style={{ height: 25, width: 25, marginStart: 16, marginEnd: 10 }}
-                            />
+                            <User height={25} width={25} />
                             <TextInput
                                 placeholder='Ingresa tu usuario o correo'
                                 placeholderTextColor='#9A9A9A'
@@ -126,10 +132,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
                         <View style={styles.disabledInputFieldContainer}>
-                            <Image
-                                source={require('../../../assets/envelope.png')}
-                                style={{ height: 25, width: 25, marginStart: 16, marginEnd: 10 }}
-                            />
+                            <Envelope height={25} width={25} />
                             <TextInput
                                 placeholder={user.email}
                                 placeholderTextColor='#9A9A9A'
@@ -145,10 +148,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <Image
-                                source={require('../../../assets/lock.png')}
-                                style={{ flex: 0.4, height: 25, width: 25, marginStart: 16, marginEnd: 10 }}
-                            />
+                            <Lock height={25} width={25} />
                             <TextInput
                                 placeholderTextColor='#9A9A9A'
                                 secureTextEntry={passwordVisibility}
@@ -167,20 +167,17 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 activeOpacity={1.0}
                                 onPress={handlePasswordVisibility}
                             >
-                                <Image
-                                    source={(passwordVisibility === false) ? require('../../../assets/eye.png') : require('../../../assets/eye-closed.png')}
-                                    style={{ flex: 0.2, height: 20, width: 28, marginEnd: 16 }}
-                                />
+                                {(passwordVisibility === false)
+                                    ? <Eye height={28} width={28} />
+                                    : <EyeClosed height={28} width={28} />
+                                }
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Repetir contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <Image
-                                source={require('../../../assets/lock.png')}
-                                style={{ flex: 0.4, height: 25, width: 25, marginStart: 16, marginEnd: 10 }}
-                            />
+                            <Lock height={25} width={25} />
                             <TextInput
                                 placeholderTextColor='#9A9A9A'
                                 secureTextEntry={passwordConfirmVisibility}
@@ -199,19 +196,16 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 activeOpacity={1.0}
                                 onPress={handleConfirmPasswordVisibility}
                             >
-                                <Image
-                                    source={(passwordConfirmVisibility === false) ? require('../../../assets/eye.png') : require('../../../assets/eye-closed.png')}
-                                    style={{ flex: 0.2, height: 20, width: 28, marginEnd: 16 }}
-                                />
+                                {(passwordConfirmVisibility === false)
+                                    ? <Eye height={28} width={28} />
+                                    : <EyeClosed height={28} width={28} />
+                                }
                             </TouchableOpacity>
                         </View>
                     </View>
                     {(display === true) &&
                         <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                            <Image
-                                source={require('../../../assets/warning.png')}
-                                style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                            />
+                            <Warning height={15} width={15} style={{ marginTop: 4 }} />
                             <Text
                                 style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                             >
@@ -219,7 +213,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                             </Text>
                         </View>
                     }
-                    <View style={{ marginTop: (display === true) ? 128 : 153 }}>
+                    <View style={{ marginTop: (display === true) ? 118 : 143 }}>
                         <TouchableOpacity
                             activeOpacity={0.9}
                             style={styles.button}

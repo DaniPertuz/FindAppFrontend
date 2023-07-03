@@ -10,6 +10,15 @@ import Toast from 'react-native-root-toast';
 import { AuthContext, UsersContext } from '../../../context';
 import { RootStackParams } from '../../../navigation';
 
+import Camera from '../../../assets/camera.svg';
+import Down from '../../../assets/down.svg';
+import Edit from '../../../assets/edit.svg';
+import Envelope from '../../../assets/envelope.svg';
+import HeartFavorite from '../../../assets/heart-favorite.svg';
+import History from '../../../assets/history.svg';
+import Star from '../../../assets/star.svg';
+import User from '../../../assets/user.svg';
+
 import { loginStyles, styles } from '../../../theme/AppTheme';
 
 interface Props extends StackScreenProps<RootStackParams, 'EditProfileScreen'> { }
@@ -100,7 +109,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={updateMainPhoto}
                             style={{ backgroundColor: '#FFFFFF', borderRadius: 30, marginStart: -40, marginTop: 125, maxHeight: 40, padding: 5 }}
                         >
-                            <Image source={require('../../../assets/camera.png')} style={{ height: 30, width: 30 }} />
+                            <Camera height={30} width={30} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
@@ -112,7 +121,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={() => { navigation.navigate('UpdateProfileScreen', { user: userDB }); }}
                             style={{ backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5, marginStart: 6 }}
                         >
-                            <Image source={require('../../../assets/edit.png')} style={{ height: 20, width: 20 }} />
+                            <Edit height={20} width={20} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
@@ -121,7 +130,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../../assets/history.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                            <History height={33} width={33} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Historial</Text>
@@ -132,7 +141,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </View>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../../assets/heart-favorite.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                                <HeartFavorite height={33} width={33} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Favoritos</Text>
@@ -143,7 +152,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </View>
                         <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                             <View style={{ marginTop: 8 }}>
-                                <Image source={require('../../../assets/star.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                                <Star height={33} width={33} />
                             </View>
                             <View style={{ marginTop: 12 }}>
                                 <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Calificaciones</Text>
@@ -156,14 +165,14 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Nombre de usuario</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <Image source={require('../../../assets/user.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <User height={18} width={18} style={{ marginEnd: 6, marginTop: 2 }} />
                             <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.name}</Text>
                         </View>
                     </View>
                     <View style={{ marginTop: 23 }}>
                         <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
                         <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <Image source={require('../../../assets/envelope.png')} style={{ height: 18, marginEnd: 6, marginTop: 2, width: 18 }} />
+                            <Envelope height={18} width={18} style={{ marginEnd: 6, marginTop: 2 }} />
                             <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.email}</Text>
                         </View>
                     </View>
@@ -212,7 +221,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             style={{ marginEnd: 10, marginTop: 10 }}
                             onPress={() => setModalVisible(false)}
                         >
-                            <Image source={require('../../../assets/close.png')} style={{ height: 30, width: 30 }} />
+                            <Down height={30} width={30} />
                         </TouchableOpacity>
                     </View>
                     <View

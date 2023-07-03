@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,13 @@ import { useForm } from '../../hooks/useForm';
 import { roles } from '../../interfaces';
 import { RootStackParams } from '../../navigation';
 import Background from '../../components/Background';
+
+import Envelope from '../../assets/envelope.svg';
+import Eye from '../../assets/eye.svg';
+import EyeClosed from '../../assets/eye-closed.svg';
+import User from '../../assets/user.svg';
+import Lock from '../../assets/lock.svg';
+import Warning from '../../assets/warning.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -112,10 +119,7 @@ const RegisterScreen = () => {
                 styles.inputFieldContainer,
                 (fieldLength.name === true) && { borderColor: '#D13232', borderWidth: 1 }
               ]}>
-                <Image
-                  source={require('../../assets/user.png')}
-                  style={{ height: 25, width: 25, marginStart: 16, marginEnd: 5 }}
-                />
+                <User height={25} width={25} style={{ marginStart: 16 }} />
                 <TextInput
                   placeholder='Ingresa tu nombre'
                   placeholderTextColor='#9A9A9A'
@@ -133,10 +137,7 @@ const RegisterScreen = () => {
               </View>
               {(fieldLength.name === true) &&
                 < View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Image
-                    source={require('../../assets/warning.png')}
-                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                  />
+                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                   <Text
                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                   >
@@ -149,10 +150,7 @@ const RegisterScreen = () => {
                 styles.inputFieldContainer,
                 (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
               ]}>
-                <Image
-                  source={require('../../assets/envelope.png')}
-                  style={{ height: 25, width: 25, marginStart: 16, marginEnd: 5 }}
-                />
+                <Envelope height={25} width={25} style={{ marginStart: 16 }} />
                 <TextInput
                   placeholder='Ingresa tu correo'
                   placeholderTextColor='#9A9A9A'
@@ -170,10 +168,7 @@ const RegisterScreen = () => {
               </View>
               {(fieldLength.email === true) &&
                 < View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Image
-                    source={require('../../assets/warning.png')}
-                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                  />
+                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                   <Text
                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                   >
@@ -187,17 +182,14 @@ const RegisterScreen = () => {
                 (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }
               ]}
               >
-                <Image
-                  source={require('../../assets/lock.png')}
-                  style={{ flex: 0.2, height: 25, width: 25, marginStart: 16 }}
-                />
+                <Lock height={25} width={25} style={{ flex: 0.2, marginStart: 16 }} />
                 <TextInput
                   placeholder='Ingresa tu contraseña'
                   placeholderTextColor='#9A9A9A'
                   secureTextEntry={passwordVisibility}
                   style={[
                     styles.inputField,
-                    { flex: 2, marginHorizontal: 10 },
+                    { flex: 2, marginEnd: 10 },
                     (Platform.OS === 'ios') && styles.inputFieldIOS
                   ]}
                   selectionColor='#9A9A9A'
@@ -210,18 +202,15 @@ const RegisterScreen = () => {
                   activeOpacity={1.0}
                   onPress={handlePasswordVisibility}
                 >
-                  <Image
-                    source={(passwordVisibility === false) ? require('../../assets/eye.png') : require('../../assets/eye-closed.png')}
-                    style={{ flex: 0.1, height: 25, width: 25, marginEnd: 16 }}
-                  />
+                  {(passwordVisibility === false)
+                    ? <Eye height={28} width={28} style={{ flex: 0.1, marginEnd: 16 }} />
+                    : <EyeClosed height={28} width={28} style={{ flex: 0.1, marginEnd: 16 }} />
+                  }
                 </TouchableOpacity>
               </View>
               {(fieldLength.password === true) &&
                 <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Image
-                    source={require('../../assets/warning.png')}
-                    style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                  />
+                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                   <Text
                     style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                   >

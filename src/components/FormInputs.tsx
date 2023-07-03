@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Image, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParams } from '../navigation';
 import LoginButton from './LoginButton';
+
+import Eye from '../assets/eye.svg';
+import EyeClosed from '../assets/eye-closed.svg';
+import User from '../assets/user.svg';
+import Lock from '../assets/lock.svg';
+import Warning from '../assets/warning.svg';
 
 import { styles } from '../theme/AppTheme';
 
@@ -49,10 +55,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 styles.inputFieldContainer,
                 (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
             ]}>
-                <Image
-                    source={require('../assets/user.png')}
-                    style={{ height: 25, width: 25, marginStart: 16, marginEnd: 10 }}
-                />
+                <User height={25} width={25} />
                 <TextInput
                     placeholder='Ingresa tu usuario o correo'
                     placeholderTextColor='#9A9A9A'
@@ -70,10 +73,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             </View>
             {(fieldLength.email === true) &&
                 <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Image
-                        source={require('../assets/warning.png')}
-                        style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                    />
+                    <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                     <Text
                         style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                     >
@@ -85,17 +85,14 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 Contraseña
             </Text>
             <View style={[styles.inputFieldContainer, (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }]}>
-                <Image
-                    source={require('../assets/lock.png')}
-                    style={{ flex: 0.4, height: 25, width: 25, marginStart: 16 }}
-                />
+                <Lock height={25} width={25} style={{ flex: 0.4 }} />
                 <TextInput
                     placeholder='Ingresa tu contraseña'
                     placeholderTextColor='#9A9A9A'
                     secureTextEntry={passwordVisibility}
                     style={[
                         styles.inputField,
-                        { flex: 3, marginHorizontal: 10 },
+                        { flex: 3, marginEnd: 10 },
                         (Platform.OS === 'ios') && styles.inputFieldIOS
                     ]}
                     selectionColor='#9A9A9A'
@@ -108,18 +105,14 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     activeOpacity={1.0}
                     onPress={handlePasswordVisibility}
                 >
-                    <Image
-                        source={(passwordVisibility === false) ? require('../assets/eye.png') : require('../assets/eye-closed.png')}
-                        style={{ flex: 0.2, height: 20, width: 28, marginEnd: 16 }}
-                    />
+                    {(passwordVisibility === false)
+                        ? <Eye height={28} width={28} style={{ flex: 0.2 }} />
+                        : <EyeClosed height={28} width={28} style={{ flex: 0.2 }} />}
                 </TouchableOpacity>
             </View>
             {(fieldLength.password === true) &&
-                < View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Image
-                        source={require('../assets/warning.png')}
-                        style={{ height: 15, width: 15, marginTop: 4, marginEnd: 5 }}
-                    />
+                <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                    <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
                     <Text
                         style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
                     >

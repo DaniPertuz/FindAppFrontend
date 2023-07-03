@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Platform, Text, TouchableOpacity, View, TextInput, ScrollView, FlatList } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { PermissionsContext, PlacesContext } from '../../context';
-import { styles } from '../../theme/AppTheme';
 import TopButtons from '../../components/TopButtons';
 import SearchResults from '../../components/SearchResults';
 import { IPlace, ISearch, Location } from '../../interfaces';
 import useLocation from '../../hooks/useLocation';
+
+import Restaurant from '../../assets/restaurant.svg';
+
+import { styles } from '../../theme/AppTheme';
 
 const MainScreen = () => {
 
@@ -65,7 +68,7 @@ const MainScreen = () => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
                 <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                     <View style={{ marginTop: 8 }}>
-                        <Image source={require('../../assets/restaurant.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                        <Restaurant height={33} width={33} />
                     </View>
                     <View style={{ marginTop: 12 }}>
                         <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Restaurantes</Text>
@@ -76,7 +79,7 @@ const MainScreen = () => {
                 </View>
                 <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                     <View style={{ marginTop: 8 }}>
-                        <Image source={require('../../assets/restaurant.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                        <Restaurant height={33} width={33} />
                     </View>
                     <View style={{ marginTop: 12 }}>
                         <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Gasolineras</Text>
@@ -87,7 +90,7 @@ const MainScreen = () => {
                 </View>
                 <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
                     <View style={{ marginTop: 8 }}>
-                        <Image source={require('../../assets/restaurant.png')} style={{ minHeight: 33, minWidth: 33 }} />
+                        <Restaurant height={33} width={33} />
                     </View>
                     <View style={{ marginTop: 12 }}>
                         <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Farmacias</Text>

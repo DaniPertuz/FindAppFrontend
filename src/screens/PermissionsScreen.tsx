@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { AuthContext, PermissionsContext } from '../context';
+
+import Location from '../assets/location.svg';
+
 import { styles } from '../theme/AppTheme';
 
 const PermissionsScreen = () => {
@@ -12,7 +15,7 @@ const PermissionsScreen = () => {
         <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 60 }}
         >
-            <Image source={require('../assets/location.png')} style={{ height: 73, marginBottom: 23, width: 73 }} />
+            <Location height={73} width={73} style={{ marginBottom: 23 }} />
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 18, fontWeight: '600', letterSpacing: -0.36, textAlign: 'center' }}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
             </View>
@@ -26,12 +29,12 @@ const PermissionsScreen = () => {
                 </TouchableOpacity>
             </View>
             <View style={{ marginTop: 15, justifyContent: 'center' }}>
-            <TouchableOpacity
-                activeOpacity={1.0}
-                onPress={logOut}
-            >
-            <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    activeOpacity={1.0}
+                    onPress={logOut}
+                >
+                    <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

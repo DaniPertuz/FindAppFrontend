@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../context';
 
+import Search from '../assets/search.svg'
+
 const TopButtons = () => {
 
     const { user } = useContext(AuthContext);
@@ -37,10 +39,7 @@ const TopButtons = () => {
                     onPress={() => { }}
                 >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image
-                            source={require('../assets/search.png')}
-                            style={{ height: 16, width: 16 }}
-                        />
+                        <Search height={16} width={16} />
                         <View style={{ marginHorizontal: 10 }}>
                             <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
                                 Escribe una palabra o frase

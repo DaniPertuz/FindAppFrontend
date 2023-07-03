@@ -1,9 +1,16 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { EditProfileScreen, MainScreen } from '../screens';
 import { FavoritesNavigator } from './FavoritesNavigator';
+
+import Heart from '../assets/heart.svg';
+import HeartFocused from '../assets/heart-focused.svg';
+import House from '../assets/house.svg';
+import HouseFocused from '../assets/house-focused.svg';
+import UserCircle from '../assets/user-circle.svg';
+import UserCircleFocused from '../assets/user-circle-focused.svg';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,28 +32,31 @@ export const BottomTabNavigator = () => {
                 tabBarIcon: ({ color, focused, size }) => {
                     switch (route.name) {
                         case 'MainScreen':
-                            return <>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
-                                    <Image source={(focused) ? require('../assets/house-focused.png') : require('../assets/house.png')} style={{ height: 30, width: 30 }} />
-                                    <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10, marginTop: 5 }}>Inicio</Text>
-                                </View>
-                            </>;
+                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                                {(focused)
+                                    ? <HouseFocused height={22} width={22} />
+                                    : <House height={22} width={22} />
+                                }
+                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Inicio</Text>
+                            </View>;
 
                         case 'FavoritesNavigator':
-                            return <>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
-                                    <Image source={(focused) ? require('../assets/heart-focused.png') : require('../assets/heart.png')} style={{ height: 30, width: 30 }} />
-                                    <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10, marginTop: 5 }}>Favoritos</Text>
-                                </View>
-                            </>;
+                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                                {(focused)
+                                    ? <HeartFocused height={22} width={22} />
+                                    : <Heart height={22} width={22} />
+                                }
+                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Favoritos</Text>
+                            </View>;
 
                         case 'EditProfileScreen':
-                            return <>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
-                                    <Image source={(focused) ? require('../assets/user-circle-focused.png') : require('../assets/user-circle.png')} style={{ height: 30, width: 30 }} />
-                                    <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10, marginTop: 5 }}>Perfil</Text>
-                                </View>
-                            </>;
+                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                                {(focused)
+                                    ? <UserCircleFocused height={22} width={22} />
+                                    : <UserCircle height={22} width={22} />
+                                }
+                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Perfil</Text>
+                            </View>;
                     }
                 }
             })}

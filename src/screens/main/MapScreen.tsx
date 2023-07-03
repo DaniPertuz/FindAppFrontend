@@ -14,6 +14,13 @@ import { useCoords } from '../../hooks/useCoords';
 import { RootStackParams } from '../../navigation';
 import { AuthContext, PlacesContext } from '../../context';
 
+import Back from '../../assets/back.svg';
+import Close from '../../assets/close.svg';
+import Locate from '../../assets/location.svg';
+import Map from '../../assets/map.svg';
+import Search from '../../assets/search.svg';
+import Timer from '../../assets/timer.svg';
+
 interface Props extends StackScreenProps<RootStackParams, 'MapScreen'> { };
 
 const MapScreen = ({ route, navigation }: Props) => {
@@ -156,7 +163,6 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <Marker coordinate={destination} />
                     </MapView>
                     <Modal
-                        animationType="slide"
                         transparent={true}
                         visible={modalVisible}
                         onRequestClose={() => {
@@ -166,8 +172,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <View
                             style={{
                                 backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                                height: '35%',
-                                top: '75%',
+                                height: '20%',
+                                top: '80%',
                                 borderTopEndRadius: 20,
                                 borderTopStartRadius: 20,
                                 shadowColor: "#000",
@@ -180,38 +186,29 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 elevation: 3
                             }}
                         >
-                            <View style={{
-                                flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                marginBottom: 10
-                            }}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={{ marginEnd: 10, marginTop: 10 }}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <Image source={require('../../assets/close.png')} style={{ height: 30, width: 30 }} />
-                                </TouchableOpacity>
-                            </View>
                             <View
                                 style={{
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    marginBottom: 13,
+                                    marginTop: 20,
                                     marginHorizontal: 21
                                 }}
                             >
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                                     <Text style={{ color: '#292D32', fontSize: 28, fontWeight: '700', lineHeight: 32, letterSpacing: -0.56 }}>
                                         {duration.toFixed(0)} min
                                     </Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginStart: 6 }}>
-                                        <Image source={require('../../assets/timer.png')} style={{ height: 15, width: 15 }} />
-                                        <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{setArrivalTime()}</Text>
+                                        <Timer height={15} width={15} />
+                                        <View style={{ marginStart: 6 }}>
+                                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{setArrivalTime()}</Text>
+                                        </View>
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginStart: 6 }}>
-                                        <Image source={require('../../assets/location.png')} style={{ height: 15, width: 15 }} />
-                                        <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{distance.toFixed(1)} Km</Text>
+                                        <Locate height={15} width={15} />
+                                        <View style={{ marginStart: 6 }}>
+                                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{distance.toFixed(1)} Km</Text>
+                                        </View>
                                     </View>
                                 </View>
                             </View>
@@ -243,6 +240,17 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
+                        </View>
+                        <View style={{ backgroundColor: 'rgba(250, 250, 250, 0.98)', borderRadius: 8, right: 277, left: 21, top: 58, position: 'absolute', padding: 10, zIndex: 999 }}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                onPress={() => { setModalVisible(false); navigation.pop(); }}
+                            >
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Back height={18} width={18} style={{ marginTop: 3 }} />
+                                    <Text style={{ color: '#207CFD', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, marginStart: 6 }}>Volver</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </Modal>
                     <Modal
@@ -296,7 +304,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                             elevation: 2
                                         }}
                                     >
-                                        <Image source={require('../../assets/search.png')} style={{ height: 30, width: 30 }} />
+                                        <Search height={30} width={30} />
                                     </View>
                                 </TouchableOpacity>
                                 <View style={{ marginHorizontal: 48 }}>
@@ -304,7 +312,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     <View style={{ marginTop: 10 }}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <View style={{ flexDirection: 'row', marginEnd: 5 }}>
-                                                <Image source={require('../../assets/map.png')} style={{ height: 15, width: 15 }} />
+                                                <Map height={15} width={15} />
                                                 <View style={{ marginStart: 6 }}>
                                                     <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>
                                                         {duration.toFixed(0)} min
@@ -312,7 +320,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                 </View>
                                             </View>
                                             <View style={{ flexDirection: 'row', marginStart: 5 }}>
-                                                <Image source={require('../../assets/location.png')} style={{ height: 15, width: 15 }} />
+                                                <Locate height={15} width={15} />
                                                 <View style={{ marginStart: 6 }}>
                                                     <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>
                                                         {distance.toFixed(1)} Km
@@ -341,7 +349,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                         activeOpacity={1.0}
                                         onPress={handleBackButtonClick}
                                     >
-                                        <Image source={require('../../assets/close.png')} style={{ height: 30, width: 30 }} />
+                                        <Close height={30} width={30} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
