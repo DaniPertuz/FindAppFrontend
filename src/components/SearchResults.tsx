@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 import useDistance from '../hooks/useDistance';
 import useLocation from '../hooks/useLocation';
 import { IPlace } from '../interfaces/app-interfaces';
+import { RootStackParams } from '../navigation';
 
 import { styles } from '../theme/AppTheme';
 
@@ -16,9 +18,10 @@ interface Props {
 
 const SearchResults = ({ item, onPress }: Props) => {
 
-    const navigator = useNavigation();
     const [distance, setDistance] = useState<number>(0);
-
+    
+    const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
+    
     const { getCurrentLocation } = useLocation();
 
     const getDistance = async () => {
@@ -59,7 +62,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                                     <View style={{ marginEnd: 6 }}>
                                         <Image source={require('../assets/star.png')} style={{ height: 15, width: 15 }} />
                                     </View>
-                                    <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(2)}</Text>
+                                    <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -76,7 +79,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                             alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, justifyContent: 'center', marginVertical: 10, paddingHorizontal: 14, flex: 1
                         }}
                         activeOpacity={0.9}
-                        onPress={() => navigator.navigate('ReviewsScreen', { place: item._id })}
+                        onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
                     >
                         <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
                             Iniciar
