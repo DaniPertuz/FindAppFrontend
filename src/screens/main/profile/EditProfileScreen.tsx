@@ -78,7 +78,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
     return (
         <>
             <KeyboardAvoidingView
-                style={{ flex: 1, backgroundColor: 'rgba(104, 110, 222, 0.1)', paddingTop: top }}
+                style={{ flex: 1, paddingTop: top }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
             >
                 <ScrollView
@@ -187,7 +187,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
             >
                 <View
                     style={{
-                        backgroundColor: 'rgba(104, 110, 222, 0.1)',
+                        backgroundColor: 'rgba(250, 250, 250, 0.98)',
                         height: '20%',
                         top: '80%',
                         borderTopEndRadius: 10,

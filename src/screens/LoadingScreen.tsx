@@ -5,7 +5,7 @@ import { styles } from '../theme/AppTheme';
 const LoadingScreen = () => {
   return (
     <View
-      style={styles.center}
+      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
     >
       <ActivityIndicator
         size={50}

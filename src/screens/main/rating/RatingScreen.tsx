@@ -61,7 +61,7 @@ const RatingScreen = ({ navigation }: Props) => {
                 >
                     {(sw === false)
                         ?
-                        <View style={styles.center}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={styles.secondaryFontStyle}>No hay sitios pendientes por calificar</Text>
                         </View>
                         :

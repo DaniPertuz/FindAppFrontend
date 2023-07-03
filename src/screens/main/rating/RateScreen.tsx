@@ -31,7 +31,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const onRate = () => {
         Keyboard.dismiss();
-        (user !== null) && addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString()});
+        (user !== null) && addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString() });
     };
 
     const backButtonHandler = () => {
@@ -63,7 +63,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                     style={styles.ratingIcon}
                 />
                 <View style={styles.ratingTitleContainer}>
-                    <View style={styles.center}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={styles.blackPrimaryFontStyle}>{item.place.name}</Text>
                     </View>
                     <View style={styles.ratingSubtitleContainer}>

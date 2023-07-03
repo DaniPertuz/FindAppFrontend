@@ -42,7 +42,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             {(place.pics?.length === 0)
                 ?
-                <View style={{ ...styles.center, flex: 3 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 3 }}>
                     <Text>No hay imágenes del lugar</Text>
                 </View>
                 :

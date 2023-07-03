@@ -10,7 +10,7 @@ const PermissionsScreen = () => {
 
     return (
         <View
-            style={{ ...styles.center, paddingHorizontal: 60 }}
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 60 }}
         >
             <Image source={require('../assets/location.png')} style={{ height: 73, marginBottom: 23, width: 73 }} />
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
