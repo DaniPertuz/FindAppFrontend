@@ -4,12 +4,6 @@ const styles = StyleSheet.create({
     alignItemsCenter: {
         alignItems: 'center'
     },
-    center: {
-        backgroundColor: 'rgba(104, 110, 222, 0.1)',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     label: {
         color: '#2F2F2F',
         fontSize: 16,
@@ -95,7 +89,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22
     },
     mainScreenContainer: {
-        backgroundColor: 'rgba(104, 110, 222, 0.1)',
         flex: 1,
         paddingTop: 60,
         paddingHorizontal: 20
