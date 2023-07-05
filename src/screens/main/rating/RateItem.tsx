@@ -63,15 +63,17 @@ const RateItem = ({ item }: Props) => {
                             </Text>
                         </View>
                     </View>
-                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
-                        {item.comments}
-                    </Text>
                 </View>
                 <View style={{ flex: 2 }}>
                     <Text style={{ color: '#858585', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'right' }}>
                         {moment(item.createdAt, "YYYYMMDD").fromNow()}
                     </Text>
                 </View>
+            </View>
+            <View style={{ marginStart: 45, paddingHorizontal: 10 }}>
+                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
+                        {item.comments}
+                    </Text>
             </View>
         </View>
     );
