@@ -32,12 +32,21 @@ export interface IRatingList {
 }
 
 export interface IRate {
+    _id?:      string;
     rate:      number;
     comments:  string;
-    place?:    IPlace;
+    place:     string;
     user?:     IUser;
     createdAt: string;
 }
+
+export interface IRating {
+    rate:      number;
+    comments:  string;
+    place:     string;
+    user:      string;
+}
+
 export interface IRatingAverage {
     average: number;
 }
@@ -120,4 +129,9 @@ export interface IService {
 export interface Location {
     latitude:  number;
     longitude: number;
+}
+
+export interface FavoriteItem {
+    place:     string;
+    user:      string;
 }
