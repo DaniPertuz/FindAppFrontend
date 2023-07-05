@@ -269,7 +269,6 @@ const styles = StyleSheet.create({
     },
     itemIcon: {
         borderRadius: 8,
-        flex: 1,
         height: 42,
         width: 42
     },
