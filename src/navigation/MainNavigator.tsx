@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen, UpdateProfileScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RateScreen, RatingScreen, RegisterScreen, ResultsScreen, ReviewsScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
@@ -86,6 +86,7 @@ export const MainNavigator = () => {
             }}
                 component={ProductDetailsScreen} />
             <Stack.Screen name="RatingScreen" options={{ title: '' }} component={RatingScreen} />
+            <Stack.Screen name="RateScreen" options={{ title: '' }} component={RateScreen} />
             <Stack.Screen name="ResultsScreen" options={{
                 headerTitle: 'Resultados de búsqueda',
                 headerStyle: { backgroundColor: '#5856D6' },
