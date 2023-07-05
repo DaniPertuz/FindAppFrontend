@@ -44,29 +44,33 @@ const SearchResults = ({ item, onPress }: Props) => {
             <View
                 style={styles.listItemContainer}
             >
-                <Image
-                    source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
-                    style={styles.itemIcon}
-                />
-                <View style={{ flex: 4, marginHorizontal: 12, paddingEnd: 24 }}>
-                    <View style={{ justifyContent: 'space-between' }}>
-                        <View style={{ flex: 5, marginHorizontal: 12 }}>
-                            <View style={{ marginBottom: 8 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.name}</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', maxWidth: 156 }}>
-                                <Restaurant height={15} width={15} />
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ marginEnd: 6 }}>
-                                        <Location height={15} width={15} />
-                                    </View>
-                                    <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
+                <View style={{ flex: 3, flexDirection: 'row' }}>
+                    <View style={{ flex: 1 }}>
+                        <Image
+                            source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
+                            style={styles.itemIcon}
+                        />
+                    </View>
+                    <View style={{ flex: 4, paddingEnd: 30 }}>
+                        <View style={{ justifyContent: 'space-between' }}>
+                            <View style={{ marginHorizontal: 12 }}>
+                                <View style={{ marginBottom: 8 }}>
+                                    <Text numberOfLines={1} style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.name}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ marginEnd: 6 }}>
-                                        <Star height={15} width={15} />
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Restaurant height={15} width={15} />
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ marginEnd: 6 }}>
+                                            <Location height={15} width={15} />
+                                        </View>
+                                        <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
                                     </View>
-                                    <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ marginEnd: 6 }}>
+                                            <Star height={15} width={15} />
+                                        </View>
+                                        <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -74,13 +78,13 @@ const SearchResults = ({ item, onPress }: Props) => {
                 </View>
                 <View
                     style={{
-                        flex: 2,
+                        flex: 1,
                         justifyContent: 'space-between'
                     }}
                 >
                     <TouchableOpacity
                         style={{
-                            alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, justifyContent: 'center', marginVertical: 10, paddingHorizontal: 14, flex: 1
+                            alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, margin: 10, paddingVertical: 1
                         }}
                         activeOpacity={0.9}
                         onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
