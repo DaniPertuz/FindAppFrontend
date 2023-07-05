@@ -69,7 +69,12 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
         <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, paddingHorizontal: 16, backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ flex: 1, alignItems: 'flex-start' }}>
-                    <Back height={20} width={20} />
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Back height={20} width={20} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flex: 9, alignItems: 'center' }}>
                     <Text numberOfLines={1} style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
