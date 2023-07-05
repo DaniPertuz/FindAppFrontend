@@ -19,7 +19,7 @@ const PermissionsScreen = () => {
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 18, fontWeight: '600', letterSpacing: -0.36, textAlign: 'center' }}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
             </View>
-            <View style={{ marginTop: 23, width: '100%' }}>
+            <View style={{ marginTop: 23, flex: 1 }}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={{ backgroundColor: '#207CFD', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' }}

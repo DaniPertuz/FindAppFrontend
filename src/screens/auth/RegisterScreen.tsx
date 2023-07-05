@@ -102,7 +102,7 @@ const RegisterScreen = () => {
       <Background />
       <ScrollView
         keyboardShouldPersistTaps='handled'
-        contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', minHeight: '100%' }}
+        contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}
       >
         <KeyboardAvoidingView
           style={{ flex: 1 }}

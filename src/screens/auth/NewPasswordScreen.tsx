@@ -127,7 +127,7 @@ const NewPasswordScreen = () => {
             <Background />
             <ScrollView
                 keyboardShouldPersistTaps='handled'
-                contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', minHeight: '100%', paddingBottom: 40 }}
+                contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1, paddingBottom: 40 }}
             >
                 <KeyboardAvoidingView
                     style={{

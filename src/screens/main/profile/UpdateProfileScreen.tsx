@@ -88,7 +88,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
     };
 
     return (
-        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', minHeight: '100%' }}>
+        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
             <View style={{ flexDirection: 'row', marginTop: 53 }}>
                 <TouchableOpacity
                     activeOpacity={1.0}

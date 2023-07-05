@@ -128,7 +128,7 @@ const RateScreen = ({ navigation, route }: Props) => {
     }, []);
 
     return (
-        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', height: '100%' }}>
+        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -299,11 +299,11 @@ const RateScreen = ({ navigation, route }: Props) => {
                         </KeyboardAvoidingView>
                     </View>
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 26, marginTop: 151 }}>
+                <View style={{ marginHorizontal: 26, marginTop: 151 }}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={onRate}
-                        style={{ alignItems: 'center', backgroundColor: '#207CFD', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, width: '100%' }}
+                        style={{ alignItems: 'center', backgroundColor: '#207CFD', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10 }}
                     >
                         <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
                             Enviar Calificación
