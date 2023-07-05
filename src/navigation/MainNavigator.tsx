@@ -54,21 +54,7 @@ export const MainNavigator = () => {
             <Stack.Screen name="MapScreen" options={{ title: '', headerShown: false }} component={MapScreen} />
             <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
             <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
-            <Stack.Screen name="PlaceDetailsScreen" options={{
-                headerTitle: 'Detalles del lugar',
-                headerStyle: { backgroundColor: '#5856D6' },
-                headerTintColor: '#FFFFFF',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                    <TouchableOpacity
-                        activeOpacity={0.9}
-                        style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
-                    >
-                    </TouchableOpacity>
-                )
-            }}
-                component={PlaceDetailsScreen} />
+            <Stack.Screen name="PlaceDetailsScreen" component={PlaceDetailsScreen} />
             <Stack.Screen name="ProductDetailsScreen" options={{
                 headerTitle: 'Detalles de producto',
                 headerStyle: { backgroundColor: '#5856D6' },
