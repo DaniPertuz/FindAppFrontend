@@ -1,29 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Alert, BackHandler, FlatList, Image, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { BackHandler, Image, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AuthContext, RatingContext } from '../../../context';
+import { AuthContext, PlacesContext, RatingContext } from '../../../context';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
 import { IRate } from '../../../interfaces';
+
+import Back from '../../../assets/back.svg';
+import Bookmark from '../../../assets/bookmark.svg';
+import BookmarkFavorite from '../../../assets/bookmark-favorite.svg';
+import Down from '../../../assets/down.svg';
+import Heart from '../../../assets/heart.svg';
+import HeartFocused from '../../../assets/heart-focused.svg';
+import NumberOne from '../../../assets/NumberOne.svg';
+import NumberTwo from '../../../assets/NumberTwo.svg';
+import NumberThree from '../../../assets/NumberThree.svg';
+import NumberFour from '../../../assets/NumberFour.svg';
+import NumberFive from '../../../assets/NumberFive.svg';
+import Star from '../../../assets/star.svg';
+import UserCircle from '../../../assets/user-circle-plain.svg';
+
 import { styles } from '../../../theme/AppTheme';
+import RateItem from './RateItem';
 
 interface Props extends StackScreenProps<RootStackParams, 'RateScreen'> { };
 
 const RateScreen = ({ navigation, route }: Props) => {
 
-    const numbers = [1, 2, 3, 4, 5];
-
     const { item } = route.params;
+
+    const { top } = useSafeAreaInsets();
+
     const { user } = useContext(AuthContext);
+    const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
     const { addRating, getRatings, getPlaceRatingAverage, ratings, ratingAverage } = useContext(RatingContext);
-    const { comments, onChange } = useForm<IRate>({
-        rate: 0,
+    const { comments, onChange } = useForm({
         comments: '',
-        user: undefined,
-        createdAt: ''
     });
+
     const [selectedRate, setSelectedRate] = useState(0);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [newFavorite, setNewFavorite] = useState(false);
+    const [newService, setNewService] = useState(false);
 
     const handleRate = (num: number) => {
         setSelectedRate(num);
@@ -31,7 +51,38 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const onRate = () => {
         Keyboard.dismiss();
-        (user !== null) && addRating({ rate: selectedRate, comments, user, createdAt: new Date().toString() });
+        if (selectedRate === 0) {
+            Alert.alert('Falta información', 'No has ingresado la calificación', [
+                {
+                    text: 'OK',
+                    style: 'cancel'
+                }
+            ]);
+            return;
+        }
+        console.log(selectedRate, comments, user, item.place._id);
+        (user !== null) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
+        navigation.popToTop();
+    };
+
+    const handleFavorite = () => {
+        setNewFavorite(!newFavorite);
+
+        if (newFavorite === false) {
+            addFavorite(item.user, item.place._id);
+        }
+
+        deleteFavorite(item.user, item.place._id);
+    };
+
+    const handleService = () => {
+        setNewService(!newService);
+
+        if (newService === false) {
+            addService(new Date().toString(), item.place._id, item.search, item.user);
+        }
+
+        deleteService(item.user, item.place._id);
     };
 
     const backButtonHandler = () => {
@@ -45,6 +96,30 @@ const RateScreen = ({ navigation, route }: Props) => {
     }, []);
 
     useEffect(() => {
+        let mounted = true;
+        getHistoryItem(user?._id!, item.place._id).then((data) => {
+            if (mounted) {
+                setNewService(true);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        getFavorite(user?._id!, item.place._id).then((data) => {
+            if (mounted) {
+                setNewFavorite(true);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
         BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
 
         return () => {
@@ -53,77 +128,249 @@ const RateScreen = ({ navigation, route }: Props) => {
     }, []);
 
     return (
-        <KeyboardAvoidingView
-            style={styles.ratingsMainContainer}
-            behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
-        >
-            <View style={styles.grayContainer}>
-                <Image
-                    source={{ uri: item.place.photo }}
-                    style={styles.ratingIcon}
-                />
-                <View style={styles.ratingTitleContainer}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={styles.blackPrimaryFontStyle}>{item.place.name}</Text>
+        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', height: '100%' }}>
+            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Back height={18} width={18} />
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.ratingSubtitleContainer}>
-                        <View style={styles.ratingColumn}>
-                            <Text style={styles.secondaryFontStyle}>Promedio</Text>
-                            <Text style={styles.ratingText}>{ratingAverage}/5</Text>
+                    <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                            Calificar
+                        </Text>
+                    </View>
+                    <View style={{ flex: 1 }} />
+                </View>
+                <View style={{ marginTop: 35 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flex: 1, marginEnd: 10 }}>
+                            <Image source={{ uri: item.place.photo }} style={{ borderRadius: 8, height: 102, width: 102 }} />
                         </View>
-                        <View style={styles.ratingColumn}>
-                            <Text style={styles.secondaryFontStyle}>Total</Text>
-                            <Text style={styles.ratingText}>{ratings.total}</Text>
+                        <View style={{ flex: 2 }}>
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ color: '#081023', fontSize: 20, fontWeight: '700', letterSpacing: -0.4, lineHeight: 28 }}>
+                                    {item.place.name}
+                                </Text>
+                            </View>
+                            <View style={{ flex: 2, marginVertical: 3 }}>
+                                <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
+                                    {item.place.description}
+                                </Text>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'row', marginEnd: 8 }}>
+                                    <Star height={21} width={21} />
+                                    <View style={{ marginStart: 6 }}>
+                                        <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                                            {Number(item.place.rate.$numberDecimal).toFixed(2)}
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', marginStart: 8 }}>
+                                    <UserCircle height={21} width={21} />
+                                    <TouchableOpacity
+                                        activeOpacity={1.0}
+                                        onPress={() => setModalVisible(true)}
+                                    >
+                                        <View style={{ marginStart: 6, marginTop: 3, justifyContent: 'center' }}>
+                                            <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>
+                                                {ratings.total} opiniones
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.ratingTextStart}>
-                <Text style={styles.blackPrimaryFontStyle}>Calificación</Text>
-            </View>
-            <View style={styles.ratesContainer}>
-                {numbers.map((num) =>
+                <View style={{ marginTop: 25, flexDirection: 'row' }}>
                     <TouchableOpacity
-                        activeOpacity={0.8}
-                        key={num}
-                        onPress={() => handleRate(num)}
-                        style={[styles.ratesButton,
-                        { backgroundColor: selectedRate === num ? '#8697A8' : '#F3F4F4' }]}
+                        activeOpacity={1.0}
+                        onPress={handleFavorite}
                     >
-                        <Text style={styles.blackPrimaryFontStyle}>{num}</Text>
+                        <View style={{ flexDirection: 'row', marginEnd: 12 }}>
+                            {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
+                            <View style={{ marginStart: 7 }}>
+                                <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                    {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
+                                </Text>
+                            </View>
+                        </View>
                     </TouchableOpacity>
-                )}
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={handleService}
+                    >
+                        <View style={{ flexDirection: 'row', marginStart: 12 }}>
+                            {(newService === true) ? <BookmarkFavorite height={24} width={24} /> : <Bookmark height={24} width={24} />}
+                            <View style={{ marginStart: 7 }}>
+                                <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                    {(newService === true) ? 'Guardado' : 'Guardar'} en Historial
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginTop: 25, flexDirection: 'row' }}>
+                    <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                        Calificar
+                    </Text>
+                </View>
+                <View style={styles.ratesContainer}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => handleRate(1)}
+                        style={[
+                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }
+                        ]}
+                    >
+                        <NumberOne height={36} width={36} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => handleRate(2)}
+                        style={[
+                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }
+                        ]}
+                    >
+                        <NumberTwo height={36} width={36} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => handleRate(3)}
+                        style={[
+                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }
+                        ]}
+                    >
+                        <NumberThree height={36} width={36} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => handleRate(4)}
+                        style={[
+                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }
+                        ]}
+                    >
+                        <NumberFour height={36} width={36} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => handleRate(5)}
+                        style={[
+                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }
+                        ]}
+                    >
+                        <NumberFive height={36} width={36} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginTop: 20 }}>
+                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                        Comentarios
+                    </Text>
+                    <View style={{ marginTop: 10 }}>
+                        <KeyboardAvoidingView
+                            behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
+                        >
+                            <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, borderColor: '#081023', borderWidth: 1, padding: 16 }}>
+                                <TextInput
+                                    placeholder='Escribe tus comentarios'
+                                    placeholderTextColor='#9A9A9A'
+                                    keyboardType='default'
+                                    style={[
+                                        { fontSize: 12, fontWeight: '400', alignItems: 'center', letterSpacing: -0.24, lineHeight: 16 },
+                                        (Platform.OS === 'ios') && { lineHeight: 12 }
+                                    ]}
+                                    autoCapitalize='none'
+                                    autoCorrect={false}
+                                    onChangeText={(value) => onChange(value, 'comments')}
+                                    value={comments}
+                                />
+                            </View>
+                        </KeyboardAvoidingView>
+                    </View>
+                </View>
+                <View style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 26, marginTop: 151 }}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={onRate}
+                        style={{ alignItems: 'center', backgroundColor: '#207CFD', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, width: '100%' }}
+                    >
+                        <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                            Enviar Calificación
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.commentsContainer}>
-                <TextInput
-                    placeholder='Comentarios'
-                    placeholderTextColor='#4B4D4B'
-                    keyboardType='default'
-                    multiline
-                    underlineColorAndroid='#5856D6'
-                    style={[
-                        styles.commentsText,
-                        (Platform.OS === 'ios') && styles.inputFieldIOS
-                    ]}
-                    selectionColor='#5856D6'
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    onSubmitEditing={onRate}
-                    onChangeText={(value) => onChange(value, 'comments')}
-                    value={comments}
-                />
-            </View>
-            <View style={styles.ratingSaveButtonContainer}>
-                <TouchableOpacity
-                    style={styles.buttonSearch}
-                    activeOpacity={0.8}
-                    onPress={onRate}
-                >
-                    <Text style={styles.ratingSaveButtonText}>Guardar</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={{ flex: 2 }} />
-        </KeyboardAvoidingView>
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={{ backgroundColor: 'rgba(31, 39, 58, 0.95)' }}>
+                    <View
+                        style={{
+                            backgroundColor: 'rgba(250, 250, 250, 0.98)',
+                            height: '95%',
+                            top: '13%',
+                            borderTopEndRadius: 20,
+                            borderTopStartRadius: 20,
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.22,
+                            elevation: 3
+                        }}
+                    >
+                        <View
+                            style={{
+                                marginTop: 20,
+                                marginHorizontal: 21
+                            }}
+                        >
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flex: 1 }}>
+                                    <TouchableOpacity
+                                        activeOpacity={1.0}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        <Down height={24} width={24} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ flex: 1 }}>
+                                    <Text style={{ color: '#1F273A', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22, textAlign: 'center' }}>Opiniones</Text>
+                                </View>
+                                <View style={{ flex: 1 }} />
+                            </View>
+                            <View style={{ marginTop: 21 }}>
+                                <FlatList
+                                    data={ratings.rates}
+                                    keyExtractor={m => m._id!}
+                                    renderItem={({ item }) => (
+                                        <RateItem item={item} />
+                                    )}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        </View>
     );
 };
 

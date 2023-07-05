@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
+import moment from 'moment';
+import 'moment/locale/es';
+moment.locale('es');
 
-import { IService } from '../../../interfaces/app-interfaces';
+import { IRate } from '../../../interfaces/app-interfaces';
 import { PlacesContext } from '../../../context/places/PlacesContext';
+
+
 import { styles } from '../../../theme/AppTheme';
 
 interface Props {
-    item: IService;
-    onPress: () => void;
+    item: IRate;
 }
 
-const RateItem = ({ item, onPress }: Props) => {
+const RateItem = ({ item }: Props) => {
 
     const navigator = useNavigation();
 
@@ -21,66 +25,55 @@ const RateItem = ({ item, onPress }: Props) => {
     const [placeRating, setPlaceRating] = useState<number>(0);
 
     const setRating = async () => {
-        setPlaceRating(await getPlaceRating(item.place._id));
-    }
+        setPlaceRating(await getPlaceRating(item.place));
+    };
 
     useEffect(() => {
-      setRating();
+        setRating();
     }, []);
 
     return (
-        <TouchableWithoutFeedback
-            onPress={onPress}
-        >
-            <View
-                style={styles.listItemContainer}
-            >
-                <Image
-                    source={{ uri: item.place.photo }}
-                    style={styles.itemIcon}
-                />
-                <Text style={{
-                    ...styles.blackPrimaryFontStyle,
-                    flex: 4,
-                    marginHorizontal: 10,
-                    paddingEnd: 20
-                }}>
-                    {item.place.name}
-                </Text>
-                <View
-                    style={{
-                        flex: 2,
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <TouchableOpacity
-                        style={{
-                            alignItems: 'center', flex: 1
-                        }}
-                        activeOpacity={0.9}
-                        onPress={() => navigator.navigate('ReviewsScreen', { place: item.place._id })}
-                    >
-                        <Text style={styles.linkStyle}>
-                            {placeRating.toFixed(2)}
-                        </Text>
+        <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, marginBottom: 24, paddingHorizontal: 10, paddingVertical: 8 }}>
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ flex: 1 }}>
+                    <Image source={{ uri: item.user?.photo }} style={{ borderRadius: 8, height: 42, width: 42 }} />
+                </View>
+                <View style={{ flex: 3 }}>
+                    <Text numberOfLines={1} style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                        {item.user?.name}
+                    </Text>
+                    <View style={{ flexDirection: 'row', marginVertical: 6 }}>
                         <Rating
-                            fractions={2}
-                            imageSize={20}
+                            fractions={1}
+                            imageSize={25}
                             minValue={1}
-                            ratingBackgroundColor='#FFFFFF'
+                            ratingColor='#207CFD'
                             ratingCount={5}
-                            ratingTextColor='#5856D6'
+                            ratingBackgroundColor='#858585'
                             readonly
                             showReadOnlyText={false}
-                            startingValue={placeRating}
-                            style={{ flex: 2 }}
-                            tintColor='#EBEBEB'
-                            type='star'
+                            startingValue={item.rate}
+                            style={{ justifyContent: 'flex-start' }}
+                            tintColor='#FFFFFF'
+                            type='custom'
                         />
-                    </TouchableOpacity>
+                        <View style={{ marginStart: 6, justifyContent: 'center' }}>
+                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 18 }}>
+                                {item.rate.toFixed(1)}
+                            </Text>
+                        </View>
+                    </View>
+                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
+                        {item.comments}
+                    </Text>
+                </View>
+                <View style={{ flex: 2 }}>
+                    <Text style={{ color: '#858585', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'right' }}>
+                        {moment(item.createdAt, "YYYYMMDD").fromNow()}
+                    </Text>
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </View>
     );
 };
 
