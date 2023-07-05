@@ -1,7 +1,7 @@
 import React from 'react';
 
 import findAPI from '../../api/findapi';
-import { IFavorites, IHistory, IPlace, IRatingAverage, ISearch } from '../../interfaces';
+import { FavoriteItem, IFavorites, IHistory, IPlace, IRatingAverage, ISearch, IService } from '../../interfaces';
 import { PlacesContext } from '.';
 
 export const PlacesProvider = ({ children }: any) => {
@@ -33,9 +33,27 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
+    const getFavorite = async (userId: string, place: string): Promise<FavoriteItem> => {
+        try {
+            const { data } = await findAPI.get<FavoriteItem>(`/favorites/${userId}/${place}`);
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
     const getHistorical = async (userId: string): Promise<IHistory> => {
         try {
             const { data } = await findAPI.get<IHistory>(`/services/${userId}`);
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
+    const getHistoryItem = async (userId: string, place: string): Promise<IService> => {
+        try {
+            const { data } = await findAPI.get<IService>(`/services/${userId}/${place}`);
             return data;
         } catch (error) {
             throw new Error(`${error}`);
@@ -55,7 +73,7 @@ export const PlacesProvider = ({ children }: any) => {
         try {
             await findAPI.post('/favorites', { user, place });
         } catch (error: any) {
-            console.log(error.response!.data.msg);
+            throw new Error(`${error}`);
         }
     };
 
@@ -63,7 +81,7 @@ export const PlacesProvider = ({ children }: any) => {
         try {
             await findAPI.post('/services', { date, place, search, user });
         } catch (error: any) {
-            console.log(error.response!.data.msg);
+            throw new Error(`${error}`);
         }
     };
 
@@ -71,7 +89,15 @@ export const PlacesProvider = ({ children }: any) => {
         try {
             await findAPI.delete(`/favorites/${user}/${place}`);
         } catch (error: any) {
-            console.log(error.response!.data.msg);
+            throw new Error(`${error.response!.data.msg}`);
+        }
+    };
+
+    const deleteService = async (user: string, place: string) => {
+        try {
+            await findAPI.delete(`/services/${user}/${place}`);
+        } catch (error: any) {
+            throw new Error(`${error.response!.data.msg}`);
         }
     };
 
@@ -79,12 +105,15 @@ export const PlacesProvider = ({ children }: any) => {
         <PlacesContext.Provider value={{
             loadPlaceByID,
             searchPlace,
+            getFavorite,
             getFavorites,
             getHistorical,
+            getHistoryItem,
             getPlaceRating,
             addFavorite,
             addService,
-            deleteFavorite
+            deleteFavorite,
+            deleteService,
         }}
         >
             {children}
