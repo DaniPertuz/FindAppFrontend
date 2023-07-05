@@ -324,16 +324,16 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     ratesContainer: {
-        flex: 0.4,
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingBottom: 30
+        justifyContent: 'space-between',
+        marginTop: 12
     },
     ratesButton: {
-        borderRadius: 10,
+        borderRadius: 8,
         justifyContent: 'center',
         alignContent: 'center',
-        paddingHorizontal: 20
+        marginHorizontal: 20,
+        paddingHorizontal: 10
     },
     commentsContainer: {
         flex: 0.5,
