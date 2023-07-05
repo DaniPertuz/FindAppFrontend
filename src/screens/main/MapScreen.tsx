@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Alert, BackHandler, Image, Modal, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, BackHandler, Modal, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
@@ -12,7 +12,7 @@ import { Location } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { RootStackParams } from '../../navigation';
-import { AuthContext, PlacesContext } from '../../context';
+import { AuthContext } from '../../context';
 
 import Back from '../../assets/back.svg';
 import Close from '../../assets/close.svg';
@@ -41,7 +41,6 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [modalFollowVisible, setModalFollowVisible] = useState(false);
 
     const { user } = useContext(AuthContext);
-    const { addFavorite, addService } = useContext(PlacesContext);
 
     const getCoords = async () => {
         const { lat, lng } = await useCoords(place.address);
@@ -89,23 +88,8 @@ const MapScreen = ({ route, navigation }: Props) => {
             }
         });
 
-        if (currentUserLocation === destination) {
-            addService(new Date().toString(), place._id, search, user?._id!);
-
-            Alert.alert(`Has llegado a ${place.name}`, '¿Deseas guardarlo como favorito', [
-                {
-                    text: 'No',
-                    onPress: () => navigation.goBack()
-                },
-                {
-                    text: 'Sí',
-                    onPress: () => {
-                        addFavorite(user?._id!, place._id);
-                        Alert.alert('Agregado a favoritos', '', [{ text: 'OK' }]);
-                    }
-                }
-            ]
-            );
+        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
+            navigation.navigate('RateScreen', { item: { date: new Date().toString(), place, search, user: user?._id! } });
         }
     }, [currentUserLocation]);
 
@@ -253,14 +237,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             </TouchableOpacity>
                         </View>
                     </Modal>
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalFollowVisible}
-                        onRequestClose={() => {
-                            setModalFollowVisible(!modalFollowVisible);
-                        }}
-                    >
+                    {modalFollowVisible === true &&
                         <View
                             style={{
                                 backgroundColor: 'rgba(250, 250, 250, 0.98)',
@@ -354,7 +331,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 </View>
                             </View>
                         </View>
-                    </Modal>
+                    }
                 </View>
             }
         </>
