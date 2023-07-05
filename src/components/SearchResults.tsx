@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -38,13 +38,15 @@ const SearchResults = ({ item, onPress }: Props) => {
     }, []);
 
     return (
-        <TouchableWithoutFeedback
-            onPress={onPress}
+        <View
+            style={styles.listItemContainer}
         >
-            <View
-                style={styles.listItemContainer}
-            >
-                <View style={{ flex: 3, flexDirection: 'row' }}>
+            <View style={{ flex: 3, flexDirection: 'row' }}>
+                <TouchableOpacity
+                    activeOpacity={1.0}
+                    onPress={onPress}
+                    style={{ flexDirection: 'row' }}
+                >
                     <View style={{ flex: 1 }}>
                         <Image
                             source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
@@ -75,27 +77,27 @@ const SearchResults = ({ item, onPress }: Props) => {
                             </View>
                         </View>
                     </View>
-                </View>
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <TouchableOpacity
-                        style={{
-                            alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, margin: 10, paddingVertical: 1
-                        }}
-                        activeOpacity={0.9}
-                        onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
-                    >
-                        <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
-                            Iniciar
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
             </View>
-        </TouchableWithoutFeedback>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'space-between'
+                }}
+            >
+                <TouchableOpacity
+                    style={{
+                        alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, margin: 10, paddingVertical: 1
+                    }}
+                    activeOpacity={0.9}
+                    onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
+                >
+                    <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
+                        Iniciar
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 };
 
