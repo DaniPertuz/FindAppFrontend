@@ -58,22 +58,8 @@ const SearchScreen = () => {
 
     const setProductResults = () => sortProductsByDistance(searchResults.products, currentUserLocation);
 
-    // useEffect(() => {
-    //     let mounted = true;
-    //     searchPlace(search).then((data) => {
-    //         if (mounted) {
-    //             setSearchResults(data);
-    //             setDisplay(true);
-    //         }
-    //     });
-    //     return () => {
-    //         mounted = false;
-    //     };
-    // }, []);
-
     const getSearchResults = async () => {
         const results = await searchPlace(search);
-        console.log(results);
         setSearchResults(results);
         setDisplay(true);
     };
