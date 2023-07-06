@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RateScreen, RegisterScreen, ResultsScreen, ReviewsScreen, UpdateProfileScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RateScreen, RegisterScreen, ResultsScreen, ReviewsScreen, SearchScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
@@ -22,7 +22,8 @@ export type RootStackParams = {
     RateScreen: { item: IService; },
     RegisterScreen: undefined,
     ResultsScreen: { place: IPlace, search: string; },
-    ReviewsScreen: { place: string; }
+    ReviewsScreen: { place: string; },
+    SearchScreen: undefined,
     UpdateProfileScreen: { user: IUser; };
 };
 
@@ -55,6 +56,7 @@ export const MainNavigator = () => {
             <Stack.Screen name="HistoryScreen" options={{ title: '' }} component={HistoryScreen} />
             <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
             <Stack.Screen name="PlaceDetailsScreen" component={PlaceDetailsScreen} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} />
             <Stack.Screen name="ProductDetailsScreen" options={{
                 headerTitle: 'Detalles de producto',
                 headerStyle: { backgroundColor: '#5856D6' },
