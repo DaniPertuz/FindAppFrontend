@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
+import { RootStackParams } from '../navigation';
 
 import Search from '../assets/search.svg'
 
@@ -11,7 +13,7 @@ const TopButtons = () => {
 
     const { user } = useContext(AuthContext);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
     return (
         <View style={{ flexDirection: 'row' }}>
@@ -36,7 +38,7 @@ const TopButtons = () => {
             >
                 <TouchableOpacity
                     activeOpacity={1.0}
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate('SearchScreen')}
                 >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Search height={16} width={16} />
