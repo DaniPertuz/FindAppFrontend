@@ -9,3 +9,4 @@ export { default as ProductDetailsScreen } from './ProductDetailsScreen';
 export { default as ResultsScreen } from './ResultsScreen';
 export { default as ProductReviewsScreen } from './ProductReviewsScreen';
 export { default as ReviewsScreen } from './ReviewsScreen';
+export { default as SearchScreen } from './SearchScreen';
