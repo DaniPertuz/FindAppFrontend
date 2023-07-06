@@ -85,7 +85,7 @@ const SearchProductResults = ({ item, onPress }: Props) => {
                         alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, margin: 10, paddingVertical: 1
                     }}
                     activeOpacity={0.9}
-                    onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
+                    onPress={() => navigator.navigate('MapScreen', { place: item.place[0], search: item.name })}
                 >
                     <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
                         Iniciar
