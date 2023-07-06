@@ -1,11 +1,25 @@
-import React from 'react';
-import { Dimensions, Image, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Dimensions, Image, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Dropdown } from 'react-native-element-dropdown';
+import Carousel from 'react-native-reanimated-carousel';
 import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-root-toast';
 
+import { AuthContext, PlacesContext } from '../../context';
 import { RootStackParams } from '../../navigation';
+
+import Back from '../../assets/back.svg';
+import Heart from '../../assets/heart.svg';
+import HeartFocused from '../../assets/heart-focused.svg';
+import Instagram from '../../assets/instagram-plain.svg';
+import Left from '../../assets/left.svg';
+import Location from '../../assets/location.svg';
+import PhoneOutgoing from '../../assets/phone-outgoing.svg';
+import Star from '../../assets/star.svg';
+import Whatsapp from '../../assets/whatsapp.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -15,7 +29,23 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
 
     const { product, search } = route.params;
 
-    const { height } = Dimensions.get('window');
+    const { width } = Dimensions.get('window');
+    const { top } = useSafeAreaInsets();
+
+    const [newFavorite, setNewFavorite] = useState(false);
+
+    const { user } = useContext(AuthContext);
+    const { addFavorite, deleteFavorite, getFavorite } = useContext(PlacesContext);
+
+    const handleFavorite = () => {
+        setNewFavorite(!newFavorite);
+
+        if (newFavorite === false) {
+            addFavorite(user?._id!, product.place[0]._id);
+        }
+
+        deleteFavorite(user?._id!, product.place[0]._id);
+    };
 
     const copyToClipboard = (text: string) => {
         Clipboard.setString(text);
@@ -24,36 +54,150 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
     return (
-        <View style={styles.detailsMainTopContainer}>
-            <View style={styles.detailsTopContainer}>
-                <ScrollView style={styles.detailsNameContainer}>
-                    <Text style={styles.blackPrimaryFontStyle}>{product.name}</Text>
-                </ScrollView>
-                <Image
-                    source={
-                        (product.place[0].photo === '')
-                            ? require('../../assets/placeholder.png')
-                            : { uri: product.place[0].photo }
-                    }
-                    style={styles.detailsIcon}
-                />
+        <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, paddingHorizontal: 16, backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Back height={20} width={20} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flex: 9, alignItems: 'center' }}>
+                    <Text numberOfLines={1} style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                        {product.name}
+                    </Text>
+                </View>
+                <View style={{ flex: 1 }} />
             </View>
-            <View style={{ flex: 4 }}>
-                <Image
-                    source={
-                        (!product.img || product.img === '')
-                            ? require('../../assets/logo.png')
-                            : { uri: product.img }
-                    }
-                    style={{
-                        height: height / 3,
-                        resizeMode: 'contain'
-                    }}
-                />
+            <View style={{ flexDirection: 'row', paddingTop: 35 }}>
+                <View style={{ flex: 1 }}>
+                    <Image
+                        source={
+                            (product.place[0].photo === '')
+                                ? require('../../assets/FA_Color.png')
+                                : { uri: product.place[0].photo }
+                        }
+                        style={styles.detailsIcon}
+                    />
+                </View>
+                <View style={{ flex: 2 }}>
+                    <View style={{ marginBottom: 12 }}>
+                        <Text numberOfLines={1} style={{ color: '#081023', fontSize: 20, fontWeight: '700', letterSpacing: -0.4, lineHeight: 28 }}>{product.name}</Text>
+                        <View style={{ marginTop: 6 }}>
+                            <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '700', letterSpacing: -0.24, lineHeight: 16 }}>{product.place[0].name}</Text>
+                        </View>
+                        <View style={{ marginTop: 6 }}>
+                            <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>{product.description}</Text>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                            onPress={handleFavorite}
+                        >
+                            <View style={{ flexDirection: 'row', marginEnd: 12 }}>
+                                {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
+                                <View style={{ marginStart: 7 }}>
+                                    <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                        {(newFavorite === true) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <ScrollView style={styles.detailsDescription}>
-                <Text style={styles.secondaryFontStyle}>{product.description}</Text>
-            </ScrollView>
+            <View style={{ alignItems: 'center', marginTop: 16, flexDirection: 'row', maxWidth: 191 }}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <Star height={21} width={21} />
+                    <View style={{ marginHorizontal: 8 }}>
+                        <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                            {Number(product.place[0].rate.$numberDecimal).toFixed(1)}
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ flex: 2 }}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={() => navigation.navigate('RateScreen', { item: { date: new Date().toString(), place: product.place[0], search, user: user?._id! } })}
+                    >
+                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>
+                            Calificar lugar
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', marginTop: 18 }}>
+                <Instagram height={21} width={21} />
+                <View style={{ marginHorizontal: 8 }}>
+                    <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                        {(product.place[0].instagram !== undefined) ? `@${product.place[0].instagram}` : 'Pronto'}
+                    </Text>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', marginTop: 18 }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Location height={21} width={21} />
+                    <View style={{ marginHorizontal: 8 }}>
+                        <Text numberOfLines={1} style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                            {formatAddress(product.place[0].address)}
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ justifyContent: 'center' }}>
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => { copyToClipboard(product.place[0].address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
+                    >
+                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }} numberOfLines={1}>Copiar dirección</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            {(product.place[0].pics?.length === 0)
+                ?
+                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 2 }}>
+                    <Text>No hay imágenes del lugar</Text>
+                </View>
+                :
+                <View style={styles.detailsCarouselContainer}>
+                    <Carousel
+                        data={[...product.place[0].pics!]}
+                        loop={false}
+                        width={width}
+                        renderItem={(data) => (
+                            <View style={styles.detailsCarousel}>
+                                <Image
+                                    source={{ uri: data.item }}
+                                    style={styles.detailsCarouselPicture}
+                                />
+                            </View>
+                        )}
+                    />
+                </View>
+            }
+            <View style={{ flexDirection: 'row', marginTop: 24 }}>
+                <PhoneOutgoing height={21} width={21} />
+                <View style={{ marginHorizontal: 9 }}>
+                    <Text>{product.place[0].phone}</Text>
+                </View>
+                <View style={{ alignContent: 'center' }}>
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => { copyToClipboard(String(product.place[0].phone)); Toast.show('Número de teléfono copiado', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
+                    >
+                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }} numberOfLines={1}>Copiar teléfono</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            {(product.place[0].whatsapp) ?
+                <View style={{ flexDirection: 'row', marginTop: 14 }}>
+                    <Whatsapp height={21} width={21} />
+                    <Text>{product.place[0].whatsapp}</Text>
+                </View>
+                : <View style={{ marginTop: 13 }} />
+            }
             <View style={styles.detailsDropdownRateContainer}>
                 <Dropdown
                     data={product.place[0].schedule.map(schedule => {
@@ -63,89 +207,26 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     style={styles.detailsDropdown}
                     labelField={'label'} valueField={'label'} onChange={() => { }}
                 />
-                <View style={styles.detailsContactEvenlyContainer}>
+            </View>
+            <View style={{ flex: 1 }}>
+                <View style={{ justifyContent: 'center', paddingHorizontal: 42 }}>
                     <TouchableOpacity
-                        style={styles.alignItemsCenter}
-                        activeOpacity={0.9}
-                        onPress={() => navigation.navigate('ProductReviewsScreen', { product: product._id })}
+                        activeOpacity={1.0}
+                        style={{ alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10 }}
+                        onPress={() => navigation.push('MapScreen', { place: product.place[0], search })}
                     >
-                        <Text style={styles.linkStyle}>
-                            {product.rate.$numberDecimal}
-                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ color: '#FAFAFA', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                                Iniciar Ruta
+                            </Text>
+                            <View style={{ marginStart: 10 }}>
+                                <Left height={18} width={18} />
+                            </View>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ flex: 2 }}>
-                <View style={styles.detailsContactContainer}>
-                    <View style={styles.detailsContactBetweenContainer}>
-                        <TouchableOpacity
-                            onLongPress={() => copyToClipboard(product.place[0].address)}
-                        >
-                            <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter} style={{ maxWidth: 120 }}>
-                                <Text style={styles.secondaryFontStyle} numberOfLines={1}>{formatAddress(product.place[0].address)}</Text>
-                            </ScrollView>
-                        </TouchableOpacity>
-                    </View>
-                    {(product.place[0].whatsapp) ?
-                        <View style={{ ...styles.detailsContactBetweenContainer, marginEnd: 5 }}>
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL(`https://wa.me/+57${product.place[0].whatsapp}`)}
-                            >
-                                <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                                    <Text style={styles.linkStyle}>{product.place[0].whatsapp}</Text>
-                                </ScrollView>
-                            </TouchableOpacity>
-                        </View>
-                        : <View style={{ flex: 1 }} />
-                    }
-                </View>
-                <View style={styles.detailsContactContainer}>
-                    <View style={styles.detailsContactBetweenContainer}>
-                        <TouchableOpacity
-                            activeOpacity={0.9}
-                            onPress={() => Linking.openURL(`tel:${product.place[0].phone}`)}
-                        >
-                            <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                                <Text style={styles.secondaryFontStyle}>{product.place[0].phone}</Text>
-                            </ScrollView>
-                        </TouchableOpacity>
-                    </View>
-                    {(product.place[0].instagram)
-                        ?
-                        <View style={{ ...styles.detailsContactBetweenContainer, marginStart: 5 }}>
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL(product.place[0].instagram!)}
-                            >
-                                <ScrollView horizontal contentContainerStyle={styles.justifyContentCenter}>
-                                    <Text style={styles.linkStyle}>{product.place[0].instagram}</Text>
-                                </ScrollView>
-                            </TouchableOpacity>
-                        </View>
-                        : <View style={{ flex: 1 }} />
-                    }
-                </View>
-                <View style={styles.detailsContactContainer}>
-                    <ScrollView horizontal contentContainerStyle={styles.alignItemsCenter}>
-                        <Text style={styles.secondaryFontStyle}>{product.place[0].city}, {product.place[0].state}</Text>
-                    </ScrollView>
-                </View>
-            </View>
-            <View style={{ flex: 1 }}>
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.largeButton}
-                    onPress={() => navigation.push('MapScreen', { place: product.place[0], search })}
-                >
-                    <View style={styles.rowJustifyCenter}>
-                        <Text
-                            style={styles.largeButtonText}
-                        >
-                            IR
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View >
+        </View>
     );
 };
 
