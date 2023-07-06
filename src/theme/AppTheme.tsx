@@ -389,9 +389,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
     },
     detailsIcon: {
-        borderRadius: 100,
-        height: 90,
-        width: 90
+        borderRadius: 8,
+        height: 102,
+        width: 102
     },
     detailsCarouselPicture: {
         borderRadius: 5,
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     },
     detailsCarouselContainer: {
         flex: 3,
-        marginBottom: 20
+        paddingVertical: 20
     },
     detailsCarousel: {
         flex: 1,
