@@ -38,9 +38,7 @@ const SearchResults = ({ item, onPress }: Props) => {
     }, []);
 
     return (
-        <View
-            style={styles.listItemContainer}
-        >
+        <View style={styles.listItemContainer}>
             <View style={{ flex: 3, flexDirection: 'row' }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
