@@ -15,11 +15,13 @@ const PermissionsScreen = () => {
         <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 60 }}
         >
-            <Location height={73} width={73} style={{ marginBottom: 23 }} />
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 18, fontWeight: '600', letterSpacing: -0.36, textAlign: 'center' }}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
+            <View style={{ alignItems: 'center', marginBottom: 23 }}>
+                <Location height={73} width={73} />
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 18, fontWeight: '600', letterSpacing: -0.36, textAlign: 'center' }}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
+                </View>
             </View>
-            <View style={{ marginTop: 23, flex: 1 }}>
+            <View style={{ marginTop: 23 }}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={{ backgroundColor: '#207CFD', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' }}
