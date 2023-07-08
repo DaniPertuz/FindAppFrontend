@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, ProductReviewsScreen, RateScreen, RegisterScreen, ResultsScreen, ReviewsScreen, SearchScreen, UpdateProfileScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, RateScreen, RegisterScreen, SearchScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
@@ -18,11 +18,8 @@ export type RootStackParams = {
     NewPasswordScreen: undefined,
     PlaceDetailsScreen: { place: IPlace, search: string; },
     ProductDetailsScreen: { product: IProduct, search: string; },
-    ProductReviewsScreen: { product: string; },
     RateScreen: { item: IService; },
     RegisterScreen: undefined,
-    ResultsScreen: { place: IPlace, search: string; },
-    ReviewsScreen: { place: string; },
     SearchScreen: undefined,
     UpdateProfileScreen: { user: IUser; };
 };
@@ -73,51 +70,6 @@ export const MainNavigator = () => {
             }}
                 component={ProductDetailsScreen} />
             <Stack.Screen name="RateScreen" options={{ title: '' }} component={RateScreen} />
-            <Stack.Screen name="ResultsScreen" options={{
-                headerTitle: 'Resultados de búsqueda',
-                headerStyle: { backgroundColor: '#5856D6' },
-                headerTintColor: '#FFFFFF',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                    <TouchableOpacity
-                        activeOpacity={0.9}
-                        style={{ marginLeft: 15 }}
-                        onPress={() => navigator.reset({ index: 0, routes: [{ name: 'MainScreen' }] })}
-                    >
-                    </TouchableOpacity>
-                )
-            }}
-                component={ResultsScreen} />
-            <Stack.Screen name="ReviewsScreen" options={{
-                headerTitle: 'Opiniones',
-                headerStyle: { backgroundColor: '#5856D6' },
-                headerTintColor: '#FFFFFF',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                    <TouchableOpacity
-                        activeOpacity={0.9}
-                        style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
-                    >
-                    </TouchableOpacity>
-                )
-            }}
-                component={ReviewsScreen} />
-            <Stack.Screen name="ProductReviewsScreen" options={{
-                headerTitle: 'Opiniones',
-                headerStyle: { backgroundColor: '#5856D6' },
-                headerTintColor: '#FFFFFF',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                    <TouchableOpacity
-                        activeOpacity={0.9}
-                        style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
-                    >
-                    </TouchableOpacity>
-                )
-            }}
-                component={ProductReviewsScreen} />
         </Stack.Navigator>
     );
 };
