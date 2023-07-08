@@ -43,9 +43,9 @@ const SearchResults = ({ item, onPress }: Props) => {
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={onPress}
-                    style={{ flexDirection: 'row' }}
+                    style={styles.flexDirectionRow}
                 >
-                    <View style={{ flex: 1 }}>
+                    <View style={styles.flexOne}>
                         <Image
                             source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
                             style={styles.itemIcon}
@@ -54,22 +54,22 @@ const SearchResults = ({ item, onPress }: Props) => {
                     <View style={{ flex: 4, paddingEnd: 30 }}>
                         <View style={{ justifyContent: 'space-between' }}>
                             <View style={{ marginHorizontal: 12 }}>
-                                <View style={{ marginBottom: 8 }}>
-                                    <Text numberOfLines={1} style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.name}</Text>
+                                <View style={styles.smallMarginBottom}>
+                                    <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={styles.flexDirectionRowJustifySpaceBetween}>
                                     <Restaurant height={15} width={15} />
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <View style={{ marginEnd: 6 }}>
+                                    <View style={styles.flexDirectionRow}>
+                                        <View style={styles.itemDetailsIconMarginEnd}>
                                             <Location height={15} width={15} />
                                         </View>
-                                        <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
+                                        <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <View style={{ marginEnd: 6 }}>
+                                    <View style={styles.flexDirectionRow}>
+                                        <View style={styles.itemDetailsIconMarginEnd}>
                                             <Star height={15} width={15} />
                                         </View>
-                                        <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
+                                        <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                     </View>
                                 </View>
                             </View>

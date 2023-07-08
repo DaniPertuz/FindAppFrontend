@@ -130,8 +130,8 @@ const RateScreen = ({ navigation, route }: Props) => {
     return (
         <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={styles.flexDirectionRow}>
+                    <View style={styles.flexOneAlignJustifyCenter}>
                         <TouchableOpacity
                             activeOpacity={1.0}
                             onPress={() => navigation.goBack()}
@@ -140,45 +140,45 @@ const RateScreen = ({ navigation, route }: Props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                        <Text style={styles.stackScreenTitle}>
                             Calificar
                         </Text>
                     </View>
-                    <View style={{ flex: 1 }} />
+                    <View style={styles.flexOne} />
                 </View>
                 <View style={{ marginTop: 35 }}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.flexDirectionRow}>
                         <View style={{ flex: 1, marginEnd: 10 }}>
                             <Image source={{ uri: item.place.photo }} style={{ borderRadius: 8, height: 102, width: 102 }} />
                         </View>
                         <View style={{ flex: 2 }}>
-                            <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#081023', fontSize: 20, fontWeight: '700', letterSpacing: -0.4, lineHeight: 28 }}>
+                            <View style={styles.flexOne}>
+                                <Text style={styles.detailsMainName}>
                                     {item.place.name}
                                 </Text>
                             </View>
                             <View style={{ flex: 2, marginVertical: 3 }}>
-                                <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
+                                <Text numberOfLines={2} style={styles.description}>
                                     {item.place.description}
                                 </Text>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{ flexDirection: 'row', marginEnd: 8 }}>
+                            <View style={styles.flexOneDirectionRow}>
+                                <View style={{ ...styles.flexDirectionRow, marginEnd: 8 }}>
                                     <Star height={21} width={21} />
                                     <View style={{ marginStart: 6 }}>
-                                        <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                                        <Text style={styles.detailsBodyText}>
                                             {Number(item.place.rate.$numberDecimal).toFixed(2)}
                                         </Text>
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: 'row', marginStart: 8 }}>
+                                <View style={{ ...styles.flexDirectionRow, marginStart: 8 }}>
                                     <UserCircle height={21} width={21} />
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         onPress={() => setModalVisible(true)}
                                     >
-                                        <View style={{ marginStart: 6, marginTop: 3, justifyContent: 'center' }}>
-                                            <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>
+                                        <View style={styles.ratesReviewsTextContainer}>
+                                            <Text style={styles.detailsCaptionText}>
                                                 {ratings.total} opiniones
                                             </Text>
                                         </View>
@@ -188,15 +188,15 @@ const RateScreen = ({ navigation, route }: Props) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ marginTop: 25, flexDirection: 'row' }}>
+                <View style={{ marginTop: 25, ...styles.flexDirectionRow }}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={handleFavorite}
                     >
-                        <View style={{ flexDirection: 'row', marginEnd: 12 }}>
+                        <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
                             {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
                             <View style={{ marginStart: 7 }}>
-                                <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                <Text style={styles.detailsCaptionGrayText}>
                                     {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
                                 </Text>
                             </View>
@@ -206,18 +206,18 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={handleService}
                     >
-                        <View style={{ flexDirection: 'row', marginStart: 12 }}>
+                        <View style={{ ...styles.flexDirectionRow, marginStart: 12 }}>
                             {(newService === true) ? <BookmarkFavorite height={24} width={24} /> : <Bookmark height={24} width={24} />}
                             <View style={{ marginStart: 7 }}>
-                                <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                <Text style={styles.detailsCaptionGrayText}>
                                     {(newService === true) ? 'Guardado' : 'Guardar'} en Historial
                                 </Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 25, flexDirection: 'row' }}>
-                    <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                <View style={{ marginTop: 25, ...styles.flexDirectionRow }}>
+                    <Text style={styles.boldMediumText}>
                         Calificar
                     </Text>
                 </View>
@@ -226,7 +226,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => handleRate(1)}
                         style={[
-                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            styles.rateNumber,
                             { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
@@ -236,7 +236,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => handleRate(2)}
                         style={[
-                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            styles.rateNumber,
                             { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
@@ -246,7 +246,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => handleRate(3)}
                         style={[
-                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            styles.rateNumber,
                             { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
@@ -256,7 +256,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => handleRate(4)}
                         style={[
-                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            styles.rateNumber,
                             { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
@@ -266,28 +266,28 @@ const RateScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => handleRate(5)}
                         style={[
-                            { alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: 8.7, justifyContent: 'center', paddingHorizontal: 12, paddingVertical: 9 },
+                            styles.rateNumber,
                             { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
                         <NumberFive height={36} width={36} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 20 }}>
-                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                <View style={styles.mediumMarginTop}>
+                    <Text style={styles.plainBodySmallText}>
                         Comentarios
                     </Text>
-                    <View style={{ marginTop: 10 }}>
+                    <View style={styles.smallMarginTop}>
                         <KeyboardAvoidingView
                             behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
                         >
-                            <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, borderColor: '#081023', borderWidth: 1, padding: 16 }}>
+                            <View style={styles.ratesCommentsContainer}>
                                 <TextInput
                                     placeholder='Escribe tus comentarios'
                                     placeholderTextColor='#9A9A9A'
                                     keyboardType='default'
                                     style={[
-                                        { fontSize: 12, fontWeight: '400', alignItems: 'center', letterSpacing: -0.24, lineHeight: 16 },
+                                        styles.ratesCommentsText,
                                         (Platform.OS === 'ios') && { lineHeight: 12 }
                                     ]}
                                     autoCapitalize='none'
@@ -303,9 +303,9 @@ const RateScreen = ({ navigation, route }: Props) => {
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={onRate}
-                        style={{ alignItems: 'center', backgroundColor: '#207CFD', justifyContent: 'center', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10 }}
+                        style={styles.rateButton}
                     >
-                        <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                        <Text style={styles.rateButtonText}>
                             Enviar Calificación
                         </Text>
                     </TouchableOpacity>
@@ -319,53 +319,30 @@ const RateScreen = ({ navigation, route }: Props) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={{ backgroundColor: 'rgba(31, 39, 58, 0.95)' }}>
-                    <View
-                        style={{
-                            backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                            height: '95%',
-                            top: '13%',
-                            borderTopEndRadius: 20,
-                            borderTopStartRadius: 20,
-                            shadowColor: "#000",
-                            shadowOffset: {
-                                width: 0,
-                                height: 1,
-                            },
-                            shadowOpacity: 0.22,
-                            shadowRadius: 2.22,
-                            elevation: 3
-                        }}
-                    >
-                        <View
-                            style={{
-                                marginTop: 20,
-                                marginHorizontal: 21
-                            }}
-                        >
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ flex: 1 }}>
-                                    <TouchableOpacity
-                                        activeOpacity={1.0}
-                                        onPress={() => setModalVisible(false)}
-                                    >
-                                        <Down height={24} width={24} />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ flex: 1 }}>
-                                    <Text style={{ color: '#1F273A', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22, textAlign: 'center' }}>Opiniones</Text>
-                                </View>
-                                <View style={{ flex: 1 }} />
+                <View style={styles.reviewsModal}>
+                    <View style={{ ...styles.mediumMarginTop, marginHorizontal: 21 }}>
+                        <View style={styles.flexDirectionRow}>
+                            <View style={styles.flexOne}>
+                                <TouchableOpacity
+                                    activeOpacity={1.0}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Down height={24} width={24} />
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: 21 }}>
-                                <FlatList
-                                    data={ratings.rates}
-                                    keyExtractor={m => m._id!}
-                                    renderItem={({ item }) => (
-                                        <RateItem item={item} />
-                                    )}
-                                />
+                            <View style={styles.flexOne}>
+                                <Text style={styles.reviewsModalTitle}>Opiniones</Text>
                             </View>
+                            <View style={styles.flexOne} />
+                        </View>
+                        <View style={styles.mediumMarginTop}>
+                            <FlatList
+                                data={ratings.rates}
+                                keyExtractor={m => m._id!}
+                                renderItem={({ item }) => (
+                                    <RateItem item={item} />
+                                )}
+                            />
                         </View>
                     </View>
                 </View>

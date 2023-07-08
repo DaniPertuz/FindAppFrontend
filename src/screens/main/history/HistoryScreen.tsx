@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, Platform, View } from 'react-native';
+import { FlatList, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../../context';
-import HistoryItem from './HistoryItem';
+import SearchResults from '../../../components/SearchResults';
 import LoadingScreen from '../../LoadingScreen';
 import { IHistory } from '../../../interfaces';
+
+import Back from '../../../assets/back.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -43,20 +45,44 @@ const HistoryScreen = () => {
             {(display === true) &&
                 <View
                     style={{
-                        ...styles.topContainer,
-                        paddingTop: (Platform.OS === 'ios') ? top : top + 20
+                        paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer
                     }}
                 >
-                    <FlatList
-                        data={historical.services}
-                        keyExtractor={(item) => item.date}
-                        renderItem={({ item }) =>
-                            <HistoryItem
-                                item={item}
-                                onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.search })}
+                    <View style={styles.flexDirectionRow}>
+                        <View style={styles.flexOneAlignItemsCenter}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                onPress={() => navigation.goBack()}
+                            >
+                                <Back height={20} width={20} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.flexNineAlignItemsCenter}>
+                            <Text numberOfLines={1} style={styles.stackScreenTitle}>
+                                Historial
+                            </Text>
+                        </View>
+                        <View style={styles.flexOne} />
+                    </View>
+                    <View style={styles.largeMarginTop}>
+                        {historical.services.length === 0
+                            ?
+                            <View style={styles.alignItemsCenter}>
+                                <Text style={styles.boldMediumText}>No se han registrado viajes aún</Text>
+                            </View>
+                            :
+                            <FlatList
+                                data={historical.services}
+                                keyExtractor={(item) => item.date}
+                                renderItem={({ item }) =>
+                                    <SearchResults
+                                        item={item.place}
+                                        onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item.place, search: item.search })}
+                                    />
+                                }
                             />
                         }
-                    />
+                    </View>
                 </View>
             }
         </>

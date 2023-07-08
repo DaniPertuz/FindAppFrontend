@@ -11,6 +11,7 @@ import House from '../assets/house.svg';
 import HouseFocused from '../assets/house-focused.svg';
 import UserCircle from '../assets/user-circle.svg';
 import UserCircleFocused from '../assets/user-circle-focused.svg';
+import { styles } from '../theme/AppTheme';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,44 +19,43 @@ export const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
             tabBarOptions={{
-                labelStyle: {
-                    fontSize: 14,
-                    fontWeight: '500',
-                    lineHeight: 20,
-                    letterSpacing: -0.28
-                },
-                style: {
-                    minHeight: 62
-                }
+                labelStyle: styles.bottomTabNavigatorLabStyle,
+                style: styles.bottomTabNavigatorMinHeight
             }}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ color, focused, size }) => {
                     switch (route.name) {
                         case 'MainScreen':
-                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                            return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
                                     ? <HouseFocused height={22} width={22} />
                                     : <House height={22} width={22} />
                                 }
-                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Inicio</Text>
+                                <View style={styles.mediumMarginStart}>
+                                    <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Inicio</Text>
+                                </View>
                             </View>;
 
                         case 'FavoritesNavigator':
-                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                            return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
                                     ? <HeartFocused height={22} width={22} />
                                     : <Heart height={22} width={22} />
                                 }
-                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Favoritos</Text>
+                                <View style={styles.mediumMarginStart}>
+                                    <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Favoritos</Text>
+                                </View>
                             </View>;
 
                         case 'EditProfileScreen':
-                            return <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+                            return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
                                     ? <UserCircleFocused height={22} width={22} />
                                     : <UserCircle height={22} width={22} />
                                 }
-                                <Text style={{ color: (focused) ? '#207CFD' : '#5A5A5A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28, marginStart: 10 }}>Perfil</Text>
+                                <View style={styles.mediumMarginStart}>
+                                    <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Perfil</Text>
+                                </View>
                             </View>;
                     }
                 }

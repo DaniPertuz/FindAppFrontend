@@ -21,6 +21,8 @@ import Map from '../../assets/map.svg';
 import Search from '../../assets/search.svg';
 import Timer from '../../assets/timer.svg';
 
+import { styles } from '../../theme/AppTheme';
+
 interface Props extends StackScreenProps<RootStackParams, 'MapScreen'> { };
 
 const MapScreen = ({ route, navigation }: Props) => {
@@ -121,7 +123,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     return (
         <>
             {(initialPosition && destination) &&
-                <View style={{ flex: 1 }}>
+                <View style={styles.flexOne}>
                     <MapView
                         style={{ ...StyleSheet.absoluteFillObject }}
                         followsUserLocation={follow}
@@ -153,153 +155,95 @@ const MapScreen = ({ route, navigation }: Props) => {
                             setModalVisible(!modalVisible);
                         }}
                     >
-                        <View
-                            style={{
-                                backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                                height: '20%',
-                                top: '80%',
-                                borderTopEndRadius: 20,
-                                borderTopStartRadius: 20,
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 1,
-                                },
-                                shadowOpacity: 0.22,
-                                shadowRadius: 2.22,
-                                elevation: 3
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    marginTop: 20,
-                                    marginHorizontal: 21
-                                }}
-                            >
-                                <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-                                    <Text style={{ color: '#292D32', fontSize: 28, fontWeight: '700', lineHeight: 32, letterSpacing: -0.56 }}>
+                        <View style={styles.mapNavigationModal}>
+                            <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, ...styles.mediumMarginTop, marginHorizontal: 21 }}>
+                                <View style={{ ...styles.flexDirectionRow, marginBottom: 15 }}>
+                                    <Text style={styles.mapDuration}>
                                         {duration.toFixed(0)} min
                                     </Text>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginStart: 6 }}>
+                                    <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, marginStart: 6 }}>
                                         <Timer height={15} width={15} />
-                                        <View style={{ marginStart: 6 }}>
-                                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{setArrivalTime()}</Text>
+                                        <View style={styles.smallMarginStart}>
+                                            <Text style={styles.mapFollowSmallText}>{setArrivalTime()}</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginStart: 6 }}>
+                                    <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, marginStart: 6 }}>
                                         <Locate height={15} width={15} />
-                                        <View style={{ marginStart: 6 }}>
-                                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>{distance.toFixed(1)} Km</Text>
+                                        <View style={styles.smallMarginStart}>
+                                            <Text style={styles.mapFollowSmallText}>{distance.toFixed(1)} Km</Text>
                                         </View>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 21 }}>
+                            <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, marginHorizontal: 21 }}>
                                 <View style={{ marginEnd: 70 }}>
-                                    <View style={{ marginBottom: 5 }}>
-                                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{place.name}</Text>
+                                    <View style={styles.tinyMarginBottom}>
+                                        <Text style={styles.boldMediumText}>{place.name}</Text>
                                     </View>
-                                    <View style={{ marginBottom: 5 }}>
-                                        <Text style={{ color: '#858585', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>{formatAddress(place.address)}</Text>
+                                    <View style={styles.tinyMarginBottom}>
+                                        <Text style={styles.mapAddress}>{formatAddress(place.address)}</Text>
                                     </View>
-                                    <TouchableOpacity
+                                    {/* <TouchableOpacity
                                         activeOpacity={1.0}
                                     >
-                                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>
+                                        <Text style={styles.detailsCaptionText}>
                                             Ver más ubicaciones
                                         </Text>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </View>
                                 <View>
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         onPress={() => { setFollow(true); setModalVisible(false); setModalFollowVisible(true); }}
-                                        style={{ alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 8, justifyContent: 'center', paddingVertical: 6, paddingHorizontal: 14 }}
+                                        style={styles.mapNavigationButton}
                                     >
-                                        <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 32 }}>
+                                        <Text style={styles.mapNavigationButtonText}>
                                             Iniciar Ruta
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
-                        <View style={{ backgroundColor: 'rgba(250, 250, 250, 0.98)', borderRadius: 8, right: 277, left: 21, top: 58, position: 'absolute', padding: 10, zIndex: 999 }}>
+                        <View style={styles.mapBackButtonPosition}>
                             <TouchableOpacity
                                 activeOpacity={1.0}
                                 onPress={() => { setModalVisible(false); navigation.pop(); }}
                             >
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Back height={18} width={18} style={{ marginTop: 3 }} />
-                                    <Text style={{ color: '#207CFD', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, marginStart: 6 }}>Volver</Text>
+                                <View style={styles.flexDirectionRow}>
+                                    <Back height={18} width={18} style={styles.extraTinyMarginTop} />
+                                    <Text style={{ ...styles.mapBackButtonText, ...styles.smallMarginStart }}>Volver</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </Modal>
                     {modalFollowVisible === true &&
-                        <View
-                            style={{
-                                backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                                height: '15%',
-                                top: '85%',
-                                borderTopEndRadius: 20,
-                                borderTopStartRadius: 20,
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 1,
-                                },
-                                shadowOpacity: 0.22,
-                                shadowRadius: 2.22,
-                                elevation: 3
-                            }}
-                        >
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginVertical: 20
-                            }}>
+                        <View style={styles.mapFollowModal}>
+                            <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
                                 <TouchableOpacity
                                     activeOpacity={1.0}
-                                    style={{ marginEnd: 10, marginTop: 10 }}
+                                    style={styles.modalBackButtonMargins}
                                     onPress={() => setModalVisible(false)}
                                 >
-                                    <View
-                                        style={{
-                                            backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                                            borderRadius: 30,
-                                            padding: 5,
-                                            shadowColor: "#000",
-                                            shadowOffset: {
-                                                width: 0,
-                                                height: 1,
-                                            },
-                                            shadowOpacity: 0.12,
-                                            shadowRadius: 5.22,
-                                            elevation: 2
-                                        }}
-                                    >
+                                    <View style={styles.mapFollowButton}>
                                         <Search height={30} width={30} />
                                     </View>
                                 </TouchableOpacity>
                                 <View style={{ marginHorizontal: 48 }}>
-                                    <Text style={{ color: '#292D32', fontSize: 30, fontWeight: '700', lineHeight: 32, letterSpacing: -0.56, textAlign: 'center' }}>{setArrivalTime()}</Text>
-                                    <View style={{ marginTop: 10 }}>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <View style={{ flexDirection: 'row', marginEnd: 5 }}>
+                                    <Text style={styles.mapFollowArrivalTime}>{setArrivalTime()}</Text>
+                                    <View style={styles.smallMarginTop}>
+                                        <View style={styles.flexDirectionRow}>
+                                            <View style={{ ...styles.flexDirectionRow, marginEnd: 5 }}>
                                                 <Map height={15} width={15} />
-                                                <View style={{ marginStart: 6 }}>
-                                                    <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>
+                                                <View style={styles.smallMarginStart}>
+                                                    <Text style={styles.mapFollowSmallText}>
                                                         {duration.toFixed(0)} min
                                                     </Text>
                                                 </View>
                                             </View>
                                             <View style={{ flexDirection: 'row', marginStart: 5 }}>
                                                 <Locate height={15} width={15} />
-                                                <View style={{ marginStart: 6 }}>
-                                                    <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26, textAlign: 'center' }}>
+                                                <View style={styles.smallMarginStart}>
+                                                    <Text style={styles.mapFollowSmallText}>
                                                         {distance.toFixed(1)} Km
                                                     </Text>
                                                 </View>
@@ -307,21 +251,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                         </View>
                                     </View>
                                 </View>
-                                <View
-                                    style={{
-                                        backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                                        borderRadius: 30,
-                                        padding: 5,
-                                        shadowColor: "#000",
-                                        shadowOffset: {
-                                            width: 0,
-                                            height: 1,
-                                        },
-                                        shadowOpacity: 0.12,
-                                        shadowRadius: 5.22,
-                                        elevation: 2
-                                    }}
-                                >
+                                <View style={styles.mapFollowButton}>
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         onPress={handleBackButtonClick}

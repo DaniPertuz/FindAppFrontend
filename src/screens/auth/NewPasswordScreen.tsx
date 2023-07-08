@@ -127,32 +127,31 @@ const NewPasswordScreen = () => {
             <Background />
             <ScrollView
                 keyboardShouldPersistTaps='handled'
-                contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1, paddingBottom: 40 }}
+                contentContainerStyle={styles.scrollViewBackground}
             >
                 <KeyboardAvoidingView
-                    style={{
-                        flex: 1
-                    }}
+                    style={styles.flexOne}
                     behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
                 >
                     <View style={styles.formContainer}>
-                        <View style={{ marginTop: 36 }}>
-                            <View style={{ flexDirection: 'row' }}>
+                        <View style={styles.titleMarginTopContainer}>
+                            <View style={styles.flexDirectionRow}>
                                 <TouchableOpacity
                                     activeOpacity={1.0}
+                                    style={styles.backButtonMargins}
                                     onPress={() => navigator.goBack()}
                                 >
-                                    <Back height={20} width={20} style={{ marginBottom: 22, marginEnd: 2, marginTop: 2 }} />
+                                    <Back height={20} width={20} />
                                 </TouchableOpacity>
-                                <Text style={{ color: '#207CFD', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>Volver</Text>
+                                <Text style={styles.backButtonText}>Volver</Text>
                             </View>
-                            <Text style={{ color: '#081023', fontSize: 24, fontWeight: '700', lineHeight: 28, letterSpacing: -0.4 }}>Crear nueva contraseña</Text>
-                            <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Ingresa tu nueva contraseña</Text>
+                            <Text style={styles.boldLargeText}>Crear nueva contraseña</Text>
+                            <Text style={styles.plainSmallText}>Ingresa tu nueva contraseña</Text>
                         </View>
                         <Text style={styles.label}>Email</Text>
                         <View style={[
                             styles.inputFieldContainer,
-                            (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
+                            (fieldLength.email === true) && styles.warningBorder
                         ]}>
                             <Envelope height={25} width={25} />
                             <TextInput
@@ -171,29 +170,25 @@ const NewPasswordScreen = () => {
                             />
                         </View>
                         {(fieldLength.email === true) &&
-                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Warning height={15} width={15} style={{ marginTop: 4 }} />
-                                <Text
-                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                                >
-                                    Ingresa tu correo
-                                </Text>
+                            <View style={styles.flexDirectionRowTinyMarginTop}>
+                                <Warning height={15} width={15} style={styles.warningTopMargin} />
+                                <Text style={styles.warningText}>Ingresa tu correo</Text>
                             </View>
                         }
                         <View>
                             <Text style={styles.label}>Contraseña</Text>
                             <View style={[
                                 styles.inputFieldContainer,
-                                (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }
+                                (fieldLength.password === true) && styles.warningBorder
                             ]}>
-                                <Lock height={25} width={25} style={{ flex: 0.2 }} />
+                                <Lock height={25} width={25} style={styles.tinyButtonSize} />
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
                                     secureTextEntry={passwordVisibility}
                                     style={[
                                         styles.inputField,
-                                        { flex: 2, marginHorizontal: 2 },
+                                        styles.newPasswordInputTextSize,
                                         (Platform.OS === 'ios') && styles.inputFieldIOS
                                     ]}
                                     selectionColor='#9A9A9A'
@@ -207,36 +202,32 @@ const NewPasswordScreen = () => {
                                     onPress={handlePasswordVisibility}
                                 >
                                     {(passwordVisibility === false)
-                                        ? <Eye height={28} width={28} style={{ flex: 0.1 }} />
-                                        : <EyeClosed height={28} width={28} style={{ flex: 0.1 }} />
+                                        ? <Eye height={28} width={28} style={styles.extraTinyButtonSize} />
+                                        : <EyeClosed height={28} width={28} style={styles.extraTinyButtonSize} />
                                     }
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.password === true) &&
-                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Warning height={15} width={15} style={{ marginTop: 4 }} />
-                                <Text
-                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                                >
-                                    Ingresa tu contraseña
-                                </Text>
+                            <View style={styles.flexDirectionRowTinyMarginTop}>
+                                <Warning height={15} width={15} style={styles.warningTopMargin} />
+                                <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                             </View>
                         }
                         <View>
                             <Text style={styles.label}>Repetir contraseña</Text>
                             <View style={[
                                 styles.inputFieldContainer,
-                                (fieldLength.confirmPassword === true) && { borderColor: '#D13232', borderWidth: 1 }
+                                (fieldLength.confirmPassword === true) && styles.warningBorder
                             ]}>
-                                <Lock height={25} width={25} style={{ flex: 0.2 }} />
+                                <Lock height={25} width={25} style={styles.tinyButtonSize} />
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
                                     secureTextEntry={passwordConfirmVisibility}
                                     style={[
                                         styles.inputField,
-                                        { flex: 2, marginHorizontal: 2 },
+                                        styles.newPasswordInputTextSize,
                                         (Platform.OS === 'ios') && styles.inputFieldIOS
                                     ]}
                                     selectionColor='#9A9A9A'
@@ -250,43 +241,37 @@ const NewPasswordScreen = () => {
                                     onPress={handleConfirmPasswordVisibility}
                                 >
                                     {(passwordConfirmVisibility === false)
-                                        ? <Eye height={28} width={28} style={{ flex: 0.1 }} />
-                                        : <EyeClosed height={28} width={28} style={{ flex: 0.1 }} />
+                                        ? <Eye height={28} width={28} style={styles.extraTinyButtonSize} />
+                                        : <EyeClosed height={28} width={28} style={styles.extraTinyButtonSize} />
                                     }
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.confirmPassword === true) &&
-                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                                <Text
-                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                                >
+                            <View style={styles.flexDirectionRowTinyMarginTop}>
+                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <Text style={styles.warningText}>
                                     Ingresa tu contraseña
                                 </Text>
                             </View>
                         }
                         {(display === true) &&
-                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                                <Text
-                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                                >
+                            <View style={styles.flexDirectionRowTinyMarginTop}>
+                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <Text style={styles.warningText}>
                                     Contraseñas no coinciden
                                 </Text>
                             </View>
                         }
                         {(authorized === true) &&
-                            <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                                <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                                <Text
-                                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                                >
+                            <View style={styles.flexDirectionRowTinyMarginTop}>
+                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <Text style={styles.warningText}>
                                     Este usuario no puede realizar esta acción
                                 </Text>
                             </View>
                         }
-                        <View style={{ marginTop: 30 }}>
+                        <View style={styles.buttonContainerMarginTop}>
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 style={styles.button}

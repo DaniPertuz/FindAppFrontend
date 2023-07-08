@@ -102,24 +102,24 @@ const RegisterScreen = () => {
       <Background />
       <ScrollView
         keyboardShouldPersistTaps='handled'
-        contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}
+        contentContainerStyle={styles.scrollViewBackground}
       >
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={styles.flexOne}
           behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
         >
           <View style={styles.formContainer}>
-            <View style={{ marginTop: 36 }}>
-              <Text style={{ color: '#081023', fontSize: 24, fontWeight: '700', lineHeight: 28, letterSpacing: -0.4 }}>Crea tu cuenta</Text>
-              <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Ingresa tus datos para crear una cuenta</Text>
+            <View style={styles.titleMarginTopContainer}>
+              <Text style={styles.boldLargeText}>Crea tu cuenta</Text>
+              <Text style={styles.plainSmallText}>Ingresa tus datos para crear una cuenta</Text>
             </View>
             <View>
               <Text style={styles.label}>Usuario</Text>
               <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.name === true) && { borderColor: '#D13232', borderWidth: 1 }
+                (fieldLength.name === true) && styles.warningBorder
               ]}>
-                <User height={25} width={25} style={{ marginStart: 16 }} />
+                <User height={25} width={25} style={styles.iconStartMargin} />
                 <TextInput
                   placeholder='Ingresa tu nombre'
                   placeholderTextColor='#9A9A9A'
@@ -136,21 +136,17 @@ const RegisterScreen = () => {
                 />
               </View>
               {(fieldLength.name === true) &&
-                < View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                  <Text
-                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                  >
-                    Ingresa tu nombre
-                  </Text>
+                < View style={styles.flexDirectionRowTinyMarginTop}>
+                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                  <Text style={styles.warningText}>Ingresa tu nombre</Text>
                 </View>
               }
               <Text style={styles.label}>Email</Text>
               <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
+                (fieldLength.email === true) && styles.warningBorder
               ]}>
-                <Envelope height={25} width={25} style={{ marginStart: 16 }} />
+                <Envelope height={25} width={25} style={styles.iconStartMargin} />
                 <TextInput
                   placeholder='Ingresa tu correo'
                   placeholderTextColor='#9A9A9A'
@@ -167,29 +163,25 @@ const RegisterScreen = () => {
                 />
               </View>
               {(fieldLength.email === true) &&
-                < View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                  <Text
-                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                  >
-                    Ingresa tu correo
-                  </Text>
+                < View style={styles.flexDirectionRowTinyMarginTop}>
+                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                  <Text style={styles.warningText}>Ingresa tu correo</Text>
                 </View>
               }
               <Text style={styles.label}>Contraseña</Text>
               <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }
+                (fieldLength.password === true) && styles.warningBorder
               ]}
               >
-                <Lock height={25} width={25} style={{ flex: 0.2, marginStart: 16 }} />
+                <Lock height={25} width={25} style={styles.registerLockIconSize} />
                 <TextInput
                   placeholder='Ingresa tu contraseña'
                   placeholderTextColor='#9A9A9A'
                   secureTextEntry={passwordVisibility}
                   style={[
                     styles.inputField,
-                    { flex: 2, marginEnd: 10 },
+                    styles.registerPasswordTextInputSize,
                     (Platform.OS === 'ios') && styles.inputFieldIOS
                   ]}
                   selectionColor='#9A9A9A'
@@ -200,25 +192,22 @@ const RegisterScreen = () => {
                 />
                 <TouchableOpacity
                   activeOpacity={1.0}
+                  style={styles.registerHideButtonSize}
                   onPress={handlePasswordVisibility}
                 >
                   {(passwordVisibility === false)
-                    ? <Eye height={28} width={28} style={{ flex: 0.1, marginEnd: 16 }} />
-                    : <EyeClosed height={28} width={28} style={{ flex: 0.1, marginEnd: 16 }} />
+                    ? <Eye height={28} width={28} />
+                    : <EyeClosed height={28} width={28} />
                   }
                 </TouchableOpacity>
               </View>
               {(fieldLength.password === true) &&
-                <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                  <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                  <Text
-                    style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                  >
-                    Ingresa tu contraseña
-                  </Text>
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                  <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                 </View>
               }
-              <View style={{ marginTop: 30 }}>
+              <View style={styles.buttonContainerMarginTop}>
                 <TouchableOpacity
                   activeOpacity={0.8}
                   style={styles.button}
@@ -228,17 +217,16 @@ const RegisterScreen = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 60, marginBottom: 50 }}>
-              <View>
-                <Text style={{ fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24, marginEnd: 3 }}>
-                  ¿Ya tienes cuenta?
-                </Text>
+            <View style={styles.registerBottomContainer}>
+              <View style={styles.tinyMarginEnd}>
+                <Text style={styles.plainMediumText}>¿Ya tienes cuenta?</Text>
               </View>
               <TouchableOpacity
                 activeOpacity={0.9}
+                style={styles.tinyMarginStart}
                 onPress={() => navigator.replace('LoginScreen')}
               >
-                <Text style={{ color: '#207CFD', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.26, marginStart: 3 }}>
+                <Text style={styles.loginButtonText}>
                   Inicia sesión
                 </Text>
               </TouchableOpacity>

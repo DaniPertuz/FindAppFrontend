@@ -65,9 +65,9 @@ const SearchScreen = () => {
     };
 
     return (
-        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1, paddingHorizontal: 20, paddingTop: (Platform.OS === 'ios') ? top : top + 20 }}>
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ flex: 1, alignItems: 'flex-start' }}>
+        <View style={{ ...styles.searchScreenContainer, paddingTop: (Platform.OS === 'ios') ? top : top + 20 }}>
+            <View style={styles.flexDirectionRow}>
+                <View style={styles.flexOneAlignItemsCenter}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => navigation.goBack()}
@@ -75,19 +75,17 @@ const SearchScreen = () => {
                         <Back height={20} width={20} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ flex: 9, alignItems: 'center' }}>
-                    <Text numberOfLines={1} style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                <View style={styles.flexNineAlignItemsCenter}>
+                    <Text numberOfLines={1} style={styles.stackScreenTitle}>
                         Buscador
                     </Text>
                 </View>
-                <View style={{ flex: 1 }} />
+                <View style={styles.flexOne} />
             </View>
-            <View style={{ marginTop: 35 }}>
-                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
-                    ¿Qué te gustaría buscar hoy?
-                </Text>
+            <View style={styles.searchMarginTop}>
+                <Text style={styles.boldMediumText}>¿Qué te gustaría buscar hoy?</Text>
             </View>
-            <View style={{ marginTop: 18 }}>
+            <View style={styles.mediumMarginTop}>
                 <View style={styles.updateInputFieldContainer}>
                     <Search height={25} width={25} />
                     <TextInput
@@ -109,23 +107,18 @@ const SearchScreen = () => {
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={getSearchResults}
-                    style={{ backgroundColor: '#207CFD', borderRadius: 8, alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10 }}
+                    style={styles.searchButton}
                 >
-                    <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
-                        Buscar
-                    </Text>
+                    <Text style={styles.searchButtonText}>Buscar</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 20 }}>
-                {/* {(display === false) && <LoadingScreen />} */}
+            <View style={styles.mediumMarginTop}>
 
                 {((display === true) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
-                    <View style={{ alignItems: 'center', marginTop: 100 }}>
+                    <View style={{ ...styles.alignItemsCenter, marginTop: 100 }}>
                         <Mask height={73} width={73} />
-                        <View style={{ marginTop: 23 }}>
-                            <Text style={{ color: '#081023', fontSize: 18, fontWeight: '600', letterSpacing: -0.36 }}>
-                                No encontramos lugares con esta palabra. Intenta nuevamente.
-                            </Text>
+                        <View style={styles.mediumLargeMarginTop}>
+                            <Text style={styles.noSearchResultsText}>No encontramos lugares con esta palabra. Intenta nuevamente.</Text>
                         </View>
                     </View>
                 }
@@ -133,8 +126,8 @@ const SearchScreen = () => {
                 {((display === true) && (searchResults.places.length !== 0 || searchResults.products.length !== 0)) &&
                     <View style={{ height: '100%' }}>
                         <View style={{ maxHeight: '40%', paddingVertical: 10 }}>
-                            <View style={{ marginBottom: 20 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                            <View style={styles.mediumMarginBottom}>
+                                <Text style={styles.boldMediumText}>
                                     {(searchResults.places.length === 0) ? '0' : searchResults.totalPlaces[0].totalPlaces} {(searchResults.places.length !== 1) ? 'Lugares' : 'Lugar'}
                                 </Text>
                             </View>
@@ -146,8 +139,8 @@ const SearchScreen = () => {
                             />
                         </View>
                         <View style={{ maxHeight: '40%', paddingVertical: 10 }}>
-                            <View style={{ marginBottom: 20 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                            <View style={styles.mediumMarginBottom}>
+                                <Text style={styles.boldMediumText}>
                                     {(searchResults.products.length === 0) ? '0' : searchResults.totalProducts[0].totalProducts} {(searchResults.products.length !== 1) ? 'Productos' : 'Producto'}
                                 </Text>
                             </View>

@@ -54,9 +54,9 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
     return (
-        <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, paddingHorizontal: 16, backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ flex: 1, alignItems: 'flex-start' }}>
+        <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
+            <View style={styles.flexDirectionRow}>
+                <View style={styles.flexOneAlignItemsCenter}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => navigation.goBack()}
@@ -64,15 +64,15 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         <Back height={20} width={20} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ flex: 9, alignItems: 'center' }}>
-                    <Text numberOfLines={1} style={{ color: '#1F273A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20 }}>
+                <View style={styles.flexNineAlignItemsCenter}>
+                    <Text numberOfLines={1} style={styles.stackScreenTitle}>
                         {product.name}
                     </Text>
                 </View>
-                <View style={{ flex: 1 }} />
+                <View style={styles.flexOne} />
             </View>
-            <View style={{ flexDirection: 'row', paddingTop: 35 }}>
-                <View style={{ flex: 1 }}>
+            <View style={{ ...styles.flexDirectionRow, paddingTop: 35 }}>
+                <View style={styles.flexOne}>
                     <Image
                         source={
                             (product.place[0].photo === '')
@@ -82,25 +82,25 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         style={styles.detailsIcon}
                     />
                 </View>
-                <View style={{ flex: 2 }}>
-                    <View style={{ marginBottom: 12 }}>
-                        <Text numberOfLines={1} style={{ color: '#081023', fontSize: 20, fontWeight: '700', letterSpacing: -0.4, lineHeight: 28 }}>{product.name}</Text>
-                        <View style={{ marginTop: 6 }}>
-                            <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '700', letterSpacing: -0.24, lineHeight: 16 }}>{product.place[0].name}</Text>
+                <View style={styles.flexTwo}>
+                    <View style={styles.smallMediumMarginBottom}>
+                        <Text numberOfLines={1} style={styles.detailsMainName}>{product.name}</Text>
+                        <View style={styles.tinyMarginTop}>
+                            <Text numberOfLines={2} style={styles.productPlaceName}>{product.place[0].name}</Text>
                         </View>
-                        <View style={{ marginTop: 6 }}>
-                            <Text numberOfLines={2} style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>{product.description}</Text>
+                        <View style={styles.tinyMarginTop}>
+                            <Text numberOfLines={2} style={styles.description}>{product.description}</Text>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.flexDirectionRow}>
                         <TouchableOpacity
                             activeOpacity={1.0}
                             onPress={handleFavorite}
                         >
-                            <View style={{ flexDirection: 'row', marginEnd: 12 }}>
+                            <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
                                 {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
                                 <View style={{ marginStart: 7 }}>
-                                    <Text style={{ color: '#5A5A5A', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'center' }}>
+                                    <Text style={styles.detailsCaptionGrayText}>
                                         {(newFavorite === true) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
                                     </Text>
                                 </View>
@@ -109,11 +109,11 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                 </View>
             </View>
-            <View style={{ alignItems: 'center', marginTop: 16, flexDirection: 'row', maxWidth: 191 }}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ ...styles.flexDirectionRow, ...styles.alignItemsCenter, marginTop: 16, maxWidth: 191 }}>
+                <View style={styles.flexOneDirectionRow}>
                     <Star height={21} width={21} />
                     <View style={{ marginHorizontal: 8 }}>
-                        <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                        <Text style={styles.detailsBodyText}>
                             {Number(product.place[0].rate.$numberDecimal).toFixed(1)}
                         </Text>
                     </View>
@@ -123,41 +123,41 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => navigation.navigate('RateScreen', { item: { date: new Date().toString(), place: product.place[0], search, user: user?._id! } })}
                     >
-                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }}>
+                        <Text style={styles.detailsCaptionText}>
                             Calificar lugar
                         </Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 18 }}>
+            <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
                 <Instagram height={21} width={21} />
                 <View style={{ marginHorizontal: 8 }}>
-                    <Text style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                    <Text style={styles.detailsBodyText}>
                         {(product.place[0].instagram !== undefined) ? `@${product.place[0].instagram}` : 'Pronto'}
                     </Text>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 18 }}>
-                <View style={{ flexDirection: 'row' }}>
+            <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
+                <View style={styles.flexDirectionRow}>
                     <Location height={21} width={21} />
                     <View style={{ marginHorizontal: 8 }}>
-                        <Text numberOfLines={1} style={{ color: '#0D0D0D', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                        <Text numberOfLines={1} style={styles.detailsBodyText}>
                             {formatAddress(product.place[0].address)}
                         </Text>
                     </View>
                 </View>
-                <View style={{ justifyContent: 'center' }}>
+                <View style={styles.justifyContentCenter}>
                     <TouchableOpacity
                         activeOpacity={0.9}
                         onPress={() => { copyToClipboard(product.place[0].address); Toast.show('Dirección copiada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
                     >
-                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }} numberOfLines={1}>Copiar dirección</Text>
+                        <Text style={styles.detailsCaptionText} numberOfLines={1}>Copiar dirección</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             {(product.place[0].pics?.length === 0)
                 ?
-                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 2 }}>
+                <View style={{ ...styles.justifyAlignItemsCenter, flex: 2 }}>
                     <Text>No hay imágenes del lugar</Text>
                 </View>
                 :
@@ -177,26 +177,26 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     />
                 </View>
             }
-            <View style={{ flexDirection: 'row', marginTop: 24 }}>
+            <View style={{ ...styles.flexDirectionRow, marginTop: 24 }}>
                 <PhoneOutgoing height={21} width={21} />
                 <View style={{ marginHorizontal: 9 }}>
                     <Text>{product.place[0].phone}</Text>
                 </View>
-                <View style={{ alignContent: 'center' }}>
+                <View style={styles.alignContentCenter}>
                     <TouchableOpacity
                         activeOpacity={0.9}
                         onPress={() => { copyToClipboard(String(product.place[0].phone)); Toast.show('Número de teléfono copiado', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM }); }}
                     >
-                        <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 15 }} numberOfLines={1}>Copiar teléfono</Text>
+                        <Text style={styles.detailsCaptionText} numberOfLines={1}>Copiar teléfono</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             {(product.place[0].whatsapp) ?
-                <View style={{ flexDirection: 'row', marginTop: 14 }}>
+                <View style={{ ...styles.flexDirectionRow, marginTop: 14 }}>
                     <Whatsapp height={21} width={21} />
                     <Text>{product.place[0].whatsapp}</Text>
                 </View>
-                : <View style={{ marginTop: 13 }} />
+                : <View style={styles.smallMediumMarginTop} />
             }
             <View style={styles.detailsDropdownRateContainer}>
                 <Dropdown
@@ -208,18 +208,18 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                     labelField={'label'} valueField={'label'} onChange={() => { }}
                 />
             </View>
-            <View style={{ flex: 1 }}>
-                <View style={{ justifyContent: 'center', paddingHorizontal: 42 }}>
+            <View style={styles.flexOne}>
+                <View style={{ ...styles.justifyContentCenter, paddingHorizontal: 42 }}>
                     <TouchableOpacity
                         activeOpacity={1.0}
-                        style={{ alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10 }}
+                        style={styles.startNavigationButton}
                         onPress={() => navigation.push('MapScreen', { place: product.place[0], search })}
                     >
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ color: '#FAFAFA', fontSize: 16, fontWeight: '500', letterSpacing: -0.32, lineHeight: 22 }}>
+                        <View style={styles.flexDirectionRowAlignItemsCenter}>
+                            <Text style={styles.startNavigationButtonText}>
                                 Iniciar Ruta
                             </Text>
-                            <View style={{ marginStart: 10 }}>
+                            <View style={styles.mediumMarginStart}>
                                 <Left height={18} width={18} />
                             </View>
                         </View>

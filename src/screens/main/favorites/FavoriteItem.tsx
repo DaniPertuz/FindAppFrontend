@@ -64,38 +64,44 @@ const FavoriteItem = ({ item, onPress }: Props) => {
 
     return (
         <>
-            <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, flexDirection: 'row', marginBottom: 20, paddingHorizontal: 10, paddingVertical: 8 }}>
-                <View style={{ flex: 1 }}>
-                    <Image
-                        source={{ uri: item.place.photo }}
-                        style={{ borderRadius: 8, height: 42, width: 42 }}
-                    />
-                </View>
-                <View style={{ flex: 5, marginHorizontal: 12 }}>
-                    <View style={{ marginBottom: 8 }}>
-                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>{item.place.name}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', maxWidth: 156 }}>
-                        <Restaurant height={15} width={15} />
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ marginEnd: 6 }}>
-                                <Location height={15} width={15} />
+            <View style={styles.favoriteItemContainer}>
+                <View style={styles.flexOne}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        style={styles.flexOneDirectionRow}
+                        onPress={() => navigator.navigate('PlaceDetailsScreen')}
+                    >
+                        <Image
+                            source={{ uri: item.place.photo }}
+                            style={styles.itemIcon}
+                        />
+                        <View style={styles.favoriteItemDetailsContainer}>
+                            <View style={styles.smallMarginBottom}>
+                                <Text style={styles.boldMediumText}>{item.place.name}</Text>
                             </View>
-                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{distance.toFixed(1)} Km</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View style={{ marginEnd: 6 }}>
-                                <Star height={15} width={15} />
+                            <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, maxWidth: 156 }}>
+                                <Restaurant height={15} width={15} />
+                                <View style={styles.flexDirectionRow}>
+                                    <View style={styles.itemDetailsIconMarginEnd}>
+                                        <Location height={15} width={15} />
+                                    </View>
+                                    <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
+                                </View>
+                                <View style={styles.flexDirectionRow}>
+                                    <View style={styles.itemDetailsIconMarginEnd}>
+                                        <Star height={15} width={15} />
+                                    </View>
+                                    <Text style={styles.smallPlainText}>{Number(item.place.rate.$numberDecimal).toFixed(2)}</Text>
+                                </View>
                             </View>
-                            <Text style={{ color: '#1F273A', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>{Number(item.place.rate.$numberDecimal).toFixed(2)}</Text>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={removeFavorite}
                 >
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={styles.flexOneAlignJustifyCenter}>
                         <Favorite height={26} width={26} />
                     </View>
                 </TouchableOpacity>

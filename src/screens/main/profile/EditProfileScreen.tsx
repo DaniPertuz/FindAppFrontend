@@ -19,7 +19,7 @@ import History from '../../../assets/history.svg';
 import Star from '../../../assets/star.svg';
 import User from '../../../assets/user.svg';
 
-import { loginStyles, styles } from '../../../theme/AppTheme';
+import { styles } from '../../../theme/AppTheme';
 
 interface Props extends StackScreenProps<RootStackParams, 'EditProfileScreen'> { }
 
@@ -87,15 +87,13 @@ const EditProfileScreen = ({ navigation }: Props) => {
     return (
         <>
             <KeyboardAvoidingView
-                style={{ flex: 1, paddingTop: top }}
+                style={{ ...styles.flexOne, paddingTop: (Platform.OS === 'ios') ? top : top + 20 }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
             >
                 <ScrollView
-                    style={loginStyles.formContainer}
-                    contentContainerStyle={{ justifyContent: 'center' }}>
-                    <View
-                        style={{ flexDirection: 'row', justifyContent: 'center' }}
-                    >
+                    style={styles.editProfileScrollView}
+                    contentContainerStyle={styles.justifyContentCenter}>
+                    <View style={styles.flexDirectionRowJustifyCenter}>
                         <Image
                             source={(!user || user.photo === '')
                                 ? require('../../../assets/FA_Color.png')
@@ -107,81 +105,85 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={updateMainPhoto}
-                            style={{ backgroundColor: '#FFFFFF', borderRadius: 30, marginStart: -40, marginTop: 125, maxHeight: 40, padding: 5 }}
+                            style={styles.editProfilePhotoButton}
                         >
                             <Camera height={30} width={30} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                        <Text style={{ color: '#081023', fontSize: 24, fontWeight: '500', lineHeight: 28, letterSpacing: -0.48 }}>
+                    <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.mediumMarginTop }}>
+                        <Text style={styles.editProfileUserNameText}>
                             {userDB?.name}
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.9}
                             onPress={() => { navigation.navigate('UpdateProfileScreen', { user: userDB }); }}
-                            style={{ backgroundColor: '#FFFFFF', borderRadius: 30, padding: 5, marginStart: 6 }}
+                            style={styles.editProfileButton}
                         >
                             <Edit height={20} width={20} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
-                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.email}</Text>
+                    <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.tinyMarginTop }}>
+                        <Text style={styles.placeholderText}>{userDB?.email}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
-                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                            <View style={{ marginTop: 8 }}>
-                            <History height={33} width={33} />
-                            </View>
-                            <View style={{ marginTop: 12 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Historial</Text>
-                            </View>
-                            <View style={{ marginTop: 6 }}>
-                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>23 viajes</Text>
-                            </View>
+                    <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
+                        <View style={styles.largeItem}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
+                                onPress={() => navigation.navigate('HistoryScreen')}
+                            >
+                                <History height={33} width={33} />
+                                <View style={styles.smallMediumMarginTop}>
+                                    <Text style={styles.plainSmallText}>Historial</Text>
+                                </View>
+                                <View style={styles.tinyMarginTop}>
+                                    <Text style={styles.largeItemText}>23 viajes</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                            <View style={{ marginTop: 8 }}>
+                        <View style={styles.largeItem}>
+                            <View style={styles.extraSmallMarginTop}>
                                 <HeartFavorite height={33} width={33} />
                             </View>
-                            <View style={{ marginTop: 12 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Favoritos</Text>
+                            <View style={styles.smallMediumMarginTop}>
+                                <Text style={styles.plainSmallText}>Favoritos</Text>
                             </View>
-                            <View style={{ marginTop: 6 }}>
-                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>12 lugares</Text>
+                            <View style={styles.tinyMarginTop}>
+                                <Text style={styles.largeItemText}>12 lugares</Text>
                             </View>
                         </View>
-                        <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                            <View style={{ marginTop: 8 }}>
+                        <View style={styles.largeItem}>
+                            <View style={styles.extraSmallMarginTop}>
                                 <Star height={33} width={33} />
                             </View>
-                            <View style={{ marginTop: 12 }}>
-                                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Calificaciones</Text>
+                            <View style={styles.smallMediumMarginTop}>
+                                <Text style={styles.plainSmallText}>Calificaciones</Text>
                             </View>
-                            <View style={{ marginTop: 6 }}>
-                                <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>6 lugares</Text>
+                            <View style={styles.tinyMarginTop}>
+                                <Text style={styles.largeItemText}>6 lugares</Text>
                             </View>
                         </View>
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Nombre de usuario</Text>
-                        <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <User height={18} width={18} style={{ marginEnd: 6, marginTop: 2 }} />
-                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.name}</Text>
+                    <View style={styles.mediumMarginTop}>
+                        <Text style={styles.grayLabel}>Nombre de usuario</Text>
+                        <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
+                            <User height={18} width={18} style={styles.editProfileIconMargins} />
+                            <Text style={styles.editProfileMediumText}>{userDB?.name}</Text>
                         </View>
                     </View>
-                    <View style={{ marginTop: 23 }}>
-                        <Text style={{ color: '#858585', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
-                        <View style={{ flexDirection: 'row', marginTop: 4 }}>
-                            <Envelope height={18} width={18} style={{ marginEnd: 6, marginTop: 2 }} />
-                            <Text style={{ color: '#081023', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>{userDB?.email}</Text>
+                    <View style={styles.mediumLargeMarginTop}>
+                        <Text style={styles.grayLabel}>Email</Text>
+                        <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
+                            <Envelope height={18} width={18} style={styles.editProfileIconMargins} />
+                            <Text style={styles.editProfileMediumText}>{userDB?.email}</Text>
                         </View>
                     </View>
-                    <View style={{ marginTop: 23 }}>
+                    <View style={styles.mediumLargeMarginTop}>
                         <TouchableOpacity
                             activeOpacity={1.0}
                             onPress={logOut}
                         >
-                            <Text style={{ color: '#D13232', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
+                            <Text style={styles.logOutText}>Cerrar sesión</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -194,58 +196,32 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View
-                    style={{
-                        backgroundColor: 'rgba(250, 250, 250, 0.98)',
-                        height: '20%',
-                        top: '80%',
-                        borderTopEndRadius: 10,
-                        borderTopStartRadius: 10,
-                        shadowColor: "#000",
-                        shadowOffset: {
-                            width: 0,
-                            height: 1,
-                        },
-                        shadowOpacity: 0.22,
-                        shadowRadius: 2.22,
-                        elevation: 3
-                    }}
-                >
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        marginBottom: 10
-                    }}>
+                <View style={styles.editProfileModal}>
+                    <View style={styles.editProfileModalBackButtonContainer}>
                         <TouchableOpacity
                             activeOpacity={1.0}
-                            style={{ marginEnd: 10, marginTop: 10 }}
+                            style={styles.modalBackButtonMargins}
                             onPress={() => setModalVisible(false)}
                         >
                             <Down height={30} width={30} />
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
-                            marginHorizontal: 10
-                        }}
-                    >
-                        <View style={{ alignItems: 'center' }}>
+                    <View style={{ ...styles.flexDirectionRowJustifyAround, marginHorizontal: 10 }}>
+                        <View style={styles.alignItemsCenter}>
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => { addGalleryImage(); setModalVisible(false); onUpdate(); }}
-                                style={{ borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                                style={styles.editProfileGalleryButton}
                             >
                                 <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
                             </TouchableOpacity>
                             <Text>Galería</Text>
                         </View>
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={styles.alignItemsCenter}>
                             <TouchableOpacity
                                 activeOpacity={0.9}
                                 onPress={() => { addPhoto(); setModalVisible(false); onUpdate(); }}
-                                style={{ borderColor: 'rgba(133, 133, 133, 0.25)', borderRadius: 30, borderWidth: 1, padding: 10 }}
+                                style={styles.editProfileGalleryButton}
                             >
                                 <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
                             </TouchableOpacity>

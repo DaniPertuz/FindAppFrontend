@@ -53,7 +53,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             </Text>
             <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.email === true) && { borderColor: '#D13232', borderWidth: 1 }
+                (fieldLength.email === true) && styles.warningBorder
             ]}>
                 <User height={25} width={25} />
                 <TextInput
@@ -72,19 +72,15 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 />
             </View>
             {(fieldLength.email === true) &&
-                <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                    <Text
-                        style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                    >
-                        Ingresa tu correo electrónico
-                    </Text>
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                    <Warning height={15} width={15} style={styles.warningIconMargins} />
+                    <Text style={styles.warningText}>Ingresa tu correo electrónico</Text>
                 </View>
             }
             <Text style={styles.label}>
                 Contraseña
             </Text>
-            <View style={[styles.inputFieldContainer, (fieldLength.password === true) && { borderColor: '#D13232', borderWidth: 1 }]}>
+            <View style={[styles.inputFieldContainer, (fieldLength.password === true) && styles.warningBorder]}>
                 <Lock height={25} width={25} style={{ flex: 0.4 }} />
                 <TextInput
                     placeholder='Ingresa tu contraseña'
@@ -106,16 +102,14 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     onPress={handlePasswordVisibility}
                 >
                     {(passwordVisibility === false)
-                        ? <Eye height={28} width={28} style={{ flex: 0.2 }} />
-                        : <EyeClosed height={28} width={28} style={{ flex: 0.2 }} />}
+                        ? <Eye height={28} width={28} style={styles.tinyButtonSize} />
+                        : <EyeClosed height={28} width={28} style={styles.tinyButtonSize} />}
                 </TouchableOpacity>
             </View>
             {(fieldLength.password === true) &&
-                <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Warning height={15} width={15} style={{ marginTop: 3, marginEnd: 5 }} />
-                    <Text
-                        style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                    >
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                    <Warning height={15} width={15} style={styles.warningIconMargins} />
+                    <Text style={styles.warningText}>
                         Ingresa tu contraseña
                     </Text>
                 </View>
@@ -125,15 +119,15 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     activeOpacity={0.9}
                     onPress={() => navigator.navigate('NewPasswordScreen')}
                 >
-                    <Text style={{ color: '#207CFD', fontSize: 16, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>
+                    <Text style={styles.forgotPasswordText}>
                         ¿Olvidaste tu contraseña?
                     </Text>
                 </TouchableOpacity>
             </View>
             <LoginButton email={email} password={password} handleFieldLength={handleFieldLength} />
             <View style={{ flexDirection: 'row', marginBottom: 38, marginTop: 32, justifyContent: 'center' }}>
-                <View>
-                    <Text style={{ fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24, marginEnd: 3 }}>
+                <View style={{ marginEnd: 3 }}>
+                    <Text style={styles.plainMediumText}>
                         ¿No tienes usuario?
                     </Text>
                 </View>

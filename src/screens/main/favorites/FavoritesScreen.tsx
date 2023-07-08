@@ -41,18 +41,13 @@ const FavoritesScreen = () => {
 
             {(display === true) &&
                 <View
-                    style={{
-                        backgroundColor: 'rgba(104, 110, 222, 0.1)',
-                        flex: 1,
-                        paddingHorizontal: 22,
-                        paddingTop: 70
-                    }}
+                    style={styles.favoriteScreenContainer}
                 >
                     <TopButtons />
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>Favoritos</Text>
+                    <View style={styles.mediumMarginTop}>
+                        <Text style={styles.boldMediumText}>Favoritos</Text>
                     </View>
-                    <View style={{ marginTop: 10 }}>
+                    <View style={styles.smallMarginTop}>
                         <FlatList
                             data={favorites.favorites}
                             keyExtractor={(item) => item.place._id}

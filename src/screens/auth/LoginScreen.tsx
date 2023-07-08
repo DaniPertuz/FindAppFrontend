@@ -31,7 +31,7 @@ const LoginScreen = () => {
   return (
     <ScrollView
       keyboardShouldPersistTaps='handled'
-      contentContainerStyle={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1, paddingBottom: 40 }}
+      contentContainerStyle={styles.scrollViewBackground}
     >
       <KeyboardAvoidingView
         behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
@@ -43,14 +43,16 @@ const LoginScreen = () => {
           <View style={styles.alignItemsCenter}>
             <Image
               source={require('../../assets/FA_COMPLETE_Color.png')}
-              style={{ height: 107, width: 239, marginBottom: 33, marginTop: 40, marginHorizontal: 98 }}
+              style={styles.mainLogo}
             />
           </View>
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ color: '#2F2F2F', fontSize: 24, fontWeight: '700', lineHeight: 28, letterSpacing: -0.4, marginBottom: 5 }}>
-              Bienvenido
-            </Text>
-            <Text style={{ color: '#2F2F2F', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
+          <View style={styles.mediumMarginBottom}>
+            <View style={styles.tinyMarginBottom}>
+              <Text style={styles.welcomeTitleText}>
+                Bienvenido
+              </Text>
+            </View>
+            <Text style={styles.welcomeSubtitleText}>
               Ingresa tus credenciales para continuar
             </Text>
           </View>

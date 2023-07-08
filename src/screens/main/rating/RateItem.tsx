@@ -34,15 +34,15 @@ const RateItem = ({ item }: Props) => {
 
     return (
         <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, marginBottom: 24, paddingHorizontal: 10, paddingVertical: 8 }}>
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ flex: 1 }}>
-                    <Image source={{ uri: item.user?.photo }} style={{ borderRadius: 8, height: 42, width: 42 }} />
+            <View style={styles.flexDirectionRow}>
+                <View style={styles.flexOne}>
+                    <Image source={{ uri: item.user?.photo }} style={styles.itemIcon} />
                 </View>
                 <View style={{ flex: 3 }}>
-                    <Text numberOfLines={1} style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
+                    <Text numberOfLines={1} style={styles.rateItemUserName}>
                         {item.user?.name}
                     </Text>
-                    <View style={{ flexDirection: 'row', marginVertical: 6 }}>
+                    <View style={{ ...styles.flexDirectionRow, marginVertical: 6 }}>
                         <Rating
                             fractions={1}
                             imageSize={25}
@@ -57,21 +57,21 @@ const RateItem = ({ item }: Props) => {
                             tintColor='#FFFFFF'
                             type='custom'
                         />
-                        <View style={{ marginStart: 6, justifyContent: 'center' }}>
-                            <Text style={{ color: '#0D0D0D', fontSize: 13, fontWeight: '500', letterSpacing: -0.26, lineHeight: 18 }}>
+                        <View style={{ marginStart: 6, ...styles.justifyContentCenter }}>
+                            <Text style={styles.rateItemAvg}>
                                 {item.rate.toFixed(1)}
                             </Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ flex: 2 }}>
-                    <Text style={{ color: '#858585', fontSize: 12, fontWeight: '500', letterSpacing: -0.24, lineHeight: 20, textAlign: 'right' }}>
+                    <Text style={styles.rateItemDate}>
                         {moment(item.createdAt, "YYYYMMDD").fromNow()}
                     </Text>
                 </View>
             </View>
             <View style={{ marginStart: 45, paddingHorizontal: 10 }}>
-                    <Text style={{ color: '#081023', fontSize: 12, fontWeight: '400', letterSpacing: -0.24, lineHeight: 16 }}>
+                    <Text style={styles.description}>
                         {item.comments}
                     </Text>
             </View>

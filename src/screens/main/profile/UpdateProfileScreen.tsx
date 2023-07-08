@@ -88,29 +88,29 @@ const UpdateProfileScreen = ({ route }: Props) => {
     };
 
     return (
-        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
-            <View style={{ flexDirection: 'row', marginTop: 53 }}>
+        <View style={styles.updateProfileBackground}>
+            <View style={{ ...styles.flexDirectionRow, marginTop: 53 }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
-                    style={{ flex: 1, marginStart: 15, marginTop: 5 }}
+                    style={{ ...styles.flexOne, marginStart: 15, marginTop: 5 }}
                     onPress={() => navigator.goBack()}
                 >
                     <Back height={25} width={25} />
                 </TouchableOpacity>
-                <View style={{ alignItems: 'center', flex: 10, marginEnd: 40, marginTop: 5 }}>
-                    <Text style={{ color: '#1F273A', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Editar perfil</Text>
+                <View style={{ ...styles.alignItemsCenter, flex: 10, marginEnd: 40, marginTop: 5 }}>
+                    <Text style={styles.stackScreenTitle}>Editar perfil</Text>
                 </View>
             </View>
             <ScrollView
                 keyboardShouldPersistTaps='handled'
-                contentContainerStyle={{ paddingBottom: 40 }}
+                contentContainerStyle={styles.largePaddingBottom}
             >
                 <KeyboardAvoidingView
                     behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
-                    style={{ paddingHorizontal: 40 }}
+                    style={styles.largePaddingHorizontal}
                 >
-                    <View style={{ marginTop: 37 }}>
-                        <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Usuario</Text>
+                    <View style={styles.updateProfileLargeMarginTop}>
+                        <Text style={styles.updateProfileLabel}>Usuario</Text>
                         <View style={styles.updateInputFieldContainer}>
                             <User height={25} width={25} />
                             <TextInput
@@ -129,8 +129,8 @@ const UpdateProfileScreen = ({ route }: Props) => {
                             />
                         </View>
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Email</Text>
+                    <View style={styles.mediumMarginTop}>
+                        <Text style={styles.updateProfileLabel}>Email</Text>
                         <View style={styles.disabledInputFieldContainer}>
                             <Envelope height={25} width={25} />
                             <TextInput
@@ -145,8 +145,8 @@ const UpdateProfileScreen = ({ route }: Props) => {
                             />
                         </View>
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Contraseña</Text>
+                    <View style={styles.mediumMarginTop}>
+                        <Text style={styles.updateProfileLabel}>Contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
                             <Lock height={25} width={25} />
                             <TextInput
@@ -174,8 +174,8 @@ const UpdateProfileScreen = ({ route }: Props) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ color: '#081023', fontSize: 12, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}>Repetir contraseña</Text>
+                    <View style={styles.mediumMarginTop}>
+                        <Text style={styles.updateProfileLabel}>Repetir contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
                             <Lock height={25} width={25} />
                             <TextInput
@@ -204,13 +204,9 @@ const UpdateProfileScreen = ({ route }: Props) => {
                         </View>
                     </View>
                     {(display === true) &&
-                        <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                            <Warning height={15} width={15} style={{ marginTop: 4 }} />
-                            <Text
-                                style={{ color: '#D13232', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.24 }}
-                            >
-                                Contraseñas no coinciden
-                            </Text>
+                        <View style={styles.flexDirectionRowTinyMarginTop}>
+                            <Warning height={15} width={15} style={styles.warningTopMargin} />
+                            <Text style={styles.warningText}>Contraseñas no coinciden</Text>
                         </View>
                     }
                     <View style={{ marginTop: (display === true) ? 118 : 143 }}>

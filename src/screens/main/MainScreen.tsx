@@ -60,52 +60,48 @@ const MainScreen = () => {
     return (
         <View style={styles.mainScreenContainer}>
             <TopButtons />
-            <View style={{ marginTop: 22 }}>
-                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
-                    Categorías
-                </Text>
+            <View style={styles.mediumMarginTop}>
+                <Text style={styles.boldMediumText}>Categorías</Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
-                <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <View style={{ marginTop: 8 }}>
+            <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
+                <View style={styles.largeItem}>
+                    <View style={styles.extraSmallMarginTop}>
                         <Restaurant height={33} width={33} />
                     </View>
-                    <View style={{ marginTop: 12 }}>
-                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Restaurantes</Text>
+                    <View style={styles.smallMediumMarginTop}>
+                        <Text style={styles.plainSmallText}>Restaurantes</Text>
                     </View>
-                    <View style={{ marginTop: 6 }}>
-                        <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>14 lugares</Text>
+                    <View style={styles.tinyMarginTop}>
+                        <Text style={styles.largeItemText}>14 lugares</Text>
                     </View>
                 </View>
-                <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <View style={{ marginTop: 8 }}>
+                <View style={styles.largeItem}>
+                    <View style={styles.extraSmallMarginTop}>
                         <Restaurant height={33} width={33} />
                     </View>
-                    <View style={{ marginTop: 12 }}>
-                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Gasolineras</Text>
+                    <View style={styles.smallMediumMarginTop}>
+                        <Text style={styles.plainSmallText}>Gasolineras</Text>
                     </View>
-                    <View style={{ marginTop: 6 }}>
-                        <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>6 lugares</Text>
+                    <View style={styles.tinyMarginTop}>
+                        <Text style={styles.largeItemText}>6 lugares</Text>
                     </View>
                 </View>
-                <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', borderRadius: 8, minWidth: 90, paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <View style={{ marginTop: 8 }}>
+                <View style={styles.largeItem}>
+                    <View style={styles.extraSmallMarginTop}>
                         <Restaurant height={33} width={33} />
                     </View>
-                    <View style={{ marginTop: 12 }}>
-                        <Text style={{ color: '#081023', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>Farmacias</Text>
+                    <View style={styles.smallMediumMarginTop}>
+                        <Text style={styles.plainSmallText}>Farmacias</Text>
                     </View>
-                    <View style={{ marginTop: 6 }}>
-                        <Text style={{ color: '#0D0D0D', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>12 lugares</Text>
+                    <View style={styles.tinyMarginTop}>
+                        <Text style={styles.largeItemText}>12 lugares</Text>
                     </View>
                 </View>
             </View>
-            <View style={{ marginTop: 26 }}>
-                <Text style={{ color: '#081023', fontSize: 14, fontWeight: '700', lineHeight: 18 }}>
-                    Búsquedas populares
-                </Text>
+            <View style={styles.largeMarginTop}>
+                <Text style={styles.boldMediumText}>Búsquedas populares</Text>
             </View>
-            <View style={{ marginTop: 20 }}>
+            <View style={styles.mediumMarginTop}>
                 <FlatList
                     data={setPlaceResults()}
                     scrollEnabled

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { loginStyles } from '../theme/AppTheme';
+import { styles } from '../theme/AppTheme';
 
 const Background = () => {
-  return (<View style={loginStyles.backgroundColorContainer} />);
+  return (<View style={styles.loginBackground} />);
 };
 
 export default Background;
