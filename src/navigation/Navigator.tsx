@@ -18,9 +18,6 @@ export const Navigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: {
-          backgroundColor: '#FFFFFF'
-        }
       }}
     >
       {(!user || status !== 'authenticated')
