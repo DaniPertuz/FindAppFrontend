@@ -135,3 +135,23 @@ export interface FavoriteItem {
     place:     string;
     user:      string;
 }
+
+export interface Direction {
+    distance:          Distance;
+    duration:          Distance;
+    end_location:      Location;
+    html_instructions: string;
+    maneuver:          string | undefined;
+}
+
+export interface Distance {
+    text:  string;
+    value: number;
+}
+
+export interface Step {
+    distance: string;
+    html_instructions: string;
+    maneuver: string | undefined;
+    end_location: Location;
+}
