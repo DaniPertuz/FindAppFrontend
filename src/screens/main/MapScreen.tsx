@@ -4,17 +4,24 @@ import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import DeviceTimeFormat from 'react-native-device-time-format';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import moment from 'moment';
 
 import useLocation from '../../hooks/useLocation';
 import LoadingScreen from '../LoadingScreen';
-import { Location } from '../../interfaces/app-interfaces';
+import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { RootStackParams } from '../../navigation';
 import { AuthContext } from '../../context';
 
+import ArrowElbowUpLeft from '../../assets/ArrowElbowUpLeft.svg';
+import ArrowElbowUpRight from '../../assets/ArrowElbowUpRight.svg';
+import ArrowUp from '../../assets/ArrowUp.svg';
+import ArrowUpLeft from '../../assets/ArrowUpLeft.svg';
+import ArrowUpRight from '../../assets/ArrowUpRight.svg';
 import Back from '../../assets/back.svg';
+import Car from '../../assets/Car.svg';
 import Close from '../../assets/close.svg';
 import Locate from '../../assets/location.svg';
 import Map from '../../assets/map.svg';
@@ -31,12 +38,17 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const mapViewRef = useRef<MapView>();
     const following = useRef<boolean>(true);
+    const { top } = useSafeAreaInsets();
 
     const { hasLocation, initialPosition, currentUserLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
 
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
+    const [display, setDisplay] = useState(false);
     const [distance, setDistance] = useState(0);
+    const [steps, setSteps] = useState<Step[]>([]);
+    const [currentStep, setCurrentStep] = useState<Step | null>(null);
+    const [nextStep, setNextStep] = useState<Step | null>(null);
     const [deviceFormat, setDeviceFormat] = useState(false);
     const [follow, setFollow] = useState(false);
     const [modalVisible, setModalVisible] = useState(true);
@@ -66,8 +78,10 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, []);
 
     useEffect(() => {
-        getCoords();
-    }, []);
+        if (steps.length === 0) {
+            getCoords();
+        }
+    }, [destination]);
 
     useEffect(() => {
         followUserLocation();
@@ -95,6 +109,56 @@ const MapScreen = ({ route, navigation }: Props) => {
         }
     }, [currentUserLocation]);
 
+    useEffect(() => {
+        let mounted = true;
+        if (destination && mounted) {
+            const waypoints: { latitude: number; longitude: number; }[] = [];
+
+            const directions = {
+                initialPosition,
+                destination,
+                waypoints,
+                key: GOOGLE_MAPS_API_KEY,
+            };
+
+            fetchDirections(directions);
+        }
+
+        return () => {
+            mounted = false;
+        };
+    }, [destination]);
+
+    const convertText = (text: string) => (
+        text
+            .replace(/\n/ig, '')
+            .replace(/<style[^>]*>[\s\S]*?<\/style[^>]*>/ig, '')
+            .replace(/<head[^>]*>[\s\S]*?<\/head[^>]*>/ig, '')
+            .replace(/<script[^>]*>[\s\S]*?<\/script[^>]*>/ig, '')
+            .replace(/<\/\s*(?:p|div)>/ig, '\n')
+            .replace(/<br[^>]*\/?>/ig, '\n')
+            .replace(/<[^>]*>/ig, '')
+            .replace('&nbsp;', ' ')
+            .replace(/[^\S\r\n][^\S\r\n]+/ig, ' ')
+    );
+
+    const renderDirection = (instruction: string) => {
+        switch (instruction) {
+            case 'turn-left':
+                return <ArrowUpLeft height={46} width={46} />;
+            case 'turn-right':
+                return <ArrowUpRight height={46} width={46} />;
+            case 'straight':
+                return <ArrowUp height={46} width={46} />;
+            case 'turn-slight-left':
+                return <ArrowElbowUpLeft height={46} width={46} />;
+            case 'turn-slight-right':
+                return <ArrowElbowUpRight height={46} width={46} />;
+            case 'Car':
+                return <Car height={46} width={46} />;
+        }
+    };
+
     const handleBackButtonClick = () => {
         if (currentUserLocation !== destination) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
@@ -117,6 +181,63 @@ const MapScreen = ({ route, navigation }: Props) => {
             BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
         };
     }, []);
+
+    const getDirections = async (directions: any) => {
+        try {
+            let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.initialPosition.latitude},${directions.initialPosition.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}`;
+
+            if (directions.waypoints.length > 0) {
+                const waypointsString = directions.waypoints
+                    .map((waypoint: Location) => `${waypoint.latitude},${waypoint.longitude}`)
+                    .join('|');
+
+                apiUrl += `&waypoints=${waypointsString}`;
+            }
+
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status === 'OK') {
+                return data.routes[0].legs[0].steps;
+            } else {
+                throw new Error('Failed to fetch directions');
+            }
+        } catch (error: any) {
+            throw new Error('Error fetching directions: ' + error.message);
+        }
+    };
+
+    const fetchDirections = async (directions: any) => {
+        try {
+            const response = await getDirections(directions);
+            const data = response as Direction[];
+
+            const stepsData: Step[] = [];
+
+            data.forEach((step: Direction) => {
+                stepsData.push({
+                    distance: step.distance.text,
+                    html_instructions: step.html_instructions,
+                    maneuver: step.maneuver,
+                    end_location: step.end_location,
+                });
+            });
+
+            setSteps(stepsData);
+            if (data && data.length > 0) {
+
+                if (stepsData.length > 0) {
+                    setCurrentStep(stepsData[0]);
+
+                    if (stepsData.length > 1) {
+                        setNextStep(stepsData[1]);
+                    }
+                }
+            }
+        } catch (error: any) {
+            console.error('Error fetching directions:', error.message);
+        }
+    };
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -141,9 +262,9 @@ const MapScreen = ({ route, navigation }: Props) => {
                             apikey={GOOGLE_MAPS_API_KEY}
                             origin={initialPosition}
                             destination={destination}
-                            strokeWidth={10}
+                            strokeWidth={5}
                             strokeColor={'#5856D6'}
-                            onReady={result => { setDistance(result.distance); setDuration(result.duration); }}
+                            onReady={(result) => { setDistance(result.distance); setDuration(result.duration); }}
                         />
                         <Marker coordinate={initialPosition} />
                         <Marker coordinate={destination} />
@@ -217,50 +338,63 @@ const MapScreen = ({ route, navigation }: Props) => {
                         </View>
                     </Modal>
                     {modalFollowVisible === true &&
-                        <View style={styles.mapFollowModal}>
-                            <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={styles.modalBackButtonMargins}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <View style={styles.mapFollowButton}>
-                                        <Search height={30} width={30} />
+                        <>
+                            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
+                                <View style={{ alignItems: 'center', backgroundColor: '#DEDEDE', flexDirection: 'row', paddingHorizontal: 6, paddingVertical: 9 }}>
+                                    <View style={{ marginHorizontal: 10 }}>
+                                        {renderDirection((currentStep?.maneuver === undefined) ? 'Car' : currentStep?.maneuver)}
                                     </View>
-                                </TouchableOpacity>
-                                <View style={{ marginHorizontal: 48 }}>
-                                    <Text style={styles.mapFollowArrivalTime}>{setArrivalTime()}</Text>
-                                    <View style={styles.smallMarginTop}>
-                                        <View style={styles.flexDirectionRow}>
-                                            <View style={{ ...styles.flexDirectionRow, marginEnd: 5 }}>
-                                                <Map height={15} width={15} />
-                                                <View style={styles.smallMarginStart}>
-                                                    <Text style={styles.mapFollowSmallText}>
-                                                        {duration.toFixed(0)} min
-                                                    </Text>
+                                    <View>
+                                        <Text style={styles.detailsMainName}>{currentStep?.distance}</Text>
+                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(currentStep?.html_instructions!)}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={styles.mapFollowModal}>
+                                <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
+                                    <TouchableOpacity
+                                        activeOpacity={1.0}
+                                        style={styles.modalBackButtonMargins}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        <View style={styles.mapFollowButton}>
+                                            <Search height={30} width={30} />
+                                        </View>
+                                    </TouchableOpacity>
+                                    <View style={{ marginHorizontal: 48 }}>
+                                        <Text style={styles.mapFollowArrivalTime}>{setArrivalTime()}</Text>
+                                        <View style={styles.smallMarginTop}>
+                                            <View style={styles.flexDirectionRow}>
+                                                <View style={{ ...styles.flexDirectionRow, marginEnd: 5 }}>
+                                                    <Map height={15} width={15} />
+                                                    <View style={styles.smallMarginStart}>
+                                                        <Text style={styles.mapFollowSmallText}>
+                                                            {duration.toFixed(0)} min
+                                                        </Text>
+                                                    </View>
                                                 </View>
-                                            </View>
-                                            <View style={{ flexDirection: 'row', marginStart: 5 }}>
-                                                <Locate height={15} width={15} />
-                                                <View style={styles.smallMarginStart}>
-                                                    <Text style={styles.mapFollowSmallText}>
-                                                        {distance.toFixed(1)} Km
-                                                    </Text>
+                                                <View style={{ flexDirection: 'row', marginStart: 5 }}>
+                                                    <Locate height={15} width={15} />
+                                                    <View style={styles.smallMarginStart}>
+                                                        <Text style={styles.mapFollowSmallText}>
+                                                            {distance.toFixed(1)} Km
+                                                        </Text>
+                                                    </View>
                                                 </View>
                                             </View>
                                         </View>
                                     </View>
-                                </View>
-                                <View style={styles.mapFollowButton}>
-                                    <TouchableOpacity
-                                        activeOpacity={1.0}
-                                        onPress={handleBackButtonClick}
-                                    >
-                                        <Close height={30} width={30} />
-                                    </TouchableOpacity>
+                                    <View style={styles.mapFollowButton}>
+                                        <TouchableOpacity
+                                            activeOpacity={1.0}
+                                            onPress={handleBackButtonClick}
+                                        >
+                                            <Close height={30} width={30} />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        </>
                     }
                 </View>
             }
