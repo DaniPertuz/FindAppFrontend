@@ -35,7 +35,7 @@ export interface IRate {
     _id?:      string;
     rate:      number;
     comments:  string;
-    place:     string;
+    place:     IPlace;
     user?:     IUser;
     createdAt: string;
 }
