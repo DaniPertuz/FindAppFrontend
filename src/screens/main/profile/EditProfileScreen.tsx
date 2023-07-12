@@ -7,7 +7,8 @@ import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 import Toast from 'react-native-root-toast';
 
-import { AuthContext, UsersContext } from '../../../context';
+import { AuthContext, PlacesContext, UsersContext } from '../../../context';
+import { IRatingList } from '../../../interfaces';
 import { RootStackParams } from '../../../navigation';
 
 import Camera from '../../../assets/camera.svg';
@@ -30,8 +31,12 @@ const EditProfileScreen = ({ navigation }: Props) => {
     const [response, setResponse] = useState<any>(null);
     const [userDB, setUserDB] = useState<any>(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [totalHistory, setTotalHistory] = useState<number>(0);
+    const [totalFavorites, setTotalFavorites] = useState<number>(0);
+    const [userRatings, setUserRatings] = useState<IRatingList>({ total: 0, rates: [] });
 
     const { logOut, user } = useContext(AuthContext);
+    const { getFavorites, getRatingsByUser, getHistorical } = useContext(PlacesContext);
     const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
 
     const load = async () => {
@@ -44,6 +49,42 @@ const EditProfileScreen = ({ navigation }: Props) => {
             load();
         }
     }, [isFocused, userDB]);
+
+    useEffect(() => {
+        let mounted = true;
+        getHistorical(user?._id!).then((data) => {
+            if (mounted) {
+                setTotalHistory(data.total);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        getFavorites(user?._id!).then((data) => {
+            if (mounted) {
+                setTotalFavorites(data.total);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        getRatingsByUser(user?._id!).then((data) => {
+            if (mounted) {
+                setUserRatings(data);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
     const addPhoto = () => {
         launchCamera({
@@ -137,20 +178,24 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                     <Text style={styles.plainSmallText}>Historial</Text>
                                 </View>
                                 <View style={styles.tinyMarginTop}>
-                                    <Text style={styles.largeItemText}>23 viajes</Text>
+                                    <Text style={styles.largeItemText}>{totalHistory} viajes</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.largeItem}>
-                            <View style={styles.extraSmallMarginTop}>
-                                <HeartFavorite height={33} width={33} />
-                            </View>
-                            <View style={styles.smallMediumMarginTop}>
-                                <Text style={styles.plainSmallText}>Favoritos</Text>
-                            </View>
-                            <View style={styles.tinyMarginTop}>
-                                <Text style={styles.largeItemText}>12 lugares</Text>
-                            </View>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
+                                onPress={() => navigation.navigate('FavoritesNavigator')}
+                            >
+                                    <HeartFavorite height={33} width={33} />
+                                <View style={styles.smallMediumMarginTop}>
+                                    <Text style={styles.plainSmallText}>Favoritos</Text>
+                                </View>
+                                <View style={styles.tinyMarginTop}>
+                                    <Text style={styles.largeItemText}>{totalFavorites} lugares</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.largeItem}>
                             <View style={styles.extraSmallMarginTop}>
@@ -160,7 +205,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 <Text style={styles.plainSmallText}>Calificaciones</Text>
                             </View>
                             <View style={styles.tinyMarginTop}>
-                                <Text style={styles.largeItemText}>6 lugares</Text>
+                                <Text style={styles.largeItemText}>{userRatings.total} lugares</Text>
                             </View>
                         </View>
                     </View>
