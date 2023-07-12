@@ -114,7 +114,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     </Text>
                 </View>
             }
-            <View style={{ alignItems: 'flex-end', marginTop: 12, marginBottom: 30 }}>
+            <View style={styles.forgotPasswordContainer}>
                 <TouchableOpacity
                     activeOpacity={0.9}
                     onPress={() => navigator.navigate('NewPasswordScreen')}
@@ -125,17 +125,18 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 </TouchableOpacity>
             </View>
             <LoginButton email={email} password={password} handleFieldLength={handleFieldLength} />
-            <View style={{ flexDirection: 'row', marginBottom: 38, marginTop: 32, justifyContent: 'center' }}>
-                <View style={{ marginEnd: 3 }}>
+            <View style={styles.createAccountButtonsContainer}>
+                <View style={styles.tinyMarginEnd}>
                     <Text style={styles.plainMediumText}>
                         ¿No tienes usuario?
                     </Text>
                 </View>
                 <TouchableOpacity
                     activeOpacity={0.9}
+                    style={styles.tinyMarginStart}
                     onPress={() => navigator.replace('RegisterScreen')}
                 >
-                    <Text style={{ color: '#207CFD', fontSize: 16, fontWeight: '500', lineHeight: 20, letterSpacing: -0.26, marginStart: 3 }}>
+                    <Text style={styles.loginButtonText}>
                         Crear cuenta
                     </Text>
                 </TouchableOpacity>

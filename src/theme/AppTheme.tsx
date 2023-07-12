@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
     buttonContainerMarginTop: {
         marginTop: 30
     },
+    createAccountButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 38,
+        marginTop: 32
+    },
     description: {
         color: '#081023',
         fontSize: 12,
@@ -292,6 +298,11 @@ const styles = StyleSheet.create({
     flexOneDirectionRow: {
         flex: 1,
         flexDirection: 'row'
+    },
+    forgotPasswordContainer: {
+        alignItems: 'flex-end',
+        marginBottom: 30,
+        marginTop: 12
     },
     forgotPasswordText: {
         color: '#207CFD',
