@@ -188,7 +188,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
                                 onPress={() => navigation.navigate('FavoritesNavigator')}
                             >
-                                    <HeartFavorite height={33} width={33} />
+                                <HeartFavorite height={33} width={33} />
                                 <View style={styles.smallMediumMarginTop}>
                                     <Text style={styles.plainSmallText}>Favoritos</Text>
                                 </View>
@@ -198,15 +198,19 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.largeItem}>
-                            <View style={styles.extraSmallMarginTop}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
+                                onPress={() => navigation.navigate('RatingsScreen')}
+                            >
                                 <Star height={33} width={33} />
-                            </View>
-                            <View style={styles.smallMediumMarginTop}>
-                                <Text style={styles.plainSmallText}>Calificaciones</Text>
-                            </View>
-                            <View style={styles.tinyMarginTop}>
-                                <Text style={styles.largeItemText}>{userRatings.total} lugares</Text>
-                            </View>
+                                <View style={styles.smallMediumMarginTop}>
+                                    <Text style={styles.plainSmallText}>Calificaciones</Text>
+                                </View>
+                                <View style={styles.tinyMarginTop}>
+                                    <Text style={styles.largeItemText}>{userRatings.total} lugares</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.mediumMarginTop}>
@@ -224,12 +228,15 @@ const EditProfileScreen = ({ navigation }: Props) => {
                         </View>
                     </View>
                     <View style={styles.mediumLargeMarginTop}>
-                        <TouchableOpacity
-                            activeOpacity={1.0}
-                            onPress={logOut}
-                        >
-                            <Text style={styles.logOutText}>Cerrar sesión</Text>
-                        </TouchableOpacity>
+                        <View style={styles.alignItemsBaseline}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                style={styles.alignItemsBaseline}
+                                onPress={logOut}
+                            >
+                                <Text style={styles.logOutText}>Cerrar sesión</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
