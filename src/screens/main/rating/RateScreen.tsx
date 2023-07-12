@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AuthContext, PlacesContext, RatingContext } from '../../../context';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
-import { IRate } from '../../../interfaces';
+import RateItem from './RateItem';
 
 import Back from '../../../assets/back.svg';
 import Bookmark from '../../../assets/bookmark.svg';
@@ -23,7 +23,6 @@ import Star from '../../../assets/star.svg';
 import UserCircle from '../../../assets/user-circle-plain.svg';
 
 import { styles } from '../../../theme/AppTheme';
-import RateItem from './RateItem';
 
 interface Props extends StackScreenProps<RootStackParams, 'RateScreen'> { };
 
@@ -35,7 +34,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const { user } = useContext(AuthContext);
     const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
-    const { addRating, getRatings, getPlaceRatingAverage, ratings, ratingAverage } = useContext(RatingContext);
+    const { addRating, getRatings, getPlaceRatingAverage, ratings } = useContext(RatingContext);
     const { comments, onChange } = useForm({
         comments: '',
     });
@@ -60,7 +59,7 @@ const RateScreen = ({ navigation, route }: Props) => {
             ]);
             return;
         }
-        console.log(selectedRate, comments, user, item.place._id);
+
         (user !== null) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
         navigation.popToTop();
     };
@@ -94,11 +93,11 @@ const RateScreen = ({ navigation, route }: Props) => {
         getRatings(item.place._id);
         getPlaceRatingAverage(item.place._id);
     }, []);
-
+    
     useEffect(() => {
         let mounted = true;
         getHistoryItem(user?._id!, item.place._id).then((data) => {
-            if (mounted) {
+            if (mounted && data) {
                 setNewService(true);
             }
         });
@@ -106,11 +105,11 @@ const RateScreen = ({ navigation, route }: Props) => {
             mounted = false;
         };
     }, []);
-
+    
     useEffect(() => {
         let mounted = true;
         getFavorite(user?._id!, item.place._id).then((data) => {
-            if (mounted) {
+            if (mounted && data) {
                 setNewFavorite(true);
             }
         });
