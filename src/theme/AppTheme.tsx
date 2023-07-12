@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     flexNineAlignItemsCenter: {
-        alignItems: 'flex-start',
+        alignItems: 'center',
         flex: 9
     },
     flexOne: {
