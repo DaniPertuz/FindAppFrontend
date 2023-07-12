@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
     alignContentCenter: {
         alignContent: 'center'
     },
+    alignItemsBaseline: {
+        alignItems: 'baseline'
+    },
     alignItemsCenter: {
         alignItems: 'center'
     },
