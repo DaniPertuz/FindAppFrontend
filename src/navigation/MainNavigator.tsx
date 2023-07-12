@@ -6,10 +6,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, RateScreen, RegisterScreen, SearchScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
+import { FavoritesNavigator } from './FavoritesNavigator';
 
 export type RootStackParams = {
     BottomTabNavigator: undefined,
     EditProfileScreen: undefined,
+    FavoritesNavigator: undefined,
     FavoritesScreen: undefined,
     HistoryScreen: undefined,
     LoginScreen: undefined,
@@ -44,6 +46,7 @@ export const MainNavigator = () => {
             }}
         >
             <Stack.Screen name="BottomTabNavigator" options={{ title: '' }} component={BottomTabNavigator} />
+            <Stack.Screen name="FavoritesNavigator" options={{ title: '' }} component={FavoritesNavigator} />
             <Stack.Screen name="EditProfileScreen" options={{ title: '' }} component={EditProfileScreen} />
             <Stack.Screen name="UpdateProfileScreen" options={{ title: '' }} component={UpdateProfileScreen} />
             <Stack.Screen name="LoginScreen" options={{ title: '' }} component={LoginScreen} />
