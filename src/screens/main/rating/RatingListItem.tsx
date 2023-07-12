@@ -38,7 +38,7 @@ const RatingListItem = ({ item, onPress }: Props) => {
 
     return (
         <View style={styles.listItemContainer}>
-            <View style={{ flex: 3, ...styles.flexDirectionRow }}>
+            <View style={{ ...styles.flexThree, ...styles.flexDirectionRow }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={onPress}
@@ -51,7 +51,7 @@ const RatingListItem = ({ item, onPress }: Props) => {
                         />
                     </View>
                     <View style={{ flex: 4, paddingEnd: 30 }}>
-                        <View style={{ justifyContent: 'space-between' }}>
+                        <View style={styles.justifyContentSpaceBetween}>
                             <View style={{ marginHorizontal: 12 }}>
                                 <View style={styles.smallMarginBottom}>
                                     <Text numberOfLines={1} style={styles.boldMediumText}>{item.place.name}</Text>
@@ -77,19 +77,13 @@ const RatingListItem = ({ item, onPress }: Props) => {
                 </TouchableOpacity>
             </View>
             <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'space-between'
-                }}
-            >
+                style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
                 <TouchableOpacity
-                    style={{
-                        alignItems: 'center', backgroundColor: '#207CFD', borderRadius: 4, margin: 10, paddingVertical: 1
-                    }}
+                    style={styles.resultsNavigationButton}
                     activeOpacity={0.9}
                     onPress={() => navigator.navigate('MapScreen', { place: item.place, search: '' })}
                 >
-                    <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 14, fontWeight: '500', lineHeight: 20, letterSpacing: -0.28 }}>
+                    <Text style={styles.mapNavigationButtonText}>
                         Iniciar
                     </Text>
                 </TouchableOpacity>

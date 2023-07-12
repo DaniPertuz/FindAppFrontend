@@ -99,7 +99,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         >
                             <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
                                 {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
-                                <View style={{ marginStart: 7 }}>
+                                <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
                                         {(newFavorite === true) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
                                     </Text>
@@ -112,13 +112,13 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             <View style={{ ...styles.flexDirectionRow, ...styles.alignItemsCenter, marginTop: 16, maxWidth: 191 }}>
                 <View style={styles.flexOneDirectionRow}>
                     <Star height={21} width={21} />
-                    <View style={{ marginHorizontal: 8 }}>
+                    <View style={styles.marginHorizontalSmall}>
                         <Text style={styles.detailsBodyText}>
                             {Number(product.place[0].rate.$numberDecimal).toFixed(1)}
                         </Text>
                     </View>
                 </View>
-                <View style={{ flex: 2 }}>
+                <View style={styles.flexTwo}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => navigation.navigate('RateScreen', { item: { date: new Date().toString(), place: product.place[0], search, user: user?._id! } })}
@@ -131,7 +131,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
                 <Instagram height={21} width={21} />
-                <View style={{ marginHorizontal: 8 }}>
+                <View style={styles.marginHorizontalSmall}>
                     <Text style={styles.detailsBodyText}>
                         {(product.place[0].instagram !== undefined) ? `@${product.place[0].instagram}` : 'Pronto'}
                     </Text>
@@ -140,7 +140,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
                 <View style={styles.flexDirectionRow}>
                     <Location height={21} width={21} />
-                    <View style={{ marginHorizontal: 8 }}>
+                    <View style={styles.marginHorizontalSmall}>
                         <Text numberOfLines={1} style={styles.detailsBodyText}>
                             {formatAddress(product.place[0].address)}
                         </Text>
@@ -157,7 +157,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             {(product.place[0].pics?.length === 0)
                 ?
-                <View style={{ ...styles.justifyAlignItemsCenter, flex: 2 }}>
+                <View style={{ ...styles.justifyAlignItemsCenter, ...styles.flexTwo }}>
                     <Text>No hay imágenes del lugar</Text>
                 </View>
                 :
@@ -179,7 +179,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             }
             <View style={{ ...styles.flexDirectionRow, marginTop: 24 }}>
                 <PhoneOutgoing height={21} width={21} />
-                <View style={{ marginHorizontal: 9 }}>
+                <View style={styles.marginHorizontalSmall}>
                     <Text>{product.place[0].phone}</Text>
                 </View>
                 <View style={styles.alignContentCenter}>

@@ -103,7 +103,7 @@ const SearchScreen = () => {
                     />
                 </View>
             </View>
-            <View style={{ marginTop: 21, paddingHorizontal: 22 }}>
+            <View style={styles.searchButtonMargins}>
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={getSearchResults}
@@ -118,13 +118,13 @@ const SearchScreen = () => {
                     <View style={{ ...styles.alignItemsCenter, marginTop: 100 }}>
                         <Mask height={73} width={73} />
                         <View style={styles.mediumLargeMarginTop}>
-                            <Text style={styles.noSearchResultsText}>No encontramos lugares con esta palabra. Intenta nuevamente.</Text>
+                            <Text style={styles.infoText}>No encontramos lugares con esta palabra. Intenta nuevamente.</Text>
                         </View>
                     </View>
                 }
 
                 {((display === true) && (searchResults.places.length !== 0 || searchResults.products.length !== 0)) &&
-                    <View style={{ height: '100%' }}>
+                    <View style={styles.fullHeight}>
                         <View style={{ maxHeight: '40%', paddingVertical: 10 }}>
                             <View style={styles.mediumMarginBottom}>
                                 <Text style={styles.boldMediumText}>

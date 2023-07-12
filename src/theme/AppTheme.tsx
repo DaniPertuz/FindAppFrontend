@@ -10,6 +10,18 @@ const styles = StyleSheet.create({
     alignItemsCenter: {
         alignItems: 'center'
     },
+    alignItemsJustifyContentCenter: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    askLocationButtonContainer: {
+        alignItems: 'center',
+        backgroundColor: '#207CFD',
+        borderRadius: 8,
+        justifyContent: 'center',
+        paddingHorizontal: 14,
+        paddingVertical: 10
+    },
     backButtonMargins: {
         marginBottom: 22,
         marginEnd: 2,
@@ -71,6 +83,12 @@ const styles = StyleSheet.create({
     },
     buttonContainerMarginTop: {
         marginTop: 30
+    },
+    createAccountButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 38,
+        marginTop: 32
     },
     description: {
         color: '#081023',
@@ -245,10 +263,6 @@ const styles = StyleSheet.create({
     flexDirectionRow: {
         flexDirection: 'row'
     },
-    flexDirectionRowJustifyAround: {
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
     flexDirectionRowAlignItemsCenter: {
         flexDirection: 'row',
         alignItems: 'center'
@@ -258,6 +272,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    flexDirectionRowJustifyAround: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
     flexDirectionRowJustifyCenter: {
         flexDirection: 'row',
         justifyContent: 'center'
@@ -265,6 +283,10 @@ const styles = StyleSheet.create({
     flexDirectionRowJustifySpaceBetween: {
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    flexDirectionRowMarginTop: {
+        flexDirection: 'row',
+        marginTop: 18
     },
     flexDirectionRowTinyMarginTop: {
         flexDirection: 'row',
@@ -280,6 +302,9 @@ const styles = StyleSheet.create({
     flexTwo: {
         flex: 2
     },
+    flexThree: {
+        flex: 3
+    },
     flexOneAlignItemsCenter: {
         alignItems: 'flex-start',
         flex: 1
@@ -292,6 +317,11 @@ const styles = StyleSheet.create({
     flexOneDirectionRow: {
         flex: 1,
         flexDirection: 'row'
+    },
+    forgotPasswordContainer: {
+        alignItems: 'flex-end',
+        marginBottom: 30,
+        marginTop: 12
     },
     forgotPasswordText: {
         color: '#207CFD',
@@ -309,6 +339,9 @@ const styles = StyleSheet.create({
         minHeight: 720,
         paddingHorizontal: 22
     },
+    fullHeight: {
+        height: '100%'
+    },
     grayLabel: {
         color: '#858585',
         fontSize: 14,
@@ -318,6 +351,13 @@ const styles = StyleSheet.create({
     },
     iconStartMargin: {
         marginStart: 16
+    },
+    infoText: {
+        color: '#081023',
+        fontSize: 18,
+        fontWeight: '600',
+        letterSpacing: -0.36,
+        textAlign: 'center'
     },
     inputField: {
         color: '#2F2F2F',
@@ -350,8 +390,8 @@ const styles = StyleSheet.create({
         width: 42
     },
     justifyAlignItemsCenter: {
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     label: {
         color: '#2F2F2F',
@@ -417,6 +457,12 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 15
+    },
+    justifyContentFlexStart: {
+        justifyContent: 'flex-start'
+    },
+    justifyContentSpaceBetween: {
+        justifyContent: 'space-between'
     },
     mainLogo: {
         height: 107,
@@ -542,6 +588,9 @@ const styles = StyleSheet.create({
         shadowRadius: 5.22,
         elevation: 2
     },
+    marginHorizontalSmall: {
+        marginHorizontal: 8
+    },
     mediumLargeMarginTop: {
         marginTop: 23
     },
@@ -561,12 +610,6 @@ const styles = StyleSheet.create({
     newPasswordInputTextSize: {
         flex: 2,
         marginHorizontal: 2
-    },
-    noSearchResultsText: {
-        color: '#081023',
-        fontSize: 18,
-        fontWeight: '600',
-        letterSpacing: -0.36
     },
     noUserPhoto: {
         height: 50,
@@ -588,6 +631,12 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         letterSpacing: -0.28,
         lineHeight: 20
+    },
+    placeRateContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginTop: 16,
+        maxWidth: 191
     },
     plainBodySmallText: {
         color: '#081023',
@@ -619,6 +668,13 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         letterSpacing: -0.24,
         lineHeight: 16
+    },
+    resultsNavigationButton: {
+        alignItems: 'center',
+        backgroundColor: '#207CFD',
+        borderRadius: 4,
+        margin: 10,
+        paddingVertical: 1
     },
     profileAvatar: {
         alignSelf: 'center',
@@ -656,6 +712,13 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 18
+    },
+    rateItemContainer: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 8,
+        marginBottom: 24,
+        paddingHorizontal: 10,
+        paddingVertical: 8
     },
     rateItemDate: {
         color: '#858585',
@@ -752,6 +815,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 14,
         paddingVertical: 10
+    },
+    searchButtonMargins: {
+        marginTop: 21,
+        paddingHorizontal: 22
     },
     searchButtonText: {
         color: 'rgba(250, 250, 250, 0.98)',

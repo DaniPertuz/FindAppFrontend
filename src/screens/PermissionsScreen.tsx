@@ -13,29 +13,29 @@ const PermissionsScreen = () => {
 
     return (
         <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 60 }}
+            style={{ ...styles.flexOneAlignJustifyCenter, paddingHorizontal: 60 }}
         >
-            <View style={{ alignItems: 'center', marginBottom: 23 }}>
+            <View style={{ ...styles.alignItemsCenter, marginBottom: 23 }}>
                 <Location height={73} width={73} />
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 18, fontWeight: '600', letterSpacing: -0.36, textAlign: 'center' }}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
+                <View style={styles.alignItemsJustifyContentCenter}>
+                    <Text style={styles.infoText}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
                 </View>
             </View>
             <View style={styles.mediumLargeMarginTop}>
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    style={{ backgroundColor: '#207CFD', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' }}
+                    style={styles.askLocationButtonContainer}
                     onPress={askLocationPermission}
                 >
-                    <Text style={{ color: 'rgba(250, 250, 250, 0.98)', fontSize: 16, fontWeight: '500', lineHeight: 22, letterSpacing: -0.32 }}>Administrar permisos</Text>
+                    <Text style={styles.buttonText}>Administrar permisos</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 15, justifyContent: 'center' }}>
+            <View style={{ marginTop: 15, ...styles.justifyContentCenter }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
                     onPress={logOut}
                 >
-                    <Text style={{ color: '#207CFD', fontSize: 13, fontWeight: '500', lineHeight: 15, letterSpacing: -0.26 }}>Cerrar sesión</Text>
+                    <Text style={styles.detailsCaptionText}>Cerrar sesión</Text>
                 </TouchableOpacity>
             </View>
         </View>

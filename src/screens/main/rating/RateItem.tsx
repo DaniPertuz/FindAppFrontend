@@ -33,12 +33,12 @@ const RateItem = ({ item }: Props) => {
     }, []);
 
     return (
-        <View style={{ backgroundColor: '#FFFFFF', borderRadius: 8, marginBottom: 24, paddingHorizontal: 10, paddingVertical: 8 }}>
+        <View style={styles.rateItemContainer}>
             <View style={styles.flexDirectionRow}>
                 <View style={styles.flexOne}>
                     <Image source={{ uri: item.user?.photo }} style={styles.itemIcon} />
                 </View>
-                <View style={{ flex: 3 }}>
+                <View style={styles.flexThree}>
                     <Text numberOfLines={1} style={styles.rateItemUserName}>
                         {item.user?.name}
                     </Text>
@@ -53,7 +53,7 @@ const RateItem = ({ item }: Props) => {
                             readonly
                             showReadOnlyText={false}
                             startingValue={item.rate}
-                            style={{ justifyContent: 'flex-start' }}
+                            style={styles.justifyContentFlexStart}
                             tintColor='#FFFFFF'
                             type='custom'
                         />
@@ -64,16 +64,16 @@ const RateItem = ({ item }: Props) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ flex: 2 }}>
+                <View style={styles.flexTwo}>
                     <Text style={styles.rateItemDate}>
                         {moment(item.createdAt, "YYYYMMDD").fromNow()}
                     </Text>
                 </View>
             </View>
             <View style={{ marginStart: 45, paddingHorizontal: 10 }}>
-                    <Text style={styles.description}>
-                        {item.comments}
-                    </Text>
+                <Text style={styles.description}>
+                    {item.comments}
+                </Text>
             </View>
         </View>
     );

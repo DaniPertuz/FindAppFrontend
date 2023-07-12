@@ -24,7 +24,7 @@ const TopButtons = () => {
                     activeOpacity={1.0}
                     onPress={() => navigation.navigate('SearchScreen')}
                 >
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={styles.flexDirectionRowAlignItemsCenter}>
                         <Search height={16} width={16} />
                         <View style={{ marginHorizontal: 10 }}>
                             <Text style={styles.placeholderText}>

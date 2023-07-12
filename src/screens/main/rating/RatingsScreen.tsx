@@ -43,10 +43,7 @@ const RatingsScreen = () => {
 
             {(display === true) &&
                 <View
-                    style={{
-                        paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer
-                    }}
-                >
+                    style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
                     <View style={styles.flexDirectionRow}>
                         <View style={styles.flexOneAlignItemsCenter}>
                             <TouchableOpacity

@@ -83,7 +83,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
                 <View style={styles.flexOne} />
             </View>
-            <View style={{ flexDirection: 'row', paddingTop: 35 }}>
+            <View style={{ ...styles.flexDirectionRow, paddingTop: 35 }}>
                 <View style={styles.flexOne}>
                     <Image
                         source={
@@ -94,8 +94,8 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         style={styles.detailsIcon}
                     />
                 </View>
-                <View style={{ flex: 2 }}>
-                    <View style={{ marginBottom: 12 }}>
+                <View style={styles.flexTwo}>
+                    <View style={styles.smallMediumMarginBottom}>
                         <Text numberOfLines={1} style={styles.detailsMainName}>{place.name}</Text>
                         <View style={styles.tinyMarginTop}>
                             <Text numberOfLines={2} style={styles.description}>{place.description}</Text>
@@ -106,9 +106,9 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                             activeOpacity={1.0}
                             onPress={handleFavorite}
                         >
-                            <View style={{ flexDirection: 'row', marginEnd: 12 }}>
+                            <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
                                 {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
-                                <View style={{ marginStart: 7 }}>
+                                <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
                                         {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
                                     </Text>
@@ -118,16 +118,16 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     </View>
                 </View>
             </View>
-            <View style={{ alignItems: 'center', marginTop: 16, flexDirection: 'row', maxWidth: 191 }}>
+            <View style={styles.placeRateContainer}>
                 <View style={styles.flexOneDirectionRow}>
                     <Star height={21} width={21} />
-                    <View style={{ marginHorizontal: 8 }}>
+                    <View style={styles.marginHorizontalSmall}>
                         <Text style={styles.detailsBodyText}>
                             {Number(place.rate.$numberDecimal).toFixed(1)}
                         </Text>
                     </View>
                 </View>
-                <View style={{ flex: 2 }}>
+                <View style={styles.flexTwo}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => navigation.navigate('RateScreen', { item: { date: new Date().toString(), place, search, user: user?._id! } })}
@@ -138,18 +138,18 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 18 }}>
+            <View style={styles.flexDirectionRowMarginTop}>
                 <Instagram height={21} width={21} />
-                <View style={{ marginHorizontal: 8 }}>
+                <View style={styles.marginHorizontalSmall}>
                     <Text style={styles.detailsBodyText}>
                         {(place.instagram !== undefined) ? `@${place.instagram}` : 'Pronto'}
                     </Text>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 18 }}>
+            <View style={styles.flexDirectionRowMarginTop}>
                 <View style={styles.flexDirectionRow}>
                     <Location height={21} width={21} />
-                    <View style={{ marginHorizontal: 8 }}>
+                    <View style={styles.marginHorizontalSmall}>
                         <Text numberOfLines={1} style={styles.detailsBodyText}>
                             {formatAddress(place.address)}
                         </Text>
@@ -166,7 +166,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             {(place.pics?.length === 0)
                 ?
-                <View style={{ ...styles.justifyAlignItemsCenter, flex: 2 }}>
+                <View style={{ ...styles.justifyAlignItemsCenter, ...styles.flexTwo }}>
                     <Text>No hay imágenes del lugar</Text>
                 </View>
                 :
@@ -188,7 +188,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             }
             <View style={{ ...styles.flexDirectionRow, marginTop: 24 }}>
                 <PhoneOutgoing height={21} width={21} />
-                <View style={{ marginHorizontal: 9 }}>
+                <View style={styles.marginHorizontalSmall}>
                     <Text>{place.phone}</Text>
                 </View>
                 <View style={styles.alignContentCenter}>
@@ -218,13 +218,13 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 />
             </View>
             <View style={styles.flexOne}>
-                <View style={{ justifyContent: 'center', paddingHorizontal: 42 }}>
+                <View style={{ ...styles.justifyContentCenter, paddingHorizontal: 42 }}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         style={styles.startNavigationButton}
                         onPress={() => navigation.push('MapScreen', { place, search })}
                     >
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={styles.flexDirectionRowAlignItemsCenter}>
                             <Text style={styles.startNavigationButtonText}>
                                 Iniciar Ruta
                             </Text>

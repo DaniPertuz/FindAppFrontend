@@ -127,7 +127,7 @@ const RateScreen = ({ navigation, route }: Props) => {
     }, []);
 
     return (
-        <View style={{ backgroundColor: 'rgba(104, 110, 222, 0.1)', flex: 1 }}>
+        <View style={styles.updateProfileBackground}>
             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
                 <View style={styles.flexDirectionRow}>
                     <View style={styles.flexOneAlignJustifyCenter}>
@@ -138,7 +138,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             <Back height={18} width={18} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 10, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ flex: 10, ...styles.justifyAlignItemsCenter }}>
                         <Text style={styles.stackScreenTitle}>
                             Calificar
                         </Text>
@@ -147,16 +147,16 @@ const RateScreen = ({ navigation, route }: Props) => {
                 </View>
                 <View style={{ marginTop: 35 }}>
                     <View style={styles.flexDirectionRow}>
-                        <View style={{ flex: 1, marginEnd: 10 }}>
+                        <View style={{ ...styles.flexOne, marginEnd: 10 }}>
                             <Image source={{ uri: item.place.photo }} style={{ borderRadius: 8, height: 102, width: 102 }} />
                         </View>
-                        <View style={{ flex: 2 }}>
+                        <View style={styles.flexTwo}>
                             <View style={styles.flexOne}>
                                 <Text style={styles.detailsMainName}>
                                     {item.place.name}
                                 </Text>
                             </View>
-                            <View style={{ flex: 2, marginVertical: 3 }}>
+                            <View style={{ ...styles.flexTwo, marginVertical: 3 }}>
                                 <Text numberOfLines={2} style={styles.description}>
                                     {item.place.description}
                                 </Text>
@@ -194,7 +194,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                     >
                         <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
                             {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
-                            <View style={{ marginStart: 7 }}>
+                            <View style={styles.smallMarginStart}>
                                 <Text style={styles.detailsCaptionGrayText}>
                                     {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
                                 </Text>
@@ -207,7 +207,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                     >
                         <View style={{ ...styles.flexDirectionRow, marginStart: 12 }}>
                             {(newService === true) ? <BookmarkFavorite height={24} width={24} /> : <Bookmark height={24} width={24} />}
-                            <View style={{ marginStart: 7 }}>
+                            <View style={styles.smallMarginStart}>
                                 <Text style={styles.detailsCaptionGrayText}>
                                     {(newService === true) ? 'Guardado' : 'Guardar'} en Historial
                                 </Text>
