@@ -340,7 +340,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                     {modalFollowVisible === true &&
                         <>
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
-                                <View style={{ alignItems: 'center', backgroundColor: '#DEDEDE', flexDirection: 'row', paddingHorizontal: 6, paddingVertical: 9 }}>
+                                <View style={styles.mapDirectionsBackground}>
                                     <View style={{ marginHorizontal: 10 }}>
                                         {renderDirection((currentStep?.maneuver === undefined) ? 'Car' : currentStep?.maneuver)}
                                     </View>
@@ -373,7 +373,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                         </Text>
                                                     </View>
                                                 </View>
-                                                <View style={{ flexDirection: 'row', marginStart: 5 }}>
+                                                <View style={{ ...styles.flexDirectionRow, marginStart: 5 }}>
                                                     <Locate height={15} width={15} />
                                                     <View style={styles.smallMarginStart}>
                                                         <Text style={styles.mapFollowSmallText}>

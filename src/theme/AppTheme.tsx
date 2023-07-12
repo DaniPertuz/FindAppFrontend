@@ -451,6 +451,13 @@ const styles = StyleSheet.create({
         letterSpacing: -0.24,
         lineHeight: 20
     },
+    mapDirectionsBackground: {
+        alignItems: 'center',
+        backgroundColor: '#DEDEDE',
+        flexDirection: 'row',
+        paddingHorizontal: 6,
+        paddingVertical: 9
+    },
     mapDuration: {
         color: '#292D32',
         fontSize: 28,
