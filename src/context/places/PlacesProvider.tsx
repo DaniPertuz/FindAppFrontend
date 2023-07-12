@@ -37,7 +37,7 @@ export const PlacesProvider = ({ children }: any) => {
         try {
             const { data } = await findAPI.get<FavoriteItem>(`/favorites/${userId}/${place}`);
             return data;
-        } catch (error) {
+        } catch (error: any) {
             throw new Error(`${error}`);
         }
     };
@@ -55,7 +55,7 @@ export const PlacesProvider = ({ children }: any) => {
         try {
             const { data } = await findAPI.get<IService>(`/services/${userId}/${place}`);
             return data;
-        } catch (error) {
+        } catch (error: any) {
             throw new Error(`${error}`);
         }
     };
