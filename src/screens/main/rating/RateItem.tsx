@@ -25,7 +25,7 @@ const RateItem = ({ item }: Props) => {
     const [placeRating, setPlaceRating] = useState<number>(0);
 
     const setRating = async () => {
-        setPlaceRating(await getPlaceRating(item.place));
+        setPlaceRating(await getPlaceRating(item.place._id));
     };
 
     useEffect(() => {
