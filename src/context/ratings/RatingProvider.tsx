@@ -15,7 +15,7 @@ export const RatingProvider = ({ children }: any) => {
             const { data } = await findAPI.get<IRatingList>('/ratings');
             return data;
         } catch (error: any) {
-            throw new Error(error.response);
+            throw new Error(error);
         }
     }
 
@@ -24,7 +24,7 @@ export const RatingProvider = ({ children }: any) => {
             const { data } = await findAPI.get<IRatingList>(`/ratings/all/${placeId}`);
             setRatings(data);
         } catch (error: any) {
-            console.log(error.response);
+            console.log(error.response.data.message);
         }
     };
 
@@ -34,7 +34,7 @@ export const RatingProvider = ({ children }: any) => {
             const { average } = data;
             setRatingAverage(average);
         } catch (error: any) {
-            console.log(error.response);
+            console.log(error.response.data.message);
         }
     };
 
@@ -42,7 +42,7 @@ export const RatingProvider = ({ children }: any) => {
         try {
             await findAPI.post<IRating>('/ratings', rating);
         } catch (error: any) {
-            console.log(error.response);
+            console.log(error.response.data.message);
         }
     };
 
