@@ -66,7 +66,7 @@ const MainScreen = () => {
             <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {placeCategories.map(category => (
-                        <Categories name={category} count={getTotalPlacesByCategory(category)} />
+                        <Categories key={category} name={category} count={getTotalPlacesByCategory(category)} />
                     ))}
                 </ScrollView>
             </View>
