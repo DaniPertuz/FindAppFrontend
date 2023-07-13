@@ -1,60 +1,60 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { PermissionsContext, PlacesContext } from '../../context';
+import { PlacesContext } from '../../context';
+import Categories from '../../components/Categories';
 import TopButtons from '../../components/TopButtons';
 import SearchResults from '../../components/SearchResults';
-import { IPlace, ISearch, Location } from '../../interfaces';
-import useLocation from '../../hooks/useLocation';
-
-import Restaurant from '../../assets/restaurant.svg';
+import { IPlaces } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
 
 const MainScreen = () => {
 
     const init = {
-        keyword: '',
-        totalPlaces: [],
-        places: [],
-        totalProducts: [],
-        products: []
+        total: 0,
+        places: []
     };
 
-    const [search, setSearch] = useState<string>('');
-    const [display, setDisplay] = useState(false);
-    const [searchResults, setSearchResults] = useState<ISearch>(init);
+    const [results, setResults] = useState<IPlaces>(init);
+    const [placeCategories, setPlaceCategories] = useState<string[]>([]);
 
-    const { askLocationPermission } = useContext(PermissionsContext);
-    const { searchPlace } = useContext(PlacesContext);
-    const { currentUserLocation } = useLocation();
+    const { getPopularPlaces } = useContext(PlacesContext);
 
     const navigation = useNavigation();
 
-    const distance = (coor1: Location, coor2: Location) => {
-        const x = coor2.longitude - coor1.longitude;
-        const y = coor2.latitude - coor1.latitude;
-        return Math.sqrt((x * x) + (y * y));
+    const getPlaceCategories = () => {
+        const categories = results.places.map(place => place.category);
+        const filteredCategories: string[] = categories.filter((item, i, ar) => ar.indexOf(item) === i).sort().flat();
+        setPlaceCategories(filteredCategories);
     };
-    const sortPlacesByDistance = (coordinates: IPlace[], point: Location) => coordinates.sort((a: IPlace, b: IPlace) => distance(a.coords, point) - distance(b.coords, point));
-    const setPlaceResults = () => sortPlacesByDistance(searchResults.places, currentUserLocation);
 
-    // useEffect(() => {
-    //     askLocationPermission();
-    // }, []);
+    const getTotalPlacesByCategory = (category: string) => {
+        let count: number = 0;
+        const categories = results.places.map(place => place.category).flat();
+        categories.forEach((cat: string) => {
+            if (cat === category) {
+                count++;
+            }
+        });
+        return count;
+    };
 
     useEffect(() => {
         let mounted = true;
-        searchPlace('Portal').then((data) => {
+        getPopularPlaces().then((data) => {
             if (mounted) {
-                setSearchResults(data);
-                setDisplay(true);
+                setResults(data);
             }
         });
         return () => {
             mounted = false;
         };
+    }, []);
+
+    useEffect(() => {
+        getPlaceCategories();
     }, []);
 
     return (
@@ -64,49 +64,21 @@ const MainScreen = () => {
                 <Text style={styles.boldMediumText}>Categorías</Text>
             </View>
             <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
-                <View style={styles.largeItem}>
-                    <View style={styles.extraSmallMarginTop}>
-                        <Restaurant height={33} width={33} />
-                    </View>
-                    <View style={styles.smallMediumMarginTop}>
-                        <Text style={styles.plainSmallText}>Restaurantes</Text>
-                    </View>
-                    <View style={styles.tinyMarginTop}>
-                        <Text style={styles.largeItemText}>14 lugares</Text>
-                    </View>
-                </View>
-                <View style={styles.largeItem}>
-                    <View style={styles.extraSmallMarginTop}>
-                        <Restaurant height={33} width={33} />
-                    </View>
-                    <View style={styles.smallMediumMarginTop}>
-                        <Text style={styles.plainSmallText}>Gasolineras</Text>
-                    </View>
-                    <View style={styles.tinyMarginTop}>
-                        <Text style={styles.largeItemText}>6 lugares</Text>
-                    </View>
-                </View>
-                <View style={styles.largeItem}>
-                    <View style={styles.extraSmallMarginTop}>
-                        <Restaurant height={33} width={33} />
-                    </View>
-                    <View style={styles.smallMediumMarginTop}>
-                        <Text style={styles.plainSmallText}>Farmacias</Text>
-                    </View>
-                    <View style={styles.tinyMarginTop}>
-                        <Text style={styles.largeItemText}>12 lugares</Text>
-                    </View>
-                </View>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {placeCategories.map(category => (
+                        <Categories name={category} count={getTotalPlacesByCategory(category)} />
+                    ))}
+                </ScrollView>
             </View>
             <View style={styles.largeMarginTop}>
                 <Text style={styles.boldMediumText}>Búsquedas populares</Text>
             </View>
             <View style={styles.mediumMarginTop}>
                 <FlatList
-                    data={setPlaceResults()}
+                    data={results.places}
                     scrollEnabled
                     renderItem={({ item }) => (
-                        <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search })} />
+                        <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: '' })} />
                     )}
                 />
             </View>
