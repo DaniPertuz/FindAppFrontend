@@ -59,9 +59,11 @@ const SearchScreen = () => {
     const setProductResults = () => sortProductsByDistance(searchResults.products, currentUserLocation);
 
     const getSearchResults = async () => {
-        const results = await searchPlace(search);
-        setSearchResults(results);
-        setDisplay(true);
+        if (search !== '') {
+            const results = await searchPlace(search);
+            setSearchResults(results);
+            setDisplay(true);
+        }
     };
 
     return (
@@ -98,6 +100,7 @@ const SearchScreen = () => {
                         ]}
                         autoCapitalize='none'
                         autoCorrect={false}
+                        onSubmitEditing={getSearchResults}
                         onChangeText={(value) => onChange(value, 'search')}
                         value={search}
                     />
