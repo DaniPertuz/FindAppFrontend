@@ -104,6 +104,10 @@ export interface NumericRate {
     $numberDecimal: string;
 }
 
+export interface IPlaces {
+    total:  number;
+    places: IPlace[];
+}
 export interface IFavorites {
     total:     number;
     favorites: IFavorite[];
