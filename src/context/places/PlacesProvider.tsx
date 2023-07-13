@@ -1,7 +1,7 @@
 import React from 'react';
 
 import findAPI from '../../api/findapi';
-import { FavoriteItem, IFavorites, IHistory, IPlace, IRatingAverage, IRatingList, ISearch, IService } from '../../interfaces';
+import { FavoriteItem, IFavorites, IHistory, IPlace, IPlaces, IRatingAverage, IRatingList, ISearch, IService } from '../../interfaces';
 import { PlacesContext } from '.';
 
 export const PlacesProvider = ({ children }: any) => {
@@ -69,6 +69,15 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
+    const getPopularPlaces = async (): Promise<IPlaces> => {
+        try {
+            const { data } = await findAPI.get<IPlaces>('/places/popular');
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    }
+
     const getRatingsByUser = async (user: string): Promise<IRatingList> => {
         try {
             const { data } = await findAPI.get<IRatingList>(`/ratings/${user}`);
@@ -119,6 +128,7 @@ export const PlacesProvider = ({ children }: any) => {
             getHistorical,
             getHistoryItem,
             getPlaceRating,
+            getPopularPlaces,
             getRatingsByUser,
             addFavorite,
             addService,
