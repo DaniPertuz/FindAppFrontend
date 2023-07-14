@@ -63,7 +63,7 @@ export interface IPlace {
     _id:         string;
     name:        string;
     description: string;
-    category:    string[];
+    category:    string;
     address:     string;
     coords:      Location;
     phone:       number;
