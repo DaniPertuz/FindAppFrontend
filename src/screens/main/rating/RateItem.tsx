@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Rating } from 'react-native-ratings';
 import moment from 'moment';
 import 'moment/locale/es';
 moment.locale('es');
 
 import { IRate } from '../../../interfaces/app-interfaces';
-import { PlacesContext } from '../../../context/places/PlacesContext';
-
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -17,21 +14,6 @@ interface Props {
 }
 
 const RateItem = ({ item }: Props) => {
-
-    const navigator = useNavigation();
-
-    const { getPlaceRating } = useContext(PlacesContext);
-
-    const [placeRating, setPlaceRating] = useState<number>(0);
-
-    const setRating = async () => {
-        setPlaceRating(await getPlaceRating(item.place._id));
-    };
-
-    useEffect(() => {
-        setRating();
-    }, []);
-
     return (
         <View style={styles.rateItemContainer}>
             <View style={styles.flexDirectionRow}>
