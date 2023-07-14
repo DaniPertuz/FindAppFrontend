@@ -139,6 +139,13 @@ const styles = StyleSheet.create({
         letterSpacing: -0.4,
         lineHeight: 28
     },
+    detailsBodyLink: {
+        color: '#207CFD',
+        fontSize: 16,
+        fontWeight: '500',
+        letterSpacing: -0.32,
+        lineHeight: 22
+    },
     detailsBodyText: {
         color: '#0D0D0D',
         fontSize: 16,
@@ -885,7 +892,7 @@ const styles = StyleSheet.create({
         lineHeight: 22
     },
     tinyButtonSize: {
-        flex: 0.1
+        flex: 0.5
     },
     tinyMarginBottom: {
         marginBottom: 5
