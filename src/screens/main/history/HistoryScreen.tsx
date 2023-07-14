@@ -5,10 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../../context';
 import SearchResults from '../../../components/SearchResults';
-import LoadingScreen from '../../LoadingScreen';
+import { useIcons } from '../../../hooks/useIcons';
 import { IHistory } from '../../../interfaces';
-
-import Back from '../../../assets/back.svg';
+import LoadingScreen from '../../LoadingScreen';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -51,7 +50,7 @@ const HistoryScreen = () => {
                                 activeOpacity={1.0}
                                 onPress={() => navigation.goBack()}
                             >
-                                <Back height={20} width={20} />
+                                {useIcons('Back', 20, 20)}
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flexNineAlignItemsCenter}>

@@ -4,13 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { EditProfileScreen, MainScreen } from '../screens';
 import { FavoritesNavigator } from './FavoritesNavigator';
+import { useIcons } from '../hooks/useIcons';
 
-import Heart from '../assets/heart.svg';
-import HeartFocused from '../assets/heart-focused.svg';
-import House from '../assets/house.svg';
-import HouseFocused from '../assets/house-focused.svg';
-import UserCircle from '../assets/user-circle.svg';
-import UserCircleFocused from '../assets/user-circle-focused.svg';
 import { styles } from '../theme/AppTheme';
 
 const Tab = createBottomTabNavigator();
@@ -28,8 +23,8 @@ export const BottomTabNavigator = () => {
                         case 'MainScreen':
                             return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
-                                    ? <HouseFocused height={22} width={22} />
-                                    : <House height={22} width={22} />
+                                    ? useIcons('HouseFocused', 22, 22)
+                                    : useIcons('House', 22, 22)
                                 }
                                 <View style={styles.mediumMarginStart}>
                                     <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Inicio</Text>
@@ -39,8 +34,8 @@ export const BottomTabNavigator = () => {
                         case 'FavoritesNavigator':
                             return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
-                                    ? <HeartFocused height={22} width={22} />
-                                    : <Heart height={22} width={22} />
+                                    ? useIcons('HeartFocused', 22, 22)
+                                    : useIcons('Heart', 22, 22)
                                 }
                                 <View style={styles.mediumMarginStart}>
                                     <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Favoritos</Text>
@@ -50,8 +45,8 @@ export const BottomTabNavigator = () => {
                         case 'EditProfileScreen':
                             return <View style={styles.bottomTabNavigatorItem}>
                                 {(focused)
-                                    ? <UserCircleFocused height={22} width={22} />
-                                    : <UserCircle height={22} width={22} />
+                                    ? useIcons('UserCircleFocused', 22, 22)
+                                    : useIcons('UserCircle', 22, 22)
                                 }
                                 <View style={styles.mediumMarginStart}>
                                     <Text style={{ ...styles.bottomTabNavigatorItemFont, color: (focused) ? '#207CFD' : '#5A5A5A' }}>Perfil</Text>

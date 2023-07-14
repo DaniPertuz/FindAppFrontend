@@ -4,11 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext, PlacesContext } from '../../../context';
+import { useIcons } from '../../../hooks/useIcons';
 import { IRatingList } from '../../../interfaces';
 import LoadingScreen from '../../LoadingScreen';
 import RatingListItem from './RatingListItem';
-
-import Back from '../../../assets/back.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -50,7 +49,7 @@ const RatingsScreen = () => {
                                 activeOpacity={1.0}
                                 onPress={() => navigation.goBack()}
                             >
-                                <Back height={20} width={20} />
+                                {useIcons('Back', 20, 20)}
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flexNineAlignItemsCenter}>

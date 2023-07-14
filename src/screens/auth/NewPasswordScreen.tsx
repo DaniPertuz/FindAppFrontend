@@ -5,16 +5,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import Background from '../../components/Background';
 import { RootStackParams } from '../../navigation';
+import { useIcons } from '../../hooks/useIcons';
 import { useForm } from '../../hooks/useForm';
 import { UsersContext } from '../../context';
 import { roles } from '../../interfaces';
-
-import Back from '../../assets/back.svg';
-import Envelope from '../../assets/envelope.svg';
-import Eye from '../../assets/eye.svg';
-import EyeClosed from '../../assets/eye-closed.svg';
-import Lock from '../../assets/lock.svg';
-import Warning from '../../assets/warning.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -141,7 +135,7 @@ const NewPasswordScreen = () => {
                                     style={styles.backButtonMargins}
                                     onPress={() => navigator.goBack()}
                                 >
-                                    <Back height={20} width={20} />
+                                    {useIcons('Back', 20, 20)}
                                 </TouchableOpacity>
                                 <Text style={styles.backButtonText}>Volver</Text>
                             </View>
@@ -153,7 +147,7 @@ const NewPasswordScreen = () => {
                             styles.inputFieldContainer,
                             (fieldLength.email === true) && styles.warningBorder
                         ]}>
-                            <Envelope height={25} width={25} />
+                            {useIcons('Envelope', 25, 25)}
                             <TextInput
                                 placeholder='Ingresa tu correo'
                                 placeholderTextColor='#9A9A9A'
@@ -171,7 +165,9 @@ const NewPasswordScreen = () => {
                         </View>
                         {(fieldLength.email === true) &&
                             <View style={styles.flexDirectionRowTinyMarginTop}>
-                                <Warning height={15} width={15} style={styles.warningTopMargin} />
+                                <View style={styles.warningTopMargin}>
+                                    {useIcons('Warning', 15, 15)}
+                                </View>
                                 <Text style={styles.warningText}>Ingresa tu correo</Text>
                             </View>
                         }
@@ -181,7 +177,9 @@ const NewPasswordScreen = () => {
                                 styles.inputFieldContainer,
                                 (fieldLength.password === true) && styles.warningBorder
                             ]}>
-                                <Lock height={25} width={25} style={styles.tinyButtonSize} />
+                                <View style={styles.tinyButtonSize}>
+                                    {useIcons('Lock', 15, 15)}
+                                </View>
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
@@ -201,16 +199,20 @@ const NewPasswordScreen = () => {
                                     activeOpacity={1.0}
                                     onPress={handlePasswordVisibility}
                                 >
-                                    {(passwordVisibility === false)
-                                        ? <Eye height={28} width={28} style={styles.extraTinyButtonSize} />
-                                        : <EyeClosed height={28} width={28} style={styles.extraTinyButtonSize} />
-                                    }
+                                    <View style={styles.extraTinyButtonSize}>
+                                        {(passwordVisibility === false)
+                                            ? useIcons('Eye', 28, 28)
+                                            : useIcons('EyeClosed', 28, 28)
+                                        }
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.password === true) &&
                             <View style={styles.flexDirectionRowTinyMarginTop}>
-                                <Warning height={15} width={15} style={styles.warningTopMargin} />
+                                <View style={styles.warningTopMargin}>
+                                    {useIcons('Warning', 15, 15)}
+                                </View>
                                 <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                             </View>
                         }
@@ -220,7 +222,9 @@ const NewPasswordScreen = () => {
                                 styles.inputFieldContainer,
                                 (fieldLength.confirmPassword === true) && styles.warningBorder
                             ]}>
-                                <Lock height={25} width={25} style={styles.tinyButtonSize} />
+                                <View style={styles.tinyButtonSize}>
+                                    {useIcons('Lock', 15, 15)}
+                                </View>
                                 <TextInput
                                     placeholder='Ingresa tu contraseña'
                                     placeholderTextColor='#9A9A9A'
@@ -240,16 +244,20 @@ const NewPasswordScreen = () => {
                                     activeOpacity={1.0}
                                     onPress={handleConfirmPasswordVisibility}
                                 >
-                                    {(passwordConfirmVisibility === false)
-                                        ? <Eye height={28} width={28} style={styles.extraTinyButtonSize} />
-                                        : <EyeClosed height={28} width={28} style={styles.extraTinyButtonSize} />
-                                    }
+                                    <View style={styles.extraTinyButtonSize}>
+                                        {(passwordConfirmVisibility === false)
+                                            ? useIcons('Eye', 28, 28)
+                                            : useIcons('EyeClosed', 28, 28)
+                                        }
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {(fieldLength.confirmPassword === true) &&
                             <View style={styles.flexDirectionRowTinyMarginTop}>
-                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <View style={styles.warningIconMargins}>
+                                    {useIcons('Warning', 15, 15)}
+                                </View>
                                 <Text style={styles.warningText}>
                                     Ingresa tu contraseña
                                 </Text>
@@ -257,7 +265,9 @@ const NewPasswordScreen = () => {
                         }
                         {(display === true) &&
                             <View style={styles.flexDirectionRowTinyMarginTop}>
-                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <View style={styles.warningIconMargins}>
+                                    {useIcons('Warning', 15, 15)}
+                                </View>
                                 <Text style={styles.warningText}>
                                     Contraseñas no coinciden
                                 </Text>
@@ -265,7 +275,9 @@ const NewPasswordScreen = () => {
                         }
                         {(authorized === true) &&
                             <View style={styles.flexDirectionRowTinyMarginTop}>
-                                <Warning height={15} width={15} style={styles.warningIconMargins} />
+                                <View style={styles.warningIconMargins}>
+                                    {useIcons('Warning', 15, 15)}
+                                </View>
                                 <Text style={styles.warningText}>
                                     Este usuario no puede realizar esta acción
                                 </Text>

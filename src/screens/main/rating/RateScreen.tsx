@@ -6,21 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AuthContext, PlacesContext, RatingContext } from '../../../context';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
+import { useIcons } from '../../../hooks/useIcons';
 import RateItem from './RateItem';
-
-import Back from '../../../assets/back.svg';
-import Bookmark from '../../../assets/bookmark.svg';
-import BookmarkFavorite from '../../../assets/bookmark-favorite.svg';
-import Down from '../../../assets/down.svg';
-import Heart from '../../../assets/heart.svg';
-import HeartFocused from '../../../assets/heart-focused.svg';
-import NumberOne from '../../../assets/NumberOne.svg';
-import NumberTwo from '../../../assets/NumberTwo.svg';
-import NumberThree from '../../../assets/NumberThree.svg';
-import NumberFour from '../../../assets/NumberFour.svg';
-import NumberFive from '../../../assets/NumberFive.svg';
-import Star from '../../../assets/star.svg';
-import UserCircle from '../../../assets/user-circle-plain.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -93,7 +80,7 @@ const RateScreen = ({ navigation, route }: Props) => {
         getRatings(item.place._id);
         getPlaceRatingAverage(item.place._id);
     }, []);
-    
+
     useEffect(() => {
         let mounted = true;
         getHistoryItem(user?._id!, item.place._id).then((data) => {
@@ -105,7 +92,7 @@ const RateScreen = ({ navigation, route }: Props) => {
             mounted = false;
         };
     }, []);
-    
+
     useEffect(() => {
         let mounted = true;
         getFavorite(user?._id!, item.place._id).then((data) => {
@@ -135,7 +122,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             activeOpacity={1.0}
                             onPress={() => navigation.goBack()}
                         >
-                            <Back height={18} width={18} />
+                            {useIcons('Back', 20, 20)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 10, ...styles.justifyAlignItemsCenter }}>
@@ -163,7 +150,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             </View>
                             <View style={styles.flexOneDirectionRow}>
                                 <View style={{ ...styles.flexDirectionRow, marginEnd: 8 }}>
-                                    <Star height={21} width={21} />
+                                    {useIcons('Star', 21, 21)}
                                     <View style={{ marginStart: 6 }}>
                                         <Text style={styles.detailsBodyText}>
                                             {Number(item.place.rate.$numberDecimal).toFixed(2)}
@@ -171,7 +158,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                                     </View>
                                 </View>
                                 <View style={{ ...styles.flexDirectionRow, marginStart: 8 }}>
-                                    <UserCircle height={21} width={21} />
+                                    {useIcons('UserCircle', 21, 21)}
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         onPress={() => setModalVisible(true)}
@@ -193,7 +180,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         onPress={handleFavorite}
                     >
                         <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                            {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
+                            {(newFavorite === true) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
                             <View style={styles.smallMarginStart}>
                                 <Text style={styles.detailsCaptionGrayText}>
                                     {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
@@ -206,7 +193,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         onPress={handleService}
                     >
                         <View style={{ ...styles.flexDirectionRow, marginStart: 12 }}>
-                            {(newService === true) ? <BookmarkFavorite height={24} width={24} /> : <Bookmark height={24} width={24} />}
+                            {(newService === true) ? useIcons('BookmarkFavorite', 24, 24) : useIcons('Bookmark', 24, 24)}
                             <View style={styles.smallMarginStart}>
                                 <Text style={styles.detailsCaptionGrayText}>
                                     {(newService === true) ? 'Guardado' : 'Guardar'} en Historial
@@ -229,7 +216,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
-                        <NumberOne height={36} width={36} />
+                        {useIcons('NumberOne', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
@@ -239,7 +226,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
-                        <NumberTwo height={36} width={36} />
+                        {useIcons('NumberTwo', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
@@ -249,7 +236,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
-                        <NumberThree height={36} width={36} />
+                        {useIcons('NumberThree', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
@@ -259,7 +246,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
-                        <NumberFour height={36} width={36} />
+                        {useIcons('NumberFour', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
@@ -269,7 +256,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                             { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }
                         ]}
                     >
-                        <NumberFive height={36} width={36} />
+                        {useIcons('NumberFive', 36, 36)}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.mediumMarginTop}>
@@ -326,7 +313,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                                     activeOpacity={1.0}
                                     onPress={() => setModalVisible(false)}
                                 >
-                                    <Down height={24} width={24} />
+                                    {useIcons('Down', 24, 24)}
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.flexOne}>

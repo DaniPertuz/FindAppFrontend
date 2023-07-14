@@ -8,17 +8,9 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext, UsersContext } from '../../../context';
+import { useIcons } from '../../../hooks/useIcons';
 import { IRatingList } from '../../../interfaces';
 import { RootStackParams } from '../../../navigation';
-
-import Camera from '../../../assets/camera.svg';
-import Down from '../../../assets/down.svg';
-import Edit from '../../../assets/edit.svg';
-import Envelope from '../../../assets/envelope.svg';
-import HeartFavorite from '../../../assets/heart-favorite.svg';
-import History from '../../../assets/history.svg';
-import Star from '../../../assets/star.svg';
-import User from '../../../assets/user.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -148,7 +140,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={updateMainPhoto}
                             style={styles.editProfilePhotoButton}
                         >
-                            <Camera height={30} width={30} />
+                            {useIcons('Camera', 30, 30)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.mediumMarginTop }}>
@@ -160,7 +152,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             onPress={() => { navigation.navigate('UpdateProfileScreen', { user: userDB }); }}
                             style={styles.editProfileButton}
                         >
-                            <Edit height={20} width={20} />
+                            {useIcons('Edit', 20, 20)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.tinyMarginTop }}>
@@ -173,7 +165,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
                                 onPress={() => navigation.navigate('HistoryScreen')}
                             >
-                                <History height={33} width={33} />
+                                {useIcons('History', 33, 33)}
                                 <View style={styles.smallMediumMarginTop}>
                                     <Text style={styles.plainSmallText}>Historial</Text>
                                 </View>
@@ -188,7 +180,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
                                 onPress={() => navigation.navigate('FavoritesNavigator')}
                             >
-                                <HeartFavorite height={33} width={33} />
+                                {useIcons('HeartFavorite', 33, 33)}
                                 <View style={styles.smallMediumMarginTop}>
                                     <Text style={styles.plainSmallText}>Favoritos</Text>
                                 </View>
@@ -203,7 +195,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                                 style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
                                 onPress={() => navigation.navigate('RatingsScreen')}
                             >
-                                <Star height={33} width={33} />
+                                {useIcons('Star', 33, 33)}
                                 <View style={styles.smallMediumMarginTop}>
                                     <Text style={styles.plainSmallText}>Calificaciones</Text>
                                 </View>
@@ -216,14 +208,18 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     <View style={styles.mediumMarginTop}>
                         <Text style={styles.grayLabel}>Nombre de usuario</Text>
                         <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
-                            <User height={18} width={18} style={styles.editProfileIconMargins} />
+                            <View style={styles.editProfileIconMargins}>
+                                {useIcons('User', 18, 18)}
+                            </View>
                             <Text style={styles.editProfileMediumText}>{userDB?.name}</Text>
                         </View>
                     </View>
                     <View style={styles.mediumLargeMarginTop}>
                         <Text style={styles.grayLabel}>Email</Text>
                         <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
-                            <Envelope height={18} width={18} style={styles.editProfileIconMargins} />
+                            <View style={styles.editProfileIconMargins}>
+                                {useIcons('Envelope', 18, 18)}
+                            </View>
                             <Text style={styles.editProfileMediumText}>{userDB?.email}</Text>
                         </View>
                     </View>
@@ -255,7 +251,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                             style={styles.modalBackButtonMargins}
                             onPress={() => setModalVisible(false)}
                         >
-                            <Down height={30} width={30} />
+                            {useIcons('Down', 30, 30)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ ...styles.flexDirectionRowJustifyAround, marginHorizontal: 10 }}>

@@ -6,17 +6,10 @@ import Toast from 'react-native-root-toast';
 
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
+import { useIcons } from '../../../hooks/useIcons';
 
 import { UsersContext } from '../../../context';
 import { IUser } from '../../../interfaces';
-
-import Back from '../../../assets/back.svg';
-import Envelope from '../../../assets/envelope.svg';
-import Eye from '../../../assets/eye.svg';
-import EyeClosed from '../../../assets/eye-closed.svg';
-import User from '../../../assets/user.svg';
-import Lock from '../../../assets/lock.svg';
-import Warning from '../../../assets/warning.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -95,7 +88,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     style={{ ...styles.flexOne, marginStart: 15, marginTop: 5 }}
                     onPress={() => navigator.goBack()}
                 >
-                    <Back height={25} width={25} />
+                    {useIcons('Back', 20, 20)}
                 </TouchableOpacity>
                 <View style={{ ...styles.alignItemsCenter, flex: 10, marginEnd: 40, marginTop: 5 }}>
                     <Text style={styles.stackScreenTitle}>Editar perfil</Text>
@@ -112,7 +105,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={styles.updateProfileLargeMarginTop}>
                         <Text style={styles.updateProfileLabel}>Usuario</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <User height={25} width={25} />
+                            {useIcons('Back', 25, 25)}
                             <TextInput
                                 placeholder='Ingresa tu usuario o correo'
                                 placeholderTextColor='#9A9A9A'
@@ -132,7 +125,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={styles.mediumMarginTop}>
                         <Text style={styles.updateProfileLabel}>Email</Text>
                         <View style={styles.disabledInputFieldContainer}>
-                            <Envelope height={25} width={25} />
+                            {useIcons('Envelope', 25, 25)}
                             <TextInput
                                 placeholder={user.email}
                                 placeholderTextColor='#9A9A9A'
@@ -148,7 +141,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={styles.mediumMarginTop}>
                         <Text style={styles.updateProfileLabel}>Contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <Lock height={25} width={25} />
+                            {useIcons('Lock', 25, 25)}
                             <TextInput
                                 placeholderTextColor='#9A9A9A'
                                 secureTextEntry={passwordVisibility}
@@ -168,8 +161,8 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 onPress={handlePasswordVisibility}
                             >
                                 {(passwordVisibility === false)
-                                    ? <Eye height={28} width={28} />
-                                    : <EyeClosed height={28} width={28} />
+                                    ? useIcons('Eye', 28, 28)
+                                    : useIcons('EyeClosed', 28, 28)
                                 }
                             </TouchableOpacity>
                         </View>
@@ -177,7 +170,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={styles.mediumMarginTop}>
                         <Text style={styles.updateProfileLabel}>Repetir contraseña</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            <Lock height={25} width={25} />
+                            {useIcons('Lock', 25, 25)}
                             <TextInput
                                 placeholderTextColor='#9A9A9A'
                                 secureTextEntry={passwordConfirmVisibility}
@@ -197,15 +190,17 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 onPress={handleConfirmPasswordVisibility}
                             >
                                 {(passwordConfirmVisibility === false)
-                                    ? <Eye height={28} width={28} />
-                                    : <EyeClosed height={28} width={28} />
+                                    ? useIcons('Eye', 28, 28)
+                                    : useIcons('EyeClosed', 28, 28)
                                 }
                             </TouchableOpacity>
                         </View>
                     </View>
                     {(display === true) &&
                         <View style={styles.flexDirectionRowTinyMarginTop}>
-                            <Warning height={15} width={15} style={styles.warningTopMargin} />
+                            <View style={styles.warningTopMargin}>
+                                {useIcons('Warning', 15, 15)}
+                            </View>
                             <Text style={styles.warningText}>Contraseñas no coinciden</Text>
                         </View>
                     }

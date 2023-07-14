@@ -5,16 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../../context';
 import { useForm } from '../../hooks/useForm';
+import { useIcons } from '../../hooks/useIcons';
 import { roles } from '../../interfaces';
 import { RootStackParams } from '../../navigation';
 import Background from '../../components/Background';
-
-import Envelope from '../../assets/envelope.svg';
-import Eye from '../../assets/eye.svg';
-import EyeClosed from '../../assets/eye-closed.svg';
-import User from '../../assets/user.svg';
-import Lock from '../../assets/lock.svg';
-import Warning from '../../assets/warning.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -119,7 +113,7 @@ const RegisterScreen = () => {
                 styles.inputFieldContainer,
                 (fieldLength.name === true) && styles.warningBorder
               ]}>
-                <User height={25} width={25} style={styles.iconStartMargin} />
+                {useIcons('User', 25, 25)}
                 <TextInput
                   placeholder='Ingresa tu nombre'
                   placeholderTextColor='#9A9A9A'
@@ -136,8 +130,10 @@ const RegisterScreen = () => {
                 />
               </View>
               {(fieldLength.name === true) &&
-                < View style={styles.flexDirectionRowTinyMarginTop}>
-                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                  <View style={styles.warningIconMargins}>
+                    {useIcons('Warning', 15, 15)}
+                  </View>
                   <Text style={styles.warningText}>Ingresa tu nombre</Text>
                 </View>
               }
@@ -146,7 +142,7 @@ const RegisterScreen = () => {
                 styles.inputFieldContainer,
                 (fieldLength.email === true) && styles.warningBorder
               ]}>
-                <Envelope height={25} width={25} style={styles.iconStartMargin} />
+                {useIcons('Envelope', 25, 25)}
                 <TextInput
                   placeholder='Ingresa tu correo'
                   placeholderTextColor='#9A9A9A'
@@ -163,8 +159,10 @@ const RegisterScreen = () => {
                 />
               </View>
               {(fieldLength.email === true) &&
-                < View style={styles.flexDirectionRowTinyMarginTop}>
-                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                  <View style={styles.warningIconMargins}>
+                    {useIcons('Warning', 15, 15)}
+                  </View>
                   <Text style={styles.warningText}>Ingresa tu correo</Text>
                 </View>
               }
@@ -174,7 +172,7 @@ const RegisterScreen = () => {
                 (fieldLength.password === true) && styles.warningBorder
               ]}
               >
-                <Lock height={25} width={25} style={styles.registerLockIconSize} />
+                {useIcons('Lock', 25, 25)}
                 <TextInput
                   placeholder='Ingresa tu contraseña'
                   placeholderTextColor='#9A9A9A'
@@ -196,14 +194,16 @@ const RegisterScreen = () => {
                   onPress={handlePasswordVisibility}
                 >
                   {(passwordVisibility === false)
-                    ? <Eye height={28} width={28} />
-                    : <EyeClosed height={28} width={28} />
+                    ? useIcons('Eye', 25, 28)
+                    : useIcons('EyeClosed', 28, 28)
                   }
                 </TouchableOpacity>
               </View>
               {(fieldLength.password === true) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
-                  <Warning height={15} width={15} style={styles.warningIconMargins} />
+                  <View style={styles.warningIconMargins}>
+                    {useIcons('Warning', 15, 15)}
+                  </View>
                   <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                 </View>
               }

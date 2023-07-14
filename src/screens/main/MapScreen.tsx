@@ -12,21 +12,9 @@ import LoadingScreen from '../LoadingScreen';
 import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
+import { useIcons } from '../../hooks/useIcons';
 import { RootStackParams } from '../../navigation';
 import { AuthContext } from '../../context';
-
-import ArrowElbowUpLeft from '../../assets/ArrowElbowUpLeft.svg';
-import ArrowElbowUpRight from '../../assets/ArrowElbowUpRight.svg';
-import ArrowUp from '../../assets/ArrowUp.svg';
-import ArrowUpLeft from '../../assets/ArrowUpLeft.svg';
-import ArrowUpRight from '../../assets/ArrowUpRight.svg';
-import Back from '../../assets/back.svg';
-import Car from '../../assets/Car.svg';
-import Close from '../../assets/close.svg';
-import Locate from '../../assets/location.svg';
-import Map from '../../assets/map.svg';
-import Search from '../../assets/search.svg';
-import Timer from '../../assets/timer.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -145,17 +133,17 @@ const MapScreen = ({ route, navigation }: Props) => {
     const renderDirection = (instruction: string) => {
         switch (instruction) {
             case 'turn-left':
-                return <ArrowUpLeft height={46} width={46} />;
+                return useIcons('ArrowUpLeft', 46, 46);
             case 'turn-right':
-                return <ArrowUpRight height={46} width={46} />;
+                return useIcons('ArrowUpRight', 46, 46);
             case 'straight':
-                return <ArrowUp height={46} width={46} />;
+                return useIcons('ArrowUp', 46, 46);
             case 'turn-slight-left':
-                return <ArrowElbowUpLeft height={46} width={46} />;
+                return useIcons('ArrowElbowUpLeft', 46, 46);
             case 'turn-slight-right':
-                return <ArrowElbowUpRight height={46} width={46} />;
+                return useIcons('ArrowElbowUpRight', 46, 46);
             case 'Car':
-                return <Car height={46} width={46} />;
+                return useIcons('Car', 46, 46);
         }
     };
 
@@ -283,13 +271,13 @@ const MapScreen = ({ route, navigation }: Props) => {
                                         {duration.toFixed(0)} min
                                     </Text>
                                     <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, marginStart: 6 }}>
-                                        <Timer height={15} width={15} />
+                                        {useIcons('Timer', 15, 15)}
                                         <View style={styles.smallMarginStart}>
                                             <Text style={styles.mapFollowSmallText}>{setArrivalTime()}</Text>
                                         </View>
                                     </View>
                                     <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, marginStart: 6 }}>
-                                        <Locate height={15} width={15} />
+                                        {useIcons('Location', 15, 15)}
                                         <View style={styles.smallMarginStart}>
                                             <Text style={styles.mapFollowSmallText}>{distance.toFixed(1)} Km</Text>
                                         </View>
@@ -331,7 +319,9 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 onPress={() => { setModalVisible(false); navigation.pop(); }}
                             >
                                 <View style={styles.flexDirectionRow}>
-                                    <Back height={18} width={18} style={styles.extraTinyMarginTop} />
+                                    <View style={styles.extraTinyMarginTop}>
+                                        {useIcons('Back', 18, 18)}
+                                    </View>
                                     <Text style={{ ...styles.mapBackButtonText, ...styles.smallMarginStart }}>Volver</Text>
                                 </View>
                             </TouchableOpacity>
@@ -358,7 +348,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                         onPress={() => setModalVisible(false)}
                                     >
                                         <View style={styles.mapFollowButton}>
-                                            <Search height={30} width={30} />
+                                            {useIcons('Search', 30, 30)}
                                         </View>
                                     </TouchableOpacity>
                                     <View style={{ marginHorizontal: 48 }}>
@@ -366,7 +356,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                         <View style={styles.smallMarginTop}>
                                             <View style={styles.flexDirectionRow}>
                                                 <View style={{ ...styles.flexDirectionRow, marginEnd: 5 }}>
-                                                    <Map height={15} width={15} />
+                                                    {useIcons('Map', 15, 15)}
                                                     <View style={styles.smallMarginStart}>
                                                         <Text style={styles.mapFollowSmallText}>
                                                             {duration.toFixed(0)} min
@@ -374,7 +364,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                     </View>
                                                 </View>
                                                 <View style={{ ...styles.flexDirectionRow, marginStart: 5 }}>
-                                                    <Locate height={15} width={15} />
+                                                    {useIcons('Location', 15, 15)}
                                                     <View style={styles.smallMarginStart}>
                                                         <Text style={styles.mapFollowSmallText}>
                                                             {distance.toFixed(1)} Km
@@ -389,7 +379,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                             activeOpacity={1.0}
                                             onPress={handleBackButtonClick}
                                         >
-                                            <Close height={30} width={30} />
+                                            {useIcons('Close', 30, 30)}
                                         </TouchableOpacity>
                                     </View>
                                 </View>
