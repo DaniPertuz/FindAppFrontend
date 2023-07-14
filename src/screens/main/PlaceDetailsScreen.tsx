@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, Image, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Linking, Platform, Text, TouchableOpacity, View } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -10,16 +10,7 @@ import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext } from '../../context';
 import { RootStackParams } from '../../navigation';
-
-import Back from '../../assets/back.svg';
-import Heart from '../../assets/heart.svg';
-import HeartFocused from '../../assets/heart-focused.svg';
-import Instagram from '../../assets/instagram-plain.svg';
-import Left from '../../assets/left.svg';
-import Location from '../../assets/location.svg';
-import PhoneOutgoing from '../../assets/phone-outgoing.svg';
-import Star from '../../assets/star.svg';
-import Whatsapp from '../../assets/whatsapp.svg';
+import { useIcons } from '../../hooks/useIcons';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -73,7 +64,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => navigation.goBack()}
                     >
-                        <Back height={20} width={20} />
+                        {useIcons('Back', 20, 20)}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexNineAlignItemsCenter}>
@@ -107,7 +98,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                             onPress={handleFavorite}
                         >
                             <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                                {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
+                                {(newFavorite === true) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
                                 <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
                                         {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
@@ -120,7 +111,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             <View style={styles.placeRateContainer}>
                 <View style={styles.flexOneDirectionRow}>
-                    <Star height={21} width={21} />
+                    {useIcons('Star', 21, 21)}
                     <View style={styles.marginHorizontalSmall}>
                         <Text style={styles.detailsBodyText}>
                             {Number(place.rate.$numberDecimal).toFixed(1)}
@@ -139,16 +130,24 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
             </View>
             <View style={styles.flexDirectionRowMarginTop}>
-                <Instagram height={21} width={21} />
+                {useIcons('Instagram', 21, 21)}
                 <View style={styles.marginHorizontalSmall}>
-                    <Text style={styles.detailsBodyText}>
-                        {(place.instagram !== undefined) ? `@${place.instagram}` : 'Pronto'}
-                    </Text>
+                    {(place.instagram !== undefined)
+                        ?
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                            onPress={() => Linking.openURL(`https://www.instagram.com/${place.instagram}`)}
+                        >
+                            <Text numberOfLines={1} style={styles.detailsBodyLink}>@{place.instagram}</Text>
+                        </TouchableOpacity>
+                        :
+                        <Text style={styles.detailsBodyText}>Pronto</Text>
+                    }
                 </View>
             </View>
             <View style={styles.flexDirectionRowMarginTop}>
                 <View style={styles.flexDirectionRow}>
-                    <Location height={21} width={21} />
+                    {useIcons('Location', 21, 21)}
                     <View style={styles.marginHorizontalSmall}>
                         <Text numberOfLines={1} style={styles.detailsBodyText}>
                             {formatAddress(place.address)}
@@ -186,10 +185,10 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     />
                 </View>
             }
-            <View style={{ ...styles.flexDirectionRow, marginTop: 24 }}>
-                <PhoneOutgoing height={21} width={21} />
+            <View style={{ ...styles.flexDirectionRowAlignItemsCenter, marginTop: 24 }}>
+                {useIcons('PhoneOutgoing', 21, 21)}
                 <View style={styles.marginHorizontalSmall}>
-                    <Text>{place.phone}</Text>
+                    <Text style={styles.detailsBodyText}>{place.phone}</Text>
                 </View>
                 <View style={styles.alignContentCenter}>
                     <TouchableOpacity
@@ -202,8 +201,15 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             {(place.whatsapp) ?
                 <View style={{ ...styles.flexDirectionRow, marginTop: 14 }}>
-                    <Whatsapp height={21} width={21} />
-                    <Text>{place.whatsapp}</Text>
+                    {useIcons('Whatsapp', 21, 21)}
+                    <View style={styles.smallMarginStart}>
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                            onPress={() => Linking.openURL(`https://wa.me/+57${place.whatsapp}`)}
+                        >
+                            <Text style={styles.detailsBodyLink}>{place.whatsapp}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 : <View style={styles.smallMediumMarginTop} />
             }
@@ -222,14 +228,14 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                     <TouchableOpacity
                         activeOpacity={1.0}
                         style={styles.startNavigationButton}
-                        onPress={() => navigation.push('MapScreen', { place, search })}
+                        onPress={() => navigation.push('MapScreen', { place, search: '' })}
                     >
                         <View style={styles.flexDirectionRowAlignItemsCenter}>
                             <Text style={styles.startNavigationButtonText}>
                                 Iniciar Ruta
                             </Text>
                             <View style={styles.mediumMarginStart}>
-                                <Left height={18} width={18} />
+                                {useIcons('Left', 18, 18)}
                             </View>
                         </View>
                     </TouchableOpacity>
