@@ -35,7 +35,7 @@ const HistoryScreen = () => {
         return () => {
             mounted = false;
         };
-    }, [historical]);
+    }, []);
 
     return (
         <>

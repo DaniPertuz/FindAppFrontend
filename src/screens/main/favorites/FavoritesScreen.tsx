@@ -33,7 +33,7 @@ const FavoritesScreen = () => {
         return () => {
             mounted = false;
         };
-    }, [favorites]);
+    }, []);
 
     return (
         <>
