@@ -55,7 +55,7 @@ const MainScreen = () => {
 
     useEffect(() => {
         getPlaceCategories();
-    }, []);
+    }, [results]);
 
     return (
         <View style={styles.mainScreenContainer}>
