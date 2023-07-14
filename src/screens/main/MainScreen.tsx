@@ -27,6 +27,7 @@ const MainScreen = () => {
     const getPlaceCategories = () => {
         const categories = results.places.map(place => place.category);
         const filteredCategories: string[] = categories.filter((item, i, ar) => ar.indexOf(item) === i).sort().flat();
+        filteredCategories.push(filteredCategories.splice(filteredCategories.indexOf('Otro'), 1)[0]);
         setPlaceCategories(filteredCategories);
     };
 
