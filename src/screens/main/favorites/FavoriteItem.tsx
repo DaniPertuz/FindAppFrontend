@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../../../context';
 import { PlacesContext } from '../../../context/places/PlacesContext';
 import { IFavorite } from '../../../interfaces/app-interfaces';
 import useDistance from '../../../hooks/useDistance';
+import { useIcons } from '../../../hooks/useIcons';
 import useLocation from '../../../hooks/useLocation';
-
-import Favorite from '../../../assets/heart-focused.svg';
-import Restaurant from '../../../assets/restaurant.svg';
-import Location from '../../../assets/location.svg';
-import Star from '../../../assets/star.svg';
+import { RootStackParams } from '../../../navigation';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -22,7 +20,7 @@ interface Props {
 
 const FavoriteItem = ({ item, onPress }: Props) => {
 
-    const navigator = useNavigation();
+    const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
     const { user } = useContext(AuthContext);
     const { deleteFavorite, getPlaceRating } = useContext(PlacesContext);
@@ -69,7 +67,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                     <TouchableOpacity
                         activeOpacity={1.0}
                         style={styles.flexOneDirectionRow}
-                        onPress={() => navigator.navigate('PlaceDetailsScreen')}
+                        onPress={() => navigator.navigate('PlaceDetailsScreen', { place: item.place, search: '' })}
                     >
                         <Image
                             source={{ uri: item.place.photo }}
@@ -80,16 +78,16 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                                 <Text style={styles.boldMediumText}>{item.place.name}</Text>
                             </View>
                             <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, maxWidth: 156 }}>
-                                <Restaurant height={15} width={15} />
+                                {useIcons(item.place.category, 15, 15)}
                                 <View style={styles.flexDirectionRow}>
                                     <View style={styles.itemDetailsIconMarginEnd}>
-                                        <Location height={15} width={15} />
+                                        {useIcons('Location', 15, 15)}
                                     </View>
                                     <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
                                 </View>
                                 <View style={styles.flexDirectionRow}>
                                     <View style={styles.itemDetailsIconMarginEnd}>
-                                        <Star height={15} width={15} />
+                                        {useIcons('Star', 15, 15)}
                                     </View>
                                     <Text style={styles.smallPlainText}>{Number(item.place.rate.$numberDecimal).toFixed(2)}</Text>
                                 </View>
@@ -102,7 +100,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                     onPress={removeFavorite}
                 >
                     <View style={styles.flexOneAlignJustifyCenter}>
-                        <Favorite height={26} width={26} />
+                        {useIcons('Favorite', 26, 26)}
                     </View>
                 </TouchableOpacity>
             </View>
