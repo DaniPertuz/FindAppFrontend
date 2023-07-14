@@ -83,7 +83,7 @@ export interface IProduct {
     _id:         string;
     name:        string;
     description: string;
-    category:    string[];
+    category:    string;
     observation: string;
     price:       number;
     place:       IPlace[];
