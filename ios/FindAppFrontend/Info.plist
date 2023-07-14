@@ -47,12 +47,6 @@
 	<string>Es necesario el acceso al GPS para utilizar esta aplicación</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>FindAPP le gustaría acceder a tu galería</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Nunito-Bold.ttf</string>
-		<string>Nunito-Light.ttf</string>
-		<string>Nunito-Regular.ttf</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
