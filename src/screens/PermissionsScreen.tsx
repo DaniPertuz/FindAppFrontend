@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { AuthContext, PermissionsContext } from '../context';
 
-import Location from '../assets/location.svg';
+import { useIcons } from '../hooks/useIcons';
 
 import { styles } from '../theme/AppTheme';
 
@@ -16,7 +16,7 @@ const PermissionsScreen = () => {
             style={{ ...styles.flexOneAlignJustifyCenter, paddingHorizontal: 60 }}
         >
             <View style={{ ...styles.alignItemsCenter, marginBottom: 23 }}>
-                <Location height={73} width={73} />
+                {useIcons('Location', 73, 73)}
                 <View style={styles.alignItemsJustifyContentCenter}>
                     <Text style={styles.infoText}>Es necesario el acceso al GPS para utilizar esta aplicación</Text>
                 </View>

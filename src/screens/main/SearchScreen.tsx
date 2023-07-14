@@ -8,14 +8,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PlacesContext } from '../../context';
 import { RootStackParams } from '../../navigation';
 import { useForm } from '../../hooks/useForm';
+import { useIcons } from '../../hooks/useIcons';
 import useLocation from '../../hooks/useLocation';
 import { IPlace, IProduct, ISearch, Location } from '../../interfaces';
 import SearchProductResults from '../../components/SearchProductResults';
 import SearchResults from '../../components/SearchResults';
-
-import Back from '../../assets/back.svg';
-import Mask from '../../assets/mask.svg';
-import Search from '../../assets/search.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -74,7 +71,7 @@ const SearchScreen = () => {
                         activeOpacity={1.0}
                         onPress={() => navigation.goBack()}
                     >
-                        <Back height={20} width={20} />
+                        {useIcons('Back', 20, 20)}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexNineAlignItemsCenter}>
@@ -89,7 +86,7 @@ const SearchScreen = () => {
             </View>
             <View style={styles.mediumMarginTop}>
                 <View style={styles.updateInputFieldContainer}>
-                    <Search height={25} width={25} />
+                    {useIcons('Search', 25, 25)}
                     <TextInput
                         placeholder='Escribe una palabra o frase'
                         placeholderTextColor='#9A9A9A'
@@ -119,7 +116,7 @@ const SearchScreen = () => {
 
                 {((display === true) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
                     <View style={{ ...styles.alignItemsCenter, marginTop: 100 }}>
-                        <Mask height={73} width={73} />
+                        {useIcons('Mask', 73, 73)}
                         <View style={styles.mediumLargeMarginTop}>
                             <Text style={styles.infoText}>No encontramos lugares con esta palabra. Intenta nuevamente.</Text>
                         </View>

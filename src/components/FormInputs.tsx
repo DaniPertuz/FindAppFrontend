@@ -4,14 +4,9 @@ import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { useIcons } from '../hooks/useIcons';
 import { RootStackParams } from '../navigation';
 import LoginButton from './LoginButton';
-
-import Eye from '../assets/eye.svg';
-import EyeClosed from '../assets/eye-closed.svg';
-import User from '../assets/user.svg';
-import Lock from '../assets/lock.svg';
-import Warning from '../assets/warning.svg';
 
 import { styles } from '../theme/AppTheme';
 
@@ -55,7 +50,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 styles.inputFieldContainer,
                 (fieldLength.email === true) && styles.warningBorder
             ]}>
-                <User height={25} width={25} />
+                {useIcons('User', 25, 25)}
                 <TextInput
                     placeholder='Ingresa tu usuario o correo'
                     placeholderTextColor='#9A9A9A'
@@ -73,7 +68,9 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             </View>
             {(fieldLength.email === true) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
-                    <Warning height={15} width={15} style={styles.warningIconMargins} />
+                    <View style={styles.warningIconMargins}>
+                        {useIcons('Warning', 15, 15)}
+                    </View>
                     <Text style={styles.warningText}>Ingresa tu correo electrónico</Text>
                 </View>
             }
@@ -81,7 +78,9 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 Contraseña
             </Text>
             <View style={[styles.inputFieldContainer, (fieldLength.password === true) && styles.warningBorder]}>
-                <Lock height={25} width={25} style={{ flex: 0.4 }} />
+                <View style={{ flex: 0.4 }}>
+                    {useIcons('Lock', 25, 25)}
+                </View>
                 <TextInput
                     placeholder='Ingresa tu contraseña'
                     placeholderTextColor='#9A9A9A'
@@ -102,13 +101,20 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     onPress={handlePasswordVisibility}
                 >
                     {(passwordVisibility === false)
-                        ? <Eye height={28} width={28} style={styles.tinyButtonSize} />
-                        : <EyeClosed height={28} width={28} style={styles.tinyButtonSize} />}
+                        ? <View style={styles.tinyButtonSize}>
+                            {useIcons('Eye', 28, 28)}
+                        </View>
+                        : <View style={styles.tinyButtonSize}>
+                            {useIcons('EyeClosed', 28, 28)}
+                        </View>
+                    }
                 </TouchableOpacity>
             </View>
             {(fieldLength.password === true) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
-                    <Warning height={15} width={15} style={styles.warningIconMargins} />
+                    <View style={styles.warningIconMargins}>
+                        {useIcons('Warning', 15, 15)}
+                    </View>
                     <Text style={styles.warningText}>
                         Ingresa tu contraseña
                     </Text>

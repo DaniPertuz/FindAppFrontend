@@ -5,13 +5,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 import useDistance from '../hooks/useDistance';
+import { useIcons } from '../hooks/useIcons';
 import useLocation from '../hooks/useLocation';
 import { IPlace } from '../interfaces/app-interfaces';
 import { RootStackParams } from '../navigation';
-
-import Location from '../assets/location.svg';
-import Restaurant from '../assets/restaurant.svg';
-import Star from '../assets/star.svg';
 
 import { styles } from '../theme/AppTheme';
 
@@ -58,16 +55,16 @@ const SearchResults = ({ item, onPress }: Props) => {
                                     <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
                                 </View>
                                 <View style={styles.flexDirectionRowJustifySpaceBetween}>
-                                    <Restaurant height={15} width={15} />
+                                    {useIcons(item.category, 15, 15)}
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Location height={15} width={15} />
+                                            {useIcons('Location', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
                                     </View>
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Star height={15} width={15} />
+                                            {useIcons('Star', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                     </View>
@@ -78,7 +75,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                 </TouchableOpacity>
             </View>
             <View
-                style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween}}>
+                style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
                 <TouchableOpacity
                     style={styles.resultsNavigationButton}
                     activeOpacity={0.9}

@@ -5,9 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
+import { useIcons } from '../hooks/useIcons';
 import { RootStackParams } from '../navigation';
-
-import Search from '../assets/search.svg';
 
 import { styles } from '../theme/AppTheme';
 
@@ -25,7 +24,7 @@ const TopButtons = () => {
                     onPress={() => navigation.navigate('SearchScreen')}
                 >
                     <View style={styles.flexDirectionRowAlignItemsCenter}>
-                        <Search height={16} width={16} />
+                        {useIcons('Search', 16, 16)}
                         <View style={{ marginHorizontal: 10 }}>
                             <Text style={styles.placeholderText}>
                                 Escribe una palabra o frase

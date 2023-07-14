@@ -1,10 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-
-import Restaurant from '../assets/restaurant.svg';
-
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useIcons } from '../hooks/useIcons';
 import { styles } from '../theme/AppTheme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
     name:  string;
@@ -18,13 +15,13 @@ const Categories = ({ name, count }: Props) => {
         >
             <View style={styles.largeItem}>
                 <View style={styles.extraSmallMarginTop}>
-                    <Restaurant height={33} width={33} />
+                    {useIcons(name, 33, 33)}
                 </View>
                 <View style={styles.smallMediumMarginTop}>
                     <Text style={styles.plainSmallText}>{name}</Text>
                 </View>
                 <View style={styles.tinyMarginTop}>
-                    <Text style={styles.largeItemText}>{count} lugares</Text>
+                    <Text style={styles.largeItemText}>{count} {(count === 1) ? 'lugar' : 'lugares'}</Text>
                 </View>
             </View>
         </TouchableOpacity>

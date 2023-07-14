@@ -9,17 +9,8 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext } from '../../context';
+import { useIcons } from '../../hooks/useIcons';
 import { RootStackParams } from '../../navigation';
-
-import Back from '../../assets/back.svg';
-import Heart from '../../assets/heart.svg';
-import HeartFocused from '../../assets/heart-focused.svg';
-import Instagram from '../../assets/instagram-plain.svg';
-import Left from '../../assets/left.svg';
-import Location from '../../assets/location.svg';
-import PhoneOutgoing from '../../assets/phone-outgoing.svg';
-import Star from '../../assets/star.svg';
-import Whatsapp from '../../assets/whatsapp.svg';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -61,7 +52,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                         activeOpacity={1.0}
                         onPress={() => navigation.goBack()}
                     >
-                        <Back height={20} width={20} />
+                        {useIcons('Back', 20, 20)}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexNineAlignItemsCenter}>
@@ -75,9 +66,9 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 <View style={styles.flexOne}>
                     <Image
                         source={
-                            (product.place[0].photo === '')
+                            (product.img === '')
                                 ? require('../../assets/FA_Color.png')
-                                : { uri: product.place[0].photo }
+                                : { uri: product.img }
                         }
                         style={styles.detailsIcon}
                     />
@@ -98,7 +89,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                             onPress={handleFavorite}
                         >
                             <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                                {(newFavorite === true) ? <HeartFocused height={24} width={24} /> : <Heart height={24} width={24} />}
+                                {(newFavorite === true) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
                                 <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
                                         {(newFavorite === true) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
@@ -111,7 +102,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             <View style={{ ...styles.flexDirectionRow, ...styles.alignItemsCenter, marginTop: 16, maxWidth: 191 }}>
                 <View style={styles.flexOneDirectionRow}>
-                    <Star height={21} width={21} />
+                    {useIcons('Location', 21, 21)}
                     <View style={styles.marginHorizontalSmall}>
                         <Text style={styles.detailsBodyText}>
                             {Number(product.place[0].rate.$numberDecimal).toFixed(1)}
@@ -130,7 +121,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
             </View>
             <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
-                <Instagram height={21} width={21} />
+                {useIcons('Instagram', 21, 21)}
                 <View style={styles.marginHorizontalSmall}>
                     <Text style={styles.detailsBodyText}>
                         {(product.place[0].instagram !== undefined) ? `@${product.place[0].instagram}` : 'Pronto'}
@@ -139,7 +130,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             <View style={{ ...styles.flexDirectionRow, marginTop: 18 }}>
                 <View style={styles.flexDirectionRow}>
-                    <Location height={21} width={21} />
+                    {useIcons('Location', 21, 21)}
                     <View style={styles.marginHorizontalSmall}>
                         <Text numberOfLines={1} style={styles.detailsBodyText}>
                             {formatAddress(product.place[0].address)}
@@ -178,7 +169,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                 </View>
             }
             <View style={{ ...styles.flexDirectionRow, marginTop: 24 }}>
-                <PhoneOutgoing height={21} width={21} />
+                {useIcons('PhoneOutgoing', 21, 21)}
                 <View style={styles.marginHorizontalSmall}>
                     <Text>{product.place[0].phone}</Text>
                 </View>
@@ -193,7 +184,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
             </View>
             {(product.place[0].whatsapp) ?
                 <View style={{ ...styles.flexDirectionRow, marginTop: 14 }}>
-                    <Whatsapp height={21} width={21} />
+                    {useIcons('Whatsapp', 21, 21)}
                     <Text>{product.place[0].whatsapp}</Text>
                 </View>
                 : <View style={styles.smallMediumMarginTop} />
@@ -220,7 +211,7 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                                 Iniciar Ruta
                             </Text>
                             <View style={styles.mediumMarginStart}>
-                                <Left height={18} width={18} />
+                                {useIcons('Left', 18, 18)}
                             </View>
                         </View>
                     </TouchableOpacity>

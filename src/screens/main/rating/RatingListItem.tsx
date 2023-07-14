@@ -4,13 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParams } from '../../../navigation';
-import useLocation from '../../../hooks/useLocation';
 import useDistance from '../../../hooks/useDistance';
+import { useIcons } from '../../../hooks/useIcons';
+import useLocation from '../../../hooks/useLocation';
 import { IRate } from '../../../interfaces';
-
-import Location from '../../../assets/location.svg';
-import Restaurant from '../../../assets/restaurant.svg';
-import Star from '../../../assets/star.svg';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -57,16 +54,16 @@ const RatingListItem = ({ item, onPress }: Props) => {
                                     <Text numberOfLines={1} style={styles.boldMediumText}>{item.place.name}</Text>
                                 </View>
                                 <View style={styles.flexDirectionRowJustifySpaceBetween}>
-                                    <Restaurant height={15} width={15} />
+                                    {useIcons(item.place.category, 15, 15)}
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Location height={15} width={15} />
+                                            {useIcons('Location', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
                                     </View>
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Star height={15} width={15} />
+                                            {useIcons('Star', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{Number(item.rate).toFixed(1)}</Text>
                                     </View>
@@ -83,9 +80,7 @@ const RatingListItem = ({ item, onPress }: Props) => {
                     activeOpacity={0.9}
                     onPress={() => navigator.navigate('MapScreen', { place: item.place, search: '' })}
                 >
-                    <Text style={styles.mapNavigationButtonText}>
-                        Iniciar
-                    </Text>
+                    <Text style={styles.mapNavigationButtonText}>Iniciar</Text>
                 </TouchableOpacity>
             </View>
         </View>

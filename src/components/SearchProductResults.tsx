@@ -3,12 +3,9 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import useDistance from '../hooks/useDistance';
+import { useIcons } from '../hooks/useIcons';
 import useLocation from '../hooks/useLocation';
 import { IProduct } from '../interfaces/app-interfaces';
-
-import Location from '../assets/location.svg';
-import Restaurant from '../assets/restaurant.svg';
-import Star from '../assets/star.svg';
 
 import { styles } from '../theme/AppTheme';
 
@@ -55,16 +52,16 @@ const SearchProductResults = ({ item, onPress }: Props) => {
                                     <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
                                 </View>
                                 <View style={styles.flexDirectionRowJustifySpaceBetween}>
-                                    <Restaurant height={15} width={15} />
+                                    {useIcons(item.category, 15, 15)}
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Location height={15} width={15} />
+                                            {useIcons('Location', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
                                     </View>
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
-                                            <Star height={15} width={15} />
+                                            {useIcons('Star', 15, 15)}
                                         </View>
                                         <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                     </View>
