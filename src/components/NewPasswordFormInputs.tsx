@@ -179,7 +179,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         activeOpacity={1.0}
                         onPress={handlePasswordVisibility}
                     >
-                        <View style={styles.hideButtonContainer}>
+                        <View style={styles.alignItemsCenter}>
                             {(passwordVisibility === false)
                                 ? useIcons('Eye', 20, 20)
                                 : useIcons('EyeClosed', 20, 20)
@@ -224,7 +224,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         activeOpacity={1.0}
                         onPress={handleConfirmPasswordVisibility}
                     >
-                        <View style={styles.hideButtonContainer}>
+                        <View style={styles.alignItemsCenter}>
                             {(passwordConfirmVisibility === false)
                                 ? useIcons('Eye', 20, 20)
                                 : useIcons('EyeClosed', 20, 20)
