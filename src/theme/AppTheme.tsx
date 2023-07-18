@@ -813,7 +813,6 @@ const styles = StyleSheet.create({
     },
     scrollViewBackground: {
         backgroundColor: 'rgba(104, 110, 222, 0.1)',
-        flex: 1,
         paddingBottom: 40
     },
     searchButton: {
