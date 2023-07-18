@@ -29,22 +29,12 @@ const LoginScreen = () => {
   }, [errorMessage]);
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps='handled'
-      contentContainerStyle={styles.scrollViewBackground}
-    >
-      <KeyboardAvoidingView
-        behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
-      >
+    <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.scrollViewBackground}>
+      <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
         <Background />
-        <View
-          style={styles.formContainer}
-        >
+        <View style={styles.formContainer}>
           <View style={styles.alignItemsCenter}>
-            <Image
-              source={require('../../assets/FA_COMPLETE_Color.png')}
-              style={styles.mainLogo}
-            />
+            <Image source={require('../../assets/FA_COMPLETE_Color.png')} style={styles.mainLogo} />
           </View>
           <View style={styles.mediumMarginBottom}>
             <View style={styles.tinyMarginBottom}>
