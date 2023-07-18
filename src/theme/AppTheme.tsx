@@ -356,9 +356,6 @@ const styles = StyleSheet.create({
         letterSpacing: -0.24,
         lineHeight: 20
     },
-    hideButtonContainer: {
-        alignItems: 'center'
-    },
     iconStartMargin: {
         marginStart: 16
     },
