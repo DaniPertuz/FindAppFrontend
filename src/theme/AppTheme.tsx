@@ -356,6 +356,9 @@ const styles = StyleSheet.create({
         letterSpacing: -0.24,
         lineHeight: 20
     },
+    hideButtonContainer: {
+        alignItems: 'center'
+    },
     iconStartMargin: {
         marginStart: 16
     },
@@ -616,8 +619,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     newPasswordInputTextSize: {
-        flex: 2,
-        marginHorizontal: 2
+        flex: 2
     },
     noUserPhoto: {
         height: 50,
@@ -892,7 +894,7 @@ const styles = StyleSheet.create({
         lineHeight: 22
     },
     tinyButtonSize: {
-        flex: 0.5
+        flex: 0.2
     },
     tinyMarginBottom: {
         marginBottom: 5
