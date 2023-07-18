@@ -50,7 +50,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                 styles.inputFieldContainer,
                 (fieldLength.email === true) && styles.warningBorder
             ]}>
-                {useIcons('User', 25, 25)}
+                {useIcons('User', 20, 20)}
                 <TextInput
                     placeholder='Ingresa tu usuario o correo'
                     placeholderTextColor='#9A9A9A'
@@ -79,7 +79,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             </Text>
             <View style={[styles.inputFieldContainer, (fieldLength.password === true) && styles.warningBorder]}>
                 <View style={{ flex: 0.4 }}>
-                    {useIcons('Lock', 25, 25)}
+                    {useIcons('Lock', 20, 20)}
                 </View>
                 <TextInput
                     placeholder='Ingresa tu contraseña'
@@ -101,11 +101,11 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     onPress={handlePasswordVisibility}
                 >
                     {(passwordVisibility === false)
-                        ? <View style={styles.tinyButtonSize}>
-                            {useIcons('Eye', 28, 28)}
+                        ? <View style={styles.alignItemsCenter}>
+                            {useIcons('Eye', 20, 20)}
                         </View>
-                        : <View style={styles.tinyButtonSize}>
-                            {useIcons('EyeClosed', 28, 28)}
+                        : <View style={styles.alignItemsCenter}>
+                            {useIcons('EyeClosed', 20, 20)}
                         </View>
                     }
                 </TouchableOpacity>
