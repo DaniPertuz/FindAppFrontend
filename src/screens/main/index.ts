@@ -5,5 +5,6 @@ export { default as MainScreen } from './MainScreen';
 export { default as MapScreen } from './MapScreen';
 export { RateScreen, RateItem, RatingsScreen } from './rating';
 export { default as PlaceDetailsScreen } from './PlaceDetailsScreen';
+export { default as PlacesScreen } from './PlacesScreen';
 export { default as ProductDetailsScreen } from './ProductDetailsScreen';
 export { default as SearchScreen } from './SearchScreen';
