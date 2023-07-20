@@ -70,7 +70,7 @@ const FavoriteItem = ({ item, onPress }: Props) => {
                         onPress={() => navigator.navigate('PlaceDetailsScreen', { place: item.place, search: '' })}
                     >
                         <Image
-                            source={{ uri: item.place.photo }}
+                            source={(item.place.photo === '') ? require('../../../assets/FA_Color.png') : { uri: item.place.photo }}
                             style={styles.itemIcon}
                         />
                         <View style={styles.favoriteItemDetailsContainer}>
