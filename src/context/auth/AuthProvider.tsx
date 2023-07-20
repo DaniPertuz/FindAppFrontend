@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ImagePickerResponse } from 'react-native-image-picker';
 
-import { IUser, LoginData, LoginInterface } from '../../interfaces';
+import { IUser, LoginData, LoginInterface, roles } from '../../interfaces';
 import { AuthContext, AuthReducer } from './';
 import findAPI from '../../api/findapi';
 
@@ -74,6 +74,15 @@ export const AuthProvider = ({ children }: any) => {
 
     const signIn = async ({ email, password }: LoginData): Promise<void> => {
         try {
+            const response = await findAPI.get<IUser>('/users/email', { params: { email }})
+            if (response.data.role !== roles.CLIENT) {
+                dispatch({
+                    type: 'addError',
+                    payload: 'Este usuario está registrado como empresa'
+                });
+                return;
+            }
+
             const { data } = await findAPI.post<LoginInterface>('/auth/login', { email, password });
             const { user, token } = data;
 
