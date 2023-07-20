@@ -33,6 +33,15 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
+    const getPlacesByCategory = async (category: string): Promise<IPlace[]> => {
+        try {
+            const { data } = await findAPI.get<IPlace[]>(`/places/category/${category}`);
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    };
+
     const getFavorite = async (userId: string, place: string): Promise<FavoriteItem> => {
         try {
             const { data } = await findAPI.get<FavoriteItem>(`/favorites/${userId}/${place}`);
@@ -128,6 +137,7 @@ export const PlacesProvider = ({ children }: any) => {
             getHistorical,
             getHistoryItem,
             getPlaceRating,
+            getPlacesByCategory,
             getPopularPlaces,
             getRatingsByUser,
             addFavorite,
