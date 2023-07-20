@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -59,22 +58,8 @@ export const MainNavigator = () => {
             <Stack.Screen name="RatingsScreen" component={RatingsScreen} />
             <Stack.Screen name="PlaceDetailsScreen" component={PlaceDetailsScreen} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} />
-            <Stack.Screen name="ProductDetailsScreen" options={{
-                headerTitle: 'Detalles de producto',
-                headerStyle: { backgroundColor: '#5856D6' },
-                headerTintColor: '#FFFFFF',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                    <TouchableOpacity
-                        activeOpacity={0.9}
-                        style={{ marginLeft: 15 }}
-                        onPress={() => navigator.goBack()}
-                    >
-                    </TouchableOpacity>
-                )
-            }}
-                component={ProductDetailsScreen} />
-            <Stack.Screen name="RateScreen" options={{ title: '' }} component={RateScreen} />
+            <Stack.Screen name="ProductDetailsScreen" component={ProductDetailsScreen} />
+            <Stack.Screen name="RateScreen" component={RateScreen} />
         </Stack.Navigator>
     );
 };
