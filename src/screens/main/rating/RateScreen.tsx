@@ -305,33 +305,35 @@ const RateScreen = ({ navigation, route }: Props) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.reviewsModal}>
-                    <View style={{ ...styles.mediumMarginTop, marginHorizontal: 21 }}>
-                        <View style={styles.flexDirectionRow}>
-                            <View style={styles.flexOne}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    {useIcons('Down', 24, 24)}
-                                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                    <View style={styles.reviewsModal}>
+                        <View style={{ ...styles.mediumMarginTop, marginHorizontal: 21 }}>
+                            <View style={styles.flexDirectionRow}>
+                                <View style={styles.flexOne}>
+                                    <TouchableOpacity
+                                        activeOpacity={1.0}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        {useIcons('Down', 24, 24)}
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.flexOne}>
+                                    <Text style={styles.reviewsModalTitle}>Opiniones</Text>
+                                </View>
+                                <View style={styles.flexOne} />
                             </View>
-                            <View style={styles.flexOne}>
-                                <Text style={styles.reviewsModalTitle}>Opiniones</Text>
+                            <View style={styles.mediumMarginTop}>
+                                <FlatList
+                                    data={ratings.rates}
+                                    keyExtractor={m => m._id!}
+                                    renderItem={({ item }) => (
+                                        <RateItem item={item} />
+                                    )}
+                                />
                             </View>
-                            <View style={styles.flexOne} />
-                        </View>
-                        <View style={styles.mediumMarginTop}>
-                            <FlatList
-                                data={ratings.rates}
-                                keyExtractor={m => m._id!}
-                                renderItem={({ item }) => (
-                                    <RateItem item={item} />
-                                )}
-                            />
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </Modal>
         </View>
     );

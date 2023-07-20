@@ -244,39 +244,41 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <View style={styles.editProfileModal}>
-                    <View style={styles.editProfileModalBackButtonContainer}>
-                        <TouchableOpacity
-                            activeOpacity={1.0}
-                            style={styles.modalBackButtonMargins}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            {useIcons('Down', 30, 30)}
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ ...styles.flexDirectionRowJustifyAround, marginHorizontal: 10 }}>
-                        <View style={styles.alignItemsCenter}>
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                    <View style={styles.editProfileModal}>
+                        <View style={styles.editProfileModalBackButtonContainer}>
                             <TouchableOpacity
-                                activeOpacity={0.9}
-                                onPress={() => { addGalleryImage(); setModalVisible(false); onUpdate(); }}
-                                style={styles.editProfileGalleryButton}
+                                activeOpacity={1.0}
+                                style={styles.modalBackButtonMargins}
+                                onPress={() => setModalVisible(false)}
                             >
-                                <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                                {useIcons('Down', 30, 30)}
                             </TouchableOpacity>
-                            <Text>Galería</Text>
                         </View>
-                        <View style={styles.alignItemsCenter}>
-                            <TouchableOpacity
-                                activeOpacity={0.9}
-                                onPress={() => { addPhoto(); setModalVisible(false); onUpdate(); }}
-                                style={styles.editProfileGalleryButton}
-                            >
-                                <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
-                            </TouchableOpacity>
-                            <Text>Cámara</Text>
+                        <View style={{ ...styles.flexDirectionRowJustifyAround, marginHorizontal: 10 }}>
+                            <View style={styles.alignItemsCenter}>
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    onPress={() => { addGalleryImage(); setModalVisible(false); onUpdate(); }}
+                                    style={styles.editProfileGalleryButton}
+                                >
+                                    <Image source={require('../../../assets/gallery.png')} style={{ height: 25, width: 25 }} />
+                                </TouchableOpacity>
+                                <Text>Galería</Text>
+                            </View>
+                            <View style={styles.alignItemsCenter}>
+                                <TouchableOpacity
+                                    activeOpacity={0.9}
+                                    onPress={() => { addPhoto(); setModalVisible(false); onUpdate(); }}
+                                    style={styles.editProfileGalleryButton}
+                                >
+                                    <Image source={require('../../../assets/camera.png')} style={{ height: 25, width: 25 }} />
+                                </TouchableOpacity>
+                                <Text>Cámara</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </Modal>
         </>
     );
