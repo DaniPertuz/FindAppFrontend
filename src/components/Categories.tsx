@@ -1,6 +1,11 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { RootStackParams } from '../navigation';
 import { useIcons } from '../hooks/useIcons';
+
 import { styles } from '../theme/AppTheme';
 
 interface Props {
@@ -9,9 +14,12 @@ interface Props {
 }
 
 const Categories = ({ name, count }: Props) => {
+    const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
+
     return (
         <TouchableOpacity
             activeOpacity={1.0}
+            onPress={() => navigator.navigate('PlacesScreen', { category: name })}
         >
             <View style={styles.largeItem}>
                 <View style={styles.extraSmallMarginTop}>

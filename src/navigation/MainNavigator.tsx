@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, ProductDetailsScreen, RateScreen, RatingsScreen, RegisterScreen, SearchScreen, UpdateProfileScreen } from '../screens';
+import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, PlacesScreen, ProductDetailsScreen, RateScreen, RatingsScreen, RegisterScreen, SearchScreen, UpdateProfileScreen } from '../screens';
 import { IPlace, IProduct, IService, IUser } from '../interfaces';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { FavoritesNavigator } from './FavoritesNavigator';
@@ -18,6 +18,7 @@ export type RootStackParams = {
     MapScreen: { place: IPlace, search: string; },
     NewPasswordScreen: undefined,
     PlaceDetailsScreen: { place: IPlace, search: string; },
+    PlacesScreen: { category: string; },
     ProductDetailsScreen: { product: IProduct, search: string; },
     RateScreen: { item: IService; },
     RatingsScreen: undefined,
@@ -57,6 +58,7 @@ export const MainNavigator = () => {
             <Stack.Screen name="FavoritesScreen" options={{ title: '' }} component={FavoritesScreen} />
             <Stack.Screen name="RatingsScreen" component={RatingsScreen} />
             <Stack.Screen name="PlaceDetailsScreen" component={PlaceDetailsScreen} />
+            <Stack.Screen name="PlacesScreen" component={PlacesScreen} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} />
             <Stack.Screen name="ProductDetailsScreen" component={ProductDetailsScreen} />
             <Stack.Screen name="RateScreen" component={RateScreen} />
