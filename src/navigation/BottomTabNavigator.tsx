@@ -18,7 +18,7 @@ export const BottomTabNavigator = () => {
                 style: styles.bottomTabNavigatorMinHeight
             }}
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, focused, size }) => {
+                tabBarIcon: ({ focused }) => {
                     switch (route.name) {
                         case 'MainScreen':
                             return <View style={styles.bottomTabNavigatorItem}>
