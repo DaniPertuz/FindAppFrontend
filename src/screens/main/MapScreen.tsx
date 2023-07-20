@@ -93,7 +93,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         });
 
         if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
-            navigation.navigate('RateScreen', { item: { date: new Date().toString(), place, search, user: user?._id! } });
+            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
     }, [currentUserLocation]);
 

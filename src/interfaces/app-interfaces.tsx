@@ -124,7 +124,6 @@ export interface IHistory {
 }
 
 export interface IService {
-    date:      string;
     place:     IPlace;
     search:    string;
     user:      string;
