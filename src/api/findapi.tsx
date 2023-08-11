@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const findAPI = axios.create({ baseURL: 'http://192.168.20.38:3000/api' });
+const findAPI = axios.create({ baseURL: 'https://findapp-api-com.onrender.com/api' });
 
 findAPI.interceptors.request.use(
     async (config) => {
