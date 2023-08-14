@@ -227,6 +227,20 @@ const MapScreen = ({ route, navigation }: Props) => {
         }
     };
 
+    const followDirections = () => {
+        let nextStepIndex = 0;
+        for (let i = 0; i < steps.length; i++) {
+            const step = steps[i];
+            if (JSON.stringify(step.end_location) === JSON.stringify(currentUserLocation)) {
+                nextStepIndex = i;
+            }
+        }
+
+        const nextStep = steps[nextStepIndex];
+
+        return nextStep;
+    };
+
     if (!hasLocation) return <LoadingScreen />;
 
     return (
@@ -332,11 +346,11 @@ const MapScreen = ({ route, navigation }: Props) => {
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
                                     <View style={{ marginHorizontal: 10 }}>
-                                        {renderDirection((currentStep?.maneuver === undefined) ? 'Car' : currentStep?.maneuver)}
+                                        {renderDirection((followDirections().maneuver === undefined) ? 'Car' : followDirections().maneuver!)}
                                     </View>
                                     <View>
-                                        <Text style={styles.detailsMainName}>{currentStep?.distance}</Text>
-                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(currentStep?.html_instructions!)}</Text>
+                                        <Text style={styles.detailsMainName}>{followDirections().distance}</Text>
+                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(followDirections().html_instructions!)}</Text>
                                     </View>
                                 </View>
                             </View>
