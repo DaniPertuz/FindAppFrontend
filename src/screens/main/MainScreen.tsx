@@ -18,9 +18,10 @@ const MainScreen = () => {
     };
 
     const [results, setResults] = useState<IPlaces>(init);
+    const [popular, setPopular] = useState<IPlaces>(init);
     const [placeCategories, setPlaceCategories] = useState<string[]>([]);
 
-    const { getPopularPlaces } = useContext(PlacesContext);
+    const { getPlaces, getPopularPlaces } = useContext(PlacesContext);
 
     const navigation = useNavigation();
 
@@ -44,7 +45,7 @@ const MainScreen = () => {
 
     useEffect(() => {
         let mounted = true;
-        getPopularPlaces().then((data) => {
+        getPlaces().then((data) => {
             if (mounted) {
                 setResults(data);
             }
@@ -52,7 +53,19 @@ const MainScreen = () => {
         return () => {
             mounted = false;
         };
-    }, []);
+    }, [results]);
+
+    useEffect(() => {
+        let mounted = true;
+        getPopularPlaces().then((data) => {
+            if (mounted) {
+                setPopular(data);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, [popular]);
 
     useEffect(() => {
         getPlaceCategories();
@@ -76,7 +89,7 @@ const MainScreen = () => {
             </View>
             <View style={styles.mediumMarginTop}>
                 <FlatList
-                    data={results.places}
+                    data={popular.places}
                     scrollEnabled
                     renderItem={({ item }) => (
                         <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: '' })} />
