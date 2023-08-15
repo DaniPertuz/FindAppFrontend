@@ -78,6 +78,15 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
+    const getPlaces = async (): Promise<IPlaces> => {
+        try {
+            const { data } = await findAPI.get<IPlaces>('/places');
+            return data;
+        } catch (error) {
+            throw new Error(`${error}`);
+        }
+    }
+
     const getPopularPlaces = async (): Promise<IPlaces> => {
         try {
             const { data } = await findAPI.get<IPlaces>('/places/popular');
@@ -138,6 +147,7 @@ export const PlacesProvider = ({ children }: any) => {
             getHistoryItem,
             getPlaceRating,
             getPlacesByCategory,
+            getPlaces,
             getPopularPlaces,
             getRatingsByUser,
             addFavorite,

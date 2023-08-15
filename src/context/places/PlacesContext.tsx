@@ -9,6 +9,7 @@ type PlacesContextProps = {
     getFavorites:        (userId: string) => Promise<IFavorites>;
     getHistorical:       (userId: string) => Promise<IHistory>;
     getHistoryItem:      (userId: string, place: string) => Promise<IService>;
+    getPlaces:           () => Promise<IPlaces>;
     getPlaceRating:      (placeID: string) => Promise<number>;
     getPlacesByCategory: (category: string) => Promise<IPlace[]>;
     getPopularPlaces:    () => Promise<IPlaces>;
