@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { AuthContext } from '../context';
+import { AuthContext, UsersContext } from '../context';
 import { useIcons } from '../hooks/useIcons';
 import { RootStackParams } from '../navigation';
 
@@ -12,9 +12,25 @@ import { styles } from '../theme/AppTheme';
 
 const TopButtons = () => {
 
+    const isFocused = useIsFocused();
+
     const { user } = useContext(AuthContext);
+    const { loadUserByID } = useContext(UsersContext);
+
+    const [userDB, setUserDB] = useState<any>(null);
 
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+
+    const load = async () => {
+        const usr = await loadUserByID(user?._id!);
+        setUserDB(usr);
+    };
+
+    useEffect(() => {
+        if (isFocused === true) {
+            load();
+        }
+    }, [isFocused, userDB]);
 
     return (
         <View style={styles.flexDirectionRow}>
@@ -36,11 +52,11 @@ const TopButtons = () => {
             <TouchableOpacity
                 activeOpacity={1.0}
                 onPress={() => navigation.navigate('EditProfileScreen')}
-                style={user?.photo !== '' ? styles.noUserPhotoBackground : styles.userPhotoBackground}
+                style={userDB?.photo !== '' ? styles.noUserPhotoBackground : styles.userPhotoBackground}
             >
                 <Image
-                    source={(user?.photo === '' ? require('../assets/FA_Color.png') : { uri: user?.photo })}
-                    style={user?.photo !== '' ? styles.noUserPhoto : styles.userPhoto}
+                    source={(userDB?.photo === '' ? require('../assets/FA_Color.png') : { uri: userDB?.photo })}
+                    style={userDB?.photo !== '' ? styles.noUserPhoto : styles.userPhoto}
                 />
             </TouchableOpacity>
         </View>
