@@ -512,8 +512,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#DEDEDE',
         flexDirection: 'row',
+        height: 70,
         paddingHorizontal: 6,
-        paddingVertical: 9
     },
     mapDuration: {
         color: '#292D32',
@@ -534,8 +534,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(250, 250, 250, 0.98)',
         borderTopEndRadius: 20,
         borderTopStartRadius: 20,
-        height: '20%',
-        top: '73%',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
