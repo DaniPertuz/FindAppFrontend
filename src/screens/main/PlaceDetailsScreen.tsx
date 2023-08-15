@@ -121,7 +121,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                 <View style={styles.flexTwo}>
                     <TouchableOpacity
                         activeOpacity={1.0}
-                        onPress={() => navigation.navigate('RateScreen', { item: { date: new Date().toString(), place, search, user: user?._id! } })}
+                        onPress={() => navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } })}
                     >
                         <Text style={styles.detailsCaptionText}>
                             Calificar
