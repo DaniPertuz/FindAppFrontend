@@ -244,7 +244,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     setModalVisible(!modalVisible);
                 }}
             >
-                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <TouchableOpacity style={styles.flexOne} activeOpacity={1.0} onPress={() => setModalVisible(false)}>
                     <View style={styles.editProfileModal}>
                         <View style={styles.editProfileModalBackButtonContainer}>
                             <TouchableOpacity
