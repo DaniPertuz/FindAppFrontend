@@ -11,6 +11,7 @@ import Bar from '../assets/bar.svg';
 import Bookmark from '../assets/bookmark.svg';
 import BookmarkFavorite from '../assets/bookmark-favorite.svg';
 import Cafe from '../assets/cafeteria.svg';
+import Camera from '../assets/camera.svg';
 import Car from '../assets/Car.svg';
 import Carpentry from '../assets/carpentry.svg';
 import Church from '../assets/church.svg';
@@ -19,7 +20,7 @@ import Close from '../assets/close.svg';
 import Clothes from '../assets/clothes.svg';
 import Cocktail from '../assets/cocktail.svg';
 import Cookie from '../assets/cookie.svg';
-import Camera from '../assets/camera.svg';
+import Crosshair from '../assets/crosshair.svg';
 import Down from '../assets/down.svg';
 import Edit from '../assets/edit.svg';
 import Envelope from '../assets/envelope.svg';
@@ -130,6 +131,8 @@ export const useIcons = (name: string, height: number, width: number) => {
             return <JunkFood height={height} width={width} />;
         case 'Comida vegetariana':
             return <Vegetarian height={height} width={width} />;
+        case 'Crosshair':
+            return <Crosshair height={height} width={width} />;
         case 'Deportes':
             return <Sports height={height} width={width} />;
         case 'Down':
