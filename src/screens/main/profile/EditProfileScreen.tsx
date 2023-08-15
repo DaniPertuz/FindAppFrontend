@@ -93,6 +93,9 @@ const EditProfileScreen = ({ navigation }: Props) => {
     };
 
     const onUpdate = async () => {
+        if (response.didCancel) return;
+        if (!response.assets) return;
+
         if (response && response.assets[0].uri !== '') {
             const photoURL = await updatePhoto(response, user?._id!);
             updateUser(user?._id!, user?.name!, photoURL);
