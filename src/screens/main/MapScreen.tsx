@@ -24,19 +24,16 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const { place, search } = route.params;
 
-    const mapViewRef = useRef<MapView>();
+    const mapViewRef = useRef<MapView>(null);
     const following = useRef<boolean>(true);
     const { top } = useSafeAreaInsets();
 
-    const { hasLocation, initialPosition, currentUserLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
+    const { hasLocation, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
 
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
-    const [display, setDisplay] = useState(false);
     const [distance, setDistance] = useState(0);
     const [steps, setSteps] = useState<Step[]>([]);
-    const [currentStep, setCurrentStep] = useState<Step | null>(null);
-    const [nextStep, setNextStep] = useState<Step | null>(null);
     const [deviceFormat, setDeviceFormat] = useState(false);
     const [follow, setFollow] = useState(false);
     const [modalVisible, setModalVisible] = useState(true);
@@ -47,6 +44,17 @@ const MapScreen = ({ route, navigation }: Props) => {
     const getCoords = async () => {
         const { lat, lng } = await useCoords(place.address);
         setDestination({ latitude: lat, longitude: lng });
+    };
+
+    const centerPosition = async () => {
+        const { latitude, longitude } = await getCurrentLocation();
+        mapViewRef.current?.animateCamera({
+            center: {
+                latitude,
+                longitude
+            },
+            zoom: 19
+        });
     };
 
     const setArrivalTime = () => {
@@ -172,7 +180,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const getDirections = async (directions: any) => {
         try {
-            let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.initialPosition.latitude},${directions.initialPosition.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}`;
+            let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.initialPosition.latitude},${directions.initialPosition.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
 
             if (directions.waypoints.length > 0) {
                 const waypointsString = directions.waypoints
@@ -212,16 +220,6 @@ const MapScreen = ({ route, navigation }: Props) => {
             });
 
             setSteps(stepsData);
-            if (data && data.length > 0) {
-
-                if (stepsData.length > 0) {
-                    setCurrentStep(stepsData[0]);
-
-                    if (stepsData.length > 1) {
-                        setNextStep(stepsData[1]);
-                    }
-                }
-            }
         } catch (error: any) {
             console.error('Error fetching directions:', error.message);
         }
@@ -249,14 +247,26 @@ const MapScreen = ({ route, navigation }: Props) => {
                 <View style={styles.flexOne}>
                     <MapView
                         style={{ ...StyleSheet.absoluteFillObject }}
+                        ref={mapViewRef}
                         followsUserLocation={follow}
+                        camera={{
+                            center: {
+                                latitude: initialPosition.latitude,
+                                longitude: initialPosition.longitude,
+                            },
+                            heading: 0,
+                            pitch: 0,
+                            zoom: (follow === false) ? 14 : 19,
+                            altitude: (follow === false) ? 15000 : 2000
+                        }}
                         showsUserLocation
+                        showsMyLocationButton={false}
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                         initialRegion={{
                             latitude: initialPosition.latitude,
                             longitude: initialPosition.longitude,
                             latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421
+                            longitudeDelta: 0.0421,
                         }}
                         onTouchStart={() => following.current = false}
                     >
@@ -354,15 +364,15 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.mapFollowModal}>
+                            <View style={{ ...styles.mapFollowModal, height: (Platform.OS === 'ios') ? '20%' : '15%', top: (Platform.OS === 'ios') ? '72%' : '75%' }}>
                                 <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         style={styles.modalBackButtonMargins}
-                                        onPress={() => setModalVisible(false)}
+                                        onPress={centerPosition}
                                     >
                                         <View style={styles.mapFollowButton}>
-                                            {useIcons('Search', 30, 30)}
+                                            {useIcons('Crosshair', 30, 30)}
                                         </View>
                                     </TouchableOpacity>
                                     <View style={{ marginHorizontal: 48 }}>
@@ -400,7 +410,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             </View>
                         </>
                     }
-                </View>
+                </View >
             }
         </>
     );
