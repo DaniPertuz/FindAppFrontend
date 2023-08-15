@@ -48,13 +48,13 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
         let mounted = true;
         getFavorite(user?._id!, place._id).then((data) => {
             if (mounted) {
-                setNewFavorite(true);
+                setNewFavorite(data !== null);
             }
         });
         return () => {
             mounted = false;
         };
-    }, []);
+    }, [newFavorite]);
 
     return (
         <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
