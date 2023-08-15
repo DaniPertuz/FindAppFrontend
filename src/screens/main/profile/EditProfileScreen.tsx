@@ -128,11 +128,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     contentContainerStyle={styles.justifyContentCenter}>
                     <View style={styles.flexDirectionRowJustifyCenter}>
                         <Image
-                            source={(!user || user.photo === '')
+                            source={(!userDB || userDB.photo === '')
                                 ? require('../../../assets/FA_Color.png')
                                 : (response?.assets && response.assets[0].uri !== '')
                                     ? { uri: response.assets[0].uri }
-                                    : { uri: user.photo }}
+                                    : { uri: userDB.photo }}
                             style={styles.profileAvatar}
                         />
                         <TouchableOpacity
