@@ -48,18 +48,25 @@ const FavoritesScreen = () => {
                         <Text style={styles.boldMediumText}>Favoritos</Text>
                     </View>
                     <View style={styles.smallMarginTop}>
-                        <FlatList
-                            data={favorites.favorites}
-                            keyExtractor={(item) => item.place._id}
-                            renderItem={({ item }) => {
-                                return (
-                                    <FavoriteItem
-                                        item={item}
-                                        onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.place.name })}
-                                    />
-                                );
-                            }}
-                        />
+                        {(favorites.total === 0)
+                            ?
+                            <View style={styles.alignItemsJustifyContentCenter}>
+                                <Text style={styles.boldMediumText}>No hay favoritos aún</Text>
+                            </View>
+                            :
+                            <FlatList
+                                data={favorites.favorites}
+                                keyExtractor={(item) => item.place._id}
+                                renderItem={({ item }) => {
+                                    return (
+                                        <FavoriteItem
+                                            item={item}
+                                            onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.place.name })}
+                                        />
+                                    );
+                                }}
+                            />
+                        }
                     </View>
                 </View>
             }
