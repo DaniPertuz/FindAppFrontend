@@ -272,7 +272,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                     >
                         <MapViewDirections
                             apikey={GOOGLE_MAPS_API_KEY}
-                            origin={initialPosition}
+                            origin={currentUserLocation}
                             destination={destination}
                             strokeWidth={5}
                             strokeColor={'#5856D6'}
