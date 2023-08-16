@@ -29,13 +29,17 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
     const { addFavorite, deleteFavorite, getFavorite } = useContext(PlacesContext);
 
     const handleFavorite = () => {
-        setNewFavorite(!newFavorite);
+        switch (newFavorite) {
+            case true:
+                deleteFavorite(user?._id!, place._id);
+                setNewFavorite(false);
+                break;
 
-        if (newFavorite === false) {
-            addFavorite(user?._id!, place._id);
+            case false:
+                addFavorite(user?._id!, place._id);
+                setNewFavorite(true);
+                break;
         }
-
-        deleteFavorite(user?._id!, place._id);
     };
 
     const copyToClipboard = (text: string) => {
