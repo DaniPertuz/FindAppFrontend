@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }: any) => {
             });
 
             await AsyncStorage.setItem('token', tokenLogin.token);
+            await AsyncStorage.setItem('user', JSON.stringify(tokenLogin.user));
         } catch (error: any) {
             dispatch({
                 type: 'addError',
