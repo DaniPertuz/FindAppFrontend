@@ -6,9 +6,10 @@ const findAPI = axios.create({ baseURL: 'https://findapp-api-com.onrender.com/ap
 findAPI.interceptors.request.use(
     async (config) => {
         const token = await AsyncStorage.getItem('token');
+        const user = await AsyncStorage.getItem('user');
 
-        if (token) {
-            config.headers = { 'x-token': token };
+        if (token && user) {
+            config.headers = { 'x-token': token, 'xuser': user };
         }
 
         return config;
