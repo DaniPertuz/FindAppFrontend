@@ -249,6 +249,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         style={{ ...StyleSheet.absoluteFillObject }}
                         ref={mapViewRef}
                         followsUserLocation={follow}
+                        pitchEnabled={false}
                         camera={{
                             center: {
                                 latitude: initialPosition.latitude,
