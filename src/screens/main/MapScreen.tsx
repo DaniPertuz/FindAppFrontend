@@ -53,6 +53,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                 latitude,
                 longitude
             },
+            heading: 0,
+            pitch: 0,
             zoom: 19
         });
     };
@@ -97,7 +99,9 @@ const MapScreen = ({ route, navigation }: Props) => {
             center: {
                 latitude,
                 longitude
-            }
+            },
+            heading: 0,
+            pitch: 0,
         });
 
         if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
