@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const signIn = async ({ email, password }: LoginData): Promise<void> => {
         try {
-            const response = await findAPI.get<IUser>('/users/email', { params: { email }})
+            const response = await findAPI.get<IUser>('/users/email', { params: { email } });
             if (response.data.role !== roles.CLIENT) {
                 dispatch({
                     type: 'addError',
@@ -103,6 +103,7 @@ export const AuthProvider = ({ children }: any) => {
             });
 
             await AsyncStorage.setItem('token', data.token);
+            await AsyncStorage.setItem('user', JSON.stringify(data.user));
         } catch (error: any) {
             dispatch({
                 type: 'addError',
@@ -151,6 +152,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const logOut = async (): Promise<void> => {
         await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('user');
         dispatch({ type: 'logout' });
     };
 
