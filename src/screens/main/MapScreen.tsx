@@ -278,6 +278,13 @@ const MapScreen = ({ route, navigation }: Props) => {
                             strokeColor={'#5856D6'}
                             onReady={(result) => { setDistance(result.distance); setDuration(result.duration); }}
                         />
+                        <MapViewDirections
+                            apikey={GOOGLE_MAPS_API_KEY}
+                            origin={initialPosition}
+                            destination={currentUserLocation}
+                            strokeWidth={5}
+                            strokeColor={'rgba(88, 86, 214, 0.2)'}
+                        />
                         <Marker coordinate={initialPosition} />
                         <Marker coordinate={destination} />
                     </MapView>
