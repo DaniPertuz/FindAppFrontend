@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { EditProfileScreen, FavoritesScreen, HistoryScreen, LoginScreen, MapScreen, NewPasswordScreen, PlaceDetailsScreen, PlacesScreen, ProductDetailsScreen, RateScreen, RatingsScreen, RegisterScreen, SearchScreen, UpdateProfileScreen } from '../screens';
@@ -30,8 +29,6 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const MainNavigator = () => {
-
-    const navigator = useNavigation();
 
     return (
         <Stack.Navigator
