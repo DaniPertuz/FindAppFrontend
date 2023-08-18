@@ -33,6 +33,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
     const [distance, setDistance] = useState(0);
+    const [direction, setDirection] = useState<Step>({ distance: '', end_location: { latitude: 0, longitude: 0 }, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
     const [deviceFormat, setDeviceFormat] = useState(false);
     const [follow, setFollow] = useState(false);
@@ -182,6 +183,10 @@ const MapScreen = ({ route, navigation }: Props) => {
         };
     }, []);
 
+    useEffect(() => {
+        followDirections();
+    }, [currentUserLocation]);
+
     const getDirections = async (directions: any) => {
         try {
             let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.initialPosition.latitude},${directions.initialPosition.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
@@ -240,7 +245,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const nextStep = steps[nextStepIndex];
 
-        return nextStep;
+        setDirection(nextStep);
     };
 
     if (!hasLocation) return <LoadingScreen />;
@@ -368,11 +373,11 @@ const MapScreen = ({ route, navigation }: Props) => {
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
                                     <View style={{ marginHorizontal: 10 }}>
-                                        {renderDirection((followDirections().maneuver === undefined) ? 'Car' : followDirections().maneuver!)}
+                                        {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver!)}
                                     </View>
                                     <View>
-                                        <Text style={styles.detailsMainName}>{followDirections().distance}</Text>
-                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(followDirections().html_instructions!)}</Text>
+                                        <Text style={styles.detailsMainName}>{direction.distance}</Text>
+                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(direction.html_instructions!)}</Text>
                                     </View>
                                 </View>
                             </View>
