@@ -184,8 +184,10 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, []);
 
     useEffect(() => {
-        followDirections();
-    }, [currentUserLocation]);
+        if (steps.length > 0) {
+            followDirections();
+        }
+    }, [currentUserLocation, steps]);
 
     const getDirections = async (directions: any) => {
         try {
@@ -333,13 +335,6 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     <View style={styles.tinyMarginBottom}>
                                         <Text style={styles.mapAddress}>{formatAddress(place.address)}</Text>
                                     </View>
-                                    {/* <TouchableOpacity
-                                        activeOpacity={1.0}
-                                    >
-                                        <Text style={styles.detailsCaptionText}>
-                                            Ver más ubicaciones
-                                        </Text>
-                                    </TouchableOpacity> */}
                                 </View>
                                 <View>
                                     <TouchableOpacity
