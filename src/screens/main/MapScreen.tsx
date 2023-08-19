@@ -56,7 +56,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 0,
             pitch: 0,
-            zoom: 19
+            zoom: 20
         });
     };
 
@@ -94,17 +94,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         if (!following.current) return;
 
-        const { latitude, longitude } = currentUserLocation;
-
-        mapViewRef.current?.animateCamera({
-            center: {
-                latitude,
-                longitude
-            },
-            heading: 0,
-            pitch: 0,
-            zoom: 19
-        });
+        centerPosition();
 
         if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
@@ -129,7 +119,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         return () => {
             mounted = false;
         };
-    }, [destination]);
+    }, [currentUserLocation, destination]);
 
     const convertText = (text: string) => (
         text
@@ -162,7 +152,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (currentUserLocation !== destination) {
+        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -238,6 +228,10 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const followDirections = () => {
+        if (!currentUserLocation) {
+            return;
+        }
+
         let nextStepIndex = 0;
         for (let i = 0; i < steps.length; i++) {
             const step = steps[i];
@@ -260,8 +254,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                     <MapView
                         style={{ ...StyleSheet.absoluteFillObject }}
                         ref={mapViewRef}
-                        followsUserLocation={follow}
-                        pitchEnabled={false}
+                        followsUserLocation={true}
+                        pitchEnabled={follow}
                         camera={{
                             center: {
                                 latitude: initialPosition.latitude,
@@ -269,7 +263,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             },
                             heading: 0,
                             pitch: 0,
-                            zoom: (follow === false) ? 14 : 19,
+                            zoom: (follow === false) ? 14 : 20,
                             altitude: (follow === false) ? 15000 : 2000
                         }}
                         showsUserLocation
@@ -373,7 +367,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     </View>
                                     <View>
                                         <Text style={styles.detailsMainName}>{direction.distance}</Text>
-                                        <Text numberOfLines={2} style={styles.placeholderText}>{convertText(direction.html_instructions!)}</Text>
+                                        <Text numberOfLines={2} style={{ ...styles.placeholderText, maxWidth: '90%' }}>{convertText(direction.html_instructions!)}</Text>
                                     </View>
                                 </View>
                             </View>
