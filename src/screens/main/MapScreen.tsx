@@ -191,7 +191,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const getDirections = async (directions: any) => {
         try {
-            let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.initialPosition.latitude},${directions.initialPosition.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
+            let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.currentUserLocation.latitude},${directions.currentUserLocation.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
 
             if (directions.waypoints.length > 0) {
                 const waypointsString = directions.waypoints
