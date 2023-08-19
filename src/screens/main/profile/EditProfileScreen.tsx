@@ -121,7 +121,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
     }, []);
 
     return (
-        <>
+        <View style={styles.mainBackground}>
             <KeyboardAvoidingView
                 style={{ ...styles.flexOne, paddingTop: (Platform.OS === 'ios') ? top : top + 20 }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
@@ -283,7 +283,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
                     </View>
                 </TouchableOpacity>
             </Modal>
-        </>
+        </View>
     );
 };
 

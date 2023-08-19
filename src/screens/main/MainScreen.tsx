@@ -72,29 +72,31 @@ const MainScreen = () => {
     }, [results]);
 
     return (
-        <View style={styles.mainScreenContainer}>
-            <TopButtons />
-            <View style={styles.mediumMarginTop}>
-                <Text style={styles.boldMediumText}>Categorías</Text>
-            </View>
-            <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {placeCategories.map((category, index) => (
-                        <Categories key={index} name={category} count={getTotalPlacesByCategory(category)} />
-                    ))}
-                </ScrollView>
-            </View>
-            <View style={styles.largeMarginTop}>
-                <Text style={styles.boldMediumText}>Búsquedas populares</Text>
-            </View>
-            <View style={styles.mediumMarginTop}>
-                <FlatList
-                    data={popular.places}
-                    scrollEnabled
-                    renderItem={({ item }) => (
-                        <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: '' })} />
-                    )}
-                />
+        <View style={styles.mainBackground}>
+            <View style={styles.mainScreenContainer}>
+                <TopButtons />
+                <View style={styles.mediumMarginTop}>
+                    <Text style={styles.boldMediumText}>Categorías</Text>
+                </View>
+                <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {placeCategories.map((category, index) => (
+                            <Categories key={index} name={category} count={getTotalPlacesByCategory(category)} />
+                        ))}
+                    </ScrollView>
+                </View>
+                <View style={styles.largeMarginTop}>
+                    <Text style={styles.boldMediumText}>Búsquedas populares</Text>
+                </View>
+                <View style={styles.mediumMarginTop}>
+                    <FlatList
+                        data={popular.places}
+                        scrollEnabled
+                        renderItem={({ item }) => (
+                            <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: '' })} />
+                        )}
+                    />
+                </View>
             </View>
         </View>
     );
