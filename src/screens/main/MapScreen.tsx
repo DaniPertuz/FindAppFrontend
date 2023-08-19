@@ -116,7 +116,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             const waypoints: { latitude: number; longitude: number; }[] = [];
 
             const directions = {
-                initialPosition,
+                currentUserLocation,
                 destination,
                 waypoints,
                 key: GOOGLE_MAPS_API_KEY,
