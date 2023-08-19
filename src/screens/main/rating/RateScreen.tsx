@@ -115,14 +115,14 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     return (
         <View style={styles.mainBackground}>
-            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
+            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20, marginHorizontal: 16 }}>
                 <View style={styles.flexDirectionRow}>
                     <View style={styles.flexOneAlignJustifyCenter}>
                         <TouchableOpacity
                             activeOpacity={1.0}
                             onPress={() => navigation.goBack()}
                         >
-                            {useIcons('Back', 20, 20)}
+                            {useIcons('Back', 25, 25)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 10, ...styles.justifyAlignItemsCenter }}>
