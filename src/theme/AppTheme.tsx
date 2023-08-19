@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(104, 110, 222, 0.1)',
         flex: 1,
         paddingHorizontal: 22,
-        paddingTop: 70
+        paddingTop: 50
     },
     flexDirectionRow: {
         flexDirection: 'row'
@@ -481,7 +481,7 @@ const styles = StyleSheet.create({
     },
     mainScreenContainer: {
         flex: 1,
-        paddingTop: 60,
+        paddingTop: 50,
         paddingHorizontal: 20
     },
     mapAddress: {
@@ -937,7 +937,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 16
     },
-    updateProfileBackground: {
+    mainBackground: {
         backgroundColor: 'rgba(104, 110, 222, 0.1)',
         flex: 1
     },
