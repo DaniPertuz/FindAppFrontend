@@ -136,7 +136,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
             <View style={styles.flexDirectionRowMarginTop}>
                 {useIcons('Instagram', 21, 21)}
                 <View style={styles.marginHorizontalSmall}>
-                    {(place.instagram !== undefined)
+                    {(place.instagram !== undefined && place.instagram !== '')
                         ?
                         <TouchableOpacity
                             activeOpacity={1.0}
