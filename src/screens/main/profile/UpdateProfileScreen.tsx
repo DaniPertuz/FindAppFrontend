@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-root-toast';
 
 import { RootStackParams } from '../../../navigation';
@@ -20,6 +21,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
     const { user } = route.params;
 
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { top } = useSafeAreaInsets();
 
     const { loadUserByID, updateUser, updateUserPassword } = useContext(UsersContext);
 
@@ -81,14 +83,14 @@ const UpdateProfileScreen = ({ route }: Props) => {
     };
 
     return (
-        <View style={styles.updateProfileBackground}>
-            <View style={{ ...styles.flexDirectionRow, marginTop: 53 }}>
+        <View style={styles.mainBackground}>
+            <View style={{ ...styles.flexDirectionRow, marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                 <TouchableOpacity
                     activeOpacity={1.0}
                     style={{ ...styles.flexOne, marginStart: 15, marginTop: 5 }}
                     onPress={() => navigator.goBack()}
                 >
-                    {useIcons('Back', 20, 20)}
+                    {useIcons('Back', 25, 25)}
                 </TouchableOpacity>
                 <View style={{ ...styles.alignItemsCenter, flex: 10, marginEnd: 40, marginTop: 5 }}>
                     <Text style={styles.stackScreenTitle}>Editar perfil</Text>
@@ -105,7 +107,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                     <View style={styles.updateProfileLargeMarginTop}>
                         <Text style={styles.updateProfileLabel}>Usuario</Text>
                         <View style={styles.updateInputFieldContainer}>
-                            {useIcons('Back', 25, 25)}
+                            {useIcons('User', 25, 25)}
                             <TextInput
                                 placeholder='Ingresa tu usuario o correo'
                                 placeholderTextColor='#9A9A9A'
