@@ -7,7 +7,7 @@ const useLocation = () => {
     let init = {
         latitude: 0,
         longitude: 0
-    }
+    };
 
     const [hasLocation, setHasLocation] = useState(false);
     const [initialPosition, setInitialPosition] = useState<Location>(init);
@@ -46,7 +46,11 @@ const useLocation = () => {
                         longitude: coords.longitude
                     });
                 },
-                (err) => reject({ err })
+                (err) => reject({ err }),
+                {
+                    enableHighAccuracy: true,
+                    distanceFilter: 10
+                }
             );
         });
     };
