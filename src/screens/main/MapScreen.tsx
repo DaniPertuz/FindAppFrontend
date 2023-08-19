@@ -103,6 +103,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 0,
             pitch: 0,
+            zoom: 19
         });
 
         if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
