@@ -114,7 +114,7 @@ const RateScreen = ({ navigation, route }: Props) => {
     }, []);
 
     return (
-        <View style={styles.updateProfileBackground}>
+        <View style={styles.mainBackground}>
             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 23, marginHorizontal: 16 }}>
                 <View style={styles.flexDirectionRow}>
                     <View style={styles.flexOneAlignJustifyCenter}>
