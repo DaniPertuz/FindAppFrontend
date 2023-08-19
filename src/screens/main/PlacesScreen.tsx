@@ -52,7 +52,7 @@ const PlacesScreen = ({ route }: Props) => {
                                 activeOpacity={1.0}
                                 onPress={() => navigation.goBack()}
                             >
-                                {useIcons('Back', 20, 20)}
+                                {useIcons('Back', 25, 25)}
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flexNineAlignItemsCenter}>
