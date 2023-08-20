@@ -102,7 +102,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         if (distance < 0.2) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
-    }, [currentUserLocation, destination, distance]);
+    }, [currentUserLocation, destination]);
 
     useEffect(() => {
         let mounted = true;
