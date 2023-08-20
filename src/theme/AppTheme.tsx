@@ -937,7 +937,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16
     },
     mainBackground: {
-        backgroundColor: 'rgba(104, 110, 222, 0.1)',
+        backgroundColor: 'rgba(104, 110, 222, 0.15)',
         flex: 1
     },
     updateProfileLabel: {
