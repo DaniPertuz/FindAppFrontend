@@ -56,7 +56,8 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 90,
             pitch: 0,
-            zoom: 20
+            zoom: (follow === false) ? 1 : 20,
+            altitude: (follow === false) ? 25000 : 2000
         });
     };
 
@@ -152,7 +153,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+        if (follow === true && (JSON.stringify(currentUserLocation) !== JSON.stringify(destination))) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -250,7 +251,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 latitude: initialPosition.latitude,
                                 longitude: initialPosition.longitude,
                             },
-                            heading: 90,
+                            heading: (follow === false) ? 0 : 90,
                             pitch: 0,
                             zoom: (follow === false) ? 14 : 20,
                             altitude: (follow === false) ? 20000 : 2000
