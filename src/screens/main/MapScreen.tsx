@@ -165,6 +165,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                 }
             ]);
         }
+
+        navigation.goBack();
         return true;
     };
 
