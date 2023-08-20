@@ -129,7 +129,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             .replace(/<script[^>]*>[\s\S]*?<\/script[^>]*>/ig, '')
             .replace(/<\/\s*(?:p|div)>/ig, '\n')
             .replace(/<br[^>]*\/?>/ig, '\n')
-            .replace(/<[^>]*>/ig, '')
+            .replace(/<[^>]*>/ig, ' ')
             .replace('&nbsp;', ' ')
             .replace(/[^\S\r\n][^\S\r\n]+/ig, ' ')
     );
@@ -217,7 +217,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                     distance: step.distance.text,
                     html_instructions: step.html_instructions,
                     maneuver: step.maneuver,
-                    end_location: step.end_location,
+                    end_location: step.end_location
                 });
             });
 
@@ -228,21 +228,13 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const followDirections = () => {
-        if (!currentUserLocation) {
-            return;
-        }
+        if (!currentUserLocation) return;
 
         let nextStepIndex = 0;
-        for (let i = 0; i < steps.length; i++) {
-            const step = steps[i];
-            if (JSON.stringify(step.end_location) === JSON.stringify(currentUserLocation)) {
-                nextStepIndex = i;
-            }
+        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+            const nextStep = steps[nextStepIndex + 1];
+            setDirection(nextStep);
         }
-
-        const nextStep = steps[nextStepIndex];
-
-        setDirection(nextStep);
     };
 
     if (!hasLocation) return <LoadingScreen />;
@@ -362,8 +354,8 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <>
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
-                                    <View style={{ marginHorizontal: 10 }}>
-                                        {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver!)}
+                                    <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
+                                        {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                     </View>
                                     <View>
                                         <Text style={styles.detailsMainName}>{direction.distance}</Text>
