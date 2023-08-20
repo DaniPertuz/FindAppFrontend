@@ -168,7 +168,8 @@ const MapScreen = ({ route, navigation }: Props) => {
             }
             return true;
         } else {
-            navigation.goBack();
+            setModalVisible(false);
+            navigation.pop();
             return true;
         }
     };
