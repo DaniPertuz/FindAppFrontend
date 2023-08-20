@@ -153,7 +153,12 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (follow === true && JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+        if (follow === false) {
+            navigation.pop();
+            return true;
+        }
+
+        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -164,9 +169,6 @@ const MapScreen = ({ route, navigation }: Props) => {
                     style: 'cancel'
                 }
             ]);
-            return true;
-        } else {
-            navigation.pop();
             return true;
         }
     };
