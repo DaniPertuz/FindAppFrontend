@@ -49,6 +49,17 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
+        if (destination) {
+            mapViewRef.current?.fitToCoordinates([currentUserLocation, destination], {
+                edgePadding: {
+                    top: 50,
+                    right: 50,
+                    bottom: 50,
+                    left: 50,
+                },
+                animated: true
+            });
+        }
         mapViewRef.current?.animateCamera({
             center: {
                 latitude,
@@ -57,7 +68,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             heading: 90,
             pitch: 0,
             zoom: (follow === false) ? 14 : 20,
-            altitude: (follow === false) ? 25000 : 2000
+            altitude: (follow === false) ? 20000 : 2000
         });
     };
 
