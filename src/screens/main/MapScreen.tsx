@@ -47,14 +47,30 @@ const MapScreen = ({ route, navigation }: Props) => {
         setDestination({ latitude: lat, longitude: lng });
     };
 
+    const setInitialPosition = async () => {
+        if (follow === false) {
+            const { latitude, longitude } = await getCurrentLocation();
+            mapViewRef.current?.animateToRegion({
+                latitude,
+                longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            }, 100);
+        }
+    };
+
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
-        mapViewRef.current?.animateToRegion({
-            latitude,
-            longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        }, 100);
+        mapViewRef.current?.animateCamera({
+            center: {
+                latitude,
+                longitude
+            },
+            heading: 90,
+            pitch: 0,
+            zoom: (follow === false) ? 14 : 20,
+            altitude: (follow === false) ? 20000 : 2000
+        });
     };
 
     const setArrivalTime = () => {
@@ -91,7 +107,11 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         if (!following.current) return;
 
-        centerPosition();
+        setInitialPosition();
+
+        if (follow === true) {
+            centerPosition();
+        }
 
         const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
 
