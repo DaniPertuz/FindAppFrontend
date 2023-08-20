@@ -97,7 +97,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         centerPosition();
 
-        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
+        if (calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!) === 0,1) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
     }, [currentUserLocation]);
@@ -152,13 +152,28 @@ const MapScreen = ({ route, navigation }: Props) => {
         }
     };
 
+    const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * (Math.PI / 180);
+        const dLon = (lon2 - lon1) * (Math.PI / 180);
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * (Math.PI / 180)) *
+            Math.cos(lat2 * (Math.PI / 180)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+        return distance;
+      }
+
     const handleBackButtonClick = () => {
         if (follow === false) {
             navigation.pop();
             return true;
         }
 
-        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+        if (calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!) !== 0,1) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -236,7 +251,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        const stepIndex = steps.length >= 1 && JSON.stringify(currentUserLocation) !== JSON.stringify(destination) ? 1 : 0;
+        const stepIndex = steps.length >= 1 && (calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!) !== 0,1) ? 1 : 0;
         setDirection(steps[stepIndex]);
     };
 
@@ -419,3 +434,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 };
 
 export default MapScreen;
+
+function calculateDistance(lat1: any, lon1: any, lat2: any, lon2: any) {
+    throw new Error('Function not implemented.');
+}
