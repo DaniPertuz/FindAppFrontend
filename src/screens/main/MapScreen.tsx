@@ -153,21 +153,24 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (follow === true && (JSON.stringify(currentUserLocation) !== JSON.stringify(destination))) {
-            Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
-                {
-                    text: 'Salir',
-                    onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.goBack(); }
-                },
-                {
-                    text: 'Continuar',
-                    style: 'cancel'
-                }
-            ]);
+        if (follow === true) {
+            if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+                Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
+                    {
+                        text: 'Salir',
+                        onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.goBack(); }
+                    },
+                    {
+                        text: 'Continuar',
+                        style: 'cancel'
+                    }
+                ]);
+            }
+            return true;
+        } else {
+            navigation.goBack();
+            return true;
         }
-
-        navigation.goBack();
-        return true;
     };
 
     useEffect(() => {
