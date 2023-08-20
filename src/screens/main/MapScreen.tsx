@@ -153,8 +153,8 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (follow === true) {
-            if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+        if (navigation.isFocused()) {
+            if (follow === true && JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
                 Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                     {
                         text: 'Salir',
@@ -168,9 +168,10 @@ const MapScreen = ({ route, navigation }: Props) => {
             }
             return true;
         } else {
-            navigation.push('MainScreen');
+            navigation.pop();
             return true;
         }
+        return false;
     };
 
     useEffect(() => {
