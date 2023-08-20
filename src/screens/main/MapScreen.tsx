@@ -56,7 +56,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 90,
             pitch: 0,
-            zoom: (follow === false) ? 14 : 20,
+            zoom: (follow === false) ? 13 : 20,
             altitude: (follow === false) ? 25000 : 2000
         });
     };
