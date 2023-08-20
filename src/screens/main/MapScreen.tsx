@@ -54,7 +54,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                 latitude,
                 longitude
             },
-            heading: 0,
+            heading: 90,
             pitch: 0,
             zoom: 20
         });
@@ -250,10 +250,10 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 latitude: initialPosition.latitude,
                                 longitude: initialPosition.longitude,
                             },
-                            heading: 0,
+                            heading: 90,
                             pitch: 0,
                             zoom: (follow === false) ? 14 : 20,
-                            altitude: (follow === false) ? 15000 : 2000
+                            altitude: (follow === false) ? 20000 : 2000
                         }}
                         showsUserLocation
                         showsMyLocationButton={false}
