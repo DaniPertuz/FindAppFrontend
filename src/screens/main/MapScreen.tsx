@@ -136,15 +136,15 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const renderDirection = (instruction: string) => {
         switch (instruction) {
-            case 'turn-left':
+            case 'turn-slight-left':
                 return useIcons('ArrowUpLeft', 46, 46);
-            case 'turn-right':
+            case 'turn-slight-right':
                 return useIcons('ArrowUpRight', 46, 46);
             case 'straight':
                 return useIcons('ArrowUp', 46, 46);
-            case 'turn-slight-left':
+            case 'turn-left':
                 return useIcons('ArrowElbowUpLeft', 46, 46);
-            case 'turn-slight-right':
+            case 'turn-right':
                 return useIcons('ArrowElbowUpRight', 46, 46);
             case 'Car':
                 return useIcons('Car', 46, 46);
