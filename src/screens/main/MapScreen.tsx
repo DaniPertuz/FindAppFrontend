@@ -178,7 +178,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         return () => {
             BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
         };
-    }, []);
+    }, [navigation]);
 
     useEffect(() => {
         if (steps.length > 0) {
