@@ -33,7 +33,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
     const [distance, setDistance] = useState(0);
-    const [direction, setDirection] = useState<Step>({ distance: '', end_location: { latitude: 0, longitude: 0 }, html_instructions: '', maneuver: '' });
+    const [direction, setDirection] = useState<Step>({ distance: '', end_location: currentUserLocation, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
     const [deviceFormat, setDeviceFormat] = useState(false);
     const [follow, setFollow] = useState(false);
@@ -56,7 +56,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 90,
             pitch: 0,
-            zoom: (follow === false) ? 1 : 20,
+            zoom: (follow === false) ? 10 : 20,
             altitude: (follow === false) ? 25000 : 2000
         });
     };
