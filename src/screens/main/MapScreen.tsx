@@ -288,7 +288,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 latitude: initialPosition.latitude,
                                 longitude: initialPosition.longitude,
                             },
-                            heading: (follow === false) ? 0 : 90,
+                            heading: 90,
                             pitch: 0,
                             zoom: (follow === false) ? 14 : 20,
                             altitude: (follow === false) ? 20000 : 2000
