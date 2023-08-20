@@ -49,27 +49,12 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
-        if (destination) {
-            mapViewRef.current?.fitToCoordinates([currentUserLocation, destination], {
-                edgePadding: {
-                    top: 50,
-                    right: 50,
-                    bottom: 50,
-                    left: 50,
-                },
-                animated: true
-            });
-        }
-        mapViewRef.current?.animateCamera({
-            center: {
-                latitude,
-                longitude
-            },
-            heading: 90,
-            pitch: 0,
-            zoom: (follow === false) ? 14 : 20,
-            altitude: (follow === false) ? 20000 : 2000
-        });
+        mapViewRef.current?.animateToRegion({
+            latitude,
+            longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        }, 100);
     };
 
     const setArrivalTime = () => {
