@@ -512,8 +512,8 @@ const styles = StyleSheet.create({
     mapDirectionsBackground: {
         backgroundColor: '#DEDEDE',
         flexDirection: 'row',
-        height: 70,
-        paddingHorizontal: 6,
+        height: 75,
+        paddingHorizontal: 6
     },
     mapDuration: {
         color: '#292D32',
