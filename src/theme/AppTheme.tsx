@@ -510,7 +510,6 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     mapDirectionsBackground: {
-        alignItems: 'center',
         backgroundColor: '#DEDEDE',
         flexDirection: 'row',
         height: 70,
