@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     mainScreenContainer: {
         flex: 1,
         paddingTop: 50,
-        paddingHorizontal: 20
+        paddingHorizontal: 22
     },
     mapAddress: {
         color: '#858585',
