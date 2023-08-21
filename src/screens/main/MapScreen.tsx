@@ -5,14 +5,16 @@ import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import DeviceTimeFormat from 'react-native-device-time-format';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import KeepAwake from 'react-native-keep-awake';
 import moment from 'moment';
 
-import useLocation from '../../hooks/useLocation';
+import MapIcon from '../../components/MapIcon';
 import LoadingScreen from '../LoadingScreen';
 import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { useIcons } from '../../hooks/useIcons';
+import useLocation from '../../hooks/useLocation';
 import { RootStackParams } from '../../navigation';
 import { AuthContext } from '../../context';
 
@@ -39,6 +41,12 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [follow, setFollow] = useState(false);
     const [modalVisible, setModalVisible] = useState(true);
     const [modalFollowVisible, setModalFollowVisible] = useState(false);
+    const [routeBounds, setRouteBounds] = useState<{
+        latitude: number;
+        longitude: number;
+        latitudeDelta: number;
+        longitudeDelta: number;
+    }>();
 
     const { user } = useContext(AuthContext);
 
@@ -90,6 +98,11 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, []);
 
     useEffect(() => {
+        KeepAwake.activate();
+        return () => KeepAwake.deactivate();
+    }, []);
+
+    useEffect(() => {
         if (steps.length === 0) {
             getCoords();
         }
@@ -115,10 +128,14 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
 
-        if (distance < 0.2) {
+        if (distance < 0.001) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
     }, [currentUserLocation, destination]);
+
+    useEffect(() => {
+        if (destination) setRouteBounds(calculateRouteBounds([initialPosition, destination]));
+    }, [destination]);
 
     useEffect(() => {
         let mounted = true;
@@ -193,7 +210,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
 
-        if (distance > 0.2) {
+        if (distance > 0.001) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -273,9 +290,31 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
 
-        const stepIndex = steps.length >= 1 && distance > 0.2 ? 1 : 0;
+        const stepIndex = steps.length >= 1 && distance > 0.001 ? 1 : 0;
         setDirection(steps[stepIndex]);
     };
+
+    const calculateRouteBounds = (coordinates: Location[]) => {
+        let minLat = coordinates[0].latitude;
+        let maxLat = coordinates[0].latitude;
+        let minLng = coordinates[0].longitude;
+        let maxLng = coordinates[0].longitude;
+
+        coordinates.forEach((coord) => {
+            minLat = Math.min(minLat, coord.latitude);
+            maxLat = Math.max(maxLat, coord.latitude);
+            minLng = Math.min(minLng, coord.longitude);
+            maxLng = Math.max(maxLng, coord.longitude);
+        });
+
+        return {
+            latitude: (minLat + maxLat) / 2,
+            longitude: (minLng + maxLng) / 2,
+            latitudeDelta: maxLat - minLat + 0.01,
+            longitudeDelta: maxLng - minLng + 0.01
+        };
+    };
+
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -298,16 +337,12 @@ const MapScreen = ({ route, navigation }: Props) => {
                             zoom: (follow === false) ? 14 : 20,
                             altitude: (follow === false) ? 20000 : 2000
                         }}
-                        showsUserLocation
+                        showsUserLocation={false}
                         showsMyLocationButton={false}
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
-                        initialRegion={{
-                            latitude: initialPosition.latitude,
-                            longitude: initialPosition.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
+                        initialRegion={routeBounds}
                         onTouchStart={() => following.current = false}
+                        onRegionChangeComplete={centerPosition}
                     >
                         <MapViewDirections
                             apikey={GOOGLE_MAPS_API_KEY}
@@ -324,7 +359,9 @@ const MapScreen = ({ route, navigation }: Props) => {
                             strokeWidth={5}
                             strokeColor={'rgba(88, 86, 214, 0.2)'}
                         />
-                        <Marker coordinate={initialPosition} />
+                        <Marker coordinate={initialPosition}>
+                            <MapIcon />
+                        </Marker>
                         <Marker coordinate={destination} />
                     </MapView>
                     <Modal
@@ -397,9 +434,9 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
                                         {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                     </View>
-                                    <View>
+                                    <View style={{ ...styles.justifyContentCenter, maxWidth: '85%' }}>
                                         <Text style={styles.detailsMainName}>{direction.distance}</Text>
-                                        <Text numberOfLines={2} style={{ ...styles.placeholderText, maxWidth: '90%' }}>{convertText(direction.html_instructions!)}</Text>
+                                        <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -456,7 +493,3 @@ const MapScreen = ({ route, navigation }: Props) => {
 };
 
 export default MapScreen;
-
-function calculateDistance(lat1: any, lon1: any, lat2: any, lon2: any) {
-    throw new Error('Function not implemented.');
-}
