@@ -27,6 +27,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const mapViewRef = useRef<MapView>(null);
     const following = useRef<boolean>(true);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { top } = useSafeAreaInsets();
 
     const { hasLocation, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
@@ -37,6 +38,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [direction, setDirection] = useState<Step>({ distance: '', end_location: currentUserLocation, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
     const [deviceFormat, setDeviceFormat] = useState(false);
+    const [movement, setMovement] = useState<boolean>(false);
     const [follow, setFollow] = useState(false);
     const [modalVisible, setModalVisible] = useState(true);
     const [modalFollowVisible, setModalFollowVisible] = useState(false);
@@ -125,9 +127,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             centerPosition();
         }
 
-        const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
-
-        if (distance < 0.001) {
+        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
     }, [currentUserLocation, destination]);
@@ -207,9 +207,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             return true;
         }
 
-        const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
-
-        if (distance > 0.001) {
+        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
@@ -287,9 +285,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        const distance = calculateDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination?.latitude!, destination?.longitude!);
-
-        const stepIndex = steps.length >= 1 && distance > 0.001 ? 1 : 0;
+        const stepIndex = steps.length >= 1 && (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) ? 1 : 0;
         setDirection(steps[stepIndex]);
     };
 
@@ -314,6 +310,17 @@ const MapScreen = ({ route, navigation }: Props) => {
         };
     };
 
+    const handleRegionChangeComplete = () => {
+
+        if (timerRef.current !== null) {
+          clearTimeout(timerRef.current);
+        }
+
+        timerRef.current = setTimeout(() => {
+          centerPosition();
+          timerRef.current = null;
+        }, 5000);
+      };
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -341,7 +348,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                         initialRegion={routeBounds}
                         onTouchStart={() => following.current = false}
-                        onRegionChangeComplete={centerPosition}
+                        onRegionChangeComplete={handleRegionChangeComplete}
                     >
                         <MapViewDirections
                             apikey={GOOGLE_MAPS_API_KEY}
@@ -431,7 +438,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
                                         {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                     </View>
-                                    <View style={{ ...styles.justifyContentCenter, maxWidth: '85%' }}>
+                                    <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
                                         <Text style={styles.detailsMainName}>{direction.distance}</Text>
                                         <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
                                     </View>
