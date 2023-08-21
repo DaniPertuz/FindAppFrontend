@@ -181,7 +181,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                 return useIcons('ArrowElbowUpLeft', 46, 46);
             case 'turn-right':
                 return useIcons('ArrowElbowUpRight', 46, 46);
-            case 'Car':
+            default:
                 return useIcons('Car', 46, 46);
         }
     };
