@@ -551,13 +551,6 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         textAlign: 'center'
     },
-    mapIcon: {
-        backgroundColor: 'rgba(250, 250, 250, 0.98)',
-        borderRadius: 50,
-        height: 25,
-        padding: 10,
-        width: 25
-    },
     mapNavigationButton: {
         alignItems: 'center',
         backgroundColor: '#207CFD',

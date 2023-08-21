@@ -8,7 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import KeepAwake from 'react-native-keep-awake';
 import moment from 'moment';
 
-import MapIcon from '../../components/MapIcon';
 import LoadingScreen from '../LoadingScreen';
 import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
@@ -337,7 +336,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             zoom: (follow === false) ? 14 : 20,
                             altitude: (follow === false) ? 20000 : 2000
                         }}
-                        showsUserLocation={false}
+                        showsUserLocation
                         showsMyLocationButton={false}
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                         initialRegion={routeBounds}
@@ -359,9 +358,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             strokeWidth={5}
                             strokeColor={'rgba(88, 86, 214, 0.2)'}
                         />
-                        <Marker coordinate={initialPosition}>
-                            <MapIcon />
-                        </Marker>
+                        <Marker coordinate={initialPosition} />
                         <Marker coordinate={destination} />
                     </MapView>
                     <Modal
