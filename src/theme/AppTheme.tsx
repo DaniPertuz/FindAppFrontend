@@ -569,8 +569,7 @@ const styles = StyleSheet.create({
     },
     mapNavigationModal: {
         backgroundColor: 'rgba(250, 250, 250, 1)',
-        height: '20%',
-        top: '80%',
+        height: '18%',
         borderTopEndRadius: 20,
         borderTopStartRadius: 20,
         shadowColor: "#000",
