@@ -329,6 +329,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         showsUserLocation
                         showsMyLocationButton={false}
                         showsCompass={false}
+                        scrollEnabled={follow}
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                         initialRegion={routeBounds}
                         onTouchStart={() => following.current = false}
