@@ -94,6 +94,8 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
 
+    const getBack = () => { setModalVisible(false); navigation.popToTop(); };
+
     const calculateRouteBounds = (coordinates: Location[]) => {
         let minLat = coordinates[0].latitude;
         let maxLat = coordinates[0].latitude;
@@ -351,14 +353,14 @@ const MapScreen = ({ route, navigation }: Props) => {
                     </MapView>
                     <Modal
                         isVisible={modalVisible}
-                        onBackButtonPress={() => { setModalVisible(false); navigation.popToTop(); }}
+                        onBackButtonPress={getBack}
                         backdropOpacity={0}
                         style={{ justifyContent: 'flex-end', margin: 0 }}
                     >
                         <View style={styles.mapBackButtonPosition}>
                             <TouchableOpacity
                                 activeOpacity={1.0}
-                                onPress={() => { setModalVisible(false); navigation.popToTop(); }}
+                                onPress={getBack}
                             >
                                 <View style={styles.flexDirectionRow}>
                                     <View style={styles.extraTinyMarginTop}>
