@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Alert, BackHandler, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, BackHandler, Platform, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import MapViewDirections from 'react-native-maps-directions';
-import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import DeviceTimeFormat from 'react-native-device-time-format';
 import Modal from "react-native-modal";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,6 +9,7 @@ import KeepAwake from 'react-native-keep-awake';
 import moment from 'moment';
 
 import LoadingScreen from '../LoadingScreen';
+import MapComponent from '../../components/MapComponent';
 import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
@@ -28,7 +28,6 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const mapViewRef = useRef<MapView>(null);
     const following = useRef<boolean>(true);
-    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { top } = useSafeAreaInsets();
 
     const { hasLocation, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
@@ -117,75 +116,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         };
     };
 
-    useEffect(() => {
-        getDeviceTimeFormat();
-    }, []);
-
-    useEffect(() => {
-        KeepAwake.activate();
-        return () => KeepAwake.deactivate();
-    }, []);
-
-    useEffect(() => {
-        if (steps.length === 0) {
-            getCoords();
-        }
-    }, [destination]);
-
-    useEffect(() => {
-        followUserLocation();
-
-        return () => {
-            stopFollowingUserLocation();
-        };
-    }, []);
-
-    useEffect(() => {
-        if (steps.length > 0) {
-            followDirections();
-        }
-    }, [currentUserLocation, steps]);
-
-    useEffect(() => {
-
-        if (!following.current) return;
-
-        setInitialPosition();
-
-        if (follow === true && JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
-            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
-        }
-
-        if (follow === false && direction === undefined) {
-            setModalVisible(false);
-            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
-        }
-    }, [currentUserLocation, destination, follow]);
-
-    useEffect(() => {
-        if (destination) setRouteBounds(calculateRouteBounds([initialPosition, destination]));
-    }, [destination]);
-
-    useEffect(() => {
-        let mounted = true;
-        if (destination && mounted) {
-            const waypoints: { latitude: number; longitude: number; }[] = [];
-
-            const directions = {
-                currentUserLocation,
-                destination,
-                waypoints,
-                key: GOOGLE_MAPS_API_KEY,
-            };
-
-            fetchDirections(directions);
-        }
-
-        return () => {
-            mounted = false;
-        };
-    }, [currentUserLocation, destination]);
-
     const convertText = (text: string) => (
         text
             .replace(/\n/ig, '')
@@ -229,13 +159,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         ]);
         return true;
     };
-
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-        return () => {
-            backHandler.remove();
-        };
-    }, [follow, modalVisible]);
 
     const getDirections = async (directions: any) => {
         try {
@@ -291,17 +214,80 @@ const MapScreen = ({ route, navigation }: Props) => {
         setDirection(steps[stepIndex]);
     };
 
-    const handleRegionChangeComplete = () => {
+    useEffect(() => {
+        getDeviceTimeFormat();
+    }, []);
 
-        if (timerRef.current !== null) {
-            clearTimeout(timerRef.current);
+    useEffect(() => {
+        KeepAwake.activate();
+        return () => KeepAwake.deactivate();
+    }, []);
+
+    useEffect(() => {
+        if (steps.length === 0) {
+            getCoords();
+        }
+    }, [destination]);
+
+    useEffect(() => {
+        followUserLocation();
+
+        return () => {
+            stopFollowingUserLocation();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (steps.length > 0) {
+            followDirections();
+        }
+    }, [currentUserLocation, steps]);
+
+    useEffect(() => {
+        if (!following.current) return;
+
+        setInitialPosition();
+
+        if (follow === true && JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
+            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
 
-        timerRef.current = setTimeout(() => {
-            centerPosition();
-            timerRef.current = null;
-        }, 5000);
-    };
+        if (follow === false && direction === undefined) {
+            setModalVisible(false);
+            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
+        }
+    }, [currentUserLocation, destination, follow]);
+
+    useEffect(() => {
+        if (destination) setRouteBounds(calculateRouteBounds([initialPosition, destination]));
+    }, [destination]);
+
+    useEffect(() => {
+        let mounted = true;
+        if (destination && mounted) {
+            const waypoints: { latitude: number; longitude: number; }[] = [];
+
+            const directions = {
+                currentUserLocation,
+                destination,
+                waypoints,
+                key: GOOGLE_MAPS_API_KEY,
+            };
+
+            fetchDirections(directions);
+        }
+
+        return () => {
+            mounted = false;
+        };
+    }, [currentUserLocation, destination]);
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+            backHandler.remove();
+        };
+    }, [follow, modalVisible]);
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -309,48 +295,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         <>
             {(initialPosition && destination) &&
                 <View style={styles.flexOne}>
-                    <MapView
-                        style={{ ...StyleSheet.absoluteFillObject }}
-                        ref={mapViewRef}
-                        followsUserLocation={false}
-                        pitchEnabled={follow}
-                        camera={{
-                            center: {
-                                latitude: initialPosition.latitude,
-                                longitude: initialPosition.longitude,
-                            },
-                            heading: 0,
-                            pitch: 0,
-                            zoom: (follow === false) ? 13 : 18,
-                            altitude: (follow === false) ? 20000 : 2000
-                        }}
-                        showsUserLocation
-                        showsMyLocationButton={false}
-                        showsCompass={false}
-                        scrollEnabled={follow}
-                        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
-                        initialRegion={routeBounds}
-                        onTouchStart={() => following.current = false}
-                        onRegionChangeComplete={handleRegionChangeComplete}
-                    >
-                        <MapViewDirections
-                            apikey={GOOGLE_MAPS_API_KEY}
-                            origin={currentUserLocation}
-                            destination={destination}
-                            strokeWidth={5}
-                            strokeColor={'#5856D6'}
-                            onReady={(result) => { setDistance(result.distance); setDuration(result.duration); }}
-                        />
-                        <MapViewDirections
-                            apikey={GOOGLE_MAPS_API_KEY}
-                            origin={initialPosition}
-                            destination={currentUserLocation}
-                            strokeWidth={5}
-                            strokeColor={'rgba(88, 86, 214, 0.2)'}
-                        />
-                        <Marker coordinate={initialPosition} />
-                        <Marker coordinate={destination} />
-                    </MapView>
                     <Modal
                         isVisible={modalVisible}
                         onBackButtonPress={getBack}
@@ -370,6 +314,17 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 </View>
                             </TouchableOpacity>
                         </View>
+                        <MapComponent
+                            follow={false}
+                            following={following}
+                            mapViewRef={mapViewRef}
+                            initialPosition={initialPosition}
+                            currentUserLocation={currentUserLocation}
+                            destination={destination}
+                            routeBounds={routeBounds!}
+                            setDistance={setDistance}
+                            setDuration={setDuration}
+                        />
                         <View style={styles.mapNavigationModal}>
                             <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, ...styles.mediumMarginTop, marginHorizontal: 21 }}>
                                 <View style={{ ...styles.flexDirectionRow, marginBottom: 15 }}>
@@ -415,6 +370,17 @@ const MapScreen = ({ route, navigation }: Props) => {
                     </Modal>
                     {modalFollowVisible === true &&
                         <>
+                            <MapComponent
+                                follow={true}
+                                following={following}
+                                mapViewRef={mapViewRef}
+                                initialPosition={initialPosition}
+                                currentUserLocation={currentUserLocation}
+                                destination={destination}
+                                routeBounds={routeBounds!}
+                                setDistance={setDistance}
+                                setDuration={setDuration}
+                            />
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
                                     <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
