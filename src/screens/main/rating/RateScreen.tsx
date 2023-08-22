@@ -65,14 +65,14 @@ const RateScreen = ({ navigation, route }: Props) => {
         setNewService(!newService);
 
         if (newService === false) {
-            addService(new Date().toString(), item.place._id, item.search, item.user);
+            addService(item.place._id, item.search, item.user);
         }
 
         deleteService(item.user, item.place._id);
     };
 
     const backButtonHandler = () => {
-        navigation.goBack();
+        navigation.popToTop();
         return true;
     };
 
@@ -85,7 +85,7 @@ const RateScreen = ({ navigation, route }: Props) => {
         let mounted = true;
         getHistoryItem(user?._id!, item.place._id).then((data) => {
             if (mounted && data) {
-                setNewService(true);
+                setNewService(!data);
             }
         });
         return () => {
@@ -97,7 +97,7 @@ const RateScreen = ({ navigation, route }: Props) => {
         let mounted = true;
         getFavorite(user?._id!, item.place._id).then((data) => {
             if (mounted && data) {
-                setNewFavorite(true);
+                setNewFavorite(!data);
             }
         });
         return () => {
@@ -120,7 +120,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                     <View style={styles.flexOneAlignJustifyCenter}>
                         <TouchableOpacity
                             activeOpacity={1.0}
-                            onPress={() => navigation.goBack()}
+                            onPress={() => navigation.popToTop()}
                         >
                             {useIcons('Back', 25, 25)}
                         </TouchableOpacity>
