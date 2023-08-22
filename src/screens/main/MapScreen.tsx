@@ -76,7 +76,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 90,
             pitch: 0,
-            zoom: (follow === false) ? 14 : 18,
+            zoom: (follow === false) ? 13 : 18,
             altitude: (follow === false) ? 20000 : 2000
         });
     };
@@ -92,6 +92,27 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const formatAddress = (address: string) => address.substring(0, address.indexOf(','));
+
+    const calculateRouteBounds = (coordinates: Location[]) => {
+        let minLat = coordinates[0].latitude;
+        let maxLat = coordinates[0].latitude;
+        let minLng = coordinates[0].longitude;
+        let maxLng = coordinates[0].longitude;
+
+        coordinates.forEach((coord) => {
+            minLat = Math.min(minLat, coord.latitude);
+            maxLat = Math.max(maxLat, coord.latitude);
+            minLng = Math.min(minLng, coord.longitude);
+            maxLng = Math.max(maxLng, coord.longitude);
+        });
+
+        return {
+            latitude: (minLat + maxLat) / 2,
+            longitude: (minLng + maxLng) / 2,
+            latitudeDelta: maxLat - minLat + 0.01,
+            longitudeDelta: maxLng - minLng + 0.01
+        };
+    };
 
     useEffect(() => {
         getDeviceTimeFormat();
@@ -127,7 +148,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         if (!following.current) return;
 
         setInitialPosition();
-
 
         if (follow === true && JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
@@ -273,27 +293,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         setDirection(steps[stepIndex]);
     };
 
-    const calculateRouteBounds = (coordinates: Location[]) => {
-        let minLat = coordinates[0].latitude;
-        let maxLat = coordinates[0].latitude;
-        let minLng = coordinates[0].longitude;
-        let maxLng = coordinates[0].longitude;
-
-        coordinates.forEach((coord) => {
-            minLat = Math.min(minLat, coord.latitude);
-            maxLat = Math.max(maxLat, coord.latitude);
-            minLng = Math.min(minLng, coord.longitude);
-            maxLng = Math.max(maxLng, coord.longitude);
-        });
-
-        return {
-            latitude: (minLat + maxLat) / 2,
-            longitude: (minLng + maxLng) / 2,
-            latitudeDelta: maxLat - minLat + 0.01,
-            longitudeDelta: maxLng - minLng + 0.01
-        };
-    };
-
     const handleRegionChangeComplete = () => {
 
         if (timerRef.current !== null) {
@@ -315,16 +314,16 @@ const MapScreen = ({ route, navigation }: Props) => {
                     <MapView
                         style={{ ...StyleSheet.absoluteFillObject }}
                         ref={mapViewRef}
-                        followsUserLocation={true}
+                        followsUserLocation={false}
                         pitchEnabled={follow}
                         camera={{
                             center: {
                                 latitude: initialPosition.latitude,
                                 longitude: initialPosition.longitude,
                             },
-                            heading: 90,
+                            heading: 0,
                             pitch: 0,
-                            zoom: (follow === false) ? 14 : 18,
+                            zoom: (follow === false) ? 13 : 18,
                             altitude: (follow === false) ? 20000 : 2000
                         }}
                         showsUserLocation
