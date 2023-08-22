@@ -76,7 +76,7 @@ const MapScreen = ({ route, navigation }: Props) => {
             },
             heading: 90,
             pitch: 0,
-            zoom: (follow === false) ? 14 : 20,
+            zoom: (follow === false) ? 14 : 18,
             altitude: (follow === false) ? 20000 : 2000
         });
     };
@@ -117,19 +117,27 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, []);
 
     useEffect(() => {
+        if (steps.length > 0) {
+            followDirections();
+        }
+    }, [currentUserLocation, steps]);
+
+    useEffect(() => {
 
         if (!following.current) return;
 
         setInitialPosition();
 
-        if (follow === true) {
-            centerPosition();
-        }
 
-        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
+        if (follow === true && JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
-    }, [currentUserLocation, destination]);
+
+        if (follow === false && direction === undefined) {
+            setModalVisible(false);
+            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
+        }
+    }, [currentUserLocation, destination, follow]);
 
     useEffect(() => {
         if (destination) setRouteBounds(calculateRouteBounds([initialPosition, destination]));
@@ -187,15 +195,13 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     const handleBackButtonClick = () => {
         if (follow === false) {
-            navigation.pop();
+            navigation.popToTop();
             return true;
-        }
-
-        if (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) {
+        } else {
             Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
                 {
                     text: 'Salir',
-                    onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.goBack(); }
+                    onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.popToTop(); }
                 },
                 {
                     text: 'Continuar',
@@ -207,17 +213,11 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         return () => {
-            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+            backHandler.remove();
         };
-    }, [navigation]);
-
-    useEffect(() => {
-        if (steps.length > 0) {
-            followDirections();
-        }
-    }, [currentUserLocation, steps]);
+    }, [follow]);
 
     const getDirections = async (directions: any) => {
         try {
@@ -297,14 +297,14 @@ const MapScreen = ({ route, navigation }: Props) => {
     const handleRegionChangeComplete = () => {
 
         if (timerRef.current !== null) {
-          clearTimeout(timerRef.current);
+            clearTimeout(timerRef.current);
         }
 
         timerRef.current = setTimeout(() => {
-          centerPosition();
-          timerRef.current = null;
+            centerPosition();
+            timerRef.current = null;
         }, 5000);
-      };
+    };
 
     if (!hasLocation) return <LoadingScreen />;
 
@@ -324,11 +324,12 @@ const MapScreen = ({ route, navigation }: Props) => {
                             },
                             heading: 90,
                             pitch: 0,
-                            zoom: (follow === false) ? 14 : 20,
+                            zoom: (follow === false) ? 14 : 18,
                             altitude: (follow === false) ? 20000 : 2000
                         }}
                         showsUserLocation
                         showsMyLocationButton={false}
+                        showsCompass={false}
                         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                         initialRegion={routeBounds}
                         onTouchStart={() => following.current = false}
@@ -404,7 +405,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <View style={styles.mapBackButtonPosition}>
                             <TouchableOpacity
                                 activeOpacity={1.0}
-                                onPress={() => { setModalVisible(false); navigation.pop(); }}
+                                onPress={() => { setModalVisible(false); navigation.popToTop(); }}
                             >
                                 <View style={styles.flexDirectionRow}>
                                     <View style={styles.extraTinyMarginTop}>
