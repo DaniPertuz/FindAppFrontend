@@ -15,7 +15,7 @@ type PlacesContextProps = {
     getPopularPlaces:    () => Promise<IPlaces>;
     getRatingsByUser:    (user: string) => Promise<IRatingList>;
     addFavorite:         (user: string, place: string) => Promise<void>
-    addService:          (date: string, place: string, search: string, user: string) => void;
+    addService:          (place: string, search: string, user: string) => void;
     deleteFavorite:      (user: string, place: string) => Promise<void>;
     deleteService:       (user: string, place: string) => Promise<void>;
 }

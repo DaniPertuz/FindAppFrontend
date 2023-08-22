@@ -113,9 +113,9 @@ export const PlacesProvider = ({ children }: any) => {
         }
     };
 
-    const addService = async (date: string, place: string, search: string, user: string) => {
+    const addService = async (place: string, search: string, user: string) => {
         try {
-            await findAPI.post('/services', { date, place, search, user });
+            await findAPI.post('/services', { place, search, user });
         } catch (error: any) {
             throw new Error(`${error}`);
         }
