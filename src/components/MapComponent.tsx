@@ -9,7 +9,7 @@ import { Location } from '../interfaces';
 interface Props {
     follow: boolean;
     following: React.MutableRefObject<boolean>;
-    mapViewRef: React.RefObject<MapView>;
+    mapViewRef?: React.RefObject<MapView>;
     initialPosition: Location;
     currentUserLocation: Location;
     destination: Location;
@@ -31,7 +31,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
     const setInitialPosition = async () => {
         if (follow === false) {
             const { latitude, longitude } = await getCurrentLocation();
-            mapViewRef.current?.animateToRegion({
+            mapViewRef?.current!.animateToRegion({
                 latitude,
                 longitude,
                 latitudeDelta: 0.0922,
@@ -48,12 +48,12 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
 
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
-        mapViewRef.current?.animateCamera({
+        mapViewRef?.current!.animateCamera({
             center: {
                 latitude,
                 longitude
             },
-            heading: 90,
+            heading: 0,
             pitch: 0,
             zoom: (follow === false) ? 13 : 18,
             altitude: (follow === false) ? 20000 : 2000
