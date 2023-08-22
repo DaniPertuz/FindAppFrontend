@@ -500,6 +500,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 277,
         top: 58,
+        width: '25%',
         zIndex: 999
     },
     mapBackButtonText: {
