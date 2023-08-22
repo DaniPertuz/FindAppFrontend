@@ -31,7 +31,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
     const setInitialPosition = async () => {
         if (follow === false) {
             const { latitude, longitude } = await getCurrentLocation();
-            mapViewRef?.current!.animateToRegion({
+            mapViewRef?.current?.animateToRegion({
                 latitude,
                 longitude,
                 latitudeDelta: 0.0922,
@@ -48,7 +48,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
 
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
-        mapViewRef?.current!.animateCamera({
+        mapViewRef?.current?.animateCamera({
             center: {
                 latitude,
                 longitude
