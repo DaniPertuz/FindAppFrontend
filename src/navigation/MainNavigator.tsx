@@ -38,9 +38,7 @@ export const MainNavigator = () => {
                     elevation: 0,
                     shadowColor: 'transparent'
                 },
-                cardStyle: {
-                    backgroundColor: '#FFFFFF'
-                }
+                gestureEnabled: false
             }}
         >
             <Stack.Screen name="BottomTabNavigator" options={{ title: '' }} component={BottomTabNavigator} />
