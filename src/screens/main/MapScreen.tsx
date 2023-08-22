@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Alert, BackHandler, Modal, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, BackHandler, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import DeviceTimeFormat from 'react-native-device-time-format';
+import Modal from "react-native-modal";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import KeepAwake from 'react-native-keep-awake';
 import moment from 'moment';
@@ -214,22 +215,17 @@ const MapScreen = ({ route, navigation }: Props) => {
     };
 
     const handleBackButtonClick = () => {
-        if (follow === false) {
-            navigation.popToTop();
-            return true;
-        } else {
-            Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
-                {
-                    text: 'Salir',
-                    onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.popToTop(); }
-                },
-                {
-                    text: 'Continuar',
-                    style: 'cancel'
-                }
-            ]);
-            return true;
-        }
+        Alert.alert('¿Estás seguro de salir?', 'Si no sigues, el lugar no se registrará en tu historial de lugares visitados', [
+            {
+                text: 'Salir',
+                onPress: () => { setFollow(false); setModalFollowVisible(false); navigation.popToTop(); }
+            },
+            {
+                text: 'Continuar',
+                style: 'cancel'
+            }
+        ]);
+        return true;
     };
 
     useEffect(() => {
@@ -237,7 +233,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         return () => {
             backHandler.remove();
         };
-    }, [follow]);
+    }, [follow, modalVisible]);
 
     const getDirections = async (directions: any) => {
         try {
@@ -354,12 +350,24 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <Marker coordinate={destination} />
                     </MapView>
                     <Modal
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                            setModalVisible(!modalVisible);
-                        }}
+                        isVisible={modalVisible}
+                        onBackButtonPress={() => { setModalVisible(false); navigation.popToTop(); }}
+                        backdropOpacity={0}
+                        style={{ justifyContent: 'flex-end', margin: 0 }}
                     >
+                        <View style={styles.mapBackButtonPosition}>
+                            <TouchableOpacity
+                                activeOpacity={1.0}
+                                onPress={() => { setModalVisible(false); navigation.popToTop(); }}
+                            >
+                                <View style={styles.flexDirectionRow}>
+                                    <View style={styles.extraTinyMarginTop}>
+                                        {useIcons('Back', 18, 18)}
+                                    </View>
+                                    <Text style={{ ...styles.mapBackButtonText, ...styles.smallMarginStart }}>Volver</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                         <View style={styles.mapNavigationModal}>
                             <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, ...styles.mediumMarginTop, marginHorizontal: 21 }}>
                                 <View style={{ ...styles.flexDirectionRow, marginBottom: 15 }}>
@@ -401,19 +409,6 @@ const MapScreen = ({ route, navigation }: Props) => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
-                        <View style={styles.mapBackButtonPosition}>
-                            <TouchableOpacity
-                                activeOpacity={1.0}
-                                onPress={() => { setModalVisible(false); navigation.popToTop(); }}
-                            >
-                                <View style={styles.flexDirectionRow}>
-                                    <View style={styles.extraTinyMarginTop}>
-                                        {useIcons('Back', 18, 18)}
-                                    </View>
-                                    <Text style={{ ...styles.mapBackButtonText, ...styles.smallMarginStart }}>Volver</Text>
-                                </View>
-                            </TouchableOpacity>
                         </View>
                     </Modal>
                     {modalFollowVisible === true &&
