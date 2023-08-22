@@ -60,7 +60,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                                         <View style={styles.itemDetailsIconMarginEnd}>
                                             {useIcons('Location', 15, 15)}
                                         </View>
-                                        <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
+                                        <Text style={styles.smallPlainText}>{isNaN(distance) ? '0.0' : distance.toFixed(1)} Km</Text>
                                     </View>
                                     <View style={styles.flexDirectionRow}>
                                         <View style={styles.itemDetailsIconMarginEnd}>
