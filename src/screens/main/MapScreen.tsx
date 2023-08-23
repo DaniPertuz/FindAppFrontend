@@ -248,11 +248,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         setInitialPosition();
 
-        if (follow === true && JSON.stringify(currentUserLocation) === JSON.stringify(destination)) {
-            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
-        }
-
-        if (follow === false && direction === undefined) {
+        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
             setModalVisible(false);
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
@@ -323,6 +319,10 @@ const MapScreen = ({ route, navigation }: Props) => {
                             routeBounds={routeBounds!}
                             setDistance={setDistance}
                             setDuration={setDuration}
+                            direction={direction}
+                            place={place}
+                            search={search}
+                            user={user?._id!}
                         />
                         <View style={styles.mapNavigationModal}>
                             <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, ...styles.mediumMarginTop, marginHorizontal: 21 }}>

@@ -2,9 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import useLocation from '../hooks/useLocation';
-import { Location } from '../interfaces';
+import { IPlace, Location, Step } from '../interfaces';
+import { RootStackParams } from '../navigation';
 
 interface Props {
     follow: boolean;
@@ -19,14 +23,19 @@ interface Props {
         latitudeDelta: number;
         longitudeDelta: number;
     };
+    direction?: Step;
+    place?: IPlace;
+    search?: string;
+    user?: string;
     setDistance: (distance: number) => void;
     setDuration: (duration: number) => void;
 }
 
-const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, setDistance, setDuration }: Props) => {
+const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, direction, place, search, user, setDistance, setDuration }: Props) => {
 
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { getCurrentLocation } = useLocation();
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
     const setInitialPosition = async () => {
         if (follow === false) {
@@ -44,6 +53,12 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
         if (!following.current) return;
 
         setInitialPosition();
+
+        if (place !== undefined && search !== undefined && user !== undefined) {
+            if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
+                navigation.navigate('RateScreen', { item: { place, search, user: user } });
+            }
+        }
     }, [currentUserLocation, destination, follow]);
 
     const centerPosition = async () => {
