@@ -248,7 +248,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         setInitialPosition();
 
-        if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
+        if (follow === true && direction === undefined) {
             setModalVisible(false);
             navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
         }
@@ -383,11 +383,11 @@ const MapScreen = ({ route, navigation }: Props) => {
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
                                     <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
-                                        {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
+                                        {direction && renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                     </View>
                                     <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                        <Text style={styles.detailsMainName}>{direction.distance}</Text>
-                                        <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
+                                        <Text style={styles.detailsMainName}>{direction && direction.distance}</Text>
+                                        <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{direction && convertText(direction.html_instructions!)}</Text>
                                     </View>
                                 </View>
                             </View>
