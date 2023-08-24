@@ -49,18 +49,6 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
         }
     };
 
-    useEffect(() => {
-        if (!following.current) return;
-
-        setInitialPosition();
-
-        if (place !== undefined && search !== undefined && user !== undefined) {
-            if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
-                navigation.navigate('RateScreen', { item: { place, search, user: user } });
-            }
-        }
-    }, [currentUserLocation, destination, follow]);
-
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
         mapViewRef?.current?.animateCamera({
@@ -68,7 +56,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                 latitude,
                 longitude
             },
-            heading: 0,
+            heading: 90,
             pitch: 0,
             zoom: (follow === false) ? 13 : 18,
             altitude: (follow === false) ? 20000 : 2000
@@ -86,6 +74,22 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
             timerRef.current = null;
         }, 5000);
     };
+
+    useEffect(() => {
+        if (!following.current) return;
+
+        setInitialPosition();
+
+        if (place !== undefined && search !== undefined && user !== undefined) {
+            if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
+                navigation.navigate('RateScreen', { item: { place, search, user: user } });
+            }
+        }
+    }, [currentUserLocation, destination]);
+
+    useEffect(() => {
+      if (follow === true) centerPosition();
+    }, [follow, currentUserLocation]);
 
     return (
         <MapView
