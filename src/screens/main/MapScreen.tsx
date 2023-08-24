@@ -210,7 +210,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        const stepIndex = steps.length >= 1 && (JSON.stringify(currentUserLocation) !== JSON.stringify(destination)) ? 1 : 0;
+        const stepIndex = steps.length >= 1 ? 1 : 0;
         setDirection(steps[stepIndex]);
     };
 
