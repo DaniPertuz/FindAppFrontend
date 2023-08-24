@@ -56,7 +56,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                 latitude,
                 longitude
             },
-            heading: 90,
+            heading: 270,
             pitch: 0,
             zoom: (follow === false) ? 13 : 18,
             altitude: (follow === false) ? 20000 : 2000
@@ -102,7 +102,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                     latitude: initialPosition.latitude,
                     longitude: initialPosition.longitude,
                 },
-                heading: 0,
+                heading: 270,
                 pitch: 0,
                 zoom: (follow === false) ? 13 : 18,
                 altitude: (follow === false) ? 20000 : 2000
