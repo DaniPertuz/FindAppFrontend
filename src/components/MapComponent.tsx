@@ -63,6 +63,10 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
         });
     };
 
+    const validateLocations = (loc1: Location, loc2: Location) => {
+        return JSON.stringify(loc1) === JSON.stringify(loc2);
+    };
+
     const handleRegionChangeComplete = () => {
 
         if (timerRef.current !== null) {
@@ -80,15 +84,13 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
 
         setInitialPosition();
 
-        if (place !== undefined && search !== undefined && user !== undefined) {
-            if (JSON.stringify(currentUserLocation) === JSON.stringify(destination) || direction === undefined) {
-                navigation.navigate('RateScreen', { item: { place, search, user: user } });
-            }
-        }
+        const shouldNavigate = place !== undefined && search !== undefined && user !== undefined && (validateLocations(currentUserLocation, destination) || direction === undefined);
+
+        if (shouldNavigate) navigation.navigate('RateScreen', { item: { place, search, user } });
     }, [currentUserLocation, destination]);
 
     useEffect(() => {
-      if (follow === true) centerPosition();
+        if (follow === true) centerPosition();
     }, [follow, currentUserLocation]);
 
     return (
