@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error: any) {
             dispatch({
                 type: 'addError',
-                payload: error.response!.data.errors[0].msg || 'Check information'
+                payload: 'Credenciales incorrectas.\nIntenta de nuevo.'
             });
         }
     };
@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error: any) {
             dispatch({
                 type: 'addError',
-                payload: error.response!.data.msg || 'Wrong information'
+                payload: 'Credenciales incorrectas.\nIntenta de nuevo.'
             });
         }
     };
@@ -146,7 +146,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (err: any) {
             dispatch({
                 type: 'addError',
-                payload: err || 'Wrong information'
+                payload: 'Error al subir imagen.\nIntenta de nuevo.'
             });
         }
     };
