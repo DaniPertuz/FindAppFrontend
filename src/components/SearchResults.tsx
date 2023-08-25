@@ -23,7 +23,7 @@ const SearchResults = ({ item, onPress }: Props) => {
 
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
-    const { getCurrentLocation } = useLocation();
+    const { getCurrentLocation, currentUserLocation } = useLocation();
 
     const getDistance = async () => {
         const { latitude, longitude } = await getCurrentLocation();
@@ -32,7 +32,7 @@ const SearchResults = ({ item, onPress }: Props) => {
 
     useEffect(() => {
         getDistance();
-    }, []);
+    }, [currentUserLocation]);
 
     return (
         <View style={styles.listItemContainer}>
