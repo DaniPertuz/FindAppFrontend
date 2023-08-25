@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, BackHandler, FlatList, Image, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { BackHandler, FlatList, Image, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext, RatingContext } from '../../../context';
 import { RootStackParams } from '../../../navigation';
@@ -38,16 +39,12 @@ const RateScreen = ({ navigation, route }: Props) => {
     const onRate = () => {
         Keyboard.dismiss();
         if (selectedRate === 0) {
-            Alert.alert('Falta información', 'No has ingresado la calificación', [
-                {
-                    text: 'OK',
-                    style: 'cancel'
-                }
-            ]);
+            Toast.show('No has ingresado la calificación', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
             return;
         }
 
         (user !== null) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
+        Toast.show('Calificación registrada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
         navigation.popToTop();
     };
 
