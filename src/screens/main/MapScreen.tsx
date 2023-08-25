@@ -380,17 +380,19 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 setDistance={setDistance}
                                 setDuration={setDuration}
                             />
-                            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
-                                <View style={styles.mapDirectionsBackground}>
-                                    <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
-                                        {direction && renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
-                                    </View>
-                                    <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                        <Text style={styles.detailsMainName}>{direction && direction.distance}</Text>
-                                        <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{direction && convertText(direction.html_instructions!)}</Text>
+                            {direction &&
+                                <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
+                                    <View style={styles.mapDirectionsBackground}>
+                                        <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
+                                            {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
+                                        </View>
+                                        <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
+                                            <Text style={styles.detailsMainName}>{direction.distance}</Text>
+                                            <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
+                            }
                             <View style={{ ...styles.mapFollowModal, height: (Platform.OS === 'ios') ? '20%' : '15%', top: (Platform.OS === 'ios') ? '72%' : '75%' }}>
                                 <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
                                     <TouchableOpacity
