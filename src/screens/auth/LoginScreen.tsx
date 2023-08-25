@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
+import Toast from 'react-native-root-toast';
 
 import { AuthContext } from '../../context';
 import { useForm } from '../../hooks/useForm';
@@ -20,7 +21,7 @@ const LoginScreen = () => {
   useEffect(() => {
     if (errorMessage.length === 0) return;
 
-    Alert.alert('Error', errorMessage, [{ text: 'OK', onPress: removeError }]);
+    Toast.show(errorMessage, { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM, hideOnPress: true, delay: 0, onHidden: removeError });
   }, [errorMessage]);
 
   return (
