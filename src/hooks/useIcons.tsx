@@ -30,6 +30,7 @@ import Factory from '../assets/factory.svg';
 import FancyClothes from '../assets/fancy-clothes.svg';
 import Favorite from '../assets/heart-focused.svg';
 import FemaleClothes from '../assets/female-clothes.svg';
+import Finish from '../assets/finish.svg';
 import FirstAid from '../assets/first-aid.svg';
 import Gaming from '../assets/gaming.svg';
 import Garden from '../assets/garden.svg';
@@ -161,6 +162,8 @@ export const useIcons = (name: string, height: number, width: number) => {
             return <Ironmongery height={height} width={width} />;
         case 'Financiamiento':
             return <Loan height={height} width={width} />;
+        case 'Finish':
+            return <Finish height={height} width={width} />;
         case 'Fotografía':
             return <PhotoStore height={height} width={width} />;
         case 'Gasolinera':
