@@ -380,19 +380,30 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 setDistance={setDistance}
                                 setDuration={setDuration}
                             />
-                            {direction &&
-                                <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
-                                    <View style={styles.mapDirectionsBackground}>
-                                        <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
-                                            {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
-                                        </View>
-                                        <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                            <Text style={styles.detailsMainName}>{direction.distance}</Text>
-                                            <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
-                                        </View>
-                                    </View>
+                            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
+                                <View style={styles.mapDirectionsBackground}>
+                                    {direction ?
+                                        <>
+                                            <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
+                                                {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
+                                            </View>
+                                            <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
+                                                <Text style={styles.detailsMainName}>{direction.distance}</Text>
+                                                <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
+                                            </View>
+                                        </>
+                                        :
+                                        <>
+                                            <View style={{ alignSelf: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
+                                                {useIcons('Finish', 30, 30)}
+                                            </View>
+                                            <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
+                                                <Text numberOfLines={2} style={styles.detailsMainName}>Has llegado a {place.name}</Text>
+                                            </View>
+                                        </>
+                                    }
                                 </View>
-                            }
+                            </View>
                             <View style={{ ...styles.mapFollowModal, height: (Platform.OS === 'ios') ? '20%' : '15%', top: (Platform.OS === 'ios') ? '72%' : '75%' }}>
                                 <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
                                     <TouchableOpacity
