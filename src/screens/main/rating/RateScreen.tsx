@@ -162,7 +162,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                                     >
                                         <View style={styles.ratesReviewsTextContainer}>
                                             <Text style={styles.detailsCaptionText}>
-                                                {ratings.total} opiniones
+                                                {ratings.total} {(ratings.total === 1) ? 'opinión' : 'opiniones'}
                                             </Text>
                                         </View>
                                     </TouchableOpacity>
