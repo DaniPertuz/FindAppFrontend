@@ -35,7 +35,8 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
     const [distance, setDistance] = useState(0);
-    const [direction, setDirection] = useState<Step>({ distance: '', end_location: currentUserLocation, html_instructions: '', maneuver: '' });
+    const [distanceNextStep, setDistanceNextStep] = useState(0);
+    const [direction, setDirection] = useState<Step>({ end_location: currentUserLocation, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
     const [deviceFormat, setDeviceFormat] = useState(false);
     const [follow, setFollow] = useState(false);
@@ -160,6 +161,22 @@ const MapScreen = ({ route, navigation }: Props) => {
         return true;
     };
 
+    const calculateDistance = (currentLocation: Location, destination: Location) => {
+        const R = 6371;
+        const dLat = toRad(destination.latitude - currentLocation.latitude);
+        const dLon = toRad(destination.longitude - currentLocation.longitude);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(currentLocation.latitude)) * Math.cos(toRad(destination.longitude)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+        setDistanceNextStep(distance);
+    };
+
+    const toRad = (value: number) => {
+        return (value * Math.PI) / 180;
+    };
+
     const getDirections = async (directions: any) => {
         try {
             let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.currentUserLocation.latitude},${directions.currentUserLocation.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
@@ -194,10 +211,9 @@ const MapScreen = ({ route, navigation }: Props) => {
 
             data.forEach((step: Direction) => {
                 stepsData.push({
-                    distance: step.distance.text,
                     html_instructions: step.html_instructions,
                     maneuver: step.maneuver,
-                    end_location: step.end_location
+                    end_location: { latitude: step.end_location.lat, longitude: step.end_location.lng }
                 });
             });
 
@@ -212,6 +228,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const stepIndex = steps.length >= 1 ? 1 : 0;
         setDirection(steps[stepIndex]);
+        calculateDistance(currentUserLocation, steps[stepIndex].end_location)
     };
 
     useEffect(() => {
@@ -388,7 +405,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                 {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                             </View>
                                             <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                                <Text style={styles.detailsMainName}>{direction.distance}</Text>
+                                                <Text style={styles.detailsMainName}>{distanceNextStep.toFixed(1)} km</Text>
                                                 <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
                                             </View>
                                         </>
