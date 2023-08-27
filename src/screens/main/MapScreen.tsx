@@ -228,7 +228,9 @@ const MapScreen = ({ route, navigation }: Props) => {
 
         const stepIndex = steps.length >= 1 ? 1 : 0;
         setDirection(steps[stepIndex]);
-        calculateDistance(currentUserLocation, steps[stepIndex].end_location)
+        if (steps[stepIndex]) {
+            calculateDistance(currentUserLocation, steps[stepIndex].end_location);
+        }
     };
 
     useEffect(() => {
