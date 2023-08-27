@@ -134,6 +134,11 @@ export interface Location {
     longitude: number;
 }
 
+export interface LocationAbr {
+    lat:  number;
+    lng: number;
+}
+
 export interface FavoriteItem {
     place:     string;
     user:      string;
@@ -142,7 +147,7 @@ export interface FavoriteItem {
 export interface Direction {
     distance:          Distance;
     duration:          Distance;
-    end_location:      Location;
+    end_location:      LocationAbr;
     html_instructions: string;
     maneuver:          string | undefined;
 }
@@ -153,7 +158,6 @@ export interface Distance {
 }
 
 export interface Step {
-    distance: string;
     html_instructions: string;
     maneuver: string | undefined;
     end_location: Location;
