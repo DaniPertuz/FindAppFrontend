@@ -44,7 +44,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                 latitude,
                 longitude,
                 latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                longitudeDelta: 0.0421
             }, 100);
         }
     };
@@ -102,7 +102,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
             camera={{
                 center: {
                     latitude: initialPosition.latitude,
-                    longitude: initialPosition.longitude,
+                    longitude: initialPosition.longitude
                 },
                 heading: 0,
                 pitch: 0,
