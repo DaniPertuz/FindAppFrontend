@@ -17,22 +17,26 @@ const Categories = ({ name, count }: Props) => {
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
     return (
-        <TouchableOpacity
-            activeOpacity={1.0}
-            onPress={() => navigator.navigate('PlacesScreen', { category: name })}
-        >
-            <View style={styles.largeItem}>
-                <View style={styles.extraSmallMarginTop}>
-                    {useIcons(name, 33, 33)}
-                </View>
-                <View style={styles.smallMediumMarginTop}>
-                    <Text style={styles.plainSmallText}>{name}</Text>
-                </View>
-                <View style={styles.tinyMarginTop}>
-                    <Text style={styles.largeItemText}>{count} {(count === 1) ? 'lugar' : 'lugares'}</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
+        <>
+            {name !== '' &&
+                <TouchableOpacity
+                    activeOpacity={1.0}
+                    onPress={() => navigator.navigate('PlacesScreen', { category: name })}
+                >
+                    <View style={styles.largeItem}>
+                        <View style={styles.extraSmallMarginTop}>
+                            {useIcons(name, 33, 33)}
+                        </View>
+                        <View style={styles.smallMediumMarginTop}>
+                            <Text style={styles.plainSmallText}>{name}</Text>
+                        </View>
+                        <View style={styles.tinyMarginTop}>
+                            <Text style={styles.largeItemText}>{count} {(count === 1) ? 'lugar' : 'lugares'}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            }
+        </>
     );
 };
 
