@@ -405,7 +405,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                 {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                             </View>
                                             <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                                <Text style={styles.detailsMainName}>{distanceNextStep.toFixed(1)} km</Text>
+                                                <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? (distanceNextStep * 1000).toFixed(0) : distanceNextStep.toFixed(1)} {((Number(distanceNextStep.toFixed(1)) < 1)) ? 'm' : 'km'}</Text>
                                                 <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
                                             </View>
                                         </>
