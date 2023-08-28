@@ -37,7 +37,7 @@ const PlacesScreen = ({ route }: Props) => {
         return () => {
             mounted = false;
         };
-    }, []);
+    }, [places]);
 
     return (
         <>
@@ -60,11 +60,12 @@ const PlacesScreen = ({ route }: Props) => {
                         </View>
                         <View style={styles.flexOne} />
                     </View>
-                    <View style={styles.largeMarginTop}>
+                    <View style={{ ...styles.mediumMarginTop, marginBottom: 50 }}>
                         <FlatList
                             data={places}
                             keyExtractor={(item) => item._id!}
-                            scrollEnabled
+                            scrollEnabled={places.length > 9}
+                            showsVerticalScrollIndicator={false}
                             renderItem={({ item }) =>
                                 <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: category })} />
                             }

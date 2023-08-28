@@ -88,10 +88,11 @@ const MainScreen = () => {
                 <View style={styles.largeMarginTop}>
                     <Text style={styles.boldMediumText}>Búsquedas populares</Text>
                 </View>
-                <View style={styles.mediumMarginTop}>
+                <View style={{ ...styles.mediumMarginTop, marginBottom: 270 }}>
                     <FlatList
                         data={popular.places}
-                        scrollEnabled
+                        scrollEnabled={popular.total > 5}
+                        showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
                             <SearchResults item={item} onPress={() => navigation.navigate('PlaceDetailsScreen', { place: item, search: '' })} />
                         )}
