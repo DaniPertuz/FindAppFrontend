@@ -10,6 +10,7 @@ const useLocation = () => {
     };
 
     const [hasLocation, setHasLocation] = useState(false);
+    const [heading, setHeading] = useState(0);
     const [initialPosition, setInitialPosition] = useState<Location>(init);
     const [currentUserLocation, setCurrentUserLocation] = useState<Location>(init);
     const [routeLines, setRouteLines] = useState<Location[]>([]);
@@ -67,6 +68,7 @@ const useLocation = () => {
 
             setCurrentUserLocation(location);
             setRouteLines(routes => [...routes, location]);
+            if (coords.heading) setHeading(coords.heading);
         },
             (err) => console.log({ err }),
             {
@@ -83,6 +85,7 @@ const useLocation = () => {
 
     return {
         hasLocation,
+        heading,
         initialPosition,
         currentUserLocation,
         routeLines,
