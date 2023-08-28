@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { GOOGLE_MAPS_API_KEY } from '@env';
+import { useIcons } from '../hooks/useIcons';
 import useLocation from '../hooks/useLocation';
 import { IPlace, Location, Step } from '../interfaces';
 import { RootStackParams } from '../navigation';
@@ -13,6 +14,7 @@ import { RootStackParams } from '../navigation';
 interface Props {
     follow: boolean;
     following: React.MutableRefObject<boolean>;
+    heading: number;
     mapViewRef?: React.RefObject<MapView>;
     initialPosition: Location;
     currentUserLocation: Location;
@@ -31,7 +33,7 @@ interface Props {
     setDuration: (duration: number) => void;
 }
 
-const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, direction, place, search, user, setDistance, setDuration }: Props) => {
+const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, direction, place, search, user, setDistance, setDuration }: Props) => {
 
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { getCurrentLocation } = useLocation();
@@ -56,16 +58,16 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                 latitude,
                 longitude
             },
-            heading: 0,
+            heading: heading || 0,
             pitch: 0,
             zoom: (follow === false) ? 13 : 18,
             altitude: (follow === false) ? 20000 : 2000
         });
     };
 
-    const validateLocations = (loc1: Location, loc2: Location) => {
-        return JSON.stringify(loc1) === JSON.stringify(loc2);
-    };
+    // const validateLocations = (loc1: Location, loc2: Location) => {
+    //     return JSON.stringify(loc1) === JSON.stringify(loc2);
+    // };
 
     const handleRegionChangeComplete = () => {
 
@@ -84,10 +86,10 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
 
         setInitialPosition();
 
-        const shouldNavigate = place !== undefined && search !== undefined && user !== undefined && (validateLocations(currentUserLocation, destination) || direction === undefined);
+        const shouldNavigate = (place !== undefined && search !== undefined && user !== undefined) && (direction === undefined);
 
         if (shouldNavigate) navigation.navigate('RateScreen', { item: { place, search, user } });
-    }, [currentUserLocation, destination]);
+    }, [currentUserLocation, destination, direction]);
 
     useEffect(() => {
         if (follow === true) centerPosition();
@@ -104,7 +106,7 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                     latitude: initialPosition.latitude,
                     longitude: initialPosition.longitude
                 },
-                heading: 0,
+                heading: heading || 0,
                 pitch: 0,
                 zoom: (follow === false) ? 13 : 18,
                 altitude: (follow === false) ? 20000 : 2000
@@ -134,7 +136,11 @@ const MapComponent = ({ follow, following, mapViewRef, initialPosition, currentU
                 strokeColor={'rgba(88, 86, 214, 0.2)'}
             />
             <Marker coordinate={initialPosition} />
-            <Marker coordinate={destination} />
+            <Marker coordinate={destination}>
+                <View style={{ backgroundColor: '#F2F2F2', borderRadius: 30, padding: 5 }}>
+                    {useIcons('Finish', 25, 25)}
+                </View>
+            </Marker>
         </MapView>
     );
 };

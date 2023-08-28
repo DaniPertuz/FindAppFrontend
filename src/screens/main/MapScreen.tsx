@@ -14,6 +14,7 @@ import { Direction, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { useIcons } from '../../hooks/useIcons';
+import useDistance from '../../hooks/useDistance';
 import useLocation from '../../hooks/useLocation';
 import { RootStackParams } from '../../navigation';
 import { AuthContext } from '../../context';
@@ -30,7 +31,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const following = useRef<boolean>(true);
     const { top } = useSafeAreaInsets();
 
-    const { hasLocation, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
+    const { hasLocation, heading, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
 
     const [destination, setDestination] = useState<Location>();
     const [duration, setDuration] = useState(0);
@@ -161,22 +162,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         return true;
     };
 
-    const calculateDistance = (currentLocation: Location, destination: Location) => {
-        const R = 6371;
-        const dLat = toRad(destination.latitude - currentLocation.latitude);
-        const dLon = toRad(destination.longitude - currentLocation.longitude);
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRad(currentLocation.latitude)) * Math.cos(toRad(destination.longitude)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const distance = R * c;
-        setDistanceNextStep(distance);
-    };
-
-    const toRad = (value: number) => {
-        return (value * Math.PI) / 180;
-    };
-
     const getDirections = async (directions: any) => {
         try {
             let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.currentUserLocation.latitude},${directions.currentUserLocation.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
@@ -229,7 +214,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         const stepIndex = steps.length >= 1 ? 1 : 0;
         setDirection(steps[stepIndex]);
         if (steps[stepIndex]) {
-            calculateDistance(currentUserLocation, steps[stepIndex].end_location);
+            setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[stepIndex].end_location.latitude, steps[stepIndex].end_location.longitude, 'K'));
         }
     };
 
@@ -332,6 +317,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                         <MapComponent
                             follow={false}
                             following={following}
+                            heading={heading}
                             initialPosition={initialPosition}
                             currentUserLocation={currentUserLocation}
                             destination={destination}
@@ -392,6 +378,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 follow={true}
                                 following={following}
                                 mapViewRef={mapViewRef}
+                                heading={heading}
                                 initialPosition={initialPosition}
                                 currentUserLocation={currentUserLocation}
                                 destination={destination}
@@ -407,7 +394,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                                                 {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
                                             </View>
                                             <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
-                                                <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? (distanceNextStep * 1000).toFixed(0) : distanceNextStep.toFixed(1)} {((Number(distanceNextStep.toFixed(1)) < 1)) ? 'm' : 'km'}</Text>
+                                                <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? `${(distanceNextStep * 1000).toFixed(0)} m` : `${distanceNextStep.toFixed(1)} km`}</Text>
                                                 <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
                                             </View>
                                         </>
