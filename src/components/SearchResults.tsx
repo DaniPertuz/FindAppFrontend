@@ -35,56 +35,60 @@ const SearchResults = ({ item, onPress }: Props) => {
     }, [currentUserLocation]);
 
     return (
-        <View style={styles.listItemContainer}>
-            <View style={{ flex: 3, ...styles.flexDirectionRow }}>
-                <TouchableOpacity
-                    activeOpacity={1.0}
-                    onPress={onPress}
-                    style={styles.flexDirectionRow}
-                >
-                    <View style={styles.flexOne}>
-                        <Image
-                            source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
-                            style={styles.itemIcon}
-                        />
-                    </View>
-                    <View style={{ flex: 4, paddingEnd: 30 }}>
-                        <View style={styles.justifyContentSpaceBetween}>
-                            <View style={{ marginHorizontal: 12 }}>
-                                <View style={styles.smallMarginBottom}>
-                                    <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
-                                </View>
-                                <View style={styles.flexDirectionRowJustifySpaceBetween}>
-                                    {useIcons(item.category, 15, 15)}
-                                    <View style={styles.flexDirectionRow}>
-                                        <View style={styles.itemDetailsIconMarginEnd}>
-                                            {useIcons('Location', 15, 15)}
+        <>
+            {(item.address !== '') &&
+                <View style={styles.listItemContainer}>
+                    <View style={{ flex: 3, ...styles.flexDirectionRow }}>
+                        <TouchableOpacity
+                            activeOpacity={1.0}
+                            onPress={onPress}
+                            style={styles.flexDirectionRow}
+                        >
+                            <View style={styles.flexOne}>
+                                <Image
+                                    source={(item.photo === '') ? require('../assets/FA_Color.png') : { uri: item.photo }}
+                                    style={styles.itemIcon}
+                                />
+                            </View>
+                            <View style={{ flex: 4, paddingEnd: 30 }}>
+                                <View style={styles.justifyContentSpaceBetween}>
+                                    <View style={{ marginHorizontal: 12 }}>
+                                        <View style={styles.smallMarginBottom}>
+                                            <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
                                         </View>
-                                        <Text style={styles.smallPlainText}>{isNaN(distance) ? '0.0' : distance.toFixed(1)} Km</Text>
-                                    </View>
-                                    <View style={styles.flexDirectionRow}>
-                                        <View style={styles.itemDetailsIconMarginEnd}>
-                                            {useIcons('Star', 15, 15)}
+                                        <View style={styles.flexDirectionRowJustifySpaceBetween}>
+                                            {useIcons(item.category, 15, 15)}
+                                            <View style={styles.flexDirectionRow}>
+                                                <View style={styles.itemDetailsIconMarginEnd}>
+                                                    {useIcons('Location', 15, 15)}
+                                                </View>
+                                                <Text style={styles.smallPlainText}>{isNaN(distance) ? '0.0' : distance.toFixed(1)} Km</Text>
+                                            </View>
+                                            <View style={styles.flexDirectionRow}>
+                                                <View style={styles.itemDetailsIconMarginEnd}>
+                                                    {useIcons('Star', 15, 15)}
+                                                </View>
+                                                <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
+                                            </View>
                                         </View>
-                                        <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                     </View>
                                 </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-            </View>
-            <View
-                style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
-                <TouchableOpacity
-                    style={styles.resultsNavigationButton}
-                    activeOpacity={0.9}
-                    onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
-                >
-                    <Text style={styles.buttonText}>Iniciar</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+                    <View
+                        style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
+                        <TouchableOpacity
+                            style={styles.resultsNavigationButton}
+                            activeOpacity={0.9}
+                            onPress={() => navigator.navigate('MapScreen', { place: item, search: item.name })}
+                        >
+                            <Text style={styles.buttonText}>Iniciar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            }
+        </>
     );
 };
 
