@@ -25,15 +25,11 @@ interface Props {
         latitudeDelta: number;
         longitudeDelta: number;
     };
-    direction?: Step;
-    place?: IPlace;
-    search?: string;
-    user?: string;
     setDistance: (distance: number) => void;
     setDuration: (duration: number) => void;
 }
 
-const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, direction, place, search, user, setDistance, setDuration }: Props) => {
+const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition, currentUserLocation, destination, routeBounds, setDistance, setDuration }: Props) => {
 
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { getCurrentLocation } = useLocation();
@@ -60,14 +56,10 @@ const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition,
             },
             heading: heading || 0,
             pitch: 0,
-            zoom: (follow === false) ? 13 : 18,
-            altitude: (follow === false) ? 20000 : 2000
-        });
+            zoom: 18,
+            altitude: 2000
+        }, { duration: 0 });
     };
-
-    // const validateLocations = (loc1: Location, loc2: Location) => {
-    //     return JSON.stringify(loc1) === JSON.stringify(loc2);
-    // };
 
     const handleRegionChangeComplete = () => {
 
@@ -85,11 +77,7 @@ const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition,
         if (!following.current) return;
 
         setInitialPosition();
-
-        const shouldNavigate = (place !== undefined && search !== undefined && user !== undefined) && (direction === undefined);
-
-        if (shouldNavigate) navigation.navigate('RateScreen', { item: { place, search, user } });
-    }, [currentUserLocation, destination, direction]);
+    }, [follow]);
 
     useEffect(() => {
         if (follow === true) centerPosition();

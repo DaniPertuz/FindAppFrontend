@@ -57,18 +57,6 @@ const MapScreen = ({ route, navigation }: Props) => {
         setDestination({ latitude: lat, longitude: lng });
     };
 
-    const setInitialPosition = async () => {
-        if (follow === false) {
-            const { latitude, longitude } = await getCurrentLocation();
-            mapViewRef?.current?.animateToRegion({
-                latitude,
-                longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            }, 100);
-        }
-    };
-
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
         mapViewRef?.current?.animateCamera({
@@ -76,10 +64,10 @@ const MapScreen = ({ route, navigation }: Props) => {
                 latitude,
                 longitude
             },
-            heading: 0,
+            heading: heading || 0,
             pitch: 0,
-            zoom: (follow === false) ? 13 : 18,
-            altitude: (follow === false) ? 20000 : 2000
+            zoom: 18,
+            altitude: 2000
         });
     };
 
@@ -248,13 +236,12 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, [currentUserLocation, steps]);
 
     useEffect(() => {
-        if (!following.current) return;
-
-        setInitialPosition();
-
-        if (follow === true && direction === undefined) {
-            setModalVisible(false);
-            navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
+        if (destination && follow === true && direction === undefined) {
+            const distanceToDestination = useDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination.latitude, destination.longitude, 'M');
+            if (distanceToDestination < 3) {
+                setModalVisible(false);
+                navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
+            }
         }
     }, [currentUserLocation, destination, follow]);
 
@@ -324,10 +311,6 @@ const MapScreen = ({ route, navigation }: Props) => {
                             routeBounds={routeBounds!}
                             setDistance={setDistance}
                             setDuration={setDuration}
-                            direction={direction}
-                            place={place}
-                            search={search}
-                            user={user?._id!}
                         />
                         <View style={styles.mapNavigationModal}>
                             <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, ...styles.mediumMarginTop, marginHorizontal: 21 }}>
