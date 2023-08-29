@@ -145,17 +145,21 @@ const RateScreen = ({ navigation, route }: Props) => {
                                     {item.place.description}
                                 </Text>
                             </View>
-                            <View style={styles.flexOneDirectionRow}>
+                            <View style={styles.flexDirectionRowAlignItemsCenter}>
                                 <View style={{ ...styles.flexDirectionRow, marginEnd: 8 }}>
-                                    {useIcons('Star', 21, 21)}
+                                    <View style={styles.alignItemsJustifyContentCenter}>
+                                        {useIcons('Star', 21, 21)}
+                                    </View>
                                     <View style={{ marginStart: 6 }}>
                                         <Text style={styles.detailsBodyText}>
-                                            {Number(item.place.rate.$numberDecimal).toFixed(2)}
+                                            {Number(item.place.rate.$numberDecimal).toFixed(1)}
                                         </Text>
                                     </View>
                                 </View>
                                 <View style={{ ...styles.flexDirectionRow, marginStart: 8 }}>
-                                    {useIcons('UserCircle', 21, 21)}
+                                    <View style={styles.alignItemsJustifyContentCenter}>
+                                        {useIcons('UserCircle', 21, 21)}
+                                    </View>
                                     <TouchableOpacity
                                         activeOpacity={1.0}
                                         onPress={() => setModalVisible(true)}
