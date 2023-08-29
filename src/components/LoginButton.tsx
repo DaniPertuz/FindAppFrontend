@@ -42,6 +42,7 @@ const LoginButton = ({ email = '', password = '', handleFieldLength }: Props) =>
         <TouchableOpacity
             activeOpacity={0.8}
             style={styles.button}
+            disabled={loading}
             onPress={onLogin}
         >
             <Text style={styles.buttonText}>
