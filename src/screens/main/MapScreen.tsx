@@ -10,7 +10,7 @@ import moment from 'moment';
 
 import LoadingScreen from '../LoadingScreen';
 import MapComponent from '../../components/MapComponent';
-import { Direction, Location, Step } from '../../interfaces/app-interfaces';
+import { Direction, DirectionData, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 import { useCoords } from '../../hooks/useCoords';
 import { useIcons } from '../../hooks/useIcons';
@@ -34,22 +34,17 @@ const MapScreen = ({ route, navigation }: Props) => {
     const { hasLocation, heading, initialPosition, currentUserLocation, getCurrentLocation, followUserLocation, stopFollowingUserLocation } = useLocation();
 
     const [destination, setDestination] = useState<Location>();
-    const [duration, setDuration] = useState(0);
-    const [distance, setDistance] = useState(0);
-    const [distanceNextStep, setDistanceNextStep] = useState(0);
-    const [distanceToDestination, setDistanceToDestination] = useState(0);
+    const [duration, setDuration] = useState<number>(0);
+    const [distance, setDistance] = useState<number>(0);
+    const [distanceNextStep, setDistanceNextStep] = useState<number>(0);
+    const [distanceToDestination, setDistanceToDestination] = useState<number>(0);
     const [direction, setDirection] = useState<Step>({ end_location: currentUserLocation, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
-    const [deviceFormat, setDeviceFormat] = useState(false);
-    const [follow, setFollow] = useState(false);
-    const [modalVisible, setModalVisible] = useState(true);
-    const [modalFollowVisible, setModalFollowVisible] = useState(false);
-    const [routeBounds, setRouteBounds] = useState<{
-        latitude: number;
-        longitude: number;
-        latitudeDelta: number;
-        longitudeDelta: number;
-    }>();
+    const [deviceFormat, setDeviceFormat] = useState<boolean>(false);
+    const [follow, setFollow] = useState<boolean>(false);
+    const [modalVisible, setModalVisible] = useState<boolean>(true);
+    const [modalFollowVisible, setModalFollowVisible] = useState<boolean>(false);
+    const [routeBounds, setRouteBounds] = useState<{ latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number; }>();
 
     const { user } = useContext(AuthContext);
 
@@ -159,7 +154,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         return true;
     };
 
-    const getDirections = async (directions: any) => {
+    const getDirections = async (directions: DirectionData): Promise<any> => {
         try {
             let apiUrl = `https://maps.googleapis.com/maps/api/directions/json?&origin=${directions.currentUserLocation.latitude},${directions.currentUserLocation.longitude}&destination=${directions.destination.latitude},${directions.destination.longitude}&key=${directions.key}&language=es`;
 
@@ -184,7 +179,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         }
     };
 
-    const fetchDirections = async (directions: any) => {
+    const fetchDirections = async (directions: DirectionData) => {
         try {
             const response = await getDirections(directions);
             const data = response as Direction[];
@@ -209,9 +204,7 @@ const MapScreen = ({ route, navigation }: Props) => {
         if (!currentUserLocation) return;
 
         setDirection(steps[0]);
-        if (steps[0]) {
-            setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[0].end_location.latitude, steps[0].end_location.longitude, 'K'));
-        }
+        if (steps[0]) setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[0].end_location.latitude, steps[0].end_location.longitude, 'K'));
     };
 
     useEffect(() => {
@@ -224,23 +217,16 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, []);
 
     useEffect(() => {
-        if (steps.length === 0) {
-            getCoords();
-        }
+        if (steps.length === 0) getCoords();
     }, [destination]);
 
     useEffect(() => {
         followUserLocation();
-
-        return () => {
-            stopFollowingUserLocation();
-        };
+        return () => stopFollowingUserLocation();
     }, []);
 
     useEffect(() => {
-        if (steps.length > 0) {
-            followDirections();
-        }
+        if (steps.length > 0) followDirections();
     }, [currentUserLocation, steps]);
 
     useEffect(() => {
@@ -266,12 +252,10 @@ const MapScreen = ({ route, navigation }: Props) => {
     useEffect(() => {
         let mounted = true;
         if (destination && mounted) {
-            const waypoints: { latitude: number; longitude: number; }[] = [];
-
-            const directions = {
+            const directions: DirectionData = {
                 currentUserLocation,
                 destination,
-                waypoints,
+                waypoints: [],
                 key: GOOGLE_MAPS_API_KEY,
             };
 
@@ -285,9 +269,7 @@ const MapScreen = ({ route, navigation }: Props) => {
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-        return () => {
-            backHandler.remove();
-        };
+        return () => backHandler.remove();
     }, [follow, modalVisible]);
 
     if (!hasLocation) return <LoadingScreen />;
