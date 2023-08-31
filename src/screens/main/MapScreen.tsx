@@ -37,6 +37,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const [duration, setDuration] = useState(0);
     const [distance, setDistance] = useState(0);
     const [distanceNextStep, setDistanceNextStep] = useState(0);
+    const [distanceToDestination, setDistanceToDestination] = useState(0);
     const [direction, setDirection] = useState<Step>({ end_location: currentUserLocation, html_instructions: '', maneuver: '' });
     const [steps, setSteps] = useState<Step[]>([]);
     const [deviceFormat, setDeviceFormat] = useState(false);
@@ -120,17 +121,25 @@ const MapScreen = ({ route, navigation }: Props) => {
     );
 
     const renderDirection = (instruction: string) => {
-        switch (instruction) {
-            case 'turn-slight-left':
-                return useIcons('ArrowUpLeft', 46, 46);
-            case 'turn-slight-right':
-                return useIcons('ArrowUpRight', 46, 46);
-            case 'straight':
+        switch (true) {
+            case instruction.includes('Continúa recto'):
+            case instruction.includes('Dirígete hacia el norte'):
                 return useIcons('ArrowUp', 46, 46);
-            case 'turn-left':
-                return useIcons('ArrowElbowUpLeft', 46, 46);
-            case 'turn-right':
+
+            case instruction.includes('Gira a la derecha'):
+            case instruction.includes('Dirígete hacia el este'):
                 return useIcons('ArrowElbowUpRight', 46, 46);
+
+            case instruction.includes('Gira a la izquierda'):
+            case instruction.includes('Dirígete hacia el oeste'):
+                return useIcons('ArrowElbowUpLeft', 46, 46);
+
+            case instruction.includes('Gira ligeramente a la derecha'):
+                return useIcons('ArrowUpRight', 46, 46);
+
+            case instruction.includes('Gira ligeramente a la izquierda'):
+                return useIcons('ArrowUpLeft', 46, 46);
+
             default:
                 return useIcons('Car', 46, 46);
         }
@@ -199,10 +208,9 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        const stepIndex = steps.length >= 1 ? 1 : 0;
-        setDirection(steps[stepIndex]);
-        if (steps[stepIndex]) {
-            setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[stepIndex].end_location.latitude, steps[stepIndex].end_location.longitude, 'K'));
+        setDirection(steps[0]);
+        if (steps[0]) {
+            setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[0].end_location.latitude, steps[0].end_location.longitude, 'K'));
         }
     };
 
@@ -236,9 +244,15 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, [currentUserLocation, steps]);
 
     useEffect(() => {
-        if (destination && follow === true && direction === undefined) {
-            const distanceToDestination = useDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination.latitude, destination.longitude, 'M');
-            if (distanceToDestination < 3) {
+        if (destination) {
+            const distance = useDistance(currentUserLocation.latitude, currentUserLocation.longitude, destination.latitude, destination.longitude, 'M');
+            setDistanceToDestination(distance);
+        }
+    }, [currentUserLocation, destination]);
+
+    useEffect(() => {
+        if (destination && follow === true) {
+            if (distanceToDestination < 0.03) {
                 setModalVisible(false);
                 navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
             }
@@ -371,14 +385,14 @@ const MapScreen = ({ route, navigation }: Props) => {
                             />
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
-                                    {direction ?
+                                    {distanceToDestination > 0.05 ?
                                         <>
                                             <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
-                                                {renderDirection((direction.maneuver === undefined) ? 'Car' : direction.maneuver)}
+                                                {renderDirection(convertText(direction.html_instructions))}
                                             </View>
-                                            <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
+                                            <View style={{ justifyContent: 'center', maxWidth: '80%' }}>
                                                 <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? `${(distanceNextStep * 1000).toFixed(0)} m` : `${distanceNextStep.toFixed(1)} km`}</Text>
-                                                <Text numberOfLines={2} style={{ ...styles.placeholderText }}>{convertText(direction.html_instructions!)}</Text>
+                                                <Text numberOfLines={2} style={styles.placeholderText}>{convertText(direction.html_instructions!)} </Text>
                                             </View>
                                         </>
                                         :
