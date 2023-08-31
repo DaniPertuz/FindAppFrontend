@@ -152,6 +152,13 @@ export interface Direction {
     maneuver:          string | undefined;
 }
 
+export interface DirectionData {
+    currentUserLocation: Location;
+    destination:         Location;
+    waypoints:           Location[];
+    key:                 string;
+}
+
 export interface Distance {
     text:  string;
     value: number;
