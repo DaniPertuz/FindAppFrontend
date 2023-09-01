@@ -203,8 +203,12 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        setDirection(steps[0]);
-        if (steps[0]) setDistanceNextStep(useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[0].end_location.latitude, steps[0].end_location.longitude, 'K'));
+        const stepIndex = steps.length > 0 ? 1 : 0;
+        if (steps[stepIndex]) {
+            const nextStepDistance = useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[stepIndex].end_location.latitude, steps[stepIndex].end_location.longitude, 'K');
+            setDirection(steps[stepIndex]);
+            setDistanceNextStep(nextStepDistance);
+        }
     };
 
     useEffect(() => {
@@ -367,7 +371,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             />
                             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
                                 <View style={styles.mapDirectionsBackground}>
-                                    {distanceToDestination > 0.05 ?
+                                    {distanceToDestination > 0.05 && direction ?
                                         <>
                                             <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
                                                 {renderDirection(convertText(direction.html_instructions))}
