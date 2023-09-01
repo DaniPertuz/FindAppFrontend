@@ -203,7 +203,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     const followDirections = () => {
         if (!currentUserLocation) return;
 
-        const stepIndex = steps.length > 0 ? 1 : 0;
+        const stepIndex = steps.length === 2 ? 1 : 0;
         if (steps[stepIndex]) {
             const nextStepDistance = useDistance(currentUserLocation.latitude, currentUserLocation.longitude, steps[stepIndex].end_location.latitude, steps[stepIndex].end_location.longitude, 'K');
             setDirection(steps[stepIndex]);
