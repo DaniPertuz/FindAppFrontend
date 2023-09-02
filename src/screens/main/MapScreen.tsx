@@ -373,27 +373,31 @@ const MapScreen = ({ route, navigation }: Props) => {
                                 <View style={styles.mapDirectionsBackground}>
                                     {distanceToDestination > 0.05 && direction ?
                                         <>
-                                            <View style={{ alignSelf: 'center', marginHorizontal: 10 }}>
+                                            <View style={{ justifyContent: 'center', marginHorizontal: 10 }}>
                                                 {renderDirection(convertText(direction.html_instructions))}
                                             </View>
-                                            <View style={{ justifyContent: 'center', maxWidth: '80%' }}>
-                                                <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? `${(distanceNextStep * 1000).toFixed(0)} m` : `${distanceNextStep.toFixed(1)} km`}</Text>
-                                                <Text numberOfLines={2} style={styles.placeholderText}>{convertText(direction.html_instructions!)} </Text>
+                                            <View style={{ justifyContent: 'center' }}>
+                                                <View style={{ minHeight: '50%', justifyContent: 'center' }}>
+                                                    <Text style={styles.detailsMainName}>{(Number(distanceNextStep.toFixed(1)) < 1) ? `${(distanceNextStep * 1000).toFixed(0)} m` : `${distanceNextStep.toFixed(1)} km`}</Text>
+                                                </View>
+                                                <View style={{ minHeight: '50%', maxWidth: '94%' }}>
+                                                    <Text numberOfLines={2} style={styles.placeholderText}>{convertText(direction.html_instructions!)} </Text>
+                                                </View>
                                             </View>
                                         </>
                                         :
                                         <>
-                                            <View style={{ alignSelf: 'center', flexDirection: 'row', marginHorizontal: 10 }}>
+                                            <View style={styles.mapFinishNavContainer}>
                                                 {useIcons('Finish', 30, 30)}
                                             </View>
-                                            <View style={{ ...styles.justifyContentCenter, maxWidth: '75%' }}>
+                                            <View style={{ ...styles.justifyContentCenter, maxWidth: '80%' }}>
                                                 <Text numberOfLines={2} style={styles.detailsMainName}>Has llegado a {place.name}</Text>
                                             </View>
                                         </>
                                     }
                                 </View>
                             </View>
-                            <View style={{ ...styles.mapFollowModal, height: (Platform.OS === 'ios') ? '20%' : '15%', top: (Platform.OS === 'ios') ? '72%' : '75%' }}>
+                            <View style={{ ...styles.mapFollowModal, height: (Platform.OS === 'ios') ? '20%' : '15%', top: (Platform.OS === 'ios') ? '70%' : '73%' }}>
                                 <View style={{ ...styles.flexDirectionRowAlignJustifyCenter, ...styles.mediumMarginTop }}>
                                     <TouchableOpacity
                                         activeOpacity={1.0}
