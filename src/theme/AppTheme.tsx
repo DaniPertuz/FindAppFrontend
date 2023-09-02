@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
     mapDirectionsBackground: {
         backgroundColor: '#DEDEDE',
         flexDirection: 'row',
-        height: 75,
+        height: 85,
         paddingHorizontal: 6
     },
     mapDuration: {
@@ -522,6 +522,11 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         letterSpacing: -0.56,
         lineHeight: 32
+    },
+    mapFinishNavContainer: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        marginHorizontal: 10
     },
     mapFollowArrivalTime: {
         color: '#292D32',
