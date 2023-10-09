@@ -69,7 +69,7 @@ const HistoryScreen = () => {
                             :
                             <FlatList
                                 data={historical.services}
-                                keyExtractor={(item) => item.date}
+                                keyExtractor={(_, index) => `${index}`}
                                 renderItem={({ item }) =>
                                     <SearchResults
                                         item={item.place}
