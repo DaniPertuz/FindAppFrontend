@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Keyboard, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../context';
 import { styles } from '../theme/AppTheme';
@@ -11,10 +11,14 @@ interface Props {
 
 const LoginButton = ({ email = '', password = '', handleFieldLength }: Props) => {
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, errorMessage } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
-    const onLogin = () => {
+    useEffect(() => {
+        if (errorMessage.length > 0) setLoading(false);
+    }, [errorMessage]);
+
+    const onLogin = async () => {
         Keyboard.dismiss();
 
         if (email.length === 0 && password.length !== 0) {
@@ -40,7 +44,7 @@ const LoginButton = ({ email = '', password = '', handleFieldLength }: Props) =>
 
     return (
         <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.9}
             style={styles.button}
             disabled={loading}
             onPress={onLogin}
