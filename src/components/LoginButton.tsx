@@ -50,7 +50,7 @@ const LoginButton = ({ email = '', password = '', handleFieldLength }: Props) =>
             onPress={onLogin}
         >
             <Text style={styles.buttonText}>
-                {loading === true ? <ActivityIndicator size={22} color='#FFFFFF' /> : 'Iniciar Sesión'}
+                {loading ? <ActivityIndicator size={22} color='#FFFFFF' /> : 'Iniciar Sesión'}
             </Text>
         </TouchableOpacity>
     );
