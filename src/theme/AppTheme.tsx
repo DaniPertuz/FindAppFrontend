@@ -229,8 +229,6 @@ const styles = StyleSheet.create({
         padding: 5
     },
     editProfileScrollView: {
-        flex: 2,
-        marginTop: 10,
         paddingHorizontal: 30
     },
     editProfileUserNameText: {
@@ -262,10 +260,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 12
     },
     favoriteScreenContainer: {
-        backgroundColor: 'rgba(104, 110, 222, 0.1)',
+        backgroundColor: 'rgba(104, 110, 222, 0.15)',
         flex: 1,
         paddingHorizontal: 22,
-        paddingTop: 50
+        paddingTop: 18
     },
     flexDirectionRow: {
         flexDirection: 'row'
@@ -330,9 +328,14 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 12
     },
+    forgotPasswordContainerWarning: {
+        alignItems: 'flex-start',
+        marginBottom: 30,
+        marginTop: 2
+    },
     forgotPasswordText: {
         color: '#207CFD',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 15
@@ -342,8 +345,8 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginBottom: 35,
         marginHorizontal: 20,
-        marginTop: 74,
-        minHeight: 720,
+        marginTop: 30,
+        minHeight: '80%',
         paddingHorizontal: 22
     },
     fullHeight: {
@@ -481,7 +484,7 @@ const styles = StyleSheet.create({
     },
     mainScreenContainer: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 18,
         paddingHorizontal: 22
     },
     mapAddress: {
@@ -816,7 +819,7 @@ const styles = StyleSheet.create({
     },
     scrollViewBackground: {
         backgroundColor: 'rgba(104, 110, 222, 0.1)',
-        paddingBottom: 40
+        height: '100%'
     },
     searchButton: {
         alignItems: 'center',
