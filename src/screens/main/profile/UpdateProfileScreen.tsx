@@ -29,8 +29,8 @@ const UpdateProfileScreen = ({ route }: Props) => {
     const [display, setDisplay] = useState(false);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(true);
-    const [eyeIcon] = useState('../../../assets/eye-closed.png');
-    const [eyeIconConfirm] = useState('../../../assets/eye-closed.png');
+    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
+    const [eyeIconConfirm, setEyeIconConfirm] = useState('EyeClosed');
 
     useEffect(() => {
         load();
@@ -48,19 +48,17 @@ const UpdateProfileScreen = ({ route }: Props) => {
     });
 
     const handlePasswordVisibility = () => {
-        if (eyeIcon === '../../../assets/eye-closed.png') {
-            setPasswordVisibility(!passwordVisibility);
-        } else if (eyeIcon === '../../../assets/eye.png') {
-            setPasswordVisibility(!passwordVisibility);
-        }
+        setPasswordVisibility(!passwordVisibility);
+        setEyeIcon((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
     const handleConfirmPasswordVisibility = () => {
-        if (eyeIconConfirm === '../../../assets/eye-closed.png') {
-            setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        } else if (eyeIconConfirm === '../../../assets/eye.png') {
-            setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        }
+        setPasswordConfirmVisibility(!passwordConfirmVisibility);
+        setEyeIconConfirm((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
     const onUpdate = async () => {
@@ -162,10 +160,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 activeOpacity={1.0}
                                 onPress={handlePasswordVisibility}
                             >
-                                {(passwordVisibility === false)
-                                    ? useIcons('Eye', 28, 28)
-                                    : useIcons('EyeClosed', 28, 28)
-                                }
+                                {useIcons(eyeIcon, 28, 28)}
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -191,14 +186,11 @@ const UpdateProfileScreen = ({ route }: Props) => {
                                 activeOpacity={1.0}
                                 onPress={handleConfirmPasswordVisibility}
                             >
-                                {(passwordConfirmVisibility === false)
-                                    ? useIcons('Eye', 28, 28)
-                                    : useIcons('EyeClosed', 28, 28)
-                                }
+                                {useIcons(eyeIconConfirm, 28, 28)}
                             </TouchableOpacity>
                         </View>
                     </View>
-                    {(display === true) &&
+                    {(display) &&
                         <View style={styles.flexDirectionRowTinyMarginTop}>
                             <View style={styles.warningTopMargin}>
                                 {useIcons('Warning', 15, 15)}
@@ -206,7 +198,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
                             <Text style={styles.warningText}>Contraseñas no coinciden</Text>
                         </View>
                     }
-                    <View style={{ marginTop: (display === true) ? 118 : 143 }}>
+                    <View style={{ marginTop: (display) ? 118 : 143 }}>
                         <TouchableOpacity
                             activeOpacity={0.9}
                             style={styles.button}
