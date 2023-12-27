@@ -3,6 +3,7 @@ import { FlatList, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext, PlacesContext } from '../../../context';
+import StatusBarComponent from '../../../components/StatusBarComponent';
 import TopButtons from '../../../components/TopButtons';
 import FavoriteItem from './FavoriteItem';
 import LoadingScreen from '../../LoadingScreen';
@@ -37,12 +38,11 @@ const FavoritesScreen = () => {
 
     return (
         <>
-            {(display === false) && <LoadingScreen />}
-
-            {(display === true) &&
-                <View
-                    style={styles.favoriteScreenContainer}
-                >
+            {(!display)
+                ? <LoadingScreen />
+                :
+                <View style={styles.favoriteScreenContainer}>
+                    <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
                     <TopButtons />
                     <View style={styles.mediumMarginTop}>
                         <Text style={styles.boldMediumText}>Favoritos</Text>

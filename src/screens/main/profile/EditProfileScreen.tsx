@@ -8,6 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext, UsersContext } from '../../../context';
+import StatusBarComponent from '../../../components/StatusBarComponent';
 import { useIcons } from '../../../hooks/useIcons';
 import { IRatingList } from '../../../interfaces';
 import { RootStackParams } from '../../../navigation';
@@ -37,7 +38,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
     };
 
     useEffect(() => {
-        if (isFocused === true) {
+        if (isFocused) {
             load();
         }
     }, [isFocused, userDB]);
@@ -123,9 +124,10 @@ const EditProfileScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.mainBackground}>
             <KeyboardAvoidingView
-                style={{ ...styles.flexOne, paddingTop: (Platform.OS === 'ios') ? top : top + 20 }}
+                style={{ ...styles.flexOne }}
                 behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
             >
+                <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
                 <ScrollView
                     style={styles.editProfileScrollView}
                     contentContainerStyle={styles.justifyContentCenter}>

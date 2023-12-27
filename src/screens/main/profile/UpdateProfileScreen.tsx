@@ -8,6 +8,7 @@ import Toast from 'react-native-root-toast';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
 import { useIcons } from '../../../hooks/useIcons';
+import StatusBarComponent from '../../../components/StatusBarComponent';
 
 import { UsersContext } from '../../../context';
 import { IUser } from '../../../interfaces';
@@ -83,6 +84,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
     return (
         <View style={styles.mainBackground}>
             <View style={{ ...styles.flexDirectionRow, marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
+                <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
                 <TouchableOpacity
                     activeOpacity={1.0}
                     style={{ ...styles.flexOne, marginStart: 15, marginTop: 5 }}
