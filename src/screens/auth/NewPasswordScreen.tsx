@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import Background from '../../components/Background';
 import NewPasswordFormInputs from '../../components/NewPasswordFormInputs';
+import StatusBarComponent from '../../components/StatusBarComponent';
 import { RootStackParams } from '../../navigation';
 import { useIcons } from '../../hooks/useIcons';
 import { useForm } from '../../hooks/useForm';
@@ -24,6 +25,7 @@ const NewPasswordScreen = () => {
     return (
         <>
             <Background />
+            <StatusBarComponent color='#207CFD' theme='light-content' />
             <ScrollView
                 keyboardShouldPersistTaps='handled'
                 contentContainerStyle={styles.scrollViewBackground}

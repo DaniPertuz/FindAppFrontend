@@ -6,6 +6,7 @@ import { AuthContext } from '../../context';
 import { useForm } from '../../hooks/useForm';
 import Background from '../../components/Background';
 import FormInputs from '../../components/FormInputs';
+import StatusBarComponent from '../../components/StatusBarComponent';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -26,6 +27,7 @@ const LoginScreen = () => {
 
   return (
     <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.scrollViewBackground}>
+      <StatusBarComponent color='#207CFD' theme='light-content' />
       <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
         <Background />
         <View style={styles.formContainer}>

@@ -6,6 +6,7 @@ import { PlacesContext } from '../../context';
 import Categories from '../../components/Categories';
 import TopButtons from '../../components/TopButtons';
 import SearchResults from '../../components/SearchResults';
+import StatusBarComponent from '../../components/StatusBarComponent';
 import { IPlaces } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
@@ -73,6 +74,7 @@ const MainScreen = () => {
 
     return (
         <View style={styles.mainBackground}>
+            <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
             <View style={styles.mainScreenContainer}>
                 <TopButtons />
                 <View style={styles.mediumMarginTop}>
