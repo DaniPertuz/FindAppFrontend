@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-root-toast';
 
-import StatusBarComponent from '../../../components/StatusBarComponent';
 import { RootStackParams } from '../../../navigation';
 import { useForm } from '../../../hooks/useForm';
 import { useIcons } from '../../../hooks/useIcons';
@@ -84,7 +83,6 @@ const UpdateProfileScreen = ({ route }: Props) => {
     return (
         <View style={styles.mainBackground}>
             <View style={{ ...styles.flexDirectionRow, marginTop: (Platform.OS === 'ios') ? top : top + 20 }}>
-                <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
                 <TouchableOpacity
                     activeOpacity={1.0}
                     style={{ ...styles.flexOne, marginStart: 15, marginTop: 5 }}
