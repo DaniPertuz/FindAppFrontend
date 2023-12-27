@@ -27,7 +27,7 @@ const TopButtons = () => {
     };
 
     useEffect(() => {
-        if (isFocused === true) {
+        if (isFocused) {
             load();
         }
     }, [isFocused, userDB]);

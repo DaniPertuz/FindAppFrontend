@@ -241,7 +241,7 @@ const MapScreen = ({ route, navigation }: Props) => {
     }, [currentUserLocation, destination]);
 
     useEffect(() => {
-        if (destination && follow === true) {
+        if (destination && follow) {
             if (distanceToDestination < 0.03) {
                 setModalVisible(false);
                 navigation.navigate('RateScreen', { item: { place, search, user: user?._id! } });
@@ -355,7 +355,7 @@ const MapScreen = ({ route, navigation }: Props) => {
                             </View>
                         </View>
                     </Modal>
-                    {modalFollowVisible === true &&
+                    {modalFollowVisible &&
                         <>
                             <MapComponent
                                 follow={true}

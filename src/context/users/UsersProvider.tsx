@@ -100,7 +100,7 @@ export const UsersProvider = ({ children }: any) => {
             });
 
             setUsers(users.map(user => {
-                return (user.status === true) ? resp.data : user;
+                return (user.status) ? resp.data : user;
             }));
         } catch (error) {
             console.error(error);

@@ -114,7 +114,7 @@ const SearchScreen = () => {
             </View>
             <View style={styles.mediumMarginTop}>
 
-                {((display === true) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
+                {((display) && (searchResults.totalPlaces.length === 0 && searchResults.totalProducts.length === 0)) &&
                     <View style={{ ...styles.alignItemsCenter, marginTop: 100 }}>
                         {useIcons('Mask', 73, 73)}
                         <View style={styles.mediumLargeMarginTop}>
@@ -123,7 +123,7 @@ const SearchScreen = () => {
                     </View>
                 }
 
-                {((display === true) && (searchResults.places.length !== 0 || searchResults.products.length !== 0)) &&
+                {((display) && (searchResults.places.length !== 0 || searchResults.products.length !== 0)) &&
                     <View style={styles.fullHeight}>
                         <View style={{ maxHeight: '40%', paddingVertical: 10 }}>
                             <View style={styles.mediumMarginBottom}>

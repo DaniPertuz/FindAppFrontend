@@ -38,9 +38,9 @@ const RatingsScreen = () => {
 
     return (
         <>
-            {(display === false) && <LoadingScreen />}
-
-            {(display === true) &&
+            {(!display)
+                ? <LoadingScreen />
+                :
                 <View
                     style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
                     <View style={styles.flexDirectionRow}>

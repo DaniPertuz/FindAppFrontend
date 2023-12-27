@@ -102,10 +102,10 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
                             onPress={handleFavorite}
                         >
                             <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                                {(newFavorite === true) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
+                                {(newFavorite) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
                                 <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
-                                        {(newFavorite === true) ? 'Guardado' : 'Guardar'} en Favoritos
+                                        {(newFavorite) ? 'Guardado' : 'Guardar'} en Favoritos
                                     </Text>
                                 </View>
                             </View>

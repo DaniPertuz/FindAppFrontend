@@ -80,7 +80,7 @@ const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition,
     }, [follow]);
 
     useEffect(() => {
-        if (follow === true) centerPosition();
+        if (follow) centerPosition();
     }, [follow, currentUserLocation]);
 
     return (

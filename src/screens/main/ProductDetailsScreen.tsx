@@ -89,10 +89,10 @@ const ProductDetailsScreen = ({ navigation, route }: Props) => {
                             onPress={handleFavorite}
                         >
                             <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                                {(newFavorite === true) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
+                                {(newFavorite) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
                                 <View style={styles.smallMarginStart}>
                                     <Text style={styles.detailsCaptionGrayText}>
-                                        {(newFavorite === true) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
+                                        {(newFavorite) ? 'Lugar guardado' : 'Guardar lugar'} en Favoritos
                                     </Text>
                                 </View>
                             </View>
