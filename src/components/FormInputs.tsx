@@ -19,7 +19,7 @@ interface Props {
 const FormInputs = ({ email, password, onChange }: Props) => {
 
     const [passwordVisibility, setPasswordVisibility] = useState(true);
-    const [eyeIcon] = useState('../assets/eye-closed.png');
+    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
     const [fieldLength, setFieldLength] = useState({
         email: false,
         password: false
@@ -27,17 +27,16 @@ const FormInputs = ({ email, password, onChange }: Props) => {
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
     const handlePasswordVisibility = () => {
-        if (eyeIcon === '../assets/eye-closed.png') {
-            setPasswordVisibility(!passwordVisibility);
-        } else if (eyeIcon === '../assets/eye.png') {
-            setPasswordVisibility(!passwordVisibility);
-        }
+        setPasswordVisibility(!passwordVisibility);
+        setEyeIcon((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
-    const handleFieldLength = (email: boolean, password: boolean) => {
+    const handleFieldLength = (emailEmpty: boolean, passwordEmpty: boolean) => {
         setFieldLength({
-            email,
-            password
+            email: emailEmpty,
+            password: passwordEmpty
         });
     };
 
@@ -48,7 +47,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             </Text>
             <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.email === true) && styles.warningBorder
+                (fieldLength.email) && styles.warningBorder
             ]}>
                 {useIcons('User', 20, 20)}
                 <TextInput
@@ -66,7 +65,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     value={email}
                 />
             </View>
-            {(fieldLength.email === true) &&
+            {(fieldLength.email) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -77,7 +76,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
             <Text style={styles.label}>
                 Contraseña
             </Text>
-            <View style={[styles.inputFieldContainer, (fieldLength.password === true) && styles.warningBorder]}>
+            <View style={[styles.inputFieldContainer, (fieldLength.password) && styles.warningBorder]}>
                 <View style={{ flex: 0.4 }}>
                     {useIcons('Lock', 20, 20)}
                 </View>
@@ -100,35 +99,34 @@ const FormInputs = ({ email, password, onChange }: Props) => {
                     activeOpacity={1.0}
                     onPress={handlePasswordVisibility}
                 >
-                    {(passwordVisibility === false)
-                        ? <View style={styles.alignItemsCenter}>
-                            {useIcons('Eye', 20, 20)}
-                        </View>
-                        : <View style={styles.alignItemsCenter}>
-                            {useIcons('EyeClosed', 20, 20)}
-                        </View>
-                    }
+                    <View style={styles.alignItemsCenter}>
+                        {useIcons(eyeIcon, 20, 20)}
+                    </View>
                 </TouchableOpacity>
             </View>
-            {(fieldLength.password === true) &&
-                <View style={styles.flexDirectionRowTinyMarginTop}>
-                    <View style={styles.warningIconMargins}>
-                        {useIcons('Warning', 15, 15)}
-                    </View>
-                    <Text style={styles.warningText}>
-                        Ingresa tu contraseña
-                    </Text>
+            <View style={styles.flexDirectionRowJustifySpaceBetween}>
+                <View style={styles.forgotPasswordContainerWarning}>
+                    {(fieldLength.password) &&
+                        <View style={styles.flexDirectionRowTinyMarginTop}>
+                            <View style={styles.warningIconMargins}>
+                                {useIcons('Warning', 15, 15)}
+                            </View>
+                            <Text style={styles.warningText}>
+                                Ingresa tu contraseña
+                            </Text>
+                        </View>
+                    }
                 </View>
-            }
-            <View style={styles.forgotPasswordContainer}>
-                <TouchableOpacity
-                    activeOpacity={0.9}
-                    onPress={() => navigator.navigate('NewPasswordScreen')}
-                >
-                    <Text style={styles.forgotPasswordText}>
-                        ¿Olvidaste tu contraseña?
-                    </Text>
-                </TouchableOpacity>
+                <View style={styles.forgotPasswordContainer}>
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => navigator.navigate('NewPasswordScreen')}
+                    >
+                        <Text style={styles.forgotPasswordText}>
+                            ¿Olvidaste tu contraseña?
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <LoginButton email={email} password={password} handleFieldLength={handleFieldLength} />
             <View style={styles.createAccountButtonsContainer}>

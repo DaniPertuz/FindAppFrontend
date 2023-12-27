@@ -33,31 +33,33 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
         password: false,
         confirmPassword: false
     });
-    const [eyeIcon] = useState('../../assets/eye-closed.png');
-    const [eyeIconConfirm] = useState('../../assets/eye-closed.png');
+    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
+    const [eyeIconConfirm, setEyeIconConfirm] = useState('EyeClosed');
 
-    const handleFieldLength = (email: boolean, password: boolean, confirmPassword: boolean) => {
+    const handleFieldLength = (emailEmpty: boolean, passwordEmpty: boolean, confirmPasswordEmpty: boolean) => {
+        if (emailEmpty || passwordEmpty || confirmPasswordEmpty) {
+            return;
+        }
+
         setFieldLength({
-            email,
-            password,
-            confirmPassword
+            email: emailEmpty,
+            password: passwordEmpty,
+            confirmPassword: confirmPasswordEmpty,
         });
     };
 
     const handlePasswordVisibility = () => {
-        if (eyeIcon === '../../assets/eye-closed.png') {
-            setPasswordVisibility(!passwordVisibility);
-        } else if (eyeIcon === '../../assets/eye.png') {
-            setPasswordVisibility(!passwordVisibility);
-        }
+        setPasswordVisibility(!passwordVisibility);
+        setEyeIcon((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
     const handleConfirmPasswordVisibility = () => {
-        if (eyeIconConfirm === '../../assets/eye-closed.png') {
-            setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        } else if (eyeIconConfirm === '../../assets/eye.png') {
-            setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        }
+        setPasswordConfirmVisibility(!passwordConfirmVisibility);
+        setEyeIconConfirm((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
     const onUpdate = async () => {
@@ -74,50 +76,15 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             return;
         }
 
-        if (email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0) {
-            if (password !== confirmPassword) {
-                setDisplay(true);
-                return;
-            }
+        handleFieldLength(email.length === 0, password.length === 0, confirmPassword.length === 0);
 
-            updateUserPassword(email, password);
-            navigator.replace('LoginScreen');
-        }
-
-        if (email.length === 0 && password.length !== 0 && confirmPassword.length !== 0) {
-            handleFieldLength(true, false, false);
+        if (password !== confirmPassword) {
+            setDisplay(true);
             return;
         }
 
-        if (email.length === 0 && password.length === 0 && confirmPassword.length !== 0) {
-            handleFieldLength(true, true, false);
-            return;
-        }
-
-        if (email.length !== 0 && password.length === 0 && confirmPassword.length !== 0) {
-            handleFieldLength(false, true, false);
-            return;
-        }
-
-        if (email.length !== 0 && password.length !== 0 && confirmPassword.length === 0) {
-            handleFieldLength(false, false, true);
-            return;
-        }
-
-        if (email.length !== 0 && password.length === 0 && confirmPassword.length === 0) {
-            handleFieldLength(false, true, true);
-            return;
-        }
-
-        if (email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0) {
-            handleFieldLength(false, false, false);
-            return;
-        }
-
-        if (email.length === 0 && password.length === 0 && confirmPassword.length === 0) {
-            handleFieldLength(true, true, true);
-            return;
-        }
+        updateUserPassword(email, password);
+        navigator.replace('LoginScreen');
     };
 
     return (
@@ -125,7 +92,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             <Text style={styles.label}>Email</Text>
             <View style={[
                 styles.inputFieldContainer,
-                (fieldLength.email === true) && styles.warningBorder
+                (fieldLength.email) && styles.warningBorder
             ]}>
                 {useIcons('Envelope', 20, 20)}
                 <TextInput
@@ -143,7 +110,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     value={email}
                 />
             </View>
-            {(fieldLength.email === true) &&
+            {(fieldLength.email) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningTopMargin}>
                         {useIcons('Warning', 15, 15)}
@@ -155,7 +122,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                 <Text style={styles.label}>Contraseña</Text>
                 <View style={[
                     styles.inputFieldContainer,
-                    (fieldLength.password === true) && styles.warningBorder
+                    (fieldLength.password) && styles.warningBorder
                 ]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
@@ -180,15 +147,12 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         onPress={handlePasswordVisibility}
                     >
                         <View style={styles.alignItemsCenter}>
-                            {(passwordVisibility === false)
-                                ? useIcons('Eye', 20, 20)
-                                : useIcons('EyeClosed', 20, 20)
-                            }
+                            {useIcons(eyeIcon, 20, 20)}
                         </View>
                     </TouchableOpacity>
                 </View>
             </View>
-            {(fieldLength.password === true) &&
+            {(fieldLength.password) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningTopMargin}>
                         {useIcons('Warning', 15, 15)}
@@ -200,7 +164,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                 <Text style={styles.label}>Repetir contraseña</Text>
                 <View style={[
                     styles.inputFieldContainer,
-                    (fieldLength.confirmPassword === true) && styles.warningBorder
+                    (fieldLength.confirmPassword) && styles.warningBorder
                 ]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
@@ -225,15 +189,12 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         onPress={handleConfirmPasswordVisibility}
                     >
                         <View style={styles.alignItemsCenter}>
-                            {(passwordConfirmVisibility === false)
-                                ? useIcons('Eye', 20, 20)
-                                : useIcons('EyeClosed', 20, 20)
-                            }
+                            {useIcons(eyeIconConfirm, 20, 20)}
                         </View>
                     </TouchableOpacity>
                 </View>
             </View>
-            {(fieldLength.confirmPassword === true) &&
+            {(fieldLength.confirmPassword) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -243,7 +204,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     </Text>
                 </View>
             }
-            {(display === true) &&
+            {(display) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -253,7 +214,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     </Text>
                 </View>
             }
-            {(authorized === true) &&
+            {(authorized) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -263,7 +224,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     </Text>
                 </View>
             }
-            {(nullUser === true) &&
+            {(nullUser) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}

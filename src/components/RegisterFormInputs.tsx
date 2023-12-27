@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Keyboard, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
-import { useForm } from '../hooks/useForm';
 import { useIcons } from '../hooks/useIcons';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
@@ -22,7 +21,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
     const { signUp } = useContext(AuthContext);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
-    const [eyeIcon] = useState('../../assets/eye-closed.png');
+    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
     const [fieldLength, setFieldLength] = useState({
         name: false,
         email: false,
@@ -30,63 +29,34 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
     });
 
     const handlePasswordVisibility = () => {
-        if (eyeIcon === '../../assets/eye-closed.png') {
-            setPasswordVisibility(!passwordVisibility);
-        } else if (eyeIcon === '../../assets/eye.png') {
-            setPasswordVisibility(!passwordVisibility);
-        }
+        setPasswordVisibility(!passwordVisibility);
+        setEyeIcon((prevIcon) =>
+            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
+        );
     };
 
-    const handleFieldLength = (name: boolean, email: boolean, password: boolean) => {
+    const handleFieldLength = (nameEmpty: boolean, emailEmpty: boolean, passwordEmpty: boolean) => {
+        if (nameEmpty || emailEmpty || passwordEmpty) {
+            return;
+        }
+
         setFieldLength({
-            name,
-            email,
-            password
+            name: nameEmpty,
+            email: emailEmpty,
+            password: passwordEmpty
         });
     };
 
     const onRegister = () => {
-        Keyboard.dismiss();
+        handleFieldLength(name.length === 0, email.length === 0, password.length === 0);
 
-        if (name.length !== 0 && email.length === 0 && password.length !== 0) {
-            handleFieldLength(false, true, false);
-            return;
-        }
-
-        if (name.length !== 0 && email.length === 0 && password.length === 0) {
-            handleFieldLength(false, true, true);
-            return;
-        }
-
-        if (name.length === 0 && email.length !== 0 && password.length !== 0) {
-            handleFieldLength(true, false, false);
-            return;
-        }
-
-        if (name.length === 0 && email.length === 0 && password.length !== 0) {
-            handleFieldLength(true, true, false);
-            return;
-        }
-
-        if (name.length !== 0 && email.length !== 0 && password.length === 0) {
-            handleFieldLength(false, false, true);
-            return;
-        }
-
-        if (name.length === 0 && email.length === 0 && password.length === 0) {
-            handleFieldLength(true, true, true);
-            return;
-        }
-
-        if (name.length !== 0 && email.length !== 0 && password.length !== 0) {
-            signUp({
-                name,
-                email,
-                password,
-                role: roles.CLIENT,
-                status: true
-            });
-        }
+        signUp({
+            name,
+            email,
+            password,
+            role: roles.CLIENT,
+            status: true
+        });
 
     };
     return (
@@ -95,7 +65,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                 <Text style={styles.label}>Usuario</Text>
                 <View style={[
                     styles.inputFieldContainer,
-                    (fieldLength.name === true) && styles.warningBorder
+                    (fieldLength.name) && styles.warningBorder
                 ]}>
                     {useIcons('User', 20, 20)}
                     <TextInput
@@ -113,7 +83,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         value={name}
                     />
                 </View>
-                {(fieldLength.name === true) &&
+                {(fieldLength.name) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
@@ -124,7 +94,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                 <Text style={styles.label}>Email</Text>
                 <View style={[
                     styles.inputFieldContainer,
-                    (fieldLength.email === true) && styles.warningBorder
+                    (fieldLength.email) && styles.warningBorder
                 ]}>
                     {useIcons('Envelope', 20, 20)}
                     <TextInput
@@ -142,7 +112,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         value={email}
                     />
                 </View>
-                {(fieldLength.email === true) &&
+                {(fieldLength.email) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
@@ -153,7 +123,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                 <Text style={styles.label}>Contraseña</Text>
                 <View style={[
                     styles.inputFieldContainer,
-                    (fieldLength.password === true) && styles.warningBorder
+                    (fieldLength.password) && styles.warningBorder
                 ]}
                 >
                     {useIcons('Lock', 20, 20)}
@@ -177,13 +147,10 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         style={styles.registerHideButtonSize}
                         onPress={handlePasswordVisibility}
                     >
-                        {(passwordVisibility === false)
-                            ? useIcons('Eye', 20, 20)
-                            : useIcons('EyeClosed', 20, 20)
-                        }
+                        {useIcons(eyeIcon, 20, 20)}
                     </TouchableOpacity>
                 </View>
-                {(fieldLength.password === true) &&
+                {(fieldLength.password) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
