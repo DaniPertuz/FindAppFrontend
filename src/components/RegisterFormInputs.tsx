@@ -7,6 +7,7 @@ import { AuthContext } from '../context';
 import { useIcons } from '../hooks/useIcons';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
+import useFieldValidation from '../hooks/useFieldValidation';
 
 import { styles } from '../theme/AppTheme';
 
@@ -22,11 +23,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
     const { signUp } = useContext(AuthContext);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [eyeIcon, setEyeIcon] = useState('EyeClosed');
-    const [fieldLength, setFieldLength] = useState({
-        name: false,
-        email: false,
-        password: false
-    });
+    const { fieldLength, validateFields } = useFieldValidation();
 
     const handlePasswordVisibility = () => {
         setPasswordVisibility(!passwordVisibility);
@@ -35,30 +32,24 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
         );
     };
 
-    const handleFieldLength = (nameEmpty: boolean, emailEmpty: boolean, passwordEmpty: boolean) => {
-        if (nameEmpty || emailEmpty || passwordEmpty) {
-            return;
-        }
-
-        setFieldLength({
-            name: nameEmpty,
-            email: emailEmpty,
-            password: passwordEmpty
-        });
-    };
-
     const onRegister = () => {
-        handleFieldLength(name.length === 0, email.length === 0, password.length === 0);
-
-        signUp({
-            name,
-            email,
-            password,
-            role: roles.CLIENT,
-            status: true
+        validateFields({
+            name: name.length === 0,
+            email: email.length === 0,
+            password: password.length === 0
         });
 
+        if (name.length === 0 && email.length === 0 && password.length === 0) {
+            signUp({
+                name,
+                email,
+                password,
+                role: roles.CLIENT,
+                status: true
+            });
+        }
     };
+
     return (
         <>
             <View>

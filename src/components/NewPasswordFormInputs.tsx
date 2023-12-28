@@ -9,6 +9,7 @@ import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
 import { styles } from '../theme/AppTheme';
+import useFieldValidation from '../hooks/useFieldValidation';
 
 interface Props {
     email: string;
@@ -28,25 +29,9 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
     const [nullUser, setNullUser] = useState(false);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(true);
-    const [fieldLength, setFieldLength] = useState({
-        email: false,
-        password: false,
-        confirmPassword: false
-    });
     const [eyeIcon, setEyeIcon] = useState('EyeClosed');
     const [eyeIconConfirm, setEyeIconConfirm] = useState('EyeClosed');
-
-    const handleFieldLength = (emailEmpty: boolean, passwordEmpty: boolean, confirmPasswordEmpty: boolean) => {
-        if (emailEmpty || passwordEmpty || confirmPasswordEmpty) {
-            return;
-        }
-
-        setFieldLength({
-            email: emailEmpty,
-            password: passwordEmpty,
-            confirmPassword: confirmPasswordEmpty,
-        });
-    };
+    const { fieldLength, validateFields } = useFieldValidation();
 
     const handlePasswordVisibility = () => {
         setPasswordVisibility(!passwordVisibility);
@@ -76,15 +61,21 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             return;
         }
 
-        handleFieldLength(email.length === 0, password.length === 0, confirmPassword.length === 0);
+        validateFields({
+            email: email.length === 0,
+            password: password.length === 0,
+            confirmPassword: confirmPassword.length === 0
+        });
 
         if (password !== confirmPassword) {
             setDisplay(true);
             return;
         }
 
-        updateUserPassword(email, password);
-        navigator.replace('LoginScreen');
+        if (email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0) {
+            updateUserPassword(email, password);
+            navigator.replace('LoginScreen');
+        }
     };
 
     return (
@@ -154,10 +145,12 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             </View>
             {(fieldLength.password) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
-                    <View style={styles.warningTopMargin}>
+                    <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>Ingresa tu contraseña</Text>
+                    <Text style={styles.warningText}>
+                        Ingresa tu contraseña
+                    </Text>
                 </View>
             }
             <View>

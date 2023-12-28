@@ -4,9 +4,10 @@ import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import LoginButton from './LoginButton';
+import useFieldValidation from '../hooks/useFieldValidation';
 import { useIcons } from '../hooks/useIcons';
 import { RootStackParams } from '../navigation';
-import LoginButton from './LoginButton';
 
 import { styles } from '../theme/AppTheme';
 
@@ -20,10 +21,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
 
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [eyeIcon, setEyeIcon] = useState('EyeClosed');
-    const [fieldLength, setFieldLength] = useState({
-        email: false,
-        password: false
-    });
+    const { fieldLength, validateFields } = useFieldValidation();
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
     const handlePasswordVisibility = () => {
@@ -34,7 +32,7 @@ const FormInputs = ({ email, password, onChange }: Props) => {
     };
 
     const handleFieldLength = (emailEmpty: boolean, passwordEmpty: boolean) => {
-        setFieldLength({
+        validateFields({
             email: emailEmpty,
             password: passwordEmpty
         });
