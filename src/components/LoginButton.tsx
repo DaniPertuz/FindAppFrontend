@@ -6,11 +6,10 @@ import { styles } from '../theme/AppTheme';
 interface Props {
     email: string;
     password: string;
-    handleFieldLength: (emailEmpty: boolean, passwordEmpty: boolean) => void
+    handleFieldLength: (emailEmpty: boolean, passwordEmpty: boolean) => void;
 }
 
 const LoginButton = ({ email, password, handleFieldLength }: Props) => {
-
     const { signIn, errorMessage } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
