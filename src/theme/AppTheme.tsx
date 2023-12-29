@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     },
     forgotPasswordText: {
         color: '#207CFD',
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 15
