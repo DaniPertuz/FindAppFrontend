@@ -30,7 +30,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
             password: password.length === 0
         });
 
-        if (name.length === 0 && email.length === 0 && password.length === 0) {
+        if (name.length !== 0 && email.length !== 0 && password.length !== 0) {
             signUp({
                 name,
                 email,
