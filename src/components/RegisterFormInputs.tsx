@@ -4,10 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
-import { useIcons } from '../hooks/useIcons';
+import { useFieldValidation, useIcons } from '../hooks';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
-import useFieldValidation from '../hooks/useFieldValidation';
 
 import { styles } from '../theme/AppTheme';
 

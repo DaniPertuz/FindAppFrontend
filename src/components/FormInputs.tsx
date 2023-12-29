@@ -4,10 +4,9 @@ import { Platform, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import LoginButton from './LoginButton';
-import useFieldValidation from '../hooks/useFieldValidation';
-import { useIcons } from '../hooks/useIcons';
+import { useFieldValidation, useIcons } from '../hooks';
 import { RootStackParams } from '../navigation';
+import LoginButton from './LoginButton';
 
 import { styles } from '../theme/AppTheme';
 
