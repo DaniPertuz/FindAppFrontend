@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
-import { useFieldValidation, useIcons } from '../hooks';
+import { useFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
@@ -20,16 +20,8 @@ interface Props {
 const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
     const { signUp } = useContext(AuthContext);
-    const [passwordVisibility, setPasswordVisibility] = useState(true);
-    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
     const { fieldLength, validateFields } = useFieldValidation();
-
-    const handlePasswordVisibility = () => {
-        setPasswordVisibility(!passwordVisibility);
-        setEyeIcon((prevIcon) =>
-            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
-        );
-    };
+    const { eyeIcon, passwordVisibility, handlePasswordVisibility } = usePasswordVisibility();
 
     const onRegister = () => {
         validateFields({

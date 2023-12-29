@@ -5,13 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-root-toast';
 
-import { RootStackParams } from '../../../navigation';
-import { useForm } from '../../../hooks/useForm';
-import { useIcons } from '../../../hooks/useIcons';
 import StatusBarComponent from '../../../components/StatusBarComponent';
-
 import { UsersContext } from '../../../context';
 import { IUser } from '../../../interfaces';
+import { useForm, useIcons, usePasswordVisibility } from '../../../hooks';
+import { RootStackParams } from '../../../navigation';
 
 import { styles } from '../../../theme/AppTheme';
 
@@ -28,10 +26,7 @@ const UpdateProfileScreen = ({ route }: Props) => {
 
     const [userDB, setUserDB] = useState<IUser>(user);
     const [display, setDisplay] = useState(false);
-    const [passwordVisibility, setPasswordVisibility] = useState(true);
-    const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(true);
-    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
-    const [eyeIconConfirm, setEyeIconConfirm] = useState('EyeClosed');
+    const { eyeIcon, eyeIconConfirm, passwordVisibility, passwordConfirmVisibility, handlePasswordVisibility, handleConfirmPasswordVisibility } = usePasswordVisibility();
 
     useEffect(() => {
         load();
@@ -47,20 +42,6 @@ const UpdateProfileScreen = ({ route }: Props) => {
         password: '',
         confirmPassword: ''
     });
-
-    const handlePasswordVisibility = () => {
-        setPasswordVisibility(!passwordVisibility);
-        setEyeIcon((prevIcon) =>
-            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
-        );
-    };
-
-    const handleConfirmPasswordVisibility = () => {
-        setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        setEyeIconConfirm((prevIcon) =>
-            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
-        );
-    };
 
     const onUpdate = async () => {
         if (password !== confirmPassword) {

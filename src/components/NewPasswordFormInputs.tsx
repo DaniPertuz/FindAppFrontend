@@ -4,12 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { UsersContext } from '../context';
-import { useIcons } from '../hooks/useIcons';
+import { useFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
 import { styles } from '../theme/AppTheme';
-import useFieldValidation from '../hooks/useFieldValidation';
 
 interface Props {
     email: string;
@@ -27,25 +26,8 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
     const [display, setDisplay] = useState(false);
     const [authorized, setAuthorized] = useState(false);
     const [nullUser, setNullUser] = useState(false);
-    const [passwordVisibility, setPasswordVisibility] = useState(true);
-    const [passwordConfirmVisibility, setPasswordConfirmVisibility] = useState(true);
-    const [eyeIcon, setEyeIcon] = useState('EyeClosed');
-    const [eyeIconConfirm, setEyeIconConfirm] = useState('EyeClosed');
     const { fieldLength, validateFields } = useFieldValidation();
-
-    const handlePasswordVisibility = () => {
-        setPasswordVisibility(!passwordVisibility);
-        setEyeIcon((prevIcon) =>
-            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
-        );
-    };
-
-    const handleConfirmPasswordVisibility = () => {
-        setPasswordConfirmVisibility(!passwordConfirmVisibility);
-        setEyeIconConfirm((prevIcon) =>
-            prevIcon === 'EyeClosed' ? 'Eye' : 'EyeClosed'
-        );
-    };
+    const { eyeIcon, eyeIconConfirm, passwordVisibility, passwordConfirmVisibility, handlePasswordVisibility, handleConfirmPasswordVisibility } = usePasswordVisibility();
 
     const onUpdate = async () => {
         Keyboard.dismiss();
