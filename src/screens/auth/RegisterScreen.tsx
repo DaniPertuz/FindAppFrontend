@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-na
 
 import Background from '../../components/Background';
 import RegisterFormInputs from '../../components/RegisterFormInputs';
+import StatusBarComponent from '../../components/StatusBarComponent';
 import { useForm } from '../../hooks/useForm';
 
 import { styles } from '../../theme/AppTheme';
@@ -18,6 +19,7 @@ const RegisterScreen = () => {
   return (
     <>
       <Background />
+      <StatusBarComponent color='#207CFD' theme='light-content' />
       <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.scrollViewBackground}>
         <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
           <View style={styles.formContainer}>
