@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { Location } from '../interfaces';
 
-const useLocation = () => {
+export const useLocation = () => {
 
     let init = {
         latitude: 0,
@@ -94,5 +94,3 @@ const useLocation = () => {
         stopFollowingUserLocation
     };
 };
-
-export default useLocation;

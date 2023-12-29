@@ -14,7 +14,7 @@ const initialFieldLength: FieldState = {
   confirmPassword: false
 };
 
-const useFieldValidation = () => {
+export const useFieldValidation = () => {
   const [fieldLength, setFieldLength] = useState<FieldState>(initialFieldLength);
 
   const validateFields = (fields: Partial<FieldState>) => {    
@@ -25,5 +25,3 @@ const useFieldValidation = () => {
 
   return { fieldLength, validateFields };
 };
-
-export default useFieldValidation;

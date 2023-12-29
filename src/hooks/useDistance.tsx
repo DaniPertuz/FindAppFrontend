@@ -1,4 +1,4 @@
-const useDistance = (lat1: number, lon1: number, lat2: number, lon2: number, unit: string) => {
+export const useDistance = (lat1: number, lon1: number, lat2: number, lon2: number, unit: string) => {
     var radlat1 = Math.PI * lat1 / 180;
     var radlat2 = Math.PI * lat2 / 180;
     var theta = lon1 - lon2;
@@ -11,5 +11,3 @@ const useDistance = (lat1: number, lon1: number, lat2: number, lon2: number, uni
     if (unit == "M") { dist = dist * 0.8684; }
     return dist;
 };
-
-export default useDistance;
