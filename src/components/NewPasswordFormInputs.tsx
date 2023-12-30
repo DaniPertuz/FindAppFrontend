@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { UsersContext } from '../context';
-import { useFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
+import { useEmailValidation, useEmptyFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
@@ -25,14 +25,25 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
 
     const [display, setDisplay] = useState(false);
     const [authorized, setAuthorized] = useState(false);
+    const [emailValid, setEmailValid] = useState(true);
     const [nullUser, setNullUser] = useState(false);
-    const { fieldLength, validateFields } = useFieldValidation();
+    const [warning, setWarning] = useState(false);
+
+    const isValidEmail = useEmailValidation(email);
+    const { isEmpty: isEmailEmpty, checkEmptyFields: checkEmailEmpty } = useEmptyFieldValidation();
+    const { isEmpty: isPasswordEmpty, checkEmptyFields: checkPasswordEmpty } = useEmptyFieldValidation();
+    const { isEmpty: isConfirmedPasswordEmpty, checkEmptyFields: checkConfirmedPasswordEmpty } = useEmptyFieldValidation();
     const { eyeIcon, eyeIconConfirm, passwordVisibility, passwordConfirmVisibility, handlePasswordVisibility, handleConfirmPasswordVisibility } = usePasswordVisibility();
 
     const onUpdate = async () => {
         Keyboard.dismiss();
 
         const validation = await loadUserByEmail(email);
+        checkEmailEmpty(email);
+        checkPasswordEmpty(password);
+        checkConfirmedPasswordEmpty(confirmPassword);
+        setEmailValid(isValidEmail);
+        setWarning(!isValidEmail);
 
         if (validation === null && email.length !== 0) {
             setNullUser(true);
@@ -42,12 +53,6 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             setAuthorized(true);
             return;
         }
-
-        validateFields({
-            email: email.length === 0,
-            password: password.length === 0,
-            confirmPassword: confirmPassword.length === 0
-        });
 
         if (password !== confirmPassword) {
             setDisplay(true);
@@ -63,7 +68,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
     return (
         <View>
             <Text style={styles.label}>Email</Text>
-            <View style={[styles.inputFieldContainer, (fieldLength.email) && styles.warningBorder]}>
+            <View style={[styles.inputFieldContainer, (isEmailEmpty || warning) && styles.warningBorder]}>
                 {useIcons('Envelope', 20, 20)}
                 <TextInput
                     placeholder='Ingresa tu correo'
@@ -77,7 +82,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     value={email}
                 />
             </View>
-            {(fieldLength.email) &&
+            {(isEmailEmpty) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -85,9 +90,17 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <Text style={styles.warningText}>Ingresa tu correo</Text>
                 </View>
             }
+            {(!emailValid && !isEmailEmpty) &&
+                <View style={styles.flexDirectionRowTinyMarginTop}>
+                    <View style={styles.warningIconMargins}>
+                        {useIcons('Warning', 15, 15)}
+                    </View>
+                    <Text style={styles.warningText}>Correo inválido</Text>
+                </View>
+            }
             <View>
                 <Text style={styles.label}>Contraseña</Text>
-                <View style={[styles.inputFieldContainer, (fieldLength.password) && styles.warningBorder]}>
+                <View style={[styles.inputFieldContainer, (isPasswordEmpty) && styles.warningBorder]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
                     </View>
@@ -112,7 +125,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     </TouchableOpacity>
                 </View>
             </View>
-            {(fieldLength.password) &&
+            {(isPasswordEmpty) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
@@ -122,7 +135,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             }
             <View>
                 <Text style={styles.label}>Repetir contraseña</Text>
-                <View style={[styles.inputFieldContainer, (fieldLength.confirmPassword) && styles.warningBorder]}>
+                <View style={[styles.inputFieldContainer, (isConfirmedPasswordEmpty) && styles.warningBorder]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
                     </View>
@@ -147,7 +160,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     </TouchableOpacity>
                 </View>
             </View>
-            {(fieldLength.confirmPassword) &&
+            {(isConfirmedPasswordEmpty) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}

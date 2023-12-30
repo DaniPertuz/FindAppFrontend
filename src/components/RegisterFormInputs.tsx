@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext } from '../context';
-import { useFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
+import { useEmailValidation, useEmptyFieldValidation, useIcons, usePasswordVisibility } from '../hooks';
 import { roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
@@ -20,17 +20,23 @@ interface Props {
 const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
     const { signUp } = useContext(AuthContext);
-    const { fieldLength, validateFields } = useFieldValidation();
+    const [emailValid, setEmailValid] = useState(true);
+    const [warning, setWarning] = useState(false);
+
+    const isValidEmail = useEmailValidation(email);
+    const { isEmpty: isEmailEmpty, checkEmptyFields: checkEmailEmpty } = useEmptyFieldValidation();
+    const { isEmpty: isNameEmpty, checkEmptyFields: checkNameEmpty } = useEmptyFieldValidation();
+    const { isEmpty: isPasswordEmpty, checkEmptyFields: checkPasswordEmpty } = useEmptyFieldValidation();
     const { eyeIcon, passwordVisibility, handlePasswordVisibility } = usePasswordVisibility();
 
     const onRegister = () => {
-        validateFields({
-            name: name.length === 0,
-            email: email.length === 0,
-            password: password.length === 0
-        });
+        checkNameEmpty(name);
+        checkEmailEmpty(email);
+        checkPasswordEmpty(password);
+        setEmailValid(isValidEmail);
+        setWarning(!isValidEmail);
 
-        if (name.length !== 0 && email.length !== 0 && password.length !== 0) {
+        if (!isNameEmpty && !isEmailEmpty && !isPasswordEmpty && isValidEmail) {
             signUp({
                 name,
                 email,
@@ -45,19 +51,13 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
         <>
             <View>
                 <Text style={styles.label}>Usuario</Text>
-                <View style={[
-                    styles.inputFieldContainer,
-                    (fieldLength.name) && styles.warningBorder
-                ]}>
+                <View style={[styles.inputFieldContainer, (isNameEmpty) && styles.warningBorder]}>
                     {useIcons('User', 20, 20)}
                     <TextInput
                         placeholder='Ingresa tu nombre'
                         placeholderTextColor='#9A9A9A'
                         keyboardType='default'
-                        style={[
-                            styles.inputField,
-                            (Platform.OS === 'ios') && styles.inputFieldIOS
-                        ]}
+                        style={[styles.inputField, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                         selectionColor='#9A9A9A'
                         autoCapitalize='words'
                         autoCorrect={false}
@@ -65,7 +65,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         value={name}
                     />
                 </View>
-                {(fieldLength.name) &&
+                {(isNameEmpty) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
@@ -74,19 +74,13 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                     </View>
                 }
                 <Text style={styles.label}>Email</Text>
-                <View style={[
-                    styles.inputFieldContainer,
-                    (fieldLength.email) && styles.warningBorder
-                ]}>
+                <View style={[styles.inputFieldContainer, (isEmailEmpty || warning) && styles.warningBorder]}>
                     {useIcons('Envelope', 20, 20)}
                     <TextInput
                         placeholder='Ingresa tu correo'
                         placeholderTextColor='#9A9A9A'
                         keyboardType='email-address'
-                        style={[
-                            styles.inputField,
-                            (Platform.OS === 'ios') && styles.inputFieldIOS
-                        ]}
+                        style={[styles.inputField, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                         selectionColor='#9A9A9A'
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -94,7 +88,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         value={email}
                     />
                 </View>
-                {(fieldLength.email) &&
+                {(isEmailEmpty) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
@@ -102,22 +96,23 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         <Text style={styles.warningText}>Ingresa tu correo</Text>
                     </View>
                 }
+                {(!emailValid && !isEmailEmpty) &&
+                    <View style={styles.flexDirectionRowTinyMarginTop}>
+                        <View style={styles.warningIconMargins}>
+                            {useIcons('Warning', 15, 15)}
+                        </View>
+                        <Text style={styles.warningText}>Correo inválido</Text>
+                    </View>
+                }
                 <Text style={styles.label}>Contraseña</Text>
-                <View style={[
-                    styles.inputFieldContainer,
-                    (fieldLength.password) && styles.warningBorder
-                ]}
+                <View style={[styles.inputFieldContainer, (isPasswordEmpty) && styles.warningBorder]}
                 >
                     {useIcons('Lock', 20, 20)}
                     <TextInput
                         placeholder='Ingresa tu contraseña'
                         placeholderTextColor='#9A9A9A'
                         secureTextEntry={passwordVisibility}
-                        style={[
-                            styles.inputField,
-                            styles.registerPasswordTextInputSize,
-                            (Platform.OS === 'ios') && styles.inputFieldIOS
-                        ]}
+                        style={[styles.inputField, styles.registerPasswordTextInputSize, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                         selectionColor='#9A9A9A'
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -132,7 +127,7 @@ const RegisterFormInputs = ({ name, email, password, onChange }: Props) => {
                         {useIcons(eyeIcon, 20, 20)}
                     </TouchableOpacity>
                 </View>
-                {(fieldLength.password) &&
+                {(isPasswordEmpty) &&
                     <View style={styles.flexDirectionRowTinyMarginTop}>
                         <View style={styles.warningIconMargins}>
                             {useIcons('Warning', 15, 15)}
