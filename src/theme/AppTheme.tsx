@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     forgotPasswordContainer: {
         alignItems: 'flex-end',
         marginBottom: 30,
-        marginTop: 12
+        marginTop: 10
     },
     forgotPasswordContainerWarning: {
         alignItems: 'flex-start',
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     },
     forgotPasswordText: {
         color: '#207CFD',
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 15
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         marginHorizontal: 20,
         marginTop: 30,
-        height: '88%',
+        minHeight: '88%',
         paddingHorizontal: 22
     },
     fullHeight: {
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     },
     inputField: {
         color: '#2F2F2F',
-        fontSize: 16,
+        fontSize: 14,
         letterSpacing: -0.24,
         lineHeight: 16,
         padding: 16
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     },
     label: {
         color: '#2F2F2F',
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: '500',
         letterSpacing: -0.24,
         lineHeight: 20,
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         color: '#207CFD',
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 20
@@ -660,7 +660,7 @@ const styles = StyleSheet.create({
     },
     plainMediumText: {
         color: '#081023',
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: '500',
         letterSpacing: -0.24,
         lineHeight: 20
@@ -986,29 +986,29 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     warningIconMargins: {
-        marginEnd: 5,
-        marginTop: 3
+        marginEnd: 2,
+        marginTop: 4
     },
     warningTopMargin: {
         marginTop: 4
     },
     warningText: {
         color: '#D13232',
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: '500',
         letterSpacing: -0.24,
         lineHeight: 20
     },
     welcomeSubtitleText: {
         color: '#2F2F2F',
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '500',
         letterSpacing: -0.28,
         lineHeight: 20
     },
     welcomeTitleText: {
         color: '#2F2F2F',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: '700',
         letterSpacing: -0.4,
         lineHeight: 28
