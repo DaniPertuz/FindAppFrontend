@@ -4,10 +4,10 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-root-toast';
 
+import StatusBarComponent from '../../../components/StatusBarComponent';
 import { AuthContext, PlacesContext, RatingContext } from '../../../context';
+import { useForm, useIcons } from '../../../hooks';
 import { RootStackParams } from '../../../navigation';
-import { useForm } from '../../../hooks/useForm';
-import { useIcons } from '../../../hooks/useIcons';
 import RateItem from './RateItem';
 
 import { styles } from '../../../theme/AppTheme';
@@ -43,30 +43,38 @@ const RateScreen = ({ navigation, route }: Props) => {
             return;
         }
 
-        (user !== null) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
+        (user) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
         Toast.show('Calificación registrada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
         navigation.popToTop();
     };
 
     const handleFavorite = () => {
-        setNewFavorite(!newFavorite);
+        setNewFavorite((prevNewFavorite) => {
+            const updatedNewFavorite = !prevNewFavorite;
 
-        if (newFavorite === false) {
-            addFavorite(item.user, item.place._id);
-        }
+            if (updatedNewFavorite) {
+                addFavorite(item.user, item.place._id);
+            }
 
-        deleteFavorite(item.user, item.place._id);
+            deleteFavorite(item.user, item.place._id);
+
+            return updatedNewFavorite;
+        });
     };
 
     const handleService = () => {
-        setNewService(!newService);
+        setNewService((prevNewService) => {
+            const updatedNewService = !prevNewService;
 
-        if (newService === false) {
-            addService(item.place._id, item.search, item.user);
-        }
+            if (updatedNewService) {
+                addService(item.place._id, item.search, item.user);
+            }
+            deleteService(item.user, item.place._id);
 
-        deleteService(item.user, item.place._id);
+            return updatedNewService;
+        });
     };
+
 
     const backButtonHandler = () => {
         navigation.popToTop();
@@ -112,6 +120,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     return (
         <View style={styles.mainBackground}>
+            <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
             <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20, marginHorizontal: 16 }}>
                 <View style={styles.flexDirectionRow}>
                     <View style={styles.flexOneAlignJustifyCenter}>
@@ -123,9 +132,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 10, ...styles.justifyAlignItemsCenter }}>
-                        <Text style={styles.stackScreenTitle}>
-                            Calificar
-                        </Text>
+                        <Text style={styles.stackScreenTitle}>Calificar</Text>
                     </View>
                     <View style={styles.flexOne} />
                 </View>
@@ -204,58 +211,41 @@ const RateScreen = ({ navigation, route }: Props) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 25, ...styles.flexDirectionRow }}>
-                    <Text style={styles.boldMediumText}>
-                        Calificar
-                    </Text>
+                    <Text style={styles.boldMediumText}>Calificar</Text>
                 </View>
                 <View style={styles.ratesContainer}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => handleRate(1)}
-                        style={[
-                            styles.rateNumber,
-                            { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }
-                        ]}
+                        style={[styles.rateNumber, { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }]}
                     >
                         {useIcons('NumberOne', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => handleRate(2)}
-                        style={[
-                            styles.rateNumber,
-                            { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }
-                        ]}
+                        style={[styles.rateNumber, { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }]}
                     >
                         {useIcons('NumberTwo', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => handleRate(3)}
-                        style={[
-                            styles.rateNumber,
-                            { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }
-                        ]}
+                        style={[styles.rateNumber, { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }]}
                     >
                         {useIcons('NumberThree', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => handleRate(4)}
-                        style={[
-                            styles.rateNumber,
-                            { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }
-                        ]}
+                        style={[styles.rateNumber, { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }]}
                     >
                         {useIcons('NumberFour', 36, 36)}
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         onPress={() => handleRate(5)}
-                        style={[
-                            styles.rateNumber,
-                            { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }
-                        ]}
+                        style={[styles.rateNumber, { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }]}
                     >
                         {useIcons('NumberFive', 36, 36)}
                     </TouchableOpacity>
@@ -265,18 +255,13 @@ const RateScreen = ({ navigation, route }: Props) => {
                         Comentarios
                     </Text>
                     <View style={styles.smallMarginTop}>
-                        <KeyboardAvoidingView
-                            behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}
-                        >
+                        <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
                             <View style={styles.ratesCommentsContainer}>
                                 <TextInput
                                     placeholder='Escribe tus comentarios'
                                     placeholderTextColor='#9A9A9A'
                                     keyboardType='default'
-                                    style={[
-                                        styles.ratesCommentsText,
-                                        (Platform.OS === 'ios') && { lineHeight: 12 }
-                                    ]}
+                                    style={[styles.ratesCommentsText, (Platform.OS === 'ios') && { lineHeight: 12 }]}
                                     autoCapitalize='none'
                                     autoCorrect={false}
                                     onChangeText={(value) => onChange(value, 'comments')}
@@ -292,9 +277,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         onPress={onRate}
                         style={styles.rateButton}
                     >
-                        <Text style={styles.rateButtonText}>
-                            Enviar Calificación
-                        </Text>
+                        <Text style={styles.rateButtonText}>Enviar Calificación</Text>
                     </TouchableOpacity>
                 </View>
             </View>
