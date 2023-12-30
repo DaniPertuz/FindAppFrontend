@@ -63,19 +63,13 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
     return (
         <View>
             <Text style={styles.label}>Email</Text>
-            <View style={[
-                styles.inputFieldContainer,
-                (fieldLength.email) && styles.warningBorder
-            ]}>
+            <View style={[styles.inputFieldContainer, (fieldLength.email) && styles.warningBorder]}>
                 {useIcons('Envelope', 20, 20)}
                 <TextInput
                     placeholder='Ingresa tu correo'
                     placeholderTextColor='#9A9A9A'
                     keyboardType='email-address'
-                    style={[
-                        styles.inputField,
-                        (Platform.OS === 'ios') && styles.inputFieldIOS
-                    ]}
+                    style={[styles.inputField, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                     selectionColor='#9A9A9A'
                     autoCapitalize='none'
                     autoCorrect={false}
@@ -85,7 +79,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             </View>
             {(fieldLength.email) &&
                 <View style={styles.flexDirectionRowTinyMarginTop}>
-                    <View style={styles.warningTopMargin}>
+                    <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
                     <Text style={styles.warningText}>Ingresa tu correo</Text>
@@ -93,10 +87,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
             }
             <View>
                 <Text style={styles.label}>Contraseña</Text>
-                <View style={[
-                    styles.inputFieldContainer,
-                    (fieldLength.password) && styles.warningBorder
-                ]}>
+                <View style={[styles.inputFieldContainer, (fieldLength.password) && styles.warningBorder]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
                     </View>
@@ -104,11 +95,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         placeholder='Ingresa tu contraseña'
                         placeholderTextColor='#9A9A9A'
                         secureTextEntry={passwordVisibility}
-                        style={[
-                            styles.inputField,
-                            styles.newPasswordInputTextSize,
-                            (Platform.OS === 'ios') && styles.inputFieldIOS
-                        ]}
+                        style={[styles.inputField, styles.newPasswordInputTextSize, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                         selectionColor='#9A9A9A'
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -130,17 +117,12 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>
-                        Ingresa tu contraseña
-                    </Text>
+                    <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                 </View>
             }
             <View>
                 <Text style={styles.label}>Repetir contraseña</Text>
-                <View style={[
-                    styles.inputFieldContainer,
-                    (fieldLength.confirmPassword) && styles.warningBorder
-                ]}>
+                <View style={[styles.inputFieldContainer, (fieldLength.confirmPassword) && styles.warningBorder]}>
                     <View style={styles.tinyButtonSize}>
                         {useIcons('Lock', 20, 20)}
                     </View>
@@ -148,11 +130,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                         placeholder='Ingresa tu contraseña'
                         placeholderTextColor='#9A9A9A'
                         secureTextEntry={passwordConfirmVisibility}
-                        style={[
-                            styles.inputField,
-                            styles.newPasswordInputTextSize,
-                            (Platform.OS === 'ios') && styles.inputFieldIOS
-                        ]}
+                        style={[styles.inputField, styles.newPasswordInputTextSize, (Platform.OS === 'ios') && styles.inputFieldIOS]}
                         selectionColor='#9A9A9A'
                         autoCapitalize='none'
                         autoCorrect={false}
@@ -174,9 +152,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>
-                        Ingresa tu contraseña
-                    </Text>
+                    <Text style={styles.warningText}>Ingresa tu contraseña</Text>
                 </View>
             }
             {(display) &&
@@ -184,9 +160,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>
-                        Contraseñas no coinciden
-                    </Text>
+                    <Text style={styles.warningText}>Contraseñas no coinciden</Text>
                 </View>
             }
             {(authorized) &&
@@ -194,9 +168,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>
-                        Este usuario no puede realizar esta acción
-                    </Text>
+                    <Text style={styles.warningText}>Este usuario no puede realizar esta acción</Text>
                 </View>
             }
             {(nullUser) &&
@@ -204,9 +176,7 @@ const NewPasswordFormInputs = ({ email, password, confirmPassword, onChange }: P
                     <View style={styles.warningIconMargins}>
                         {useIcons('Warning', 15, 15)}
                     </View>
-                    <Text style={styles.warningText}>
-                        No existe este correo
-                    </Text>
+                    <Text style={styles.warningText}>No existe este correo</Text>
                 </View>
             }
             <View style={styles.buttonContainerMarginTop}>
