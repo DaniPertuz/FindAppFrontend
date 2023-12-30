@@ -2,14 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import { GOOGLE_MAPS_API_KEY } from '@env';
-import { useIcons } from '../hooks/useIcons';
-import useLocation from '../hooks/useLocation';
-import { IPlace, Location, Step } from '../interfaces';
-import { RootStackParams } from '../navigation';
+import { useIcons, useLocation } from '../hooks';
+import { Location } from '../interfaces';
 
 interface Props {
     follow: boolean;
@@ -33,7 +29,6 @@ const MapComponent = ({ follow, following, heading, mapViewRef, initialPosition,
 
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { getCurrentLocation } = useLocation();
-    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
     const setInitialPosition = async () => {
         if (follow === false) {

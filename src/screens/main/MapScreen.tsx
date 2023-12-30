@@ -12,10 +12,7 @@ import LoadingScreen from '../LoadingScreen';
 import MapComponent from '../../components/MapComponent';
 import { Direction, DirectionData, Location, Step } from '../../interfaces/app-interfaces';
 import { GOOGLE_MAPS_API_KEY } from '@env';
-import { useCoords } from '../../hooks/useCoords';
-import { useIcons } from '../../hooks/useIcons';
-import useDistance from '../../hooks/useDistance';
-import useLocation from '../../hooks/useLocation';
+import { useDistance, useCoords, useIcons, useLocation } from '../../hooks';
 import { RootStackParams } from '../../navigation';
 import { AuthContext } from '../../context';
 

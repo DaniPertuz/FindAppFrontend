@@ -4,9 +4,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
-import useDistance from '../hooks/useDistance';
-import { useIcons } from '../hooks/useIcons';
-import useLocation from '../hooks/useLocation';
+import { useDistance, useIcons, useLocation } from '../hooks';
 import { IPlace } from '../interfaces/app-interfaces';
 import { RootStackParams } from '../navigation';
 
