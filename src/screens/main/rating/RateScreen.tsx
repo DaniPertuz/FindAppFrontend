@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BackHandler, FlatList, Image, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-root-toast';
 
 import StatusBarComponent from '../../../components/StatusBarComponent';
@@ -17,8 +16,6 @@ interface Props extends StackScreenProps<RootStackParams, 'RateScreen'> { };
 const RateScreen = ({ navigation, route }: Props) => {
 
     const { item } = route.params;
-
-    const { top } = useSafeAreaInsets();
 
     const { user } = useContext(AuthContext);
     const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
@@ -121,7 +118,7 @@ const RateScreen = ({ navigation, route }: Props) => {
     return (
         <View style={styles.mainBackground}>
             <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
-            <View style={{ marginTop: (Platform.OS === 'ios') ? top : top + 20, marginHorizontal: 16 }}>
+            <View style={{ marginTop: 15, marginHorizontal: 16 }}>
                 <View style={styles.flexDirectionRow}>
                     <View style={styles.flexOneAlignJustifyCenter}>
                         <TouchableOpacity
