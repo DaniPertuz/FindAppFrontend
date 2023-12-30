@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { AuthContext, PermissionsContext } from '../context';
 
-import { useIcons } from '../hooks/useIcons';
+import StatusBarComponent from '../components/StatusBarComponent';
+import { AuthContext, PermissionsContext } from '../context';
+import { useIcons } from '../hooks';
 
 import { styles } from '../theme/AppTheme';
 
@@ -12,9 +13,8 @@ const PermissionsScreen = () => {
     const { logOut } = useContext(AuthContext);
 
     return (
-        <View
-            style={{ ...styles.flexOneAlignJustifyCenter, paddingHorizontal: 60 }}
-        >
+        <View style={{ ...styles.flexOneAlignJustifyCenter, paddingHorizontal: 60 }}>
+            <StatusBarComponent color='rgba(250, 250, 250, 0.2)' theme='dark-content' />
             <View style={{ ...styles.alignItemsCenter, marginBottom: 23 }}>
                 {useIcons('Location', 73, 73)}
                 <View style={styles.alignItemsJustifyContentCenter}>
