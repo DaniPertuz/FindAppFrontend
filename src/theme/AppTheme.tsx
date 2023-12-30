@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         marginHorizontal: 20,
         marginTop: 30,
-        minHeight: '80%',
+        height: '88%',
         paddingHorizontal: 22
     },
     fullHeight: {
@@ -771,6 +771,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginStart: 6,
         marginTop: 3
+    },
+    registerFormContainer: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        marginBottom: 35,
+        marginHorizontal: 20,
+        marginTop: 30,
+        height: '91%',
+        paddingHorizontal: 22
     },
     registerLockIconSize: {
         flex: 0.2,
