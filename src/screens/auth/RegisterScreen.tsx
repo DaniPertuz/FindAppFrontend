@@ -22,7 +22,7 @@ const RegisterScreen = () => {
       <StatusBarComponent color='#207CFD' theme='light-content' />
       <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.scrollViewBackground}>
         <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
-          <View style={styles.formContainer}>
+          <View style={styles.registerFormContainer}>
             <View style={styles.titleMarginTopContainer}>
               <Text style={styles.boldLargeText}>Crea tu cuenta</Text>
               <Text style={styles.plainSmallText}>Ingresa tus datos para crear una cuenta</Text>
