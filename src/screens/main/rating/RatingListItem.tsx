@@ -3,10 +3,8 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { useDistance, useIcons, useLocation } from '../../../hooks';
 import { RootStackParams } from '../../../navigation';
-import useDistance from '../../../hooks/useDistance';
-import { useIcons } from '../../../hooks/useIcons';
-import useLocation from '../../../hooks/useLocation';
 import { IRate } from '../../../interfaces';
 
 import { styles } from '../../../theme/AppTheme';
