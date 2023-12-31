@@ -721,7 +721,7 @@ const styles = StyleSheet.create({
     },
     rateItemAvg: {
         color: '#0D0D0D',
-        fontSize: 13,
+        fontSize: 14,
         fontWeight: '500',
         letterSpacing: -0.26,
         lineHeight: 18
