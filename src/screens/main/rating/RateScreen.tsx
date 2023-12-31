@@ -19,7 +19,7 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const { user } = useContext(AuthContext);
     const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
-    const { addRating, getRatings, getPlaceRatingAverage, ratings } = useContext(RatingContext);
+    const { addRating, getRatings, getPlaceRatingAverage, ratings, ratingAverage } = useContext(RatingContext);
     const { comments, onChange } = useForm({
         comments: '',
     });
@@ -156,7 +156,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                                     </View>
                                     <View style={{ marginStart: 6 }}>
                                         <Text style={styles.detailsBodyText}>
-                                            {Number(item.place.rate.$numberDecimal).toFixed(1)}
+                                            {ratingAverage.toFixed(1)}
                                         </Text>
                                     </View>
                                 </View>
