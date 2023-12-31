@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext, UsersContext } from '../context';
 import { useIcons } from '../hooks';
+import { IUser, roles } from '../interfaces';
 import { RootStackParams } from '../navigation';
 
 import { styles } from '../theme/AppTheme';
@@ -17,7 +18,14 @@ const TopButtons = () => {
     const { user } = useContext(AuthContext);
     const { loadUserByID } = useContext(UsersContext);
 
-    const [userDB, setUserDB] = useState<any>(null);
+    const [userDB, setUserDB] = useState<IUser>({
+        role: roles.CLIENT,
+        name: '',
+        email: '',
+        password: '',
+        status: false,
+        photo: ''
+    });
 
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
