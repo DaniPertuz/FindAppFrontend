@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import useDistance from '../hooks/useDistance';
-import { useIcons } from '../hooks/useIcons';
-import useLocation from '../hooks/useLocation';
+import { useDistance, useIcons, useLocation } from '../hooks';
 import { IProduct } from '../interfaces/app-interfaces';
 
 import { styles } from '../theme/AppTheme';

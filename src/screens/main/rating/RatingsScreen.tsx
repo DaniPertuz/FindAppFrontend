@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext, PlacesContext } from '../../../context';
-import { useIcons } from '../../../hooks/useIcons';
+import { useIcons } from '../../../hooks';
 import { IRatingList } from '../../../interfaces';
 import LoadingScreen from '../../LoadingScreen';
 import RatingListItem from './RatingListItem';

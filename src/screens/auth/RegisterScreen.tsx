@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-na
 import Background from '../../components/Background';
 import RegisterFormInputs from '../../components/RegisterFormInputs';
 import StatusBarComponent from '../../components/StatusBarComponent';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks';
 
 import { styles } from '../../theme/AppTheme';
 

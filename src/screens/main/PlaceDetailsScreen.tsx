@@ -10,7 +10,7 @@ import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext } from '../../context';
 import { RootStackParams } from '../../navigation';
-import { useIcons } from '../../hooks/useIcons';
+import { useIcons } from '../../hooks';
 
 import { styles } from '../../theme/AppTheme';
 

@@ -5,7 +5,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AuthContext, UsersContext } from '../context';
-import { useIcons } from '../hooks/useIcons';
+import { useIcons } from '../hooks';
 import { RootStackParams } from '../navigation';
 
 import { styles } from '../theme/AppTheme';

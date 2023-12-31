@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext, PlacesContext } from '../../../context';
 import SearchResults from '../../../components/SearchResults';
-import { useIcons } from '../../../hooks/useIcons';
+import { useIcons } from '../../../hooks';
 import { IHistory } from '../../../interfaces';
 import LoadingScreen from '../../LoadingScreen';
 

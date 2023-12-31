@@ -3,7 +3,7 @@ import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'r
 import Toast from 'react-native-root-toast';
 
 import { AuthContext } from '../../context';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks';
 import Background from '../../components/Background';
 import FormInputs from '../../components/FormInputs';
 import StatusBarComponent from '../../components/StatusBarComponent';

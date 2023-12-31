@@ -9,7 +9,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-root-toast';
 
 import { AuthContext, PlacesContext } from '../../context';
-import { useIcons } from '../../hooks/useIcons';
+import { useIcons } from '../../hooks';
 import { RootStackParams } from '../../navigation';
 
 import { styles } from '../../theme/AppTheme';

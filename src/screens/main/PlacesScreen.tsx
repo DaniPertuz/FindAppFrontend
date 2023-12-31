@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LoadingScreen from '../LoadingScreen';
 import SearchResults from '../../components/SearchResults';
 import { PlacesContext } from '../../context';
-import { useIcons } from '../../hooks/useIcons';
+import { useIcons } from '../../hooks';
 import { IPlace } from '../../interfaces';
 import { RootStackParams } from '../../navigation';
 

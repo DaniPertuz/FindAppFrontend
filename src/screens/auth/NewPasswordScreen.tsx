@@ -7,8 +7,7 @@ import Background from '../../components/Background';
 import NewPasswordFormInputs from '../../components/NewPasswordFormInputs';
 import StatusBarComponent from '../../components/StatusBarComponent';
 import { RootStackParams } from '../../navigation';
-import { useIcons } from '../../hooks/useIcons';
-import { useForm } from '../../hooks/useForm';
+import { useForm, useIcons } from '../../hooks';
 
 import { styles } from '../../theme/AppTheme';
 

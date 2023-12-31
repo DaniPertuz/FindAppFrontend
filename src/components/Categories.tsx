@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParams } from '../navigation';
-import { useIcons } from '../hooks/useIcons';
+import { useIcons } from '../hooks';
 
 import { styles } from '../theme/AppTheme';
 

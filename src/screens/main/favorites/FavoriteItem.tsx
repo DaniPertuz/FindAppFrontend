@@ -6,9 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthContext } from '../../../context';
 import { PlacesContext } from '../../../context/places/PlacesContext';
 import { IFavorite } from '../../../interfaces/app-interfaces';
-import useDistance from '../../../hooks/useDistance';
-import { useIcons } from '../../../hooks/useIcons';
-import useLocation from '../../../hooks/useLocation';
+import { useDistance, useIcons, useLocation } from '../../../hooks';
 import { RootStackParams } from '../../../navigation';
 
 import { styles } from '../../../theme/AppTheme';

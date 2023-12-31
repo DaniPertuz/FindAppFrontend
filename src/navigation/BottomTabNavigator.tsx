@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { EditProfileScreen, MainScreen } from '../screens';
 import { FavoritesNavigator } from './FavoritesNavigator';
-import { useIcons } from '../hooks/useIcons';
+import { useIcons } from '../hooks';
 
 import { styles } from '../theme/AppTheme';
 

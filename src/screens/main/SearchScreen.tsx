@@ -7,9 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PlacesContext } from '../../context';
 import { RootStackParams } from '../../navigation';
-import { useForm } from '../../hooks/useForm';
-import { useIcons } from '../../hooks/useIcons';
-import useLocation from '../../hooks/useLocation';
+import { useForm, useIcons, useLocation } from '../../hooks';
 import { IPlace, IProduct, ISearch, Location } from '../../interfaces';
 import SearchProductResults from '../../components/SearchProductResults';
 import SearchResults from '../../components/SearchResults';
