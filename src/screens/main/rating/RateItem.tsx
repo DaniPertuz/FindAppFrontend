@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { Rating } from 'react-native-ratings';
 import moment from 'moment';
 import 'moment/locale/es';
 moment.locale('es');
 
+import { useIcons } from '../../../hooks';
 import { IRate } from '../../../interfaces/app-interfaces';
 
 import { styles } from '../../../theme/AppTheme';
@@ -25,20 +25,14 @@ const RateItem = ({ item }: Props) => {
                         {item.user?.name}
                     </Text>
                     <View style={{ ...styles.flexDirectionRow, marginVertical: 6 }}>
-                        <Rating
-                            fractions={1}
-                            imageSize={25}
-                            minValue={1}
-                            ratingColor='#207CFD'
-                            ratingCount={5}
-                            ratingBackgroundColor='#858585'
-                            readonly
-                            showReadOnlyText={false}
-                            startingValue={item.rate}
-                            style={styles.justifyContentFlexStart}
-                            tintColor='#FFFFFF'
-                            type='custom'
-                        />
+                        {Array.from({ length: 5 }, (_, index) => (
+                            <React.Fragment key={index}>
+                                {index < item.rate
+                                    ? useIcons('Star', 20, 20)
+                                    : useIcons('StarOut', 20, 20)
+                                }
+                            </React.Fragment>
+                        ))}
                         <View style={{ marginStart: 6, ...styles.justifyContentCenter }}>
                             <Text style={styles.rateItemAvg}>
                                 {item.rate.toFixed(1)}
