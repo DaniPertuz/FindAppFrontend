@@ -4,7 +4,6 @@ export interface IUser {
     role:      roles | string;
     name:      string;
     email:     string;
-    username?: string;
     password:  string;
     status:    boolean;
     photo?:    string;
