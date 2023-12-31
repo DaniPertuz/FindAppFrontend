@@ -30,7 +30,7 @@ export const RatingProvider = ({ children }: any) => {
 
     const getPlaceRatingAverage = async (placeId: string) => {
         try {
-            const { data } = await findAPI.get<IRatingAverage>(`/ratings/${placeId}`);
+            const { data } = await findAPI.get<IRatingAverage>(`/ratings/place/${placeId}`);
             const { average } = data;
             setRatingAverage(average);
         } catch (error: any) {
