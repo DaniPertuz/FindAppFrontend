@@ -35,7 +35,7 @@ const MainScreen = () => {
 
     const getTotalPlacesByCategory = (category: string) => {
         let count: number = 0;
-        const categories = results.places.map(place => place.category).flat();
+        const categories = results.places.map(place => place.category);
         categories.forEach((cat: string) => {
             if (cat === category) {
                 count++;
