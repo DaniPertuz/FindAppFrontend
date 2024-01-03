@@ -71,7 +71,7 @@ export const PlacesProvider = ({ children }: any) => {
 
     const getPlaceRating = async (placeID: string): Promise<number> => {
         try {
-            const { data } = await findAPI.get<IRatingAverage>(`/ratings/${placeID}`);
+            const { data } = await findAPI.get<IRatingAverage>(`/ratings/place/${placeID}`);
             return data.average;
         } catch (error) {
             throw new Error(`${error}`);
