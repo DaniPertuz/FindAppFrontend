@@ -255,10 +255,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 8
     },
-    favoriteItemDetailsContainer: {
-        flex: 5,
-        marginHorizontal: 12
-    },
     favoriteScreenContainer: {
         backgroundColor: 'rgba(104, 110, 222, 0.15)',
         flex: 1,
@@ -436,6 +432,11 @@ const styles = StyleSheet.create({
     },
     largePaddingHorizontal: {
         paddingHorizontal: 40
+    },
+    linearGradient: {
+        alignItems: 'center',
+        borderRadius: 999,
+        padding: 4
     },
     listItemContainer: {
         alignItems: 'center',
