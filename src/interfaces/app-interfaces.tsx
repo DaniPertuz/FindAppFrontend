@@ -73,6 +73,7 @@ export interface IPlace {
     country:     string;
     schedule:    string[];
     photo:       string;
+    premium:     number;
     pics?:       string[];
     rate:        NumericRate;
     status:      boolean;
