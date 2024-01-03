@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDistance, useIcons, useLocation } from '../hooks';
 import { IPlace } from '../interfaces/app-interfaces';
 import { RootStackParams } from '../navigation';
+import LinearGradientComponent from './LinearGradientComponent';
 
 import { styles } from '../theme/AppTheme';
 
@@ -48,7 +49,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                                     style={styles.itemIcon}
                                 />
                             </View>
-                            <View style={{ flex: 4, paddingEnd: 30 }}>
+                            <View style={{ flex: 5 }}>
                                 <View style={styles.justifyContentSpaceBetween}>
                                     <View style={{ marginHorizontal: 12 }}>
                                         <View style={styles.smallMarginBottom}>
@@ -68,14 +69,16 @@ const SearchResults = ({ item, onPress }: Props) => {
                                                 </View>
                                                 <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
                                             </View>
+                                            <LinearGradientComponent level={item.premium}>
+                                                <View style={styles.linearGradient} />
+                                            </LinearGradientComponent>
                                         </View>
                                     </View>
                                 </View>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
+                    <View style={{ ...styles.flexOne, ...styles.justifyContentSpaceBetween }}>
                         <TouchableOpacity
                             style={styles.resultsNavigationButton}
                             activeOpacity={0.9}

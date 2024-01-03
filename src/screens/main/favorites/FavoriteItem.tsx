@@ -3,6 +3,7 @@ import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import LinearGradientComponent from '../../../components/LinearGradientComponent';
 import { AuthContext } from '../../../context';
 import { PlacesContext } from '../../../context/places/PlacesContext';
 import { IFavorite } from '../../../interfaces/app-interfaces';
@@ -13,10 +14,9 @@ import { styles } from '../../../theme/AppTheme';
 
 interface Props {
     item: IFavorite;
-    onPress: () => void;
 }
 
-const FavoriteItem = ({ item, onPress }: Props) => {
+const FavoriteItem = ({ item }: Props) => {
 
     const navigator = useNavigation<StackNavigationProp<RootStackParams>>();
 
@@ -61,49 +61,58 @@ const FavoriteItem = ({ item, onPress }: Props) => {
     return (
         <>
             <View style={styles.favoriteItemContainer}>
-                <View style={styles.flexOne}>
+                <View style={{ flex: 8 }}>
                     <TouchableOpacity
                         activeOpacity={1.0}
                         style={styles.flexOneDirectionRow}
                         onPress={() => navigator.navigate('PlaceDetailsScreen', { place: item.place, search: '' })}
                     >
-                        <Image
-                            source={(item.place.photo === '') ? require('../../../assets/FA_Color.png') : { uri: item.place.photo }}
-                            style={styles.itemIcon}
-                        />
-                        <View style={styles.favoriteItemDetailsContainer}>
-                            <View style={styles.smallMarginBottom}>
-                                <Text style={styles.boldMediumText}>{item.place.name}</Text>
-                            </View>
-                            <View style={{ ...styles.flexDirectionRowJustifySpaceBetween, maxWidth: 156 }}>
-                                {useIcons(item.place.category, 15, 15)}
-                                <View style={styles.flexDirectionRow}>
-                                    <View style={styles.itemDetailsIconMarginEnd}>
-                                        {useIcons('Location', 15, 15)}
+                        <View style={styles.flexOne}>
+                            <Image
+                                source={(item.place.photo === '') ? require('../../../assets/FA_Color.png') : { uri: item.place.photo }}
+                                style={styles.itemIcon}
+                            />
+                        </View>
+                        <View style={{ flex: 6 }}>
+                            <View style={styles.justifyContentSpaceBetween}>
+                                <View style={{ marginHorizontal: 12 }}>
+                                    <View style={styles.smallMarginBottom}>
+                                        <Text numberOfLines={1} style={styles.boldMediumText}>{item.place.name}</Text>
                                     </View>
-                                    <Text style={styles.smallPlainText}>{distance.toFixed(1)} Km</Text>
-                                </View>
-                                <View style={styles.flexDirectionRow}>
-                                    <View style={styles.itemDetailsIconMarginEnd}>
-                                        {useIcons('Star', 15, 15)}
+                                    <View style={{...styles.flexDirectionRowJustifySpaceBetween, marginEnd: 50 }}>
+                                        {useIcons(item.place.category, 15, 15)}
+                                        <View style={styles.flexDirectionRow}>
+                                            <View style={styles.itemDetailsIconMarginEnd}>
+                                                {useIcons('Location', 15, 15)}
+                                            </View>
+                                            <Text style={styles.smallPlainText}>{isNaN(distance) ? '0.0' : distance.toFixed(1)} Km</Text>
+                                        </View>
+                                        <View style={styles.flexDirectionRow}>
+                                            <View style={styles.itemDetailsIconMarginEnd}>
+                                                {useIcons('Star', 15, 15)}
+                                            </View>
+                                            <Text style={styles.smallPlainText}>{placeRating.toFixed(1)}</Text>
+                                        </View>
+                                        <LinearGradientComponent level={item.place.premium}>
+                                            <View style={styles.linearGradient} />
+                                        </LinearGradientComponent>
                                     </View>
-                                    <Text style={styles.smallPlainText}>{Number(item.place.rate.$numberDecimal).toFixed(2)}</Text>
                                 </View>
                             </View>
                         </View>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                    activeOpacity={1.0}
-                    onPress={removeFavorite}
-                >
-                    <View style={styles.flexOneAlignJustifyCenter}>
+                <View style={styles.flexOneAlignJustifyCenter}>
+                    <TouchableOpacity
+                        activeOpacity={1.0}
+                        onPress={removeFavorite}
+                    >
                         {useIcons('Favorite', 26, 26)}
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
             </View>
         </>
     );
 };
 
-export default FavoriteItem;
+export default FavoriteItem;;
