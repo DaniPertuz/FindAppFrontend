@@ -59,10 +59,7 @@ const FavoritesScreen = () => {
                                 keyExtractor={(item) => item.place._id}
                                 renderItem={({ item }) => {
                                     return (
-                                        <FavoriteItem
-                                            item={item}
-                                            onPress={() => navigation.navigate('MapScreen', { place: item.place, search: item.place.name })}
-                                        />
+                                        <FavoriteItem item={item} />
                                     );
                                 }}
                             />
