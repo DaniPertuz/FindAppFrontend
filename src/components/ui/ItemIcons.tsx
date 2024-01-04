@@ -44,7 +44,7 @@ const ItemIcons = ({ item, distance }: Props) => {
                         <View style={styles.itemDetailsIconMarginEnd}>
                             {useIcons('Star', 15, 15)}
                         </View>
-                        <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
+                        <Text style={styles.smallPlainText}>{placeRating.toFixed(1)}</Text>
                     </View>
                     <LinearGradientComponent level={item.premium}>
                         <View style={styles.linearGradient} />
