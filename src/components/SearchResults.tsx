@@ -4,10 +4,10 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
-import { useDistance, useIcons, useLocation } from '../hooks';
+import { useDistance, useLocation } from '../hooks';
 import { IPlace } from '../interfaces/app-interfaces';
 import { RootStackParams } from '../navigation';
-import LinearGradientComponent from './LinearGradientComponent';
+import { ItemIcons } from './ui';
 
 import { styles } from '../theme/AppTheme';
 
@@ -50,31 +50,7 @@ const SearchResults = ({ item, onPress }: Props) => {
                                 />
                             </View>
                             <View style={{ flex: 5 }}>
-                                <View style={styles.justifyContentSpaceBetween}>
-                                    <View style={{ marginHorizontal: 12 }}>
-                                        <View style={styles.smallMarginBottom}>
-                                            <Text numberOfLines={1} style={styles.boldMediumText}>{item.name}</Text>
-                                        </View>
-                                        <View style={styles.flexDirectionRowJustifySpaceBetween}>
-                                            {useIcons(item.category, 15, 15)}
-                                            <View style={styles.flexDirectionRow}>
-                                                <View style={styles.itemDetailsIconMarginEnd}>
-                                                    {useIcons('Location', 15, 15)}
-                                                </View>
-                                                <Text style={styles.smallPlainText}>{isNaN(distance) ? '0.0' : distance.toFixed(1)} Km</Text>
-                                            </View>
-                                            <View style={styles.flexDirectionRow}>
-                                                <View style={styles.itemDetailsIconMarginEnd}>
-                                                    {useIcons('Star', 15, 15)}
-                                                </View>
-                                                <Text style={styles.smallPlainText}>{Number(item.rate.$numberDecimal).toFixed(1)}</Text>
-                                            </View>
-                                            <LinearGradientComponent level={item.premium}>
-                                                <View style={styles.linearGradient} />
-                                            </LinearGradientComponent>
-                                        </View>
-                                    </View>
-                                </View>
+                                <ItemIcons item={item} distance={distance} />
                             </View>
                         </TouchableOpacity>
                     </View>
