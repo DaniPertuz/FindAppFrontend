@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BackHandler, FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
-import RateScreenHeader from '../../../components/RateScreenHeader';
-import RateScreenSubheader from '../../../components/RateScreenSubheader';
-import RateScreenBody from '../../../components/RateScreenBody';
+import { RateScreenHeader, RateScreenSubheader, RateScreenBody } from '../../../components/ratings';
 import StatusBarComponent from '../../../components/StatusBarComponent';
 import { RatingContext } from '../../../context';
 import { useIcons } from '../../../hooks';
