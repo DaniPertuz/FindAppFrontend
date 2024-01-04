@@ -29,8 +29,9 @@ const RateScreen = ({ navigation, route }: Props) => {
     const [newFavorite, setNewFavorite] = useState(false);
     const [newService, setNewService] = useState(false);
 
-    const handleRate = (num: number) => {
-        setSelectedRate(num);
+    const toWords = (number: number): string => {
+        const words: string[] = ['One', 'Two', 'Three', 'Four', 'Five'];
+        return words[number - 1] || '';
     };
 
     const onRate = () => {
@@ -135,32 +136,29 @@ const RateScreen = ({ navigation, route }: Props) => {
                 </View>
                 <View style={{ marginTop: 35 }}>
                     <View style={styles.flexDirectionRow}>
-                        <View style={{ ...styles.flexOne, marginEnd: 10 }}>
-                            <Image source={{ uri: item.place.photo }} style={{ borderRadius: 8, height: 102, width: 102 }} />
+                        <View style={styles.flexOne}>
+                            <Image
+                                source={(item.place.photo) ? { uri: item.place.photo } : require('../../../assets/FA_Color.png')}
+                                style={{ borderRadius: 8, height: 102, width: 102 }}
+                            />
                         </View>
                         <View style={styles.flexTwo}>
                             <View style={styles.flexOne}>
-                                <Text style={styles.detailsMainName}>
-                                    {item.place.name}
-                                </Text>
+                                <Text style={styles.detailsMainName}>{item.place.name}</Text>
                             </View>
-                            <View style={{ ...styles.flexTwo, marginVertical: 3 }}>
-                                <Text numberOfLines={2} style={styles.description}>
-                                    {item.place.description}
-                                </Text>
+                            <View style={styles.flexOne}>
+                                <Text numberOfLines={2} style={styles.description}>{item.place.description}</Text>
                             </View>
-                            <View style={styles.flexDirectionRowAlignItemsCenter}>
-                                <View style={{ ...styles.flexDirectionRow, marginEnd: 8 }}>
+                            <View style={styles.flexDirectionRow}>
+                                <View style={styles.flexOneDirectionRow}>
                                     <View style={styles.alignItemsJustifyContentCenter}>
                                         {useIcons('Star', 21, 21)}
                                     </View>
                                     <View style={{ marginStart: 6 }}>
-                                        <Text style={styles.detailsBodyText}>
-                                            {ratingAverage.toFixed(1)}
-                                        </Text>
+                                        <Text style={styles.detailsBodyText}>{ratingAverage.toFixed(1)}</Text>
                                     </View>
                                 </View>
-                                <View style={{ ...styles.flexDirectionRow, marginStart: 8 }}>
+                                <View style={{ ...styles.flexDirectionRow, ...styles.flexTwo }}>
                                     <View style={styles.alignItemsJustifyContentCenter}>
                                         {useIcons('UserCircle', 21, 21)}
                                     </View>
@@ -211,41 +209,19 @@ const RateScreen = ({ navigation, route }: Props) => {
                     <Text style={styles.boldMediumText}>Calificar</Text>
                 </View>
                 <View style={styles.ratesContainer}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={() => handleRate(1)}
-                        style={[styles.rateNumber, { backgroundColor: selectedRate === 1 ? '#DEDEDE' : '#FFFFFF' }]}
-                    >
-                        {useIcons('NumberOne', 36, 36)}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={() => handleRate(2)}
-                        style={[styles.rateNumber, { backgroundColor: selectedRate === 2 ? '#DEDEDE' : '#FFFFFF' }]}
-                    >
-                        {useIcons('NumberTwo', 36, 36)}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={() => handleRate(3)}
-                        style={[styles.rateNumber, { backgroundColor: selectedRate === 3 ? '#DEDEDE' : '#FFFFFF' }]}
-                    >
-                        {useIcons('NumberThree', 36, 36)}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={() => handleRate(4)}
-                        style={[styles.rateNumber, { backgroundColor: selectedRate === 4 ? '#DEDEDE' : '#FFFFFF' }]}
-                    >
-                        {useIcons('NumberFour', 36, 36)}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={() => handleRate(5)}
-                        style={[styles.rateNumber, { backgroundColor: selectedRate === 5 ? '#DEDEDE' : '#FFFFFF' }]}
-                    >
-                        {useIcons('NumberFive', 36, 36)}
-                    </TouchableOpacity>
+                    {[1, 2, 3, 4, 5].map((rateNumber) => (
+                        <TouchableOpacity
+                            key={rateNumber}
+                            activeOpacity={1.0}
+                            onPress={() => setSelectedRate(rateNumber)}
+                            style={[
+                                styles.rateNumber,
+                                { backgroundColor: selectedRate === rateNumber ? '#DEDEDE' : '#FFFFFF' },
+                            ]}
+                        >
+                            {useIcons(`Number${toWords(rateNumber)}`, 36, 36)}
+                        </TouchableOpacity>
+                    ))}
                 </View>
                 <View style={styles.mediumMarginTop}>
                     <Text style={styles.plainBodySmallText}>
