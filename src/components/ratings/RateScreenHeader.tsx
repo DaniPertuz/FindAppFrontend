@@ -24,7 +24,7 @@ const RateScreenHeader = ({ item, handleModalVisible }: Props) => {
         <View style={{ marginTop: 35 }}>
             <View style={styles.flexDirectionRow}>
                 <View style={styles.flexOne}>
-                    <Image source={(item.place.photo) ? { uri: item.place.photo } : require('../assets/FA_Color.png')} style={styles.rateScreenPhoto} />
+                    <Image source={(item.place.photo) ? { uri: item.place.photo } : require('../../assets/FA_Color.png')} style={styles.rateScreenPhoto} />
                 </View>
                 <View style={styles.flexTwo}>
                     <View style={styles.flexOne}>
