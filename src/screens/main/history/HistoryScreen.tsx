@@ -42,21 +42,18 @@ const HistoryScreen = () => {
             {(!display)
                 ? <LoadingScreen />
                 :
-                <View
-                    style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
+                <View style={{ paddingTop: (Platform.OS === 'ios') ? top : top + 20, ...styles.stackScreenContainer }}>
                     <View style={styles.flexDirectionRow}>
                         <View style={styles.flexOneAlignItemsCenter}>
                             <TouchableOpacity
                                 activeOpacity={1.0}
                                 onPress={() => navigation.goBack()}
                             >
-                                {useIcons('Back', 20, 20)}
+                                {useIcons('Back', 25, 25)}
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flexNineAlignItemsCenter}>
-                            <Text numberOfLines={1} style={styles.stackScreenTitle}>
-                                Historial
-                            </Text>
+                            <Text numberOfLines={1} style={styles.stackScreenTitle}>Historial</Text>
                         </View>
                         <View style={styles.flexOne} />
                     </View>

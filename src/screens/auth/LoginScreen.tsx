@@ -36,19 +36,11 @@ const LoginScreen = () => {
           </View>
           <View style={styles.mediumMarginBottom}>
             <View style={styles.tinyMarginBottom}>
-              <Text style={styles.welcomeTitleText}>
-                Bienvenido
-              </Text>
+              <Text style={styles.welcomeTitleText}>Bienvenido</Text>
             </View>
-            <Text style={styles.welcomeSubtitleText}>
-              Ingresa tus credenciales para continuar
-            </Text>
+            <Text style={styles.welcomeSubtitleText}>Ingresa tus credenciales para continuar</Text>
           </View>
-          <FormInputs
-            email={email.trim()}
-            password={password}
-            onChange={onChange}
-          />
+          <FormInputs email={email.trim()} password={password} onChange={onChange} />
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
