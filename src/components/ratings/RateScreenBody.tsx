@@ -3,12 +3,12 @@ import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpa
 import { StackNavigationProp } from '@react-navigation/stack';
 import Toast from 'react-native-root-toast';
 
-import { AuthContext, RatingContext } from '../context';
-import { useForm, useIcons } from '../hooks';
-import { IService } from '../interfaces';
-import { RootStackParams } from '../navigation';
+import { AuthContext, RatingContext } from '../../context';
+import { useForm, useIcons } from '../../hooks';
+import { IService } from '../../interfaces';
+import { RootStackParams } from '../../navigation';
 
-import { styles } from '../theme/AppTheme';
+import { styles } from '../../theme/AppTheme';
 
 interface Props {
     navigation: StackNavigationProp<RootStackParams, "RateScreen">;

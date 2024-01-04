@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-import { RatingContext } from '../context';
-import { useIcons } from '../hooks';
-import { IService } from '../interfaces';
+import { RatingContext } from '../../context';
+import { useIcons } from '../../hooks';
+import { IService } from '../../interfaces';
 
-import { styles } from '../theme/AppTheme';
+import { styles } from '../../theme/AppTheme';
 
 interface Props {
     item: IService;
