@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { AuthContext, PlacesContext } from '../../context';
-import { useIcons } from '../../hooks';
+import { AuthContext } from '../../context';
+import { useFavoritesAndService, useIcons } from '../../hooks';
 import { IService } from '../../interfaces';
 
 import { styles } from '../../theme/AppTheme';
@@ -14,7 +14,7 @@ interface Props {
 const RateScreenSubheader = ({ item }: Props) => {
 
     const { user } = useContext(AuthContext);
-    const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
+    const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useFavoritesAndService({ place: item.place });
     const [newFavorite, setNewFavorite] = useState(false);
     const [newService, setNewService] = useState(false);
 

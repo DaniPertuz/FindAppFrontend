@@ -8,9 +8,9 @@ import Carousel from 'react-native-reanimated-carousel';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-root-toast';
 
-import { AuthContext, PlacesContext } from '../../context';
+import { AuthContext } from '../../context';
 import { RootStackParams } from '../../navigation';
-import { useIcons } from '../../hooks';
+import { useFavoritesAndService, useIcons } from '../../hooks';
 
 import { styles } from '../../theme/AppTheme';
 
@@ -26,7 +26,7 @@ const PlaceDetailsScreen = ({ navigation, route }: Props) => {
     const [newFavorite, setNewFavorite] = useState(false);
 
     const { user } = useContext(AuthContext);
-    const { addFavorite, deleteFavorite, getFavorite } = useContext(PlacesContext);
+    const { addFavorite, deleteFavorite, getFavorite } = useFavoritesAndService({ place: place });
 
     const handleFavorite = () => {
         switch (newFavorite) {
