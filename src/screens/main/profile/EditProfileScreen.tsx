@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, KeyboardAvoidingView, Modal, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Modal, Platform, Text, TouchableOpacity, View } from 'react-native';
 
 import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 import Toast from 'react-native-root-toast';
 
-import { AuthContext, PlacesContext, UsersContext } from '../../../context';
+import { UsersContext } from '../../../context';
+import { ProfileBody, ProfileHeader, ProfileSubheader } from '../../../components/profile';
 import StatusBarComponent from '../../../components/StatusBarComponent';
-import { useIcons } from '../../../hooks';
-import { IRatingList, IUser, roles } from '../../../interfaces';
+import { useIcons, useProfileData } from '../../../hooks';
 import { RootStackParams } from '../../../navigation';
 import LoadingScreen from '../../LoadingScreen';
 
@@ -18,31 +17,14 @@ import { styles } from '../../../theme/AppTheme';
 interface Props extends StackScreenProps<RootStackParams, 'EditProfileScreen'> { }
 
 const EditProfileScreen = ({ navigation }: Props) => {
-    const isFocused = useIsFocused();
 
-    const [response, setResponse] = useState<ImagePickerResponse>();
-    const [userDB, setUserDB] = useState<IUser>({
-        role: roles.CLIENT,
-        name: '',
-        email: '',
-        password: '',
-        status: false,
-        photo: ''
-    });
     const [modalVisible, setModalVisible] = useState(false);
+    const [response, setResponse] = useState<ImagePickerResponse>();
     const [selectedImage, setSelectedImage] = useState('');
-    const [totalHistory, setTotalHistory] = useState<number>(0);
-    const [totalFavorites, setTotalFavorites] = useState<number>(0);
-    const [userRatings, setUserRatings] = useState<IRatingList>({ total: 0, rates: [] });
 
-    const { logOut, user } = useContext(AuthContext);
-    const { getFavorites, getRatingsByUser, getHistorical } = useContext(PlacesContext);
-    const { updateUser, updatePhoto, loadUserByID } = useContext(UsersContext);
+    const { updateUser, updatePhoto } = useContext(UsersContext);
 
-    const load = async () => {
-        const usr = await loadUserByID(user?._id!);
-        setUserDB(usr);
-    };
+    const { totalFavorites, totalHistory, userDB, userRatings } = useProfileData();    
 
     const addPhoto = () => {
         launchCamera({
@@ -78,52 +60,14 @@ const EditProfileScreen = ({ navigation }: Props) => {
         }
     };
 
+    const handleModalVisible = (visible: boolean) => {
+        setModalVisible(visible);
+    };
+
     const handleBackButtonClick = () => {
         setModalVisible(false);
         return true;
     };
-
-    useEffect(() => {
-        if (isFocused) {
-            load();
-        }
-    }, [isFocused, userDB]);
-
-    useEffect(() => {
-        let mounted = true;
-        getHistorical(user?._id!).then((data) => {
-            if (mounted) {
-                setTotalHistory(data.total);
-            }
-        });
-        return () => {
-            mounted = false;
-        };
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        getFavorites(user?._id!).then((data) => {
-            if (mounted) {
-                setTotalFavorites(data.total);
-            }
-        });
-        return () => {
-            mounted = false;
-        };
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        getRatingsByUser(user?._id!).then((data) => {
-            if (mounted) {
-                setUserRatings(data);
-            }
-        });
-        return () => {
-            mounted = false;
-        };
-    }, []);
 
     useEffect(() => {
         const navFocusListener = navigation.addListener('blur', () => {
@@ -140,116 +84,11 @@ const EditProfileScreen = ({ navigation }: Props) => {
                 :
                 <KeyboardAvoidingView style={{ ...styles.flexOne }} behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
                     <StatusBarComponent color='rgba(104, 110, 222, 0)' theme='dark-content' />
-                    <ScrollView style={styles.editProfileScrollView} contentContainerStyle={styles.justifyContentCenter}>
-                        <View style={styles.flexDirectionRowJustifyCenter}>
-                            <Image
-                                source={(!userDB || userDB.photo === '')
-                                    ? require('../../../assets/FA_Color.png')
-                                    : (response?.assets && response.assets[0].uri !== '')
-                                        ? { uri: response.assets[0].uri }
-                                        : { uri: userDB.photo }}
-                                style={styles.profileAvatar}
-                            />
-                            <TouchableOpacity
-                                activeOpacity={1}
-                                onPress={() => setModalVisible(true)}
-                                style={styles.editProfilePhotoButton}
-                            >
-                                {useIcons('Camera', 30, 30)}
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.mediumMarginTop }}>
-                            <Text style={styles.editProfileUserNameText}>
-                                {userDB?.name}
-                            </Text>
-                            <TouchableOpacity
-                                activeOpacity={0.9}
-                                onPress={() => { navigation.navigate('UpdateProfileScreen', { user: userDB }); }}
-                                style={styles.editProfileButton}
-                            >
-                                {useIcons('Edit', 20, 20)}
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ ...styles.flexDirectionRowJustifyCenter, ...styles.tinyMarginTop }}>
-                            <Text style={styles.placeholderText}>{userDB?.email}</Text>
-                        </View>
-                        <View style={{ ...styles.flexDirectionRowJustifyAround, ...styles.mediumMarginTop }}>
-                            <View style={styles.largeItem}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
-                                    onPress={() => navigation.navigate('HistoryScreen')}
-                                >
-                                    {useIcons('History', 33, 33)}
-                                    <View style={styles.smallMediumMarginTop}>
-                                        <Text style={styles.plainSmallText}>Historial</Text>
-                                    </View>
-                                    <View style={styles.tinyMarginTop}>
-                                        <Text style={styles.largeItemText}>{totalHistory} viajes</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.largeItem}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
-                                    onPress={() => navigation.navigate('FavoritesNavigator')}
-                                >
-                                    {useIcons('HeartFavorite', 33, 33)}
-                                    <View style={styles.smallMediumMarginTop}>
-                                        <Text style={styles.plainSmallText}>Favoritos</Text>
-                                    </View>
-                                    <View style={styles.tinyMarginTop}>
-                                        <Text style={styles.largeItemText}>{totalFavorites} lugares</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.largeItem}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={{ ...styles.alignItemsCenter, ...styles.extraSmallMarginTop }}
-                                    onPress={() => navigation.navigate('RatingsScreen')}
-                                >
-                                    {useIcons('Star', 33, 33)}
-                                    <View style={styles.smallMediumMarginTop}>
-                                        <Text style={styles.plainSmallText}>Calificaciones</Text>
-                                    </View>
-                                    <View style={styles.tinyMarginTop}>
-                                        <Text style={styles.largeItemText}>{userRatings.total} lugares</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={styles.mediumMarginTop}>
-                            <Text style={styles.grayLabel}>Nombre de usuario</Text>
-                            <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
-                                <View style={styles.editProfileIconMargins}>
-                                    {useIcons('User', 18, 18)}
-                                </View>
-                                <Text style={styles.editProfileMediumText}>{userDB?.name}</Text>
-                            </View>
-                        </View>
-                        <View style={styles.mediumLargeMarginTop}>
-                            <Text style={styles.grayLabel}>Email</Text>
-                            <View style={{ ...styles.flexDirectionRow, marginTop: 4 }}>
-                                <View style={styles.editProfileIconMargins}>
-                                    {useIcons('Envelope', 18, 18)}
-                                </View>
-                                <Text style={styles.editProfileMediumText}>{userDB?.email}</Text>
-                            </View>
-                        </View>
-                        <View style={styles.mediumLargeMarginTop}>
-                            <View style={styles.alignItemsBaseline}>
-                                <TouchableOpacity
-                                    activeOpacity={1.0}
-                                    style={styles.alignItemsBaseline}
-                                    onPress={logOut}
-                                >
-                                    <Text style={styles.logOutText}>Cerrar sesión</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
+                    <View style={styles.editProfileContainer}>
+                        <ProfileHeader userDB={userDB} response={response} navigation={navigation} handleModalVisible={handleModalVisible} />
+                        <ProfileSubheader navigation={navigation} totalFavorites={totalFavorites} totalHistory={totalHistory} userRatings={userRatings} />
+                        <ProfileBody userDB={userDB} />
+                    </View>
                 </KeyboardAvoidingView>
             }
             <Modal
