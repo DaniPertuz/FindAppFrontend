@@ -139,7 +139,7 @@ const RateScreen = ({ navigation, route }: Props) => {
                         <View style={styles.flexOne}>
                             <Image
                                 source={(item.place.photo) ? { uri: item.place.photo } : require('../../../assets/FA_Color.png')}
-                                style={{ borderRadius: 8, height: 102, width: 102 }}
+                                style={styles.rateScreenPhoto}
                             />
                         </View>
                         <View style={styles.flexTwo}>

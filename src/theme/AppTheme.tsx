@@ -750,6 +750,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 9
     },
+    rateScreenPhoto: {
+        borderRadius: 8,
+        height: 102,
+        width: 102
+    },
     ratesContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
