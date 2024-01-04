@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BackHandler, FlatList, Image, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { BackHandler, FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import Toast from 'react-native-root-toast';
 
+import RateScreenHeader from '../../../components/RateScreenHeader';
+import RateScreenSubheader from '../../../components/RateScreenSubheader';
+import RateScreenBody from '../../../components/RateScreenBody';
 import StatusBarComponent from '../../../components/StatusBarComponent';
-import { AuthContext, PlacesContext, RatingContext } from '../../../context';
-import { useForm, useIcons } from '../../../hooks';
+import { RatingContext } from '../../../context';
+import { useIcons } from '../../../hooks';
 import { RootStackParams } from '../../../navigation';
 import RateItem from './RateItem';
 
@@ -17,96 +19,18 @@ const RateScreen = ({ navigation, route }: Props) => {
 
     const { item } = route.params;
 
-    const { user } = useContext(AuthContext);
-    const { addFavorite, addService, deleteFavorite, deleteService, getFavorite, getHistoryItem } = useContext(PlacesContext);
-    const { addRating, getRatings, getPlaceRatingAverage, ratings, ratingAverage } = useContext(RatingContext);
-    const { comments, onChange } = useForm({
-        comments: '',
-    });
+    const { ratings } = useContext(RatingContext);
 
-    const [selectedRate, setSelectedRate] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
-    const [newFavorite, setNewFavorite] = useState(false);
-    const [newService, setNewService] = useState(false);
 
-    const toWords = (number: number): string => {
-        const words: string[] = ['One', 'Two', 'Three', 'Four', 'Five'];
-        return words[number - 1] || '';
+    const handleModalVisible = (visible: boolean) => {
+        setModalVisible(visible);
     };
-
-    const onRate = () => {
-        Keyboard.dismiss();
-        if (selectedRate === 0) {
-            Toast.show('No has ingresado la calificación', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
-            return;
-        }
-
-        (user) && addRating({ rate: selectedRate, comments, place: item.place._id, user: item.user });
-        Toast.show('Calificación registrada', { duration: Toast.durations.SHORT, position: Toast.positions.BOTTOM });
-        navigation.popToTop();
-    };
-
-    const handleFavorite = () => {
-        setNewFavorite((prevNewFavorite) => {
-            const updatedNewFavorite = !prevNewFavorite;
-
-            if (updatedNewFavorite) {
-                addFavorite(item.user, item.place._id);
-            }
-
-            deleteFavorite(item.user, item.place._id);
-
-            return updatedNewFavorite;
-        });
-    };
-
-    const handleService = () => {
-        setNewService((prevNewService) => {
-            const updatedNewService = !prevNewService;
-
-            if (updatedNewService) {
-                addService(item.place._id, item.search, item.user);
-            }
-            deleteService(item.user, item.place._id);
-
-            return updatedNewService;
-        });
-    };
-
 
     const backButtonHandler = () => {
         navigation.popToTop();
         return true;
     };
-
-    useEffect(() => {
-        getRatings(item.place._id);
-        getPlaceRatingAverage(item.place._id);
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        getHistoryItem(user?._id!, item.place._id).then((data) => {
-            if (mounted && data) {
-                setNewService(!data);
-            }
-        });
-        return () => {
-            mounted = false;
-        };
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        getFavorite(user?._id!, item.place._id).then((data) => {
-            if (mounted && data) {
-                setNewFavorite(!data);
-            }
-        });
-        return () => {
-            mounted = false;
-        };
-    }, []);
 
     useEffect(() => {
         BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
@@ -134,125 +58,9 @@ const RateScreen = ({ navigation, route }: Props) => {
                     </View>
                     <View style={styles.flexOne} />
                 </View>
-                <View style={{ marginTop: 35 }}>
-                    <View style={styles.flexDirectionRow}>
-                        <View style={styles.flexOne}>
-                            <Image
-                                source={(item.place.photo) ? { uri: item.place.photo } : require('../../../assets/FA_Color.png')}
-                                style={styles.rateScreenPhoto}
-                            />
-                        </View>
-                        <View style={styles.flexTwo}>
-                            <View style={styles.flexOne}>
-                                <Text style={styles.detailsMainName}>{item.place.name}</Text>
-                            </View>
-                            <View style={styles.flexOne}>
-                                <Text numberOfLines={2} style={styles.description}>{item.place.description}</Text>
-                            </View>
-                            <View style={styles.flexDirectionRow}>
-                                <View style={styles.flexOneDirectionRow}>
-                                    <View style={styles.alignItemsJustifyContentCenter}>
-                                        {useIcons('Star', 21, 21)}
-                                    </View>
-                                    <View style={{ marginStart: 6 }}>
-                                        <Text style={styles.detailsBodyText}>{ratingAverage.toFixed(1)}</Text>
-                                    </View>
-                                </View>
-                                <View style={{ ...styles.flexDirectionRow, ...styles.flexTwo }}>
-                                    <View style={styles.alignItemsJustifyContentCenter}>
-                                        {useIcons('UserCircle', 21, 21)}
-                                    </View>
-                                    <TouchableOpacity
-                                        activeOpacity={1.0}
-                                        onPress={() => setModalVisible(true)}
-                                    >
-                                        <View style={styles.ratesReviewsTextContainer}>
-                                            <Text style={styles.detailsCaptionText}>
-                                                {ratings.total} {(ratings.total === 1) ? 'opinión' : 'opiniones'}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ marginTop: 25, ...styles.flexDirectionRow }}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={handleFavorite}
-                    >
-                        <View style={{ ...styles.flexDirectionRow, marginEnd: 12 }}>
-                            {(newFavorite) ? useIcons('HeartFocused', 24, 24) : useIcons('Heart', 24, 24)}
-                            <View style={styles.smallMarginStart}>
-                                <Text style={styles.detailsCaptionGrayText}>
-                                    {(newFavorite) ? 'Guardado' : 'Guardar'} en Favoritos
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={handleService}
-                    >
-                        <View style={{ ...styles.flexDirectionRow, marginStart: 12 }}>
-                            {(newService) ? useIcons('BookmarkFavorite', 24, 24) : useIcons('Bookmark', 24, 24)}
-                            <View style={styles.smallMarginStart}>
-                                <Text style={styles.detailsCaptionGrayText}>
-                                    {(newService) ? 'Guardado' : 'Guardar'} en Historial
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ marginTop: 25, ...styles.flexDirectionRow }}>
-                    <Text style={styles.boldMediumText}>Calificar</Text>
-                </View>
-                <View style={styles.ratesContainer}>
-                    {[1, 2, 3, 4, 5].map((rateNumber) => (
-                        <TouchableOpacity
-                            key={rateNumber}
-                            activeOpacity={1.0}
-                            onPress={() => setSelectedRate(rateNumber)}
-                            style={[
-                                styles.rateNumber,
-                                { backgroundColor: selectedRate === rateNumber ? '#DEDEDE' : '#FFFFFF' },
-                            ]}
-                        >
-                            {useIcons(`Number${toWords(rateNumber)}`, 36, 36)}
-                        </TouchableOpacity>
-                    ))}
-                </View>
-                <View style={styles.mediumMarginTop}>
-                    <Text style={styles.plainBodySmallText}>
-                        Comentarios
-                    </Text>
-                    <View style={styles.smallMarginTop}>
-                        <KeyboardAvoidingView behavior={(Platform.OS === 'ios') ? 'padding' : 'height'}>
-                            <View style={styles.ratesCommentsContainer}>
-                                <TextInput
-                                    placeholder='Escribe tus comentarios'
-                                    placeholderTextColor='#9A9A9A'
-                                    keyboardType='default'
-                                    style={[styles.ratesCommentsText, (Platform.OS === 'ios') && { lineHeight: 12 }]}
-                                    autoCapitalize='none'
-                                    autoCorrect={false}
-                                    onChangeText={(value) => onChange(value, 'comments')}
-                                    value={comments}
-                                />
-                            </View>
-                        </KeyboardAvoidingView>
-                    </View>
-                </View>
-                <View style={{ marginHorizontal: 26, marginTop: 151 }}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        onPress={onRate}
-                        style={styles.rateButton}
-                    >
-                        <Text style={styles.rateButtonText}>Enviar Calificación</Text>
-                    </TouchableOpacity>
-                </View>
+                <RateScreenHeader item={item} handleModalVisible={handleModalVisible} />
+                <RateScreenSubheader item={item} />
+                <RateScreenBody navigation={navigation} item={item} />
             </View>
             <Modal
                 animationType='slide'
