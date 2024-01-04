@@ -183,6 +183,9 @@ const styles = StyleSheet.create({
         marginStart: 6,
         padding: 5
     },
+    editProfileContainer: {
+        paddingHorizontal: 30
+    },
     editProfileGalleryButton: {
         borderColor: 'rgba(133, 133, 133, 0.25)',
         borderRadius: 30,
@@ -227,9 +230,6 @@ const styles = StyleSheet.create({
         marginTop: 125,
         maxHeight: 40,
         padding: 5
-    },
-    editProfileScrollView: {
-        paddingHorizontal: 30
     },
     editProfileUserNameText: {
         color: '#081023',
